@@ -1,0 +1,6190 @@
+[
+  {
+    "slug": "aa-paragon-girls-hostel-3",
+    "name": "AA-Paragon Girls Hostel 3",
+    "city": "Rawalpindi",
+    "area": "334/C-2 Lane 5, Main Peshawar Rd, Vestridge 1, Rawalpindi",
+    "universities": [
+      "Riphah",
+      "FJWU",
+      "Arid Agriculture",
+      "RMU"
+    ],
+    "gender": "Female",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 20000,
+    "rating": 5,
+    "reviewCount": 53,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Furnished"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Warden",
+      "Security"
+    ],
+    "description": "Perfect-rated Vestridge hostel (5.0★, 53 reviews). Accessible to RMU via Peshawar Road. Friendly warden and comfortable rooms.",
+    "images": [
+      "/uploads/hostels/hostel-1772908331710-434690.png",
+      "/uploads/hostels/hostel-1772908362557-678648.png",
+      "/uploads/hostels/hostel-1772908362566-368720.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.60425,
+    "lng": 73.018001,
+    "distanceKm": 1.7,
+    "contact": {
+      "name": "",
+      "phone": "+92 331 9860988",
+      "whatsapp": "+92 331 9860988"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "fatima-s-girls-hostel-campus-1",
+    "name": "Fatima's Girls Hostel (Campus #1)",
+    "city": "Rawalpindi",
+    "area": "Lane 5, Major Salman Shaheed Rd, Westridge 1, Rawalpindi",
+    "universities": [
+      "Riphah",
+      "FJWU"
+    ],
+    "gender": "Female",
+    "price": 15000,
+    "priceMin": 15000,
+    "priceMax": 22000,
+    "rating": 5,
+    "reviewCount": 42,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Warden",
+      "Security"
+    ],
+    "description": "Perfect-rated Westridge hostel (5.0★, 42 reviews). 25-min commute to RMU. Exceptional management praised by parents and residents.",
+    "images": [
+      "/uploads/hostels/hostel-1772908879179-133526.png",
+      "/uploads/hostels/hostel-1772908879226-763022.png",
+      "/uploads/hostels/hostel-1772908880041-391333.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.605042,
+    "lng": 73.017596,
+    "distanceKm": 1.8,
+    "contact": {
+      "name": "",
+      "phone": "+92 312 5303149",
+      "whatsapp": "+92 312 5303149"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "sahar-girls-hostel-satellite-town",
+    "name": "SAHAR Girls Hostel Satellite Town",
+    "city": "Rawalpindi",
+    "area": "D-422, D Block, Satellite Town, Rawalpindi",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "FJWU",
+      "RMU"
+    ],
+    "gender": "Female",
+    "price": 22000,
+    "priceMin": 22000,
+    "priceMax": 40000,
+    "rating": 5,
+    "reviewCount": 6,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "Security",
+      "WiFi",
+      "Transport"
+    ],
+    "rawFacilities": [
+      "Security",
+      "24/7 Staff",
+      "Spacious Rooms"
+    ],
+    "description": "Top-rated Satellite Town girls hostel (5.0★, 6 reviews). 20-min commute to RMU. Spacious rooms and excellent security.",
+    "images": [
+      "/uploads/hostels/hostel-1772910148887-769981.jpeg",
+      "/uploads/hostels/hostel-1772910153905-592372.jpeg"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.640565,
+    "lng": 73.071329,
+    "distanceKm": 2.1,
+    "contact": {
+      "name": "",
+      "phone": "+92 331 5658951",
+      "whatsapp": "+92 331 5658951"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "executive-inn-boys-hostel",
+    "name": "Executive INN Boys Hostel",
+    "city": "Rawalpindi",
+    "area": "2nd Floor Walayat Plaza, Murree Rd, Satellite Town, Rawalpindi",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "RMU",
+      "FJWU"
+    ],
+    "gender": "Male",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 24000,
+    "rating": 4.9,
+    "reviewCount": 138,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Power Backup",
+      "CCTV",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Mess",
+      "UPS",
+      "CCTV",
+      "Security"
+    ],
+    "description": "Best private boys hostel in Rawalpindi (4.9★, 138 reviews). Top food, UPS backup, cooperative management. 20-min commute to RMU. Premium private pick.",
+    "images": [
+      "/uploads/hostels/hostel-1772761998717-753815.png",
+      "/uploads/hostels/hostel-1772762024971-137194.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.635533,
+    "lng": 73.075155,
+    "distanceKm": 2.2,
+    "contact": {
+      "name": "",
+      "phone": "+92 322 9500095",
+      "whatsapp": "+92 322 9500095"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "fatima-jinnah-girls-hostel-h1",
+    "name": "Fatima Jinnah Girls Hostel (H1)",
+    "city": "Islamabad",
+    "area": "House 263, E St 13-A, E-11/4",
+    "universities": [
+      "COMSATS",
+      "FAST"
+    ],
+    "gender": "Female",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 28000,
+    "rating": 4.9,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Hygienic meals",
+      "24/7 security",
+      "Clean rooms",
+      "Cooperative staff"
+    ],
+    "description": "Top-rated girls hostel in E-11 with 4.9 stars. Home-like environment praised by long-term residents. Good access to FAST via Kashmir Highway. Highly recommended for girls seeking safety.",
+    "images": [
+      "/uploads/hostels/hostel-1772917291646-689108.png",
+      "/uploads/hostels/hostel-1772917291654-818531.png",
+      "/uploads/hostels/hostel-1772917291662-223886.png",
+      "/uploads/hostels/hostel-1772917291668-769407.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6951852,
+    "lng": 72.9849395,
+    "distanceKm": 5.1,
+    "contact": {
+      "name": "",
+      "phone": "+92 323 7084661",
+      "whatsapp": "+92 323 7084661"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "horain-boys-hostel-westridge",
+    "name": "Horain Boys Hostel Westridge",
+    "city": "Rawalpindi",
+    "area": "Westridge, Rawalpindi",
+    "universities": [
+      "FJWU"
+    ],
+    "gender": "Male",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 20000,
+    "rating": 4.9,
+    "reviewCount": 27,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Prayer Area",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Mosque",
+      "Mess",
+      "Security"
+    ],
+    "description": "Top-rated Westridge boys hostel (4.9★, 27 reviews). Mosque on site. Peaceful and well-run. 20-min commute to RMU.",
+    "images": [
+      "/uploads/hostels/hostel-1772761506506-828153.png",
+      "/uploads/hostels/hostel-1772761506517-843321.png",
+      "/uploads/hostels/hostel-1772761506526-873667.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.600673,
+    "lng": 73.02635,
+    "distanceKm": 0.9,
+    "contact": {
+      "name": "",
+      "phone": "+92 336 6057620",
+      "whatsapp": "+92 336 6057620"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "alkhairi-girls-hostel-g-10",
+    "name": "AlKhairi Girls Hostel G-10",
+    "city": "Islamabad",
+    "area": "Street 20, G-10/1",
+    "universities": [
+      "NUST",
+      "FAST",
+      "NUML",
+      "SZABIST",
+      "COMSATS",
+      "Air University",
+      "Bahria University",
+      "Riphah"
+    ],
+    "gender": "Female",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 24000,
+    "rating": 4.8,
+    "reviewCount": 72,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "CCTV",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Home meals",
+      "CCTV",
+      "Peaceful",
+      "CSS-friendly",
+      "Security"
+    ],
+    "description": "Highly rated girls hostel (4.8★, 72 reviews) in G-10. 30-min commute to Riphah. Praised for exceptional security and hygienic food. For girls wanting a quieter area.",
+    "images": [
+      "/uploads/hostels/hostel-1772912331082-962716.png",
+      "/uploads/hostels/hostel-1772912331092-123059.png",
+      "/uploads/hostels/hostel-1772912331097-292529.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.670781,
+    "lng": 73.015106,
+    "distanceKm": 3.7,
+    "contact": {
+      "name": "",
+      "phone": "+92 332 8880607",
+      "whatsapp": "+92 332 8880607"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "dua-girls-hostel-harley-street",
+    "name": "Dua Girls Hostel Harley Street",
+    "city": "Rawalpindi",
+    "area": "H-96-A Lane 3, near CMH Rd, Harley Street, Rawalpindi",
+    "universities": [
+      "FJWU",
+      "RMU"
+    ],
+    "gender": "Female",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 24000,
+    "rating": 4.8,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Warden",
+      "Security"
+    ],
+    "description": "Highly rated Rawalpindi girls hostel (4.8★, 64 reviews). Near RMU main campus. Praised for exceptional warden, hygienic food, and safety. Top private hostel near RMU.",
+    "images": [
+      "/uploads/hostels/hostel-1772760099863-33728.png",
+      "/uploads/hostels/hostel-1772760118536-939374.png",
+      "/uploads/hostels/hostel-1772760138080-558063.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.577918,
+    "lng": 73.04578,
+    "distanceKm": 2.4,
+    "contact": {
+      "name": "",
+      "phone": "+92 302 7903937",
+      "whatsapp": "+92 302 7903937"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "fatima-jinnah-girls-hostels-h-13-branch",
+    "name": "Fatima Jinnah Girls Hostels H-13 branch",
+    "city": "Islamabad",
+    "area": "St 1, near face cut salon, H-13, Islamabad, 44000",
+    "universities": [
+      "NUST",
+      "FAST",
+      "Riphah",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Female",
+    "price": 24000,
+    "priceMin": 24000,
+    "priceMax": 35000,
+    "rating": 4.8,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Laundry",
+      "Transport"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Homely environment",
+      "Security",
+      "Laundry",
+      "Transport"
+    ],
+    "description": "Best hostel in this area with a safe and comfortable environment. The warden is very kind and cooperative. Cleanliness and management are well maintained. Overall, it’s one of the best options for students.",
+    "images": [
+      "/uploads/hostels/hostel-1772918898232-635238.png",
+      "/uploads/hostels/hostel-1772918898259-399660.png",
+      "/uploads/hostels/hostel-1772918898268-908981.png",
+      "/uploads/hostels/hostel-1772918898287-355553.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6425019,
+    "lng": 72.976746,
+    "distanceKm": 0.5,
+    "contact": {
+      "name": "",
+      "phone": "+92 305 2564525",
+      "whatsapp": "+92 305 2564525"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "life-style-boys-hostel-g-11",
+    "name": "Life Style Boys Hostel G-11",
+    "city": "Islamabad",
+    "area": "Street 47, G-11/2 G 11/2 G-11, Islamabad",
+    "universities": [
+      "NUST",
+      "FAST",
+      "COMSATS",
+      "Air University",
+      "Riphah",
+      "SZABIST",
+      "RMU",
+      "NUML"
+    ],
+    "gender": "Male",
+    "price": 19000,
+    "priceMin": 19000,
+    "priceMax": 24000,
+    "rating": 4.8,
+    "reviewCount": 88,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "CCTV",
+      "Laundry",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Security",
+      "CCTV",
+      "Laundry"
+    ],
+    "description": "Best-rated Islamabad boys hostel (4.8★, 88 reviews). 35-min commute to RMU but highest quality private hostel.",
+    "images": [
+      "/uploads/hostels/hostel-1772758360289-821640.png",
+      "/uploads/hostels/hostel-1772758401971-434904.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.669358,
+    "lng": 72.986875,
+    "distanceKm": 2.3,
+    "contact": {
+      "name": "Dr. Sami",
+      "phone": " +92 312 5344725",
+      "whatsapp": "+92 312 5344725"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "abdullah-girls-hostel-i-10",
+    "name": "Abdullah Girls Hostel I-10",
+    "city": "Islamabad",
+    "area": "Gali 2, I-10/2",
+    "universities": [
+      "NUST",
+      "FAST",
+      "NUML",
+      "SZABIST",
+      "COMSATS",
+      "Air University",
+      "Bahria University",
+      "Riphah"
+    ],
+    "gender": "Female",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 24000,
+    "rating": 4.7,
+    "reviewCount": 83,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "CCTV"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Modern facilities",
+      "Cooperative wardens",
+      "CCTV"
+    ],
+    "description": "High-rated I-10 girls hostel (4.7★, 83 reviews). 20-min commute to Riphah. Praised for clean environment and attentive staff.",
+    "images": [
+      "/uploads/hostels/hostel-1772912240450-370264.png",
+      "/uploads/hostels/hostel-1772912242780-794422.png",
+      "/uploads/hostels/hostel-1772912242795-575196.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.651676,
+    "lng": 73.028469,
+    "distanceKm": 1.9,
+    "contact": {
+      "name": "",
+      "phone": "+92 312 6095211",
+      "whatsapp": "+92 312 6095211"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "eden-girls-hostel-g-8",
+    "name": "Eden Girls Hostel G-8",
+    "city": "Islamabad",
+    "area": "205 G-67, G-8/2",
+    "universities": [
+      "NUML",
+      "SZABIST"
+    ],
+    "gender": "Female",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 26000,
+    "rating": 4.7,
+    "reviewCount": 36,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "CCTV",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "CCTV",
+      "6.5-year track record",
+      "Responsive owner",
+      "Security"
+    ],
+    "description": "Top-rated G-8 girls hostel (4.7★, 36 reviews). 15-min walk to SZABIST via H-8. Excellent long-term management reputation.",
+    "images": [
+      "/uploads/hostels/hostel-1772911278983-523355.png",
+      "/uploads/hostels/hostel-1772911279006-246024.png",
+      "/uploads/hostels/hostel-1772911279020-544179.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.693716,
+    "lng": 73.044579,
+    "distanceKm": 2.9,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 8600798",
+      "whatsapp": "+92 333 8600798"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "fatima-girls-hostel-morgah",
+    "name": "Fatima Girls Hostel Morgah",
+    "city": "Rawalpindi",
+    "area": "Babu Mohalla Rd, Kotha Kalan, Morgah, Rawalpindi",
+    "universities": [
+      "RMU",
+      "FJWU"
+    ],
+    "gender": "Female",
+    "price": 13000,
+    "priceMin": 13000,
+    "priceMax": 19000,
+    "rating": 4.7,
+    "reviewCount": 12,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Near university",
+      "Security",
+      "Clean"
+    ],
+    "description": "Near-Rawalpindi girls hostel (4.7★, 12 reviews) near Morgah university area. Good environment and security. Parents and residents praise cleanliness and management.",
+    "images": [
+      "/uploads/hostels/hostel-1772760792366-521946.png",
+      "/uploads/hostels/hostel-1772760792375-283771.png",
+      "/uploads/hostels/hostel-1772760792382-469192.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.554187,
+    "lng": 73.090345,
+    "distanceKm": 5.1,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 5000694",
+      "whatsapp": "+92 333 5000694"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "heaven-girls-hostel-gulraiz",
+    "name": "Heaven Girls Hostel Gulraiz",
+    "city": "Rawalpindi",
+    "area": "31# Street 5A, Gulrez-2 Phase 2, Rawalpindi",
+    "universities": [
+      "RMU",
+      "Arid Agriculture",
+      "FJWU"
+    ],
+    "gender": "Female",
+    "price": 15000,
+    "priceMin": 15000,
+    "priceMax": 22000,
+    "rating": 4.7,
+    "reviewCount": 61,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Power Backup"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Doctor",
+      "Security"
+    ],
+    "description": "Doctor-run hostel (4.7★, 61 reviews) — perfect for medical students. Free health checkups available. Professional management.",
+    "images": [
+      "/uploads/hostels/hostel-1772908119553-767510.png",
+      "/uploads/hostels/hostel-1772908119563-200344.png",
+      "/uploads/hostels/hostel-1772908119578-736909.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.561682,
+    "lng": 73.101846,
+    "distanceKm": 4.2,
+    "contact": {
+      "name": "",
+      "phone": "+92 336 5254237",
+      "whatsapp": "+92 336 5254237"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "ibrahim-hostel-guest-house",
+    "name": "Ibrahim Hostel & Guest House",
+    "city": "Islamabad",
+    "area": "I-11/2",
+    "universities": [
+      "NUST",
+      "FAST",
+      "NUML",
+      "COMSATS",
+      "Air University",
+      "Bahria University"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 28000,
+    "rating": 4.7,
+    "reviewCount": 310,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Clean rooms",
+      "Homely atmosphere",
+      "Cooperative staff",
+      "Top-rated"
+    ],
+    "description": "Top-rated Islamabad boys hostel (4.7★, 310 reviews). 20-min commute to Riphah + SZABIST, 30-min to Arid/FJWU. Best quality private hostel in the city.",
+    "images": [
+      "/uploads/hostels/hostel-1772920255506-273070.png",
+      "/uploads/hostels/hostel-1772920255535-921181.png",
+      "/uploads/hostels/hostel-1772920255552-595136.png",
+      "/uploads/hostels/hostel-1772920255565-752303.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.64158,
+    "lng": 73.016423,
+    "distanceKm": 3,
+    "contact": {
+      "name": "",
+      "phone": "+92 331 6885966",
+      "whatsapp": "+92 331 6885966"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "islamabad-girls-hostel-g-9",
+    "name": "Islamabad Girls Hostel G-9",
+    "city": "Islamabad",
+    "area": "House 189, Street 36, G-9/1",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Bahria University",
+      "QAU",
+      "Riphah"
+    ],
+    "gender": "Female",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 28000,
+    "rating": 4.7,
+    "reviewCount": 356,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Housekeeping",
+      "Security",
+      "CCTV"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Clean rooms",
+      "Security",
+      "Cooperative management"
+    ],
+    "description": "Top-rated private girls hostel in G-9 with 356 reviews (4.7★). Accessible to QAU via G-9 Metro. Clean, secure and well-managed. Praised for friendly atmosphere and safe environment. Great option if on-campus allotment not received.",
+    "images": [
+      "/uploads/hostels/hostel-1772916647895-103072.png",
+      "/uploads/hostels/hostel-1772916647913-448731.png",
+      "/uploads/hostels/hostel-1772916647924-131245.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.683194,
+    "lng": 73.034726,
+    "distanceKm": 2.8,
+    "contact": {
+      "name": "",
+      "phone": "+92 310 9777710",
+      "whatsapp": "+92 310 9777710"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "kashmir-heavens-girls-hostel-g-8",
+    "name": "Kashmir Heavens Girls Hostel G-8",
+    "city": "Islamabad",
+    "area": "House 147, Street 21, G-8/1",
+    "universities": [
+      "NUML",
+      "SZABIST"
+    ],
+    "gender": "Female",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 26000,
+    "rating": 4.7,
+    "reviewCount": 35,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Homely environment",
+      "Cooperative",
+      "24/7 security"
+    ],
+    "description": "Top-rated G-8 girls hostel (4.7★, 35 reviews). 15-min from SZABIST. Very secure and peaceful environment.",
+    "images": [
+      "/uploads/hostels/hostel-1772911194263-550583.png",
+      "/uploads/hostels/hostel-1772911195801-191346.png",
+      "/uploads/hostels/hostel-1772911197062-947023.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.690566,
+    "lng": 73.053389,
+    "distanceKm": 2.2,
+    "contact": {
+      "name": "",
+      "phone": "+92 343 9255006",
+      "whatsapp": "+92 343 9255006"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "pindi-boys-hostel",
+    "name": "Pindi Boys Hostel",
+    "city": "Rawalpindi",
+    "area": "Taj Mahal Plaza, 6th Rd, near Metro Bus, Rawalpindi",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "FJWU",
+      "RMU"
+    ],
+    "gender": "Male",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 20000,
+    "rating": 4.6,
+    "reviewCount": 134,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Security"
+    ],
+    "description": "Budget hostel near 6th Road Metro (4.6★, 134 reviews). Accessible to RMU. Cooperative staff and affordable rates.",
+    "images": [
+      "/uploads/hostels/hostel-1772761619197-57815.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.642338,
+    "lng": 73.077557,
+    "distanceKm": 1.5,
+    "contact": {
+      "name": "",
+      "phone": "+92 344 5885145",
+      "whatsapp": "+92 344 5885145"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "wayfarer-girls-hostel",
+    "name": "Wayfarer girls hostel",
+    "city": "Rawalpindi",
+    "area": "House 203, Street 12, Chaklala Scheme 3, Rawalpindi",
+    "universities": [
+      "RMU"
+    ],
+    "gender": "Female",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 24000,
+    "rating": 4.6,
+    "reviewCount": 34,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Laundry",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Laundry",
+      "Meals",
+      "Security"
+    ],
+    "description": "Reliable girls hostel (4.6★, 34 reviews). Near RMU campus. Residents stay for years praising management quality.",
+    "images": [
+      "/uploads/hostels/hostel-1772908256790-590637.png",
+      "/uploads/hostels/hostel-1772908256809-639724.png",
+      "/uploads/hostels/hostel-1772908256826-174447.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.585199,
+    "lng": 73.090669,
+    "distanceKm": 1.9,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 5547478",
+      "whatsapp": "+92 333 5547478"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "zaas-girls-hostel",
+    "name": "Zaas Girls Hostel",
+    "city": "Islamabad",
+    "area": "4 Capital St, adjacent NUST Gate, H-13",
+    "universities": [
+      "NUST",
+      "FAST",
+      "Riphah",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Female",
+    "price": 22000,
+    "priceMin": 22000,
+    "priceMax": 35000,
+    "rating": 4.6,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Housekeeping",
+      "CCTV",
+      "Study Room"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Balanced meals",
+      "Daily cleaning",
+      "CCTV",
+      "Study areas",
+      "Friendly staff"
+    ],
+    "description": "Modern and secure residence near NUST Gate. Highly reviewed for excellent food quality, clean rooms, and cooperative management. Ideal for female NUST students.",
+    "images": [
+      "/uploads/hostels/hostel-1772917991456-478597.png",
+      "/uploads/hostels/hostel-1772918013382-20801.png",
+      "/uploads/hostels/hostel-1772918014411-135343.png",
+      "/uploads/hostels/hostel-1772918029790-325091.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6398452,
+    "lng": 72.9818359,
+    "distanceKm": 0.4,
+    "contact": {
+      "name": "",
+      "phone": "+92 339 5661699",
+      "whatsapp": "+92 339 5661699"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "fairland-girls-hostel",
+    "name": "Fairland Girls Hostel",
+    "city": "Islamabad",
+    "area": "St 8, G-11/1, Islamabad (near FAST H-11)",
+    "universities": [
+      "NUST",
+      "FAST",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Female",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 26000,
+    "rating": 4.5,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Laundry",
+      "Warden",
+      "Clean rooms",
+      "All promised facilities"
+    ],
+    "description": "Excellent girls hostel in G-11 with 5-year verified residents. Praised for home-like atmosphere, delicious food, and cooperative warden. Great for FAST University H-11 students.",
+    "images": [
+      "/uploads/hostels/hostel-1772917559973-853433.png",
+      "/uploads/hostels/hostel-1772917561278-112732.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.664727,
+    "lng": 72.9951128,
+    "distanceKm": 2,
+    "contact": {
+      "name": "",
+      "phone": "+92 315 5098359",
+      "whatsapp": "+92 315 5098359"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "jamshed-boys-hostel-satellite-town",
+    "name": "JAMSHED Boys Hostel Satellite Town",
+    "city": "Rawalpindi",
+    "area": "B-87 Commercial Market Rd, B Block, Satellite Town, Rawalpindi",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "FJWU",
+      "RMU"
+    ],
+    "gender": "Male",
+    "price": 15000,
+    "priceMin": 15000,
+    "priceMax": 22000,
+    "rating": 4.5,
+    "reviewCount": 455,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Security"
+    ],
+    "description": "Most-reviewed Rawalpindi boys hostel (4.5★, 455 reviews). 20-min commute to RMU. Good value with decent food.",
+    "images": [
+      "/uploads/hostels/hostel-1772761697246-221512.png",
+      "/uploads/hostels/hostel-1772761697258-114734.png",
+      "/uploads/hostels/hostel-1772761697281-969662.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.636649,
+    "lng": 73.071272,
+    "distanceKm": 2.4,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 3462324",
+      "whatsapp": "+92 333 3462324"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "live-with-style-f-8-boys-hostel",
+    "name": "Live with Style F-8 Boys Hostel",
+    "city": "Islamabad",
+    "area": "House 11, Street 65, F-8/3",
+    "universities": [
+      "Air University",
+      "Bahria University",
+      "SZABIST"
+    ],
+    "gender": "Male",
+    "price": 22000,
+    "priceMin": 22000,
+    "priceMax": 32000,
+    "rating": 4.5,
+    "reviewCount": 24,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "Housekeeping",
+      "AC",
+      "CCTV"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Laundry",
+      "Housekeeping",
+      "AC",
+      "CCTV"
+    ],
+    "description": "Premium F-8/3 boys hostel (4.5★, 24 reviews). Consistently praised for professional management and quality. 20-min commute to SZABIST.",
+    "images": [
+      "/uploads/hostels/hostel-1772910434833-235875.png",
+      "/uploads/hostels/hostel-1772910434855-33884.png",
+      "/uploads/hostels/hostel-1772910435770-172577.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.713312,
+    "lng": 73.046821,
+    "distanceKm": 4.8,
+    "contact": {
+      "name": "",
+      "phone": "+92 340 5999169",
+      "whatsapp": "+92 340 5999169"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "mustafa-boys-hostel-i-14",
+    "name": "Mustafa Boys Hostel I-14",
+    "city": "Islamabad",
+    "area": "Street 28, I-14/3",
+    "universities": [
+      "NUST",
+      "FAST",
+      "Riphah",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Male",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 20000,
+    "rating": 4.5,
+    "reviewCount": 28,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Furnished",
+      "Laundry"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Unlimited internet",
+      "Well-furnished rooms",
+      "Best mess in area",
+      "Laundry"
+    ],
+    "description": "Closest high-quality boys hostel to Riphah (4.5★, 28 reviews). I-14/3 location — walkable to Riphah. Praised for best mess in the area and unlimited internet. Top pick.",
+    "images": [
+      "/uploads/hostels/hostel-1772911995341-580691.png",
+      "/uploads/hostels/hostel-1772911995351-186239.png",
+      "/uploads/hostels/hostel-1772911997809-522279.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.613741,
+    "lng": 72.962154,
+    "distanceKm": 0.7,
+    "contact": {
+      "name": "",
+      "phone": "+92 342 9493370",
+      "whatsapp": "+92 342 9493370"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "sga-working-women-hostel-h-8",
+    "name": "SGA Working Women Hostel H-8",
+    "city": "Islamabad",
+    "area": "Street 1, H-8/1",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "QAU"
+    ],
+    "gender": "Female",
+    "price": 20000,
+    "priceMin": 20000,
+    "priceMax": 30000,
+    "rating": 4.5,
+    "reviewCount": 121,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Housekeeping",
+      "Laundry",
+      "Security",
+      "CCTV"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Clean rooms",
+      "Laundry",
+      "Curfew 10pm",
+      "24/7 security"
+    ],
+    "description": "Established girls and working women hostel in H-8 with 121 reviews (4.5★). Good facilities in accessible location. Close to multiple universities via Kashmir Highway. Suitable for QAU students who miss campus allotment.",
+    "images": [
+      "/uploads/hostels/hostel-1772916560036-645049.png",
+      "/uploads/hostels/hostel-1772916562857-194225.png",
+      "/uploads/hostels/hostel-1772916564943-745879.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.673395,
+    "lng": 73.061277,
+    "distanceKm": 0.2,
+    "contact": {
+      "name": "",
+      "phone": "+92 337 8023456",
+      "whatsapp": "+92 337 8023456"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "pak-girls-hostel-i-14-3",
+    "name": "Pak Girls Hostel I-14/3",
+    "city": "Islamabad",
+    "area": "House 1110, Street 58, I-14/3",
+    "universities": [
+      "NUST",
+      "FAST",
+      "Riphah",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Female",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 20000,
+    "rating": 4.4,
+    "reviewCount": 28,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Security",
+      "CCTV"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "24/7 services",
+      "Security",
+      "Cooperative warden",
+      "Peaceful environment",
+      "CCTV"
+    ],
+    "description": "Closest verified girls hostel to Riphah University I-14 (4.4★, 28 reviews). Directly in I-14/3 — walking distance to Riphah. Safe, peaceful, and friendly warden.",
+    "images": [
+      "/uploads/hostels/hostel-1772912390670-637754.png",
+      "/uploads/hostels/hostel-1772912390680-962812.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.615528,
+    "lng": 72.969572,
+    "distanceKm": 0.5,
+    "contact": {
+      "name": "",
+      "phone": "+92 300 1676919",
+      "whatsapp": "+92 300 1676919"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "boys-hostel-i-8-shaheen-i-8-3",
+    "name": "Boys Hostel I-8 (Shaheen I-8/3)",
+    "city": "Islamabad",
+    "area": "House 457-P, Street 58, I-8/3",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "FAST"
+    ],
+    "gender": "Male",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 26000,
+    "rating": 4.3,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Laundry",
+      "CCTV",
+      "Security guard",
+      "Room cleaning"
+    ],
+    "description": "Shaheen Group's I-8/3 branch. Accessible to FAST via Metro or Kashmir Highway. Praised for cleanliness and professional staff. Good for FAST students wanting centrally located accommodation.",
+    "images": [
+      "/uploads/hostels/hostel-1772916846177-767340.png",
+      "/uploads/hostels/hostel-1772916846192-592153.png",
+      "/uploads/hostels/hostel-1772916846214-990277.png",
+      "/uploads/hostels/hostel-1772916846223-930013.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6694442,
+    "lng": 73.0700892,
+    "distanceKm": 0.8,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 9800670",
+      "whatsapp": "+92 333 9800670"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "islamabad-youth-boys-hostel",
+    "name": "Islamabad Youth Boys Hostel",
+    "city": "Rawalpindi",
+    "area": "2nd Floor Walayat Plaza, Rehmanabad, Satellite Town, Rawalpindi",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "RMU",
+      "FJWU"
+    ],
+    "gender": "Male",
+    "price": 15000,
+    "priceMin": 15000,
+    "priceMax": 22000,
+    "rating": 4.3,
+    "reviewCount": 102,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "CCTV",
+      "Meals"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "CCTV",
+      "Meals"
+    ],
+    "description": "Well-established hostel (4.3★, 102 reviews). Near Rehmanabad Metro for RMU access. Long-term residents praise quality.",
+    "images": [
+      "/uploads/hostels/hostel-1772761807750-524702.png",
+      "/uploads/hostels/hostel-1772761808677-176123.png",
+      "/uploads/hostels/hostel-1772761813030-771221.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.635556,
+    "lng": 73.074836,
+    "distanceKm": 2.3,
+    "contact": {
+      "name": "",
+      "phone": "+92 322 9500095",
+      "whatsapp": "+92 322 9500095"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "stayinn-girls-hostel",
+    "name": "Stayinn Girls Hostel",
+    "city": "Islamabad",
+    "area": "3 Zubair Shah Rd, near NUST, H-13",
+    "universities": [
+      "NUST",
+      "FAST",
+      "Riphah",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Female",
+    "price": 22000,
+    "priceMin": 22000,
+    "priceMax": 28000,
+    "rating": 4.3,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Cooperative staff",
+      "Clean rooms"
+    ],
+    "description": "Boutique girls hostel very close to NUST in H-13. Highly praised for its hospitable administration, delicious food, and welcoming atmosphere. Great reviews from NUST students.",
+    "images": [
+      "/uploads/hostels/hostel-1772918288076-12800.png",
+      "/uploads/hostels/hostel-1772918288081-696235.png",
+      "/uploads/hostels/hostel-1772918288086-7847.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6423514,
+    "lng": 72.9802167,
+    "distanceKm": 0.2,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "db"
+  },
+  {
+    "slug": "zainub-hira-girls-hostel-i-10",
+    "name": "Zainub Hira Girls Hostel I-10",
+    "city": "Islamabad",
+    "area": "House 1895, Street 27, I-10/2",
+    "universities": [
+      "NUST",
+      "FAST",
+      "NUML",
+      "SZABIST",
+      "COMSATS",
+      "Bahria University",
+      "Riphah"
+    ],
+    "gender": "Female",
+    "price": 15000,
+    "priceMin": 15000,
+    "priceMax": 22000,
+    "rating": 4.3,
+    "reviewCount": 55,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "CCTV",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "CCTV",
+      "Long-stay residents",
+      "Security"
+    ],
+    "description": "Good budget option (4.3★, 55 reviews) in I-10/2. 20-min commute to Riphah. Long-term residents indicate reliable quality.",
+    "images": [
+      "/uploads/hostels/hostel-1772912144562-795809.png",
+      "/uploads/hostels/hostel-1772912144582-360721.png",
+      "/uploads/hostels/hostel-1772912144591-148510.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.647423,
+    "lng": 73.033095,
+    "distanceKm": 1.4,
+    "contact": {
+      "name": "",
+      "phone": "+92 306 8884024",
+      "whatsapp": "+92 306 8884024"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "foundation-boys-hostel-lalazar",
+    "name": "Foundation Boys Hostel Lalazar",
+    "city": "Rawalpindi",
+    "area": "New Lalazar, Rawalpindi",
+    "universities": [
+      "RMU",
+      "FJWU"
+    ],
+    "gender": "Male",
+    "price": 13000,
+    "priceMin": 13000,
+    "priceMax": 18000,
+    "rating": 4.2,
+    "reviewCount": 21,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "Filtered Water"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Laundry",
+      "Filter water",
+      "24-hr Wi-Fi"
+    ],
+    "description": "Budget boys hostel in Lalazar (4.2★, 21 reviews). Near FJWU campus. Food improving under new management. Very economical.",
+    "images": [
+      "/uploads/hostels/hostel-1772760529479-699872.png",
+      "/uploads/hostels/hostel-1772760550920-508549.png",
+      "/uploads/hostels/hostel-1772760584072-350341.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.563127,
+    "lng": 73.073058,
+    "distanceKm": 4.9,
+    "contact": {
+      "name": "",
+      "phone": "+92 320 9042118",
+      "whatsapp": "+92 320 9042118"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "girls-hostel-i-8-2-service-rd",
+    "name": "Girls Hostel I-8/2 (Service Rd)",
+    "city": "Islamabad",
+    "area": "8/2 Service Road West, H-9",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Bahria University",
+      "QAU"
+    ],
+    "gender": "Female",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 22000,
+    "rating": 4.2,
+    "reviewCount": 5,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Market nearby",
+      "Peaceful environment"
+    ],
+    "description": "Budget private hostel in H-9/I-8 boundary area. Close to NUML, QAU access via Srinagar Highway. Clean environment with market nearby. Peaceful and basic — good for economical students.",
+    "images": [
+      "/uploads/hostels/hostel-1772916304102-830669.png",
+      "/uploads/hostels/hostel-1772916304998-720628.png",
+      "/uploads/hostels/hostel-1772916322039-594374.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.670382,
+    "lng": 73.034645,
+    "distanceKm": 2.5,
+    "contact": {
+      "name": "",
+      "phone": "+92 313 0397209",
+      "whatsapp": "+92 313 0397209"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "mussarat-girls-hostel-f-8",
+    "name": "Mussarat Girls Hostel F-8",
+    "city": "Islamabad",
+    "area": "House infront of 4, Street 13, F-8/3",
+    "universities": [
+      "SZABIST"
+    ],
+    "gender": "Female",
+    "price": 20000,
+    "priceMin": 20000,
+    "priceMax": 30000,
+    "rating": 4.2,
+    "reviewCount": 195,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Home-cooked meals",
+      "Peaceful",
+      "Cooperative warden"
+    ],
+    "description": "F-8/3 hostel (4.2★, 195 reviews). 20-min commute to SZABIST. Praised for homely food and kind warden.",
+    "images": [
+      "/uploads/hostels/hostel-1772910880714-904267.png",
+      "/uploads/hostels/hostel-1772910880721-532137.png",
+      "/uploads/hostels/hostel-1772910880733-404335.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.715937,
+    "lng": 73.046791,
+    "distanceKm": 5.1,
+    "contact": {
+      "name": "",
+      "phone": "+92 336 4448883",
+      "whatsapp": "+92 336 4448883"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "nafees-boys-hostel",
+    "name": "Nafees Boys Hostel",
+    "city": "Islamabad",
+    "area": "Hostel City, Chatta Bakhtawar",
+    "universities": [
+      "Arid Agriculture",
+      "Riphah",
+      "SZABIST"
+    ],
+    "gender": "Male",
+    "price": 20000,
+    "priceMin": 20000,
+    "priceMax": 28000,
+    "rating": 4.2,
+    "reviewCount": 694,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Mess",
+      "Laundry",
+      "Top food quality",
+      "Security"
+    ],
+    "description": "Most-reviewed hostel (4.2★, 694 reviews). 40-min commute to Riphah and SZABIST. Top food quality in Islamabad for students with transport.",
+    "images": [
+      "/uploads/hostels/hostel-1772911655038-643479.png",
+      "/uploads/hostels/hostel-1772911655050-339353.png",
+      "/uploads/hostels/hostel-1772911655075-643565.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.656926,
+    "lng": 73.157259,
+    "distanceKm": 6.3,
+    "contact": {
+      "name": "",
+      "phone": "+92 334 8503040",
+      "whatsapp": "+92 334 8503040"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "pinewood-hostels-for-girls",
+    "name": "Pinewood Hostels for Girls",
+    "city": "Rawalpindi",
+    "area": "574B, B Block, Satellite Town, Rawalpindi",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "FJWU",
+      "RMU"
+    ],
+    "gender": "Female",
+    "price": 15000,
+    "priceMin": 15000,
+    "priceMax": 22000,
+    "rating": 4.2,
+    "reviewCount": 40,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Security"
+    ],
+    "description": "Satellite Town girls hostel (4.2★, 40 reviews). 20-min commute to RMU. Good food and cooperative staff.",
+    "images": [
+      "/uploads/hostels/hostel-1772909514311-143218.png",
+      "/uploads/hostels/hostel-1772909515690-670302.png",
+      "/uploads/hostels/hostel-1772909517438-878304.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.637085,
+    "lng": 73.067916,
+    "distanceKm": 2.1,
+    "contact": {
+      "name": "",
+      "phone": "+92 341 8999330",
+      "whatsapp": "+92 341 8999330"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "rawalpindi-boys-hostel-defence",
+    "name": "Rawalpindi Boys Hostel Defence",
+    "city": "Rawalpindi",
+    "area": "Defence Road, Usama St, Rawalpindi",
+    "universities": [
+      "FJWU",
+      "Arid Agriculture",
+      "RMU"
+    ],
+    "gender": "Male",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 20000,
+    "rating": 4.2,
+    "reviewCount": 31,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Laundry"
+    ],
+    "description": "Affordable Rawalpindi boys hostel (4.2★, 31 reviews). Budget option for RMU students.",
+    "images": [
+      "/uploads/hostels/hostel-1772760887151-69730.png",
+      "/uploads/hostels/hostel-1772760887158-734813.png",
+      "/uploads/hostels/hostel-1772761009504-167295.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.552479,
+    "lng": 73.064642,
+    "distanceKm": 5.7,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "db"
+  },
+  {
+    "slug": "zaviyan-boys-hostel",
+    "name": "Zaviyan Boys Hostel",
+    "city": "Islamabad",
+    "area": "Opp NUST Gate No. 6, H-13",
+    "universities": [
+      "NUST",
+      "FAST",
+      "Riphah",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Male",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 22000,
+    "rating": 4.2,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "CCTV",
+      "Parking",
+      "Laundry",
+      "Power Backup"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals (unlimited)",
+      "CCTV",
+      "Parking",
+      "Laundry",
+      "Electricity backup"
+    ],
+    "description": "Popular boys hostel opposite NUST Gate #6 in H-13. Known for unlimited food quantity, well-ventilated rooms, and approachable management. Good transport access and proximity to local eateries.",
+    "images": [
+      "/uploads/hostels/hostel-1772919170287-210294.png",
+      "/uploads/hostels/hostel-1772919170296-858451.png",
+      "/uploads/hostels/hostel-1772919170305-676276.png",
+      "/uploads/hostels/hostel-1772919170317-501058.png"
+    ],
+    "messMenuImages": [
+      "/uploads/hostels/hostel-1772919042753-240564.png"
+    ],
+    "messMenu": {},
+    "lat": 33.6375871,
+    "lng": 72.984074,
+    "distanceKm": 0.8,
+    "contact": {
+      "name": "",
+      "phone": "+92 305 7874400",
+      "whatsapp": "+92 305 7874400"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "al-sheikh-boys-hostel-g-11",
+    "name": "Al Sheikh Boys Hostel G-11",
+    "city": "Islamabad",
+    "area": "Street 102 Ibn-e-Sina Rd, G-11/3",
+    "universities": [
+      "NUST",
+      "FAST",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Male",
+    "price": 13000,
+    "priceMin": 13000,
+    "priceMax": 19000,
+    "rating": 4.1,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Affordable rates",
+      "PHA flats"
+    ],
+    "description": "Budget-friendly hostel in G-11/3 PHA flats. Decent food and affordable pricing. Good option for FAST students on a budget. Slightly farther from metro but still accessible.",
+    "images": [
+      "/uploads/hostels/hostel-1772916945077-341919.png",
+      "/uploads/hostels/hostel-1772916945086-56870.png",
+      "/uploads/hostels/hostel-1772916945093-415413.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6776347,
+    "lng": 72.9991667,
+    "distanceKm": 3.5,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 9497297",
+      "whatsapp": "+92 333 9497297"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "boys-hostel-in-rawalpindi-satellite-town",
+    "name": "Boys Hostel in Rawalpindi Satellite Town",
+    "city": "Rawalpindi",
+    "area": "Shop 235 Choti Market Rd, B Block, Satellite Town, Rawalpindi",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "RMU",
+      "FJWU"
+    ],
+    "gender": "Male",
+    "price": 13000,
+    "priceMin": 13000,
+    "priceMax": 18000,
+    "rating": 4.1,
+    "reviewCount": 21,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Basic facilities",
+      "Budget option",
+      "Near Satellite Town"
+    ],
+    "description": "Budget boys hostel in Satellite Town (4.1★, 21 reviews). Very economical for Arid University and FJWU students. Basic facilities.",
+    "images": [
+      "/uploads/hostels/hostel-1772761214273-322291.png",
+      "/uploads/hostels/hostel-1772761214286-433306.png",
+      "/uploads/hostels/hostel-1772761214295-824916.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.632592,
+    "lng": 73.072278,
+    "distanceKm": 2.7,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 1332350",
+      "whatsapp": "+92 333 1332350"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "diamond-bliss-girls-hostel",
+    "name": "Diamond Bliss Girls Hostel",
+    "city": "Islamabad",
+    "area": "13 Malik Haroon St, H-13",
+    "universities": [
+      "NUST",
+      "FAST",
+      "Riphah",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Female",
+    "price": 24000,
+    "priceMin": 24000,
+    "priceMax": 35000,
+    "rating": 4.1,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Laundry",
+      "CCTV"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Spacious rooms",
+      "24/7 security",
+      "Laundry",
+      "CCTV"
+    ],
+    "description": "Well-regarded hostel close to NUST Gate #2. Spacious single and shared rooms with good food and strict but fair security management. Very popular with NUST girls.",
+    "images": [
+      "/uploads/hostels/hostel-1772918108521-29023.png",
+      "/uploads/hostels/hostel-1772918108533-57378.png",
+      "/uploads/hostels/hostel-1772918108543-73116.png",
+      "/uploads/hostels/hostel-1772918108551-725479.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6441798,
+    "lng": 72.9755577,
+    "distanceKm": 0.3,
+    "contact": {
+      "name": "Salman ",
+      "phone": "+92 300 6899747",
+      "whatsapp": "+92 300 6899747"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "faiza-girls-hostel",
+    "name": "Faiza Girls Hostel",
+    "city": "Islamabad",
+    "area": "Opp Gate #4, NUST Service Rd, H-13",
+    "universities": [
+      "NUST",
+      "FAST",
+      "Riphah",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Female",
+    "price": 35000,
+    "priceMin": 35000,
+    "priceMax": 40000,
+    "rating": 4.1,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Power Backup",
+      "Laundry",
+      "CCTV",
+      "Housekeeping",
+      "Transport",
+      "Kitchen"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals/day",
+      "UPS",
+      "Laundry",
+      "CCTV",
+      "Room cleaning",
+      "Van service",
+      "Kitchen"
+    ],
+    "description": "Official partner of NUST since 2016. Walking distance from Gate #4. One of the most reputable and well-known private hostels for NUST girls. Secure environment with CCTV monitoring.",
+    "images": [
+      "/uploads/hostels/hostel-1772917879140-989348.png",
+      "/uploads/hostels/hostel-1772917879154-809419.png",
+      "/uploads/hostels/hostel-1772917879178-371293.png",
+      "/uploads/hostels/hostel-1772917879186-603128.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6413759,
+    "lng": 72.9820533,
+    "distanceKm": 0.4,
+    "contact": {
+      "name": "",
+      "phone": "+92 348 5007745",
+      "whatsapp": "+92 348 5007745"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "girls-hostel-i-8-2-no-16",
+    "name": "Girls Hostel I-8/2 (No. 16)",
+    "city": "Islamabad",
+    "area": "16, Sector I-8/2",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University"
+    ],
+    "gender": "Female",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 22000,
+    "rating": 4.1,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Outdoor Area"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Good rooms",
+      "Rooftop",
+      "Peaceful"
+    ],
+    "description": "Private girls hostel in I-8/2 close to NUML (4.1★, 25 reviews). Praised for spacious, good-condition rooms and nice terrace. Short commute to NUML via Srinagar Highway. Internet needs improvement but overall decent.",
+    "images": [
+      "/uploads/hostels/hostel-1772912873869-146207.png",
+      "/uploads/hostels/hostel-1772912883811-544770.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.664527,
+    "lng": 73.06601,
+    "distanceKm": 0.9,
+    "contact": {
+      "name": "",
+      "phone": "+92 304 5907920",
+      "whatsapp": "+92 304 5907920"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "khan-boys-hostel-i-9",
+    "name": "Khan Boys Hostel I-9",
+    "city": "Islamabad",
+    "area": "Potohar Rd, I-9 Markaz",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "Riphah"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 26000,
+    "rating": 4.1,
+    "reviewCount": 280,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "CCTV"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Diverse meals",
+      "Near Potohar Metro",
+      "CCTV",
+      "Cooperative owners"
+    ],
+    "description": "Budget hostel (4.1★, 280 reviews) near Potohar Metro. Commutable to Riphah and SZABIST. Good food variety and cooperative owners.",
+    "images": [
+      "/uploads/hostels/hostel-1772911929605-992652.png",
+      "/uploads/hostels/hostel-1772911930722-192985.png",
+      "/uploads/hostels/hostel-1772911932527-122280.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.658429,
+    "lng": 73.059098,
+    "distanceKm": 0.5,
+    "contact": {
+      "name": "",
+      "phone": "+92 300 5582402",
+      "whatsapp": "+92 300 5582402"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "lavish-boys-hostel-blue-area",
+    "name": "Lavish Boys Hostel Blue Area",
+    "city": "Islamabad",
+    "area": "Plot 21-East, Fazl-e-Haq Rd, Blue Area, G-6/2",
+    "universities": [
+      "SZABIST",
+      "QAU"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 28000,
+    "rating": 4.1,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "AC",
+      "Meals",
+      "Laundry",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "AC",
+      "Meals",
+      "Laundry",
+      "Chiller water",
+      "Central location",
+      "Security"
+    ],
+    "description": "Premium private boys hostel in Blue Area (4.1★, 130 reviews). AC rooms, laundry, and chiller water system. Central Islamabad location, accessible to QAU, government offices, and all sectors. Best for students who prefer city-centre comfort over campus proximity.",
+    "images": [
+      "/uploads/hostels/hostel-1772912960413-132938.png",
+      "/uploads/hostels/hostel-1772912960443-22896.png",
+      "/uploads/hostels/hostel-1772912961349-135325.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.7225241,
+    "lng": 73.0822203,
+    "distanceKm": 5.9,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 4824825",
+      "whatsapp": "+92 333 4824825"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "pearl-boys-hostel",
+    "name": "Pearl Boys Hostel",
+    "city": "Islamabad",
+    "area": "Royal Ave, Park Road, Chatta Bakhtawar",
+    "universities": [
+      "Arid Agriculture",
+      "Riphah"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 28000,
+    "rating": 4.1,
+    "reviewCount": 723,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Fast internet",
+      "Mess",
+      "Laundry",
+      "Security"
+    ],
+    "description": "Second-best Hostel City boys hostel (4.1★, 723 reviews). 40-min commute to Riphah for boys with transport.",
+    "images": [
+      "/uploads/hostels/hostel-1772911579734-745383.png",
+      "/uploads/hostels/hostel-1772911579746-486728.png",
+      "/uploads/hostels/hostel-1772911579766-440545.png",
+      "/uploads/hostels/hostel-1772911579779-800816.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.656907,
+    "lng": 73.15828,
+    "distanceKm": 6.4,
+    "contact": {
+      "name": "",
+      "phone": "+92 300 4064959",
+      "whatsapp": "+92 300 4064959"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "unique-girls-hostel",
+    "name": "Unique Girls Hostel",
+    "city": "Rawalpindi",
+    "area": "0-975-A2, Asghar Mall Rd, behind Pine Marriage Hall, Asghar Mall Scheme",
+    "universities": [
+      "NUML",
+      "Arid Agriculture",
+      "FJWU",
+      "Bahria University",
+      "RMU"
+    ],
+    "gender": "Female",
+    "price": 15000,
+    "priceMin": 15000,
+    "priceMax": 22000,
+    "rating": 4.1,
+    "reviewCount": 77,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Kitchen",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Individual kitchen units",
+      "Cooperative warden"
+    ],
+    "description": "Unique hostel concept — individual room units with living room, kitchen, washroom (4.1★, 77 reviews). Near Arid University. Praised for independence and cooperative management.",
+    "images": [
+      "/uploads/hostels/hostel-1772909359447-197424.png",
+      "/uploads/hostels/hostel-1772909359460-793190.png",
+      "/uploads/hostels/hostel-1772909359476-329188.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.626339,
+    "lng": 73.068346,
+    "distanceKm": 2.9,
+    "contact": {
+      "name": "",
+      "phone": "(051) 4906559",
+      "whatsapp": ""
+    },
+    "source": "db"
+  },
+  {
+    "slug": "friends-boys-hostel-near-arid-university",
+    "name": "Friends Boys Hostel near Arid University",
+    "city": "Rawalpindi",
+    "area": "Farooq-e-Azam Rd, Bilal Colony, Shamsabad, Rawalpindi",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University"
+    ],
+    "gender": "Male",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 20000,
+    "rating": 4,
+    "reviewCount": 67,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Housekeeping",
+      "Meals"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Clean environment",
+      "Closest to Arid University",
+      "No mess (self-catering)"
+    ],
+    "description": "Closest private boys hostel to Arid University (4.0★, 67 reviews) in Shamsabad. Best location for Arid students. Very clean environment. No mess — for students who prefer self-catering.",
+    "images": [
+      "/uploads/hostels/hostel-1772762111172-959530.png",
+      "/uploads/hostels/hostel-1772762114296-235505.png",
+      "/uploads/hostels/hostel-1772762115746-282051.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.646395,
+    "lng": 73.089067,
+    "distanceKm": 0.6,
+    "contact": {
+      "name": "",
+      "phone": "+92 300 5102538",
+      "whatsapp": "+92 300 5102538"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "millennium-girls-hostel-rawalpindi",
+    "name": "Millennium Girls Hostel Rawalpindi",
+    "city": "Rawalpindi",
+    "area": "14 Tipu Rd, Jinnah Colony, Rawalpindi",
+    "universities": [
+      "FJWU",
+      "RMU",
+      "Foundation University",
+      "Arid Agriculture"
+    ],
+    "gender": "Female",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 24000,
+    "rating": 4,
+    "reviewCount": 149,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "24/7 security",
+      "Decent facilities"
+    ],
+    "description": "Rawalpindi girls hostel (4.0★, 149 reviews) close to RMU and accessible to Arid University and FJWU via main roads. 24/7 services and decent food.",
+    "images": [
+      "/uploads/hostels/hostel-1772908016488-322368.png",
+      "/uploads/hostels/hostel-1772908019449-435091.png",
+      "/uploads/hostels/hostel-1772908034778-975945.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.601713,
+    "lng": 73.070721,
+    "distanceKm": 3,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 5000694",
+      "whatsapp": "+92 333 5000694"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "oriental-girls-hostel-i-9",
+    "name": "Oriental Girls Hostel I-9",
+    "city": "Islamabad",
+    "area": "Main Warsak Rd, near Potohar Metro, I-9/4",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University"
+    ],
+    "gender": "Female",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 22000,
+    "rating": 4,
+    "reviewCount": 87,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Furnished"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Security",
+      "Well-furnished rooms"
+    ],
+    "description": "Private girls hostel in I-9/4 near Potohar Metro Station (4.0★, 87 reviews). Good metro access to NUML H-9. Food is a positive point but management has mixed reviews. Verify current management and security before joining.",
+    "images": [
+      "/uploads/hostels/hostel-1772912726818-983520.png",
+      "/uploads/hostels/hostel-1772912726832-993992.png",
+      "/uploads/hostels/hostel-1772912726858-207891.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.659287,
+    "lng": 73.061711,
+    "distanceKm": 0.7,
+    "contact": {
+      "name": "",
+      "phone": "+92 304 5730010",
+      "whatsapp": "+92 304 5730010"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "royal-inn-boys-hostel-f-8",
+    "name": "Royal Inn Boys Hostel F-8",
+    "city": "Islamabad",
+    "area": "House 5 Main Kaghan Rd, F-8/3",
+    "universities": [
+      "SZABIST"
+    ],
+    "gender": "Male",
+    "price": 20000,
+    "priceMin": 20000,
+    "priceMax": 30000,
+    "rating": 4,
+    "reviewCount": 256,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Laundry",
+      "Security",
+      "Spacious rooms"
+    ],
+    "description": "F-8/3 boys hostel (4.0★, 256 reviews). 20-min commute to SZABIST. Clean and affordable with decent food.",
+    "images": [
+      "/uploads/hostels/hostel-1772910551023-966119.png",
+      "/uploads/hostels/hostel-1772910551042-275904.png",
+      "/uploads/hostels/hostel-1772910551052-569092.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.713457,
+    "lng": 73.048264,
+    "distanceKm": 4.8,
+    "contact": {
+      "name": "",
+      "phone": "+92 313 0000154",
+      "whatsapp": "+92 313 0000154"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "students-shelter-girls-hostel-i-8-3",
+    "name": "Students Shelter Girls Hostel I-8/3",
+    "city": "Islamabad",
+    "area": "House 123, Street 60, I-8/3",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University"
+    ],
+    "gender": "Female",
+    "price": 17000,
+    "priceMin": 17000,
+    "priceMax": 25000,
+    "rating": 4,
+    "reviewCount": 71,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Hot Water",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Geyser",
+      "Security",
+      "Clean rooms",
+      "Cooperative staff"
+    ],
+    "description": "Closest girls hostel to SZABIST H-8 (4.0★, 71 reviews) in I-8/3. Walking distance to SZABIST campus. Clean rooms with cooperative staff. Food quality could improve.",
+    "images": [
+      "/uploads/hostels/hostel-1772911406907-660191.png",
+      "/uploads/hostels/hostel-1772911406917-607219.png",
+      "/uploads/hostels/hostel-1772911406923-452794.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.67543,
+    "lng": 73.075361,
+    "distanceKm": 1.3,
+    "contact": {
+      "name": "",
+      "phone": "+92 331 4343676",
+      "whatsapp": "+92 331 4343676"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "students-girls-hostel-i-8-2",
+    "name": "Students Girls Hostel I-8/2",
+    "city": "Islamabad",
+    "area": "House 715, Street 22, I-8/2",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "QAU",
+      "Riphah"
+    ],
+    "gender": "Female",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 26000,
+    "rating": 3.9,
+    "reviewCount": 228,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Housekeeping",
+      "Security",
+      "Study Room"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Hygienic meals",
+      "Clean spacious rooms",
+      "Cooperative warden",
+      "Study-friendly"
+    ],
+    "description": "Well-reviewed private girls hostel in I-8/2 (228 reviews). Praised for hygienic food, professional management. Accessible to QAU via Faizabad Metrobus. Good for budget-conscious students.",
+    "images": [
+      "/uploads/hostels/hostel-1772916476818-169411.png",
+      "/uploads/hostels/hostel-1772916476846-914097.png",
+      "/uploads/hostels/hostel-1772916476856-303757.png",
+      "/uploads/hostels/hostel-1772916476864-73876.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.665507,
+    "lng": 73.066371,
+    "distanceKm": 0.8,
+    "contact": {
+      "name": "",
+      "phone": "+92 304 5885712",
+      "whatsapp": "+92 304 5885712"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "dua-girls-hostel",
+    "name": "Dua Girls Hostel",
+    "city": "Islamabad",
+    "area": "H-13, Opposite NUST Gate No. 2",
+    "universities": [
+      "NUST",
+      "FAST",
+      "Riphah",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Female",
+    "price": 22000,
+    "priceMin": 22000,
+    "priceMax": 35000,
+    "rating": 3.8,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Calm environment",
+      "Basic security"
+    ],
+    "description": "Conveniently located opposite NUST Gate #2. Offers calm, student-friendly environment with hygienic meals. Good value for budget-conscious NUST girls.",
+    "images": [
+      "/uploads/hostels/hostel-1772918227648-896087.png",
+      "/uploads/hostels/hostel-1772918227667-19919.png",
+      "/uploads/hostels/hostel-1772918227677-323862.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6434319,
+    "lng": 72.9801201,
+    "distanceKm": 0.2,
+    "contact": {
+      "name": "",
+      "phone": "+92 313 5816702",
+      "whatsapp": "+92 313 5816702"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "falah-girls-hostel",
+    "name": "Falah Girls Hostel",
+    "city": "Islamabad",
+    "area": "67 F-11/1",
+    "universities": [
+      "NUST",
+      "FAST",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Female",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 20000,
+    "rating": 3.8,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Homely environment"
+    ],
+    "description": "Girls hostel in F-11 with home-like environment. Nearest to FAST, NUML, IIUI. Four-year residents describe it as a second home. Affordable with decent facilities.",
+    "images": [
+      "/uploads/hostels/hostel-1772917353807-699855.png",
+      "/uploads/hostels/hostel-1772917353818-871840.png",
+      "/uploads/hostels/hostel-1772917353831-83266.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6766278,
+    "lng": 72.9927196,
+    "distanceKm": 3.2,
+    "contact": {
+      "name": "",
+      "phone": "+92 336 5119603",
+      "whatsapp": "+92 336 5119603"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "capital-group-of-hostels-girls",
+    "name": "Capital Group of Hostels (Girls)",
+    "city": "Islamabad",
+    "area": "JxRJ+R8C, Zubair Shah Rd, H-13",
+    "universities": [
+      "NUST",
+      "FAST",
+      "Riphah",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Female",
+    "price": 24000,
+    "priceMin": 24000,
+    "priceMax": 35000,
+    "rating": 3.7,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Laundry"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Security",
+      "Spacious rooms",
+      "Laundry"
+    ],
+    "description": "Large multi-building hostel complex in H-13 serving both boys and girls. Located near NUST Gate #4. Cooperative management, strict security, and affordable rates.",
+    "images": [
+      "/uploads/hostels/hostel-1772918401874-341672.png",
+      "/uploads/hostels/hostel-1772918401885-72972.png",
+      "/uploads/hostels/hostel-1772918401900-936071.png",
+      "/uploads/hostels/hostel-1772918401908-320620.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6422152,
+    "lng": 72.9808002,
+    "distanceKm": 0.2,
+    "contact": {
+      "name": "",
+      "phone": "+92 334 5416141",
+      "whatsapp": "+92 334 5416141"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "shaheen-boys-hostel-i-9-4-numl",
+    "name": "Shaheen Boys Hostel I-9/4 (NUML)",
+    "city": "Islamabad",
+    "area": "Main Warsak Rd, Opp CDA Model School, I-9/4",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University"
+    ],
+    "gender": "Male",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 26000,
+    "rating": 3.7,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Parking"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Security",
+      "Big windows",
+      "Parking"
+    ],
+    "description": "Shaheen Group hostel explicitly marketed for NUML students (3.7★, 103 reviews). Near Potohar Metro for easy NUML access. Big windows, good ventilation. Food quality is mixed but security and cleanliness are decent.",
+    "images": [
+      "/uploads/hostels/hostel-1772914836640-807866.png",
+      "/uploads/hostels/hostel-1772914836679-212951.png",
+      "/uploads/hostels/hostel-1772914836704-598724.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.658819,
+    "lng": 73.061237,
+    "distanceKm": 0.6,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 3800670",
+      "whatsapp": "+92 333 3800670"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "shaheen-girls-hostel-i-8",
+    "name": "Shaheen Girls Hostel I-8",
+    "city": "Islamabad",
+    "area": "House 523, Street 33, I-8/2",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University"
+    ],
+    "gender": "Female",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 26000,
+    "rating": 3.7,
+    "reviewCount": 33,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "CCTV",
+      "Security",
+      "Housekeeping",
+      "Attached Bath",
+      "Meals"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "CCTV",
+      "Security guard",
+      "Clean rooms",
+      "Attached bathrooms",
+      "3 meals"
+    ],
+    "description": "Shaheen Group girls branch close to NUML (3.7★, 33 reviews). CCTV and security guard on premises. Attached bathrooms available. Part of established Shaheen hostel chain. Food quality is mixed in reviews — verify before joining.",
+    "images": [
+      "/uploads/hostels/hostel-1772912804203-160252.png",
+      "/uploads/hostels/hostel-1772912804206-669005.png",
+      "/uploads/hostels/hostel-1772912804214-342098.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.669435,
+    "lng": 73.066433,
+    "distanceKm": 0.5,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 5406804",
+      "whatsapp": "+92 333 5406804"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "boys-hostel-islamabad-i-8",
+    "name": "Boys Hostel Islamabad I-8",
+    "city": "Islamabad",
+    "area": "House 609-G, St 111, I-8/4",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "FAST"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 28000,
+    "rating": 3.6,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Parking"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Security",
+      "Parking"
+    ],
+    "description": "Located in I-8/4, convenient for FAST H-11 via Metro. Basic facilities with 24/7 operations. Budget range varies widely; confirm current rates. Accessible to multiple Islamabad universities.",
+    "images": [
+      "/uploads/hostels/hostel-1772916752330-957190.png",
+      "/uploads/hostels/hostel-1772916752342-956790.png",
+      "/uploads/hostels/hostel-1772916752353-324819.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6654187,
+    "lng": 73.0718377,
+    "distanceKm": 1.2,
+    "contact": {
+      "name": "",
+      "phone": "+92 336 0016205",
+      "whatsapp": "+92 336 0016205"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "islamabad-boys-hostel-g-9",
+    "name": "Islamabad Boys Hostel G-9",
+    "city": "Islamabad",
+    "area": "Street 55, G-9/4",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Bahria University"
+    ],
+    "gender": "Male",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 22000,
+    "rating": 3.6,
+    "reviewCount": 145,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Transport"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Basic facilities",
+      "Budget option",
+      "Public transport access"
+    ],
+    "description": "Budget option in G-9 (3.6★, 145 reviews). Economical for SZABIST students. Good public transport access.",
+    "images": [
+      "/uploads/hostels/hostel-1772910308626-455042.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.683173,
+    "lng": 73.040043,
+    "distanceKm": 2.4,
+    "contact": {
+      "name": "",
+      "phone": "+92 311 7540920",
+      "whatsapp": "+92 311 7540920"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "prince-boys-hostel-satellite-town",
+    "name": "Prince Boys Hostel Satellite Town",
+    "city": "Rawalpindi",
+    "area": "472, D Block, Satellite Town, Rawalpindi",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University",
+      "FJWU",
+      "RMU"
+    ],
+    "gender": "Male",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 20000,
+    "rating": 3.6,
+    "reviewCount": 37,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals"
+    ],
+    "description": "Budget Satellite Town hostel (3.6★, 37 reviews). Economical for RMU students.",
+    "images": [
+      "/uploads/hostels/hostel-1772761321278-850604.png",
+      "/uploads/hostels/hostel-1772761321291-280008.png",
+      "/uploads/hostels/hostel-1772761326760-172376.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.641755,
+    "lng": 73.072297,
+    "distanceKm": 1.9,
+    "contact": {
+      "name": "",
+      "phone": "+92 311 5577286",
+      "whatsapp": "+92 311 5577286"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "golden-era-boys-hostel",
+    "name": "Golden Era Boys Hostel",
+    "city": "Islamabad",
+    "area": "Opp. Street 3 Zubair Shah Rd, H-13, Islamabad, 44000",
+    "universities": [
+      "NUST",
+      "FAST",
+      "Riphah",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 26000,
+    "rating": 3.4,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "CCTV",
+      "Laundry",
+      "Security",
+      "Parking",
+      "Power Backup",
+      "Prayer Area"
+    ],
+    "rawFacilities": [
+      "Wi-Fi 50 Mbps",
+      "3 meals",
+      "RO water",
+      "CCTV 24/7",
+      "Laundry",
+      "Security guard",
+      "Parking",
+      "Electricity backup"
+    ],
+    "description": "Luxury student hostel in H-13 with 50 Mbps internet, drinking water, and weekly laundry. Easy access to NUST, IIUI, FAST, and Bahria. Good for boys wanting premium facilities.",
+    "images": [
+      "/uploads/hostels/hostel-1772919423051-509903.png",
+      "/uploads/hostels/hostel-1772919423071-308692.png",
+      "/uploads/hostels/hostel-1772919423078-461157.png",
+      "/uploads/hostels/hostel-1772919423086-699322.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6457307,
+    "lng": 72.9687406,
+    "distanceKm": 1,
+    "contact": {
+      "name": "Salman Khan Khattak",
+      "phone": "+92 300 6699747",
+      "whatsapp": "+92 300 6699747"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "shaheen-boys-hostel-g-11",
+    "name": "Shaheen Boys Hostel G-11",
+    "city": "Islamabad",
+    "area": "G-11 Signal, NUST Metro Stop, Srinagar Hwy, G-11",
+    "universities": [
+      "NUST",
+      "FAST",
+      "COMSATS",
+      "Air University"
+    ],
+    "gender": "Male",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 26000,
+    "rating": 3.4,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Room cleaning"
+    ],
+    "description": "Purpose-built for FAST University students. Located near FAST H-11 Metro Stop and Srinagar Highway. Easy access to campus and markets. Most popular among FAST boys.",
+    "images": [
+      "/uploads/hostels/hostel-1772917655971-254028.png",
+      "/uploads/hostels/hostel-1772917655979-392414.png",
+      "/uploads/hostels/hostel-1772917655987-442450.png",
+      "/uploads/hostels/hostel-1772917655993-448123.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6579159,
+    "lng": 72.9941906,
+    "distanceKm": 1.4,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 9800670",
+      "whatsapp": "+92 333 9800670"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "aroma-boys-hostel-i-9-2",
+    "name": "Aroma Boys Hostel I-9/2",
+    "city": "Islamabad",
+    "area": "236 Street 6, I-9/2",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "Arid Agriculture",
+      "Bahria University"
+    ],
+    "gender": "Male",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 22000,
+    "rating": 3.3,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Basic facilities",
+      "Near I-9 Markaz"
+    ],
+    "description": "Budget boys hostel in I-9/2 near NUML (3.3★, 134 reviews). Large multi-sector rooms. Budget option for students who need minimal facilities. Food and management have mixed reviews — best suited for very budget-conscious students.",
+    "images": [
+      "/uploads/hostels/hostel-1772914638605-161438.png",
+      "/uploads/hostels/hostel-1772914638617-642270.png",
+      "/uploads/hostels/hostel-1772914638625-802347.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.659734,
+    "lng": 73.052535,
+    "distanceKm": 0.6,
+    "contact": {
+      "name": "",
+      "phone": "+92 301 5638814",
+      "whatsapp": "+92 301 5638814"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "shaheen-girls-hostel-g-10",
+    "name": "Shaheen Girls Hostel G-10",
+    "city": "Islamabad",
+    "area": "House 463, Street 48, G-10/4",
+    "universities": [
+      "NUML",
+      "SZABIST",
+      "COMSATS",
+      "Bahria University",
+      "FAST"
+    ],
+    "gender": "Female",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 26000,
+    "rating": 3.3,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Room cleaning"
+    ],
+    "description": "Shaheen Group girls branch in G-10. Close to FAST via metro/Kashmir Highway. Good for FAST, CSS, and KIPS students. Mixed food reviews but competitive pricing.",
+    "images": [
+      "/uploads/hostels/hostel-1772917211748-694619.png",
+      "/uploads/hostels/hostel-1772917211782-46008.png",
+      "/uploads/hostels/hostel-1772917211796-100402.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6816715,
+    "lng": 73.0209669,
+    "distanceKm": 3.9,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 9800670",
+      "whatsapp": "+92 333 9800670"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "islamia-girls-hostel",
+    "name": "Islamia Girls Hostel",
+    "city": "Islamabad",
+    "area": "H-11/4, Islamabad (next to FAST University)",
+    "universities": [
+      "NUST",
+      "FAST",
+      "NUML",
+      "SZABIST",
+      "COMSATS",
+      "Air University",
+      "Bahria University"
+    ],
+    "gender": "Female",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 26000,
+    "rating": 3,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "AC",
+      "Meals",
+      "Study Room",
+      "Prayer Area",
+      "CCTV"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "AC",
+      "Meals",
+      "Study room",
+      "Prayer room",
+      "CCTV"
+    ],
+    "description": "Located in H-11/4, directly adjacent to FAST University campus. AC rooms and study room available. Mixed reviews — best for girls who prioritize proximity to FAST over luxury.",
+    "images": [
+      "/uploads/hostels/hostel-1772917501386-38487.png",
+      "/uploads/hostels/hostel-1772917501405-34285.png",
+      "/uploads/hostels/hostel-1772917501428-439012.png",
+      "/uploads/hostels/hostel-1772917501437-133342.png"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6535267,
+    "lng": 73.0163806,
+    "distanceKm": 3,
+    "contact": {
+      "name": "",
+      "phone": "+92 312 5332647",
+      "whatsapp": "+92 312 5332647"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "fatima-jinnah-girls-hostel-e-11",
+    "name": "Fatima Jinnah Girls Hostel E-11",
+    "city": "Islamabad",
+    "area": "House 265, E St 13-A, E-11/4",
+    "universities": [
+      "NUML"
+    ],
+    "gender": "Female",
+    "price": 20000,
+    "priceMin": 20000,
+    "priceMax": 27000,
+    "rating": 4.9,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": true,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Hygienic meals",
+      "24/7 security",
+      "Clean rooms",
+      "Cooperative staff"
+    ],
+    "description": "Top-rated girls hostel near E-11 (4.9★, 13 reviews). Accessible to NUML via Kashmir Highway. Multiple long-term residents praise its home-like atmosphere and security. Premium pick for NUML girls prioritising safety and comfort.",
+    "images": [
+      "https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=800&q=80",
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80",
+      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.635185,
+    "lng": 72.98494,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 323 7084661",
+      "whatsapp": "+92 323 7084661"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "life-style-boys-hostel",
+    "name": "Life Style Boys Hostel",
+    "city": "Islamabad",
+    "area": "Street 47, G-11/2",
+    "universities": [
+      "NUST"
+    ],
+    "gender": "Male",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 21500,
+    "rating": 4.8,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": true,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Housekeeping",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Clean environment",
+      "Security"
+    ],
+    "description": "Highest-rated boys hostel in G-11 near FAST University with 88 reviews. Praised for cleanliness and management. Close to NUST metro stop. Excellent choice for NUST boys wanting quality living.",
+    "images": [
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80",
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.669358,
+    "lng": 72.9868753,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 312 5344725",
+      "whatsapp": "+92 312 5344725"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "numl-girls-hostel-on-campus",
+    "name": "NUML Girls Hostel (On-Campus)",
+    "city": "Islamabad",
+    "area": "Street 7, H-9/4, NUML Campus",
+    "universities": [
+      "NUML"
+    ],
+    "gender": "Female",
+    "price": 6000,
+    "priceMin": 6000,
+    "priceMax": 8000,
+    "rating": 4.8,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": true,
+    "facilities": [
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Standard campus facilities",
+      "Meals",
+      "Security",
+      "24/7 access"
+    ],
+    "description": "Official NUML on-campus girls hostel in H-9/4 with top rating (4.8★). Very limited costs — apply immediately after admission. Best value and safest option for NUML female students.",
+    "images": [
+      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=800&q=80",
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80",
+      "https://images.unsplash.com/photo-1571508601891-ca5e7a713859?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.668586,
+    "lng": 73.047371,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 340 4327469",
+      "whatsapp": "+92 340 4327469"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "serenity-girls-residence",
+    "name": "Serenity Girls Residence",
+    "city": "Islamabad",
+    "area": "F-10",
+    "universities": [
+      "NUST"
+    ],
+    "gender": "Female",
+    "price": 15000,
+    "priceMin": 15000,
+    "priceMax": 20500,
+    "rating": 4.8,
+    "reviewCount": 203,
+    "available": false,
+    "verified": true,
+    "featured": true,
+    "facilities": [
+      "WiFi",
+      "AC",
+      "Meals",
+      "Gym",
+      "Study Room",
+      "CCTV",
+      "Security",
+      "Transport"
+    ],
+    "rawFacilities": [
+      "WiFi",
+      "AC",
+      "Meals",
+      "Gym",
+      "Study Room",
+      "CCTV",
+      "Warden",
+      "Transport"
+    ],
+    "description": "Premium girls residence with top-notch security and luxury amenities near NUST.",
+    "images": [
+      "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800",
+      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800"
+    ],
+    "messMenuImages": [],
+    "messMenu": {
+      "Mon": "Continental Breakfast + Daal Rice",
+      "Tue": "Sandwich + Chicken Karahi",
+      "Wed": "Fruit + Biryani",
+      "Thu": "Soup + Daal Gosht",
+      "Fri": "Omelet + Special Friday Biryani",
+      "Sat": "BBQ Night",
+      "Sun": "Brunch + Rest"
+    },
+    "lat": 33.6844,
+    "lng": 73.0479,
+    "distanceKm": 0,
+    "contact": {
+      "name": "Mrs. Samina",
+      "phone": "+923451234567",
+      "whatsapp": "+923451234567"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "al-noor-boys-hostel",
+    "name": "Al-Noor Boys Hostel",
+    "city": "Lahore",
+    "area": "Gulberg",
+    "universities": [
+      "LUMS"
+    ],
+    "gender": "Male",
+    "price": 8000,
+    "priceMin": 8000,
+    "priceMax": 11000,
+    "rating": 4.7,
+    "reviewCount": 124,
+    "available": true,
+    "verified": true,
+    "featured": true,
+    "facilities": [
+      "WiFi",
+      "AC",
+      "Meals",
+      "Laundry",
+      "Power Backup",
+      "Security"
+    ],
+    "rawFacilities": [
+      "WiFi",
+      "AC",
+      "Meals",
+      "Laundry",
+      "Generator",
+      "Security"
+    ],
+    "description": "Premium hostel near LUMS with all modern facilities. Clean, safe, and comfortable environment for students.",
+    "images": [
+      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800",
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800"
+    ],
+    "messMenuImages": [],
+    "messMenu": {
+      "Mon": "Daal Chawal + Salad",
+      "Tue": "Chicken Karahi + Roti",
+      "Wed": "Biryani + Raita",
+      "Thu": "Chana + Naan",
+      "Fri": "Pulao + Qorma",
+      "Sat": "BBQ",
+      "Sun": "Chinese"
+    },
+    "lat": 31.4697,
+    "lng": 74.4069,
+    "distanceKm": 0,
+    "contact": {
+      "name": "Muhammad Ansar",
+      "phone": "+923001234567",
+      "whatsapp": "+923001234567"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "boys-hostel-3-qau",
+    "name": "Boys Hostel 3 QAU",
+    "city": "Islamabad",
+    "area": "P4VF+H86, QAU Campus",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Male",
+    "price": 5000,
+    "priceMin": 5000,
+    "priceMax": 7000,
+    "rating": 4.7,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": true,
+    "facilities": [
+      "Meals",
+      "On-site Shop",
+      "CCTV",
+      "WiFi",
+      "Kitchen",
+      "Study Room"
+    ],
+    "rawFacilities": [
+      "Mess",
+      "Canteen",
+      "Mini-market",
+      "CCTV",
+      "Wi-Fi",
+      "Kitchen",
+      "Cold water",
+      "Study areas"
+    ],
+    "description": "Highest-rated QAU boys hostel (4.7★, 228 reviews). Dedicated to MPhil & PhD scholars. Own mess, canteen, and a mini-market kitchen, cold water, study areas. New CCTV security installed. Closest to science departments.",
+    "images": [
+      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80",
+      "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.7464197,
+    "lng": 73.1407519,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 304 3974083",
+      "whatsapp": "+92 304 3974083"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "amna-girls-hostel",
+    "name": "Amna Girls Hostel",
+    "city": "Islamabad",
+    "area": "Opp Gate #4, NUST Service Rd, H-13",
+    "universities": [
+      "NUST"
+    ],
+    "gender": "Female",
+    "price": 15000,
+    "priceMin": 15000,
+    "priceMax": 20500,
+    "rating": 4.6,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": true,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Power Backup",
+      "Laundry",
+      "Study Room",
+      "Prayer Area",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals/day",
+      "UPS",
+      "Fridge",
+      "Oven",
+      "Iron",
+      "Laundry",
+      "Study hall",
+      "Prayer hall",
+      "Sweepers"
+    ],
+    "description": "Highly rated hostel directly opposite NUST Gate #4. Offers study hall, prayer hall, TV lounge, and 24-hour security. Very convenient for NUST students, walkable to campus.",
+    "images": [],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6408709,
+    "lng": 72.9825287,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 331 5511858",
+      "whatsapp": "+92 331 5511858"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "boys-hostel-11-qau",
+    "name": "Boys Hostel 11 QAU",
+    "city": "Islamabad",
+    "area": "P4XV+354, QAU Campus",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Male",
+    "price": 5000,
+    "priceMin": 5000,
+    "priceMax": 7000,
+    "rating": 4.6,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": true,
+    "facilities": [
+      "Hot Water",
+      "Housekeeping",
+      "Meals",
+      "Study Room",
+      "Prayer Area"
+    ],
+    "rawFacilities": [
+      "Hot water",
+      "Daily cleaning",
+      "Mess",
+      "Study room",
+      "Prayer room",
+      "Margalla Hill view"
+    ],
+    "description": "Newest QAU boys hostel (4.6★, 85 reviews). Modern facilities with hot water and daily cleaning services. Terrace offers spectacular Margalla Hills views. Study room and prayer room included. Best infrastructure among QAU boys hostels.",
+    "images": [
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80",
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80",
+      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.7476469,
+    "lng": 73.1454413,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "zainab-hostel-nust-campus",
+    "name": "Zainab Hostel (NUST Campus)",
+    "city": "Islamabad",
+    "area": "H-12, NUST Campus",
+    "universities": [
+      "NUST"
+    ],
+    "gender": "Female",
+    "price": 6500,
+    "priceMin": 6500,
+    "priceMax": 9000,
+    "rating": 4.5,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": true,
+    "facilities": [
+      "Meals",
+      "WiFi",
+      "Housekeeping",
+      "Security",
+      "Study Room"
+    ],
+    "rawFacilities": [
+      "Mess",
+      "Wi-Fi",
+      "Sweeper service",
+      "Electricity",
+      "24/7 security",
+      "Study areas"
+    ],
+    "description": "Official on-campus NUST girls hostel in H-12. Highly rated with 603 reviews. Offers single rooms with attached bathrooms. Strict 11pm curfew. Best value for NUST students who get allotment.",
+    "images": [],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6457013,
+    "lng": 72.9938745,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 51 90851811",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "grand-boys-hostel",
+    "name": "Grand Boys Hostel",
+    "city": "Islamabad",
+    "area": "G-13/4, Islamabad (near NUST, IIUI, FAST)",
+    "universities": [
+      "NUST"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 24500,
+    "rating": 0,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": true,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "CCTV",
+      "Laundry",
+      "Security",
+      "Parking",
+      "Power Backup"
+    ],
+    "rawFacilities": [
+      "Wi-Fi 50 Mbps",
+      "3 meals",
+      "RO water",
+      "CCTV 24/7",
+      "Laundry",
+      "Security guard",
+      "Parking",
+      "Electricity backup"
+    ],
+    "description": "Luxury student hostel in G-13 with 50 Mbps internet, RO drinking water, and unlimited laundry. Easy access to NUST, IIUI, FAST, and Bahria. Good for boys wanting premium facilities.",
+    "images": [
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80",
+      "https://images.unsplash.com/photo-1586105251261-72a756497a11?w=800&q=80",
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6457307,
+    "lng": 72.9687406,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "home-like-girls-hostel",
+    "name": "Home Like Girls Hostel",
+    "city": "Islamabad",
+    "area": "Paris Tower Rd, Opposite Gate 4 NUST, H-13",
+    "universities": [
+      "NUST"
+    ],
+    "gender": "Female",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 19000,
+    "rating": 5,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Homely environment",
+      "Security"
+    ],
+    "description": "Small, boutique girls hostel opposite NUST Gate 4. Maintains a warm, home-like environment. Very limited reviews but 5-star rated. Ideal for girls seeking a quiet, family-style residence.",
+    "images": [],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6384119,
+    "lng": 72.9778184,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 335 0515215",
+      "whatsapp": "+92 335 0515215"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "home-like-girls-hostel-fast-area",
+    "name": "Home Like Girls Hostel (FAST area)",
+    "city": "Islamabad",
+    "area": "Paris Tower Rd, H-13",
+    "universities": [
+      "FAST"
+    ],
+    "gender": "Female",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 19000,
+    "rating": 5,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Homely environment",
+      "Security"
+    ],
+    "description": "Small boutique girls hostel with top ratings. Located in H-13, accessible to FAST H-11 via Srinagar Highway/metro. Recommended for girls seeking safe, home-like environment.",
+    "images": [
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80",
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6384119,
+    "lng": 72.9778184,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 335 0515215",
+      "whatsapp": "+92 335 0515215"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "fatima-girls-hostel",
+    "name": "Fatima Girls Hostel",
+    "city": "Lahore",
+    "area": "DHA",
+    "universities": [
+      "UET"
+    ],
+    "gender": "Female",
+    "price": 12000,
+    "priceMin": 12000,
+    "priceMax": 16000,
+    "rating": 4.9,
+    "reviewCount": 87,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "AC",
+      "Meals",
+      "Laundry",
+      "CCTV",
+      "Security"
+    ],
+    "rawFacilities": [
+      "WiFi",
+      "AC",
+      "Meals",
+      "Laundry",
+      "CCTV",
+      "Warden"
+    ],
+    "description": "Safe and modern girls hostel with strict security and homely environment.",
+    "images": [
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800",
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800"
+    ],
+    "messMenuImages": [],
+    "messMenu": {
+      "Mon": "Chicken Curry + Rice",
+      "Tue": "Daal Mash + Roti",
+      "Wed": "Palak Gosht + Naan",
+      "Thu": "Aloo Keema + Chapati",
+      "Fri": "Special Biryani",
+      "Sat": "Sandwiches + Soup",
+      "Sun": "Pasta + Salad"
+    },
+    "lat": 31.4834,
+    "lng": 74.3987,
+    "distanceKm": 0,
+    "contact": {
+      "name": "Mrs. Khadija",
+      "phone": "+923009876543",
+      "whatsapp": "+923009876543"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "best-choice-girls-hostel-saddar",
+    "name": "Best Choice Girls Hostel Saddar",
+    "city": "Rawalpindi",
+    "area": "Lane 5, near Bangash Clinic, Sir Syed Rd, Saddar, Rawalpindi",
+    "universities": [
+      "FJWU",
+      "RMU",
+      "Arid Agriculture"
+    ],
+    "gender": "Female",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 20000,
+    "rating": 4.6,
+    "reviewCount": 34,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Security"
+    ],
+    "description": "Economical budget girls hostel (4.6★, 34 reviews) in Saddar near RMU. Praised for affordable rates and hygienic meals.",
+    "images": [
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80",
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=80",
+      "https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.590467,
+    "lng": 73.06379,
+    "distanceKm": 2.8,
+    "contact": {
+      "name": "",
+      "phone": "+92 300 5384550",
+      "whatsapp": "+92 300 5384550"
+    },
+    "source": "db"
+  },
+  {
+    "slug": "boys-hostel-8-qau",
+    "name": "Boys Hostel 8 QAU",
+    "city": "Islamabad",
+    "area": "P4XV+8MF, Hostel Rd, QAU Campus",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Male",
+    "price": 5000,
+    "priceMin": 5000,
+    "priceMax": 7000,
+    "rating": 4.6,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Filtered Water",
+      "Prayer Area",
+      "Attached Bath"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Water cooler per floor",
+      "Prayer room per floor",
+      "Washrooms",
+      "Café",
+      "Cooperative staff"
+    ],
+    "description": "Well-organised campus hostel (4.6★, 378 reviews). Each floor has own washrooms, water cooler, and prayer room. Good building and room arrangement. Management is cooperative. Focus on cleanliness can improve but overall solid.",
+    "images": [
+      "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=800&q=80",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.7483223,
+    "lng": 73.1466815,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "boys-hostel-9-qau",
+    "name": "Boys Hostel 9 QAU",
+    "city": "Islamabad",
+    "area": "Hostel Rd, QAU Campus",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Male",
+    "price": 5000,
+    "priceMin": 5000,
+    "priceMax": 7000,
+    "rating": 4.6,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Study Room"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Electricity",
+      "Mess hall",
+      "Study room",
+      "110 rooms (~400 students)"
+    ],
+    "description": "Large campus hostel (4.6★, 416 reviews) on Hostel Road near H8 & H11. One of the best-maintained QAU hostels. Low mess charges with good food. Strong student council presence — check with seniors before joining.",
+    "images": [
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80",
+      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=800&q=80",
+      "https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.7473787,
+    "lng": 73.1466186,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 514488553",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "hostel-7-qau",
+    "name": "Hostel 7 QAU",
+    "city": "Islamabad",
+    "area": "P4VX+MCV, University Rd, QAU Campus",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Male",
+    "price": 5000,
+    "priceMin": 5000,
+    "priceMax": 7000,
+    "rating": 4.6,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "Meals",
+      "Prayer Area",
+      "Study Room"
+    ],
+    "rawFacilities": [
+      "Mess",
+      "Large green belt",
+      "Spacious rooms",
+      "Prayer room",
+      "Study room"
+    ],
+    "description": "Very popular QAU boys hostel (4.6★, 463 reviews). Features a huge internal green belt and large rooms. Great for students wanting nature views and a lively campus atmosphere. Rooms are 4-seaters.",
+    "images": [
+      "https://images.unsplash.com/photo-1571508601891-ca5e7a713859?w=800&q=80",
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80",
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.7467463,
+    "lng": 73.1485666,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "boys-hostel-4-qau",
+    "name": "Boys Hostel 4 QAU",
+    "city": "Islamabad",
+    "area": "P4VF+33V, QAU Campus",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Male",
+    "price": 5000,
+    "priceMin": 5000,
+    "priceMax": 7000,
+    "rating": 4.5,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "Meals",
+      "On-site Shop",
+      "Outdoor Area",
+      "WiFi",
+      "Study Room"
+    ],
+    "rawFacilities": [
+      "Mess",
+      "Night canteen (6AM–2AM)",
+      "Peaceful lawn",
+      "Wi-Fi",
+      "Study areas"
+    ],
+    "description": "Premium QAU hostel (4.5★, 240 reviews) exclusively for MPhil & PhD scholars. Night canteen open till 2AM — famous for late-night intellectual discussions. Best suited for research students needing late-hours facilities.",
+    "images": [
+      "https://images.unsplash.com/photo-1631048500863-f3b8e8d3e44b?w=800&q=80",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80",
+      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.745382,
+    "lng": 73.1401957,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "boys-hostel-6-qau",
+    "name": "Boys Hostel 6 QAU",
+    "city": "Islamabad",
+    "area": "P4VX+75, QAU Campus",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Male",
+    "price": 5000,
+    "priceMin": 5000,
+    "priceMax": 7000,
+    "rating": 4.5,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "Meals",
+      "Outdoor Area",
+      "Study Room"
+    ],
+    "rawFacilities": [
+      "Mess",
+      "Lawn",
+      "Study room",
+      "Warm water (winters)",
+      "Cold water (summers)",
+      "Cooperative management"
+    ],
+    "description": "Campus hostel (4.5★, 463 reviews) with scenic lawns. Neat and clean, recommended for BS students. Cooperative management. Known for excellent quality of campus life and long-term student memories.",
+    "images": [
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&q=80",
+      "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80",
+      "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.7456875,
+    "lng": 73.1479375,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "hostel-12-boys-qau",
+    "name": "Hostel 12 Boys QAU",
+    "city": "Islamabad",
+    "area": "P4VV+47J, University Rd, QAU Campus",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Male",
+    "price": 5000,
+    "priceMin": 5000,
+    "priceMax": 7000,
+    "rating": 4.5,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [],
+    "rawFacilities": [
+      "Secure campus hostel",
+      "Standard university facilities"
+    ],
+    "description": "QAU campus boys hostel on University Road (4.5★, 14 reviews). Safe and comfortable. Standard facilities in green campus environment. Good for BS students allocated by balloting system.",
+    "images": [
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80",
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.7453449,
+    "lng": 73.1456363,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "star-boys-hostel-karachi",
+    "name": "Star Boys Hostel Karachi",
+    "city": "Karachi",
+    "area": "PECHS",
+    "universities": [
+      "IBA"
+    ],
+    "gender": "Male",
+    "price": 10000,
+    "priceMin": 10000,
+    "priceMax": 13500,
+    "rating": 4.5,
+    "reviewCount": 91,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "AC",
+      "Meals",
+      "Laundry",
+      "Gym",
+      "Power Backup"
+    ],
+    "rawFacilities": [
+      "WiFi",
+      "AC",
+      "Meals",
+      "Laundry",
+      "Gym",
+      "Generator"
+    ],
+    "description": "Modern hostel near IBA with excellent facilities for male students.",
+    "images": [
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800"
+    ],
+    "messMenuImages": [],
+    "messMenu": {
+      "Mon": "Daal Chawal",
+      "Tue": "Chicken Handi + Roti",
+      "Wed": "Biryani",
+      "Thu": "Keema + Naan",
+      "Fri": "Pulao",
+      "Sat": "BBQ",
+      "Sun": "Continental"
+    },
+    "lat": 24.8607,
+    "lng": 67.0011,
+    "distanceKm": 0,
+    "contact": {
+      "name": "Tariq Mahmood",
+      "phone": "+923121234567",
+      "whatsapp": "+923121234567"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "girls-hostel-5-qau",
+    "name": "Girls Hostel 5 QAU",
+    "city": "Islamabad",
+    "area": "11 Hostel Rd, Quaid-i-Azam University",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Female",
+    "price": 5000,
+    "priceMin": 5000,
+    "priceMax": 7000,
+    "rating": 4.3,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "Meals",
+      "Study Room",
+      "Kitchen",
+      "On-site Shop",
+      "Gym"
+    ],
+    "rawFacilities": [
+      "Mess hall",
+      "Study room",
+      "Kitchen",
+      "Fruit shop",
+      "Stationery",
+      "Photocopier",
+      "Gym",
+      "Annexe for PhD"
+    ],
+    "description": "Most popular QAU girls hostel with 192 reviews. Allocated primarily to MPhil & research students. Has a separate PhD Annexe. Full facilities including stationery shop. Allotment is competitive — apply early.",
+    "images": [
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80",
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=80",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.74867,
+    "lng": 73.140468,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 346 3737673",
+      "whatsapp": "+92 346 3737673"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "shaheen-boys-hostel-i-8-3",
+    "name": "Shaheen Boys Hostel I-8/3",
+    "city": "Islamabad",
+    "area": "House 457-P, Street 58, I-8/3",
+    "universities": [
+      "NUML"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 24500,
+    "rating": 4.3,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Laundry",
+      "CCTV",
+      "Security guard",
+      "Clean rooms"
+    ],
+    "description": "Shaheen Group's I-8/3 branch explicitly listed as NUML-area hostel (4.3★, 38 reviews). Clean, secure, and disciplined. Highly praised by NUML, SZABIST, and Shifa University students. Consistent quality across the Shaheen chain.",
+    "images": [
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80",
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=80",
+      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.669444,
+    "lng": 73.070083,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 3800670",
+      "whatsapp": "+92 333 3800670"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "hostel-13-girls-qau",
+    "name": "Hostel 13 Girls QAU",
+    "city": "Islamabad",
+    "area": "Near IIT, QAU Campus",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Female",
+    "price": 5000,
+    "priceMin": 5000,
+    "priceMax": 7000,
+    "rating": 4.2,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "Meals",
+      "Study Room"
+    ],
+    "rawFacilities": [
+      "Meal service",
+      "Study areas",
+      "Standard campus facilities"
+    ],
+    "description": "Girls hostel on QAU campus near the Institute of Information Technology. Quiet campus location with standard university amenities. Good for students in science and tech disciplines.",
+    "images": [
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+      "https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?w=800&q=80",
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.74821,
+    "lng": 73.13966,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "ogdcl-girls-hostel-qau",
+    "name": "OGDCL Girls Hostel QAU",
+    "city": "Islamabad",
+    "area": "P4XR+M74, University Rd, QAU Campus",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Female",
+    "price": 6000,
+    "priceMin": 6000,
+    "priceMax": 8000,
+    "rating": 4.2,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "Meals",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Mess",
+      "Dormitories",
+      "Cubicle rooms",
+      "Clean washrooms",
+      "Airy rooms",
+      "Cooperative staff"
+    ],
+    "description": "Newly donated building by OGDCL — best infrastructure among QAU girls hostels. Well-designed with spacious 3-seater rooms, large windows, clean washrooms. Allocated primarily to BS students; some MPhil rooms. Active warden.",
+    "images": [
+      "https://images.unsplash.com/photo-1571508601891-ca5e7a713859?w=800&q=80",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80",
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.749127,
+    "lng": 73.140714,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 317 7840524",
+      "whatsapp": "+92 317 7840524"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "zavigan-boys-hostel",
+    "name": "Zavigan Boys Hostel",
+    "city": "Islamabad",
+    "area": "Opp NUST Gate No. 6, H-13",
+    "universities": [
+      "NUST"
+    ],
+    "gender": "Male",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 21500,
+    "rating": 4.2,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "CCTV",
+      "Parking",
+      "Laundry",
+      "Power Backup"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals (unlimited)",
+      "CCTV",
+      "Parking",
+      "Laundry",
+      "Electricity backup"
+    ],
+    "description": "Popular boys hostel opposite NUST Gate #6 in H-13. Known for unlimited food quantity, well-ventilated rooms, and approachable management. Good transport access and proximity to local eateries.",
+    "images": [
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80",
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=80",
+      "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6375871,
+    "lng": 72.984074,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 305 7874400",
+      "whatsapp": "+92 305 7874400"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "al-huda-girls-hostel-f-8",
+    "name": "Al Huda Girls Hostel F-8",
+    "city": "Islamabad",
+    "area": "F-8",
+    "universities": [
+      "FAST"
+    ],
+    "gender": "Female",
+    "price": 22000,
+    "priceMin": 22000,
+    "priceMax": 29500,
+    "rating": 4.1,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Attached Bath",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Hygienic meals",
+      "Spacious rooms",
+      "Attached bathrooms",
+      "24/7 security"
+    ],
+    "description": "Established girls hostel in F-8 with 14 years of operations. Near F-10, Blue Area, and Metro stop. Covers students from FAST, NUST, Bahria, and QAU. Known for quality and security.",
+    "images": [
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&q=80",
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80",
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.7162659,
+    "lng": 73.0414673,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "girls-hostel-1-qau",
+    "name": "Girls Hostel 1 QAU",
+    "city": "Islamabad",
+    "area": "P4WR+R8C, Quaid-i-Azam University",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Female",
+    "price": 5000,
+    "priceMin": 5000,
+    "priceMax": 7000,
+    "rating": 4.1,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "Meals",
+      "Kitchen",
+      "On-site Shop",
+      "Hot Water",
+      "Outdoor Area",
+      "Study Room"
+    ],
+    "rawFacilities": [
+      "Mess hall",
+      "Kitchen",
+      "Canteen",
+      "Photocopier",
+      "Geyser",
+      "Spacious lawns",
+      "Study areas"
+    ],
+    "description": "Oldest girls hostel on QAU campus, preferred by MPhil & PhD scholars. Peaceful courtyard with fruit trees. Separate Annexe wings for PhD students. Very affordable government-subsidised rates.",
+    "images": [
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80",
+      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=800&q=80",
+      "https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.74707,
+    "lng": 73.140778,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 344 5213331",
+      "whatsapp": "+92 344 5213331"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "khan-boys-hostel-i-9-markaz",
+    "name": "Khan Boys Hostel I-9 Markaz",
+    "city": "Islamabad",
+    "area": "Potohar Rd, I-9 Markaz",
+    "universities": [
+      "QAU"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 24500,
+    "rating": 4.1,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Varied meals",
+      "Single/double/triple rooms",
+      "Near Potohar Metro",
+      "Cooperative owners"
+    ],
+    "description": "Well-located private hostel in I-9 Markaz (4.1★, 280 reviews). Close to Potohar Metro for QAU access. Cooperative owners and good food variety. Popular with students and interns. Easy access to markets and transport.",
+    "images": [
+      "https://images.unsplash.com/photo-1588873281272-14886ba1f737?w=800&q=80",
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80",
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6584292,
+    "lng": 73.0590978,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 300 5582402",
+      "whatsapp": "+92 300 5582402"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "numl-boys-hostel-on-campus-h-9",
+    "name": "NUML Boys Hostel (On-Campus H-9)",
+    "city": "Islamabad",
+    "area": "H-9/4, NUML Campus",
+    "universities": [
+      "NUML"
+    ],
+    "gender": "Male",
+    "price": 6000,
+    "priceMin": 6000,
+    "priceMax": 8000,
+    "rating": 0,
+    "reviewCount": 0,
+    "available": true,
+    "verified": true,
+    "featured": false,
+    "facilities": [
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Campus facilities",
+      "Meals",
+      "Security",
+      "Basic student amenities"
+    ],
+    "description": "Official NUML on-campus boys hostel in H-9. Very limited seats allocated by merit/lottery. First priority for outstation students. Apply at start of semester for best chance of allotment.",
+    "images": [
+      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80",
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.667771,
+    "lng": 73.051521,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "fatima-s-girls-hostel-vestridge",
+    "name": "Fatima's Girls Hostel Vestridge",
+    "city": "Rawalpindi",
+    "area": "Lane 5, Major Salman Shaheed Rd, Vestridge 1, Rawalpindi",
+    "universities": [
+      "Arid Agriculture",
+      "FJWU",
+      "RMU"
+    ],
+    "gender": "Female",
+    "price": 18500,
+    "priceMin": 15000,
+    "priceMax": 22000,
+    "rating": 5,
+    "reviewCount": 42,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Cooperative owner",
+      "Safe",
+      "Home-like",
+      "Security"
+    ],
+    "description": "Perfect-rated girls hostel (5.0★, 42 reviews) closest to FJWU in Vestridge. Praised by parents and residents for safety, food, and management. Top recommendation for FJWU girls.",
+    "images": [
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80",
+      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.605042,
+    "lng": 73.017596,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 312 5303149",
+      "whatsapp": "+92 312 5303149"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "esha-girls-hostel-i-10",
+    "name": "Esha Girls Hostel I-10",
+    "city": "Islamabad",
+    "area": "356 Gali 2, I-10/2",
+    "universities": [
+      "Riphah"
+    ],
+    "gender": "Female",
+    "price": 0,
+    "priceMin": 15000,
+    "priceMax": 22000,
+    "rating": 4.9,
+    "reviewCount": 10,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "24/7 services",
+      "Diverse menu",
+      "Personalized care",
+      "Security"
+    ],
+    "description": "Near-perfect rated hostel (4.9★, 10 reviews) in I-10/2. 20-min commute to Riphah. Praised for 24/7 services and homely care.",
+    "images": [
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80",
+      "https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?w=800&q=80",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.652652,
+    "lng": 73.029812,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 311 1928992",
+      "whatsapp": "+92 311 1928992"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "dua-girls-hostel-rawalpindi",
+    "name": "Dua Girls Hostel Rawalpindi",
+    "city": "Rawalpindi",
+    "area": "H-96-A Lane 3, near CMH Rd, Harley Street, Rawalpindi",
+    "universities": [
+      "Arid Agriculture",
+      "FJWU"
+    ],
+    "gender": "Female",
+    "price": 0,
+    "priceMin": 16000,
+    "priceMax": 24000,
+    "rating": 4.8,
+    "reviewCount": 64,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Luxurious but affordable",
+      "Cooperative warden",
+      "Security"
+    ],
+    "description": "Highly rated Rawalpindi girls hostel (4.8★, 64 reviews). Praised for exceptional warden Sofia and home-cooked meals. Good security. Accessible to Arid University and FJWU.",
+    "images": [
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80",
+      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.577918,
+    "lng": 73.04578,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 302 7903937",
+      "whatsapp": "+92 302 7903937"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "life-style-girls-hostel-g-11",
+    "name": "Life Style Girls Hostel G-11",
+    "city": "Islamabad",
+    "area": "G-11/2 Islamabad",
+    "universities": [
+      "Riphah",
+      "SZABIST"
+    ],
+    "gender": "Female",
+    "price": 0,
+    "priceMin": 16000,
+    "priceMax": 24000,
+    "rating": 4.8,
+    "reviewCount": 88,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Security",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Security",
+      "Clean",
+      "Top-rated"
+    ],
+    "description": "Best-rated private hostel (4.8★) near Riphah accessible via Srinagar Highway. G-11 location is close to I-14 corridor.",
+    "images": [
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80",
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=80",
+      "https://images.unsplash.com/photo-1571508601891-ca5e7a713859?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.669358,
+    "lng": 72.986875,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 312 5344725",
+      "whatsapp": "+92 312 5344725"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "ibrahim-hostel-i-11",
+    "name": "Ibrahim Hostel I-11",
+    "city": "Islamabad",
+    "area": "Ibrahim Hostel, I-11/2",
+    "universities": [
+      "Riphah",
+      "SZABIST",
+      "Arid Agriculture",
+      "FJWU"
+    ],
+    "gender": "Male",
+    "price": 0,
+    "priceMin": 18000,
+    "priceMax": 28000,
+    "rating": 4.7,
+    "reviewCount": 310,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Housekeeping"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Clean rooms",
+      "Top-rated",
+      "Cooperative staff"
+    ],
+    "description": "Top-rated Islamabad boys hostel (4.7★, 310 reviews). 20-min commute to Riphah + SZABIST, 30-min to Arid/FJWU. Best quality private hostel in the city.",
+    "images": [
+      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=800&q=80",
+      "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80",
+      "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.64158,
+    "lng": 73.016423,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 331 6885966",
+      "whatsapp": "+92 331 6885966"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "ibrahim-hostel-i-11-islamabad",
+    "name": "Ibrahim Hostel I-11 Islamabad",
+    "city": "Islamabad",
+    "area": "",
+    "universities": [
+      "RMU",
+      "NUST",
+      "FAST"
+    ],
+    "gender": "Male",
+    "price": 23000,
+    "priceMin": 18000,
+    "priceMax": 28000,
+    "rating": 4.7,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "CCTV"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Security",
+      "CCTV"
+    ],
+    "description": "Top-rated Islamabad boys hostel (4.7★, 319 reviews). 30-min commute to RMU. Best quality hostel for RMU students willing to commute.",
+    "images": [],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.64158,
+    "lng": 73.016423,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "vagfarer-girls-hostel",
+    "name": "Vagfarer Girls Hostel",
+    "city": "Rawalpindi",
+    "area": "House 203, Street 12, Chaklala Scheme 3, Rawalpindi",
+    "universities": [
+      "Arid Agriculture",
+      "FJWU",
+      "RMU"
+    ],
+    "gender": "Female",
+    "price": 20000,
+    "priceMin": 16000,
+    "priceMax": 24000,
+    "rating": 4.6,
+    "reviewCount": 34,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Laundry",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Laundry",
+      "Meals",
+      "Near commercial areas",
+      "Well-maintained"
+    ],
+    "description": "Reliable Rawalpindi girls hostel (4.6★, 34 reviews). Residents stay for 1+ years praising management and security. 20-min commute to FJWU.",
+    "images": [
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80",
+      "https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?w=800&q=80",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.585199,
+    "lng": 73.090669,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 5547478",
+      "whatsapp": "+92 333 5547478"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "boys-hostelz-i-8-3-shaheen-numl",
+    "name": "Boys Hostelz I-8/3 (Shaheen NUML)",
+    "city": "Islamabad",
+    "area": "House 457-P, Street 58, I-8/3",
+    "universities": [
+      "NUML"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 24500,
+    "rating": 4.3,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "CCTV"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Security",
+      "CCTV",
+      "Professional staff"
+    ],
+    "description": "Same Shaheen Group building — multi-branch entry for NUML students specifically. Second-floor rooms available. Praised for discipline, cleanliness, and proximity to NUML. 15-min walk or short rickshaw ride to NUML campus.",
+    "images": [
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80",
+      "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80",
+      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.669444,
+    "lng": 73.070083,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 3800670",
+      "whatsapp": "+92 333 3800670"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "horain-boys-hostel-vestridge",
+    "name": "HORAIN Boys Hostel Vestridge",
+    "city": "Rawalpindi",
+    "area": "Vestridge, Rawalpindi",
+    "universities": [
+      "Arid Agriculture",
+      "FJWU",
+      "RMU"
+    ],
+    "gender": "Male",
+    "price": 17000,
+    "priceMin": 14000,
+    "priceMax": 20000,
+    "rating": 4.3,
+    "reviewCount": 27,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Prayer Area",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Mosque inside",
+      "Prayer rooms",
+      "Peaceful",
+      "Excellent mess"
+    ],
+    "description": "Surprisingly high-rated Rawalpindi boys hostel (4.3★, 27 reviews). Mosque inside hostel. Praised for peaceful environment and excellent mess. Near Arid University and FJWU via Peshawar Road.",
+    "images": [
+      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=800&q=80",
+      "https://images.unsplash.com/photo-1559599238-7e10e6d83d76?w=800&q=80",
+      "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.603673,
+    "lng": 73.02635,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 336 6057620",
+      "whatsapp": "+92 336 6057620"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "riphah-boys-hostel-official",
+    "name": "Riphah Boys Hostel Official",
+    "city": "Islamabad",
+    "area": "Street 58, I-14",
+    "universities": [
+      "Riphah"
+    ],
+    "gender": "Male",
+    "price": 0,
+    "priceMin": 13000,
+    "priceMax": 18000,
+    "rating": 4.3,
+    "reviewCount": 6,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Walking distance to Riphah",
+      "Security"
+    ],
+    "description": "Adjacent to Riphah University (4.3★, 6 reviews). Closest possible option. Best for students who want zero commute.",
+    "images": [
+      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80",
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.610994,
+    "lng": 72.971602,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 313 5286091",
+      "whatsapp": "+92 313 5286091"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "riphah-girls-hostel-official",
+    "name": "Riphah Girls Hostel Official",
+    "city": "Islamabad",
+    "area": "Street 58, I-14",
+    "universities": [
+      "Riphah"
+    ],
+    "gender": "Female",
+    "price": 0,
+    "priceMin": 14000,
+    "priceMax": 20000,
+    "rating": 4.3,
+    "reviewCount": 6,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Walking distance to Riphah",
+      "Security"
+    ],
+    "description": "Official Riphah-adjacent hostel (4.3★, 6 reviews) — best location. Some buildings have girls and boys floors separately. Confirm female-only availability before booking.",
+    "images": [
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80",
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=80",
+      "https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.610994,
+    "lng": 72.971602,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 313 5286091",
+      "whatsapp": "+92 313 5286091"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "rmc-girls-hostel-3-affiliated",
+    "name": "RMC Girls Hostel 3 (Affiliated)",
+    "city": "Rawalpindi",
+    "area": "",
+    "universities": [
+      "RMU"
+    ],
+    "gender": "Female",
+    "price": 10000,
+    "priceMin": 8000,
+    "priceMax": 12000,
+    "rating": 4.3,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "Meals",
+      "Security",
+      "CCTV"
+    ],
+    "rawFacilities": [
+      "Meals",
+      "Security",
+      "Gated Colony",
+      "CCTV"
+    ],
+    "description": "University-affiliated girls hostel (4.3★, 325 reviews). Located inside RMC Doctors Colony next to RMU. Well-secured gated area. Most convenient and affordable option for RMU female students.",
+    "images": [],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.617606,
+    "lng": 73.08003,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "shaheen-boys-i-8-3-szabist",
+    "name": "Shaheen Boys I-8/3 (SZABIST)",
+    "city": "Islamabad",
+    "area": "House 457-P, Street 58, I-8/3",
+    "universities": [
+      "SZABIST"
+    ],
+    "gender": "Male",
+    "price": 0,
+    "priceMin": 18000,
+    "priceMax": 26000,
+    "rating": 4.3,
+    "reviewCount": 38,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "CCTV",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "CCTV",
+      "Meals",
+      "Security guard",
+      "SZABIST-listed"
+    ],
+    "description": "Shaheen Group hostel explicitly listed for SZABIST students (4.3★, 38 reviews). 5-min walk from SZABIST H-8. Professional chain management. Top recommendation.",
+    "images": [
+      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=800&q=80",
+      "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80",
+      "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.663444,
+    "lng": 73.070089,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 9800670",
+      "whatsapp": "+92 333 9800670"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "bilal-student-lodge",
+    "name": "Bilal Student Lodge",
+    "city": "Karachi",
+    "area": "Gulshan",
+    "universities": [
+      "NED"
+    ],
+    "gender": "Male",
+    "price": 6500,
+    "priceMin": 6500,
+    "priceMax": 9000,
+    "rating": 4.2,
+    "reviewCount": 56,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "Power Backup"
+    ],
+    "rawFacilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "Generator"
+    ],
+    "description": "Budget-friendly hostel for students with basic amenities.",
+    "images": [
+      "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800"
+    ],
+    "messMenuImages": [],
+    "messMenu": {
+      "Mon": "Daal + Rice",
+      "Tue": "Curry + Roti",
+      "Wed": "Biryani",
+      "Thu": "Lentil Soup + Bread",
+      "Fri": "Special Dish",
+      "Sat": "Anda Paratha",
+      "Sun": "Rest"
+    },
+    "lat": 24.9008,
+    "lng": 67.0945,
+    "distanceKm": 0,
+    "contact": {
+      "name": "Bilal Ahmed",
+      "phone": "+923331234567",
+      "whatsapp": "+923331234567"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "girls-hostel-i-8-2-sec-road",
+    "name": "Girls Hostel I-8/2 (Sec Road)",
+    "city": "Islamabad",
+    "area": "8/2 Service Road West, H-9",
+    "universities": [
+      "NUML"
+    ],
+    "gender": "Female",
+    "price": 16000,
+    "priceMin": 16000,
+    "priceMax": 21500,
+    "rating": 4.2,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Market nearby",
+      "Basic security",
+      "Peaceful environment"
+    ],
+    "description": "Budget private girls hostel in H-9, practically walking distance to NUML campus. Clean, peaceful environment with nearby market. Best budget option for NUML girls.",
+    "images": [
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80",
+      "https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?w=800&q=80",
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.670382,
+    "lng": 73.034645,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 313 0397209",
+      "whatsapp": "+92 313 0397209"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "rmu-hostel-2-asghar-mall-affiliated",
+    "name": "RMU Hostel 2 Asghar Mall (Affiliated)",
+    "city": "Rawalpindi",
+    "area": "",
+    "universities": [
+      "RMU"
+    ],
+    "gender": "Male",
+    "price": 10000,
+    "priceMin": 8000,
+    "priceMax": 12000,
+    "rating": 4.2,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "Prayer Area",
+      "Meals"
+    ],
+    "rawFacilities": [
+      "Mosque",
+      "Mess",
+      "Spacious Rooms"
+    ],
+    "description": "University-affiliated boys hostel (4.2★, 197 reviews). Subsidised rates for RMU students. Masjid inside. Near Asghar Mall. Most affordable option for RMU boys.",
+    "images": [],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.632612,
+    "lng": 73.066756,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "millennium-girls-hostel-chamanzar",
+    "name": "Millennium Girls Hostel Chamanzar",
+    "city": "Rawalpindi",
+    "area": "",
+    "universities": [
+      "RMU"
+    ],
+    "gender": "Female",
+    "price": 20000,
+    "priceMin": 16000,
+    "priceMax": 24000,
+    "rating": 4,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Security",
+      "24/7 Staff"
+    ],
+    "description": "Located near RMU Hostel 1 and Chamanzar Colony (4.0★, 149 reviews). Close to RMU. 24/7 services and secure environment for medical students.",
+    "images": [],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.601713,
+    "lng": 73.070721,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "green-valley-hostel",
+    "name": "Green Valley Hostel",
+    "city": "Lahore",
+    "area": "Township",
+    "universities": [
+      "Punjab University"
+    ],
+    "gender": "Mixed",
+    "price": 5500,
+    "priceMin": 5500,
+    "priceMax": 7500,
+    "rating": 3.9,
+    "reviewCount": 34,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Power Backup",
+      "Security"
+    ],
+    "rawFacilities": [
+      "WiFi",
+      "Generator",
+      "Security"
+    ],
+    "description": "Affordable hostel for students from Punjab University.",
+    "images": [
+      "https://images.unsplash.com/photo-1486304873000-235643847519?w=800"
+    ],
+    "messMenuImages": [],
+    "messMenu": {
+      "Mon": "Daal",
+      "Tue": "Sabzi",
+      "Wed": "Biryani",
+      "Thu": "Curry",
+      "Fri": "Special",
+      "Sat": "Halwa Puri",
+      "Sun": "Off"
+    },
+    "lat": 31.5204,
+    "lng": 74.3587,
+    "distanceKm": 0,
+    "contact": {
+      "name": "Hassan Khan",
+      "phone": "+923211234567",
+      "whatsapp": "+923211234567"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "ayfa-girls-hostel-g-13",
+    "name": "AYFA Girls Hostel (G-13)",
+    "city": "Islamabad",
+    "area": "Street 136, G-13/4",
+    "universities": [
+      "FAST"
+    ],
+    "gender": "Female",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 24500,
+    "rating": 3.8,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Gym",
+      "Furnished",
+      "AC",
+      "Attached Bath"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Gym",
+      "Table tennis",
+      "AC",
+      "Attached bathrooms"
+    ],
+    "description": "Luxury girls hostel in G-13 targeting FAST, NUST, IIUI, and Riphah students. Offers gym and table tennis. Security reviews are mixed — parents advised to verify before admission.",
+    "images": [
+      "https://images.unsplash.com/photo-1586105251261-72a756497a11?w=800&q=80",
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80",
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6457307,
+    "lng": 72.9687406,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 346 5401220",
+      "whatsapp": "+92 346 5401220"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "capital-group-of-hostels-boys",
+    "name": "Capital Group of Hostels (Boys)",
+    "city": "Islamabad",
+    "area": "JxRJ+R8C, Zubair Shah Rd, H-13",
+    "universities": [
+      "NUST"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 24500,
+    "rating": 3.7,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security",
+      "Laundry",
+      "CCTV",
+      "Parking"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Security",
+      "Spacious rooms",
+      "Laundry",
+      "CCTV",
+      "Parking"
+    ],
+    "description": "Large hostel complex in H-13 near NUST Gate #4. Separate boys and girls blocks. Cooperative management, hygienic food, and tight security make it a popular choice for NUST boys.",
+    "images": [
+      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=800&q=80",
+      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6422152,
+    "lng": 72.9808002,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 334 5416141",
+      "whatsapp": "+92 334 5416141"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "shaheen-boys-i-9-4",
+    "name": "Shaheen Boys I-9/4",
+    "city": "Islamabad",
+    "area": "Main Varsak Rd, I-9/4",
+    "universities": [
+      "Riphah",
+      "SZABIST"
+    ],
+    "gender": "Male",
+    "price": 0,
+    "priceMin": 18000,
+    "priceMax": 26000,
+    "rating": 3.7,
+    "reviewCount": 103,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Security",
+      "Potohar Metro nearby"
+    ],
+    "description": "Shaheen chain branch (3.7★, 103 reviews). Near Potohar Metro, commutable to Riphah and SZABIST. Standard Shaheen chain facilities.",
+    "images": [
+      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=800&q=80",
+      "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80",
+      "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.658819,
+    "lng": 73.061237,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 9800670",
+      "whatsapp": "+92 333 9800670"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "islamabad-boys-hostel-g-9-4",
+    "name": "Islamabad Boys Hostel G-9/4",
+    "city": "Islamabad",
+    "area": "Street 55, G-9/4",
+    "universities": [
+      "NUML"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 24500,
+    "rating": 3.6,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Housekeeping",
+      "Transport"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Basic meals",
+      "Clean environment",
+      "Near public transport"
+    ],
+    "description": "Standard private boys hostel in G-9/4 (3.6★, 145 reviews). Budget option with good public transport access to NUML. Simple facilities; good for students who spend most time on campus. Near Faizabad interchange.",
+    "images": [
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80",
+      "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.683173,
+    "lng": 73.040043,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 311 7540920",
+      "whatsapp": "+92 311 7540920"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "golden-era-girls-hostel",
+    "name": "Golden Era Girls Hostel",
+    "city": "Islamabad",
+    "area": "Opp Street 3 Zubair Shah Rd, H-13",
+    "universities": [
+      "NUST"
+    ],
+    "gender": "Female",
+    "price": 14000,
+    "priceMin": 14000,
+    "priceMax": 19000,
+    "rating": 3.4,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "CCTV",
+      "Parking",
+      "Attached Bath"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "CCTV",
+      "Bike parking",
+      "Attached bathrooms"
+    ],
+    "description": "Student hostel near NUST in H-13. Offers attached bathrooms, CCTV, bike parking, and 3 meals a day. Budget-friendly option for NUST girls. Food and cleanliness are average.",
+    "images": [],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6418953,
+    "lng": 72.9799418,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "shaheen-boys-g-11-fast-area",
+    "name": "Shaheen Boys G-11 (FAST area)",
+    "city": "Islamabad",
+    "area": "G-11 Signal, NUST Metro Stop, Srinagar Hwy",
+    "universities": [
+      "Riphah"
+    ],
+    "gender": "Male",
+    "price": 0,
+    "priceMin": 18000,
+    "priceMax": 26000,
+    "rating": 3.4,
+    "reviewCount": 252,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "CCTV",
+      "Meals",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "CCTV",
+      "Meals",
+      "Security",
+      "Accessible via Srinagar Hwy"
+    ],
+    "description": "Shaheen chain in G-11 (3.4★, 252 reviews). Close to Srinagar Highway — accessible to Riphah I-14. Mixed reviews but chain reliability.",
+    "images": [
+      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80",
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.657916,
+    "lng": 72.994191,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 9800670",
+      "whatsapp": "+92 333 9800670"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "aroma-boys-hostel-i-9",
+    "name": "Aroma Boys Hostel I-9",
+    "city": "Islamabad",
+    "area": "236 Street 6, I-9/2",
+    "universities": [
+      "Riphah",
+      "SZABIST"
+    ],
+    "gender": "Male",
+    "price": 0,
+    "priceMin": 16000,
+    "priceMax": 22000,
+    "rating": 3.3,
+    "reviewCount": 134,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Large rooms",
+      "Budget option",
+      "Meals"
+    ],
+    "description": "Budget boys hostel (3.3★, 134 reviews). Very economical for Riphah and SZABIST students on tight budgets. Large multi-seater rooms.",
+    "images": [
+      "https://images.unsplash.com/photo-1559599238-7e10e6d83d76?w=800&q=80",
+      "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=800&q=80",
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.659734,
+    "lng": 73.052595,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 301 5698814",
+      "whatsapp": "+92 301 5698814"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "shaheen-boys-hostel-g-10",
+    "name": "Shaheen Boys Hostel G-10",
+    "city": "Islamabad",
+    "area": "House 463, Street 48, G-10/4",
+    "universities": [
+      "FAST"
+    ],
+    "gender": "Male",
+    "price": 18000,
+    "priceMin": 18000,
+    "priceMax": 24500,
+    "rating": 3.3,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "CCTV",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Laundry",
+      "CCTV",
+      "Security"
+    ],
+    "description": "Shaheen Group's G-10 branch, close to FAST via G-10/G-11 Metro stations. Good for boys enrolled at FAST, CSS academies, and KIPS. Mixed food reviews but good location.",
+    "images": [
+      "https://images.unsplash.com/photo-1588873281272-14886ba1f737?w=800&q=80",
+      "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80",
+      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.6816715,
+    "lng": 73.0209669,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "+92 333 9800670",
+      "whatsapp": "+92 333 9800670"
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "al-wahab-boys-hostel-h-13",
+    "name": "Al Wahab Boys Hostel (H-13)",
+    "city": "Islamabad",
+    "area": "Near NUST, H-13",
+    "universities": [
+      "NUST"
+    ],
+    "gender": "Male",
+    "price": 15000,
+    "priceMin": 15000,
+    "priceMax": 20500,
+    "rating": 0,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "Power Backup",
+      "Parking",
+      "Attached Bath",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Mess",
+      "Laundry",
+      "UPS",
+      "Car parking",
+      "Attached bathrooms",
+      "Security guards"
+    ],
+    "description": "Well-facilitated boys hostel near NUST providing full mess, laundry, UPS backup, car parking, and security. Recommended for NUST and NDU students seeking complete amenities.",
+    "images": [
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80",
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.644,
+    "lng": 72.98,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "pak-boys-hostel-h-13",
+    "name": "Pak Boys Hostel (H-13)",
+    "city": "Islamabad",
+    "area": "H-13, Islamabad (near NUST)",
+    "universities": [
+      "NUST"
+    ],
+    "gender": "Male",
+    "price": 15000,
+    "priceMin": 15000,
+    "priceMax": 20500,
+    "rating": 0,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals",
+      "Laundry",
+      "Power Backup",
+      "Security"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "3 meals",
+      "Laundry",
+      "Generator",
+      "Security"
+    ],
+    "description": "Standard student hostel in H-13 area offering essential facilities at reasonable rates. Convenient for NUST students who need affordable accommodation near the campus.",
+    "images": [
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&q=80",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80",
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.643,
+    "lng": 72.981,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  },
+  {
+    "slug": "rumi-hostels-nust",
+    "name": "Rumi Hostels NUST",
+    "city": "Islamabad",
+    "area": "NUST, Sector H-12",
+    "universities": [
+      "NUST"
+    ],
+    "gender": "Male",
+    "price": 15000,
+    "priceMin": 15000,
+    "priceMax": 20500,
+    "rating": 0,
+    "reviewCount": 0,
+    "available": true,
+    "verified": false,
+    "featured": false,
+    "facilities": [
+      "WiFi",
+      "Meals"
+    ],
+    "rawFacilities": [
+      "Wi-Fi",
+      "Meals",
+      "Basic student facilities"
+    ],
+    "description": "Located in H-12 near NUST main campus. Convenient for NUST boys who could not get on-campus hostel. Basic student facilities in a prime location close to the university gate.",
+    "images": [
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80",
+      "https://images.unsplash.com/photo-1571508601891-ca5e7a713859?w=800&q=80",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80"
+    ],
+    "messMenuImages": [],
+    "messMenu": {},
+    "lat": 33.8431,
+    "lng": 72.98568,
+    "distanceKm": 0,
+    "contact": {
+      "name": "",
+      "phone": "",
+      "whatsapp": ""
+    },
+    "source": "seed"
+  }
+]

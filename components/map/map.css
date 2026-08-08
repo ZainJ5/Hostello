@@ -1,0 +1,465 @@
+/*
+ * Map chrome — Hostello design system.
+ *
+ * Everything here either lives under a `hm-` prefix or is a Leaflet class
+ * scoped inside `[data-hostello-map]`, so nothing leaks into the rest of the
+ * app (App Router keeps stylesheets mounted across navigations).
+ *
+ * Colours are read from the tokens in app/globals.css. No literal hex values.
+ */
+
+/* ── Full-bleed shell ─────────────────────────────────────────────────── */
+
+/* Set by MapExplorer while it is mounted, removed on unmount. The map owns the
+   viewport on this route, so the document itself must not scroll. */
+html[data-hostello-map-open],
+html[data-hostello-map-open] body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* ── Base container ───────────────────────────────────────────────────── */
+
+/* Transparent so the branded grid behind the map shows through if the tile
+   server is unreachable — a failed basemap reads as texture, not as a bug. */
+[data-hostello-map] .leaflet-container {
+  background: transparent;
+  font-family: var(--font-sans);
+  outline: none;
+  isolation: isolate;
+}
+
+[data-hostello-map] .leaflet-container:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -3px;
+}
+
+/* Tiles are a background layer; keep them out of the way of the pins. */
+[data-hostello-map] .leaflet-tile-pane {
+  opacity: 1;
+  transition: opacity 250ms var(--ease-out-quint, ease-out);
+}
+
+[data-hostello-map] .leaflet-tile {
+  /* Hides the 1px seams CARTO tiles show at some zoom levels. */
+  will-change: auto;
+}
+
+/* ── Price pin ────────────────────────────────────────────────────────── */
+
+[data-hostello-map] .hm-marker {
+  width: auto !important;
+  height: auto !important;
+  background: none;
+  border: 0;
+}
+
+.hm-pin {
+  --pin-bg: var(--surface);
+  --pin-fg: var(--foreground);
+  --pin-border: var(--border-strong);
+  --pin-ring: transparent;
+
+  position: absolute;
+  inset: 0 auto auto 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 26px;
+  padding: 0 0.5rem;
+  border: 1px solid var(--pin-border);
+  border-radius: 999px;
+  background: var(--pin-bg);
+  color: var(--pin-fg);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  cursor: pointer;
+  transform-origin: bottom center;
+  transform: translate(-50%, calc(-100% - 6px));
+  box-shadow:
+    0 0 0 3px var(--pin-ring),
+    var(--shadow-md);
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 200ms var(--ease-spring, ease-out);
+}
+
+/* The tail: a rotated square showing only its two outer edges. */
+.hm-pin::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 8px;
+  height: 8px;
+  background: var(--pin-bg);
+  border-right: 1px solid var(--pin-border);
+  border-bottom: 1px solid var(--pin-border);
+  transform: translateX(-50%) rotate(45deg);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+/* A verified listing gets a filled dot rather than a second colour. */
+.hm-pin__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--color-brand-500);
+  flex: none;
+}
+
+.hm-pin.is-hover,
+.hm-marker:hover .hm-pin {
+  --pin-bg: var(--color-brand-700);
+  --pin-fg: var(--color-brand-50);
+  --pin-border: var(--color-brand-700);
+  transform: translate(-50%, calc(-100% - 6px)) scale(1.08);
+  box-shadow:
+    0 0 0 3px var(--pin-ring),
+    var(--shadow-lg);
+}
+
+.hm-pin.is-hover .hm-pin__dot,
+.hm-marker:hover .hm-pin__dot {
+  background: var(--color-brand-200);
+}
+
+.hm-pin.is-selected,
+.hm-marker:hover .hm-pin.is-selected {
+  --pin-bg: var(--color-brand-900);
+  --pin-fg: #fff;
+  --pin-border: var(--color-brand-900);
+  --pin-ring: color-mix(in srgb, var(--color-brand-500) 40%, transparent);
+  height: 30px;
+  padding: 0 0.7rem;
+  font-size: 13px;
+  transform: translate(-50%, calc(-100% - 6px)) scale(1.04);
+}
+
+.dark .hm-pin.is-selected,
+.dark .hm-marker:hover .hm-pin.is-selected {
+  --pin-bg: var(--color-brand-400);
+  --pin-fg: var(--color-brand-950);
+  --pin-border: var(--color-brand-300);
+}
+
+.hm-pin.is-selected .hm-pin__dot {
+  background: currentColor;
+  opacity: 0.75;
+}
+
+/* ── Cluster bubble ───────────────────────────────────────────────────── */
+
+.hm-cluster {
+  position: absolute;
+  inset: 0 auto auto 0;
+  display: grid;
+  place-items: center;
+  width: var(--hm-size, 40px);
+  height: var(--hm-size, 40px);
+  border-radius: 999px;
+  background: var(--color-brand-700);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--color-brand-500) 22%, transparent),
+    var(--shadow-md);
+  transition:
+    transform 200ms var(--ease-spring, ease-out),
+    box-shadow 200ms ease,
+    background-color 180ms ease;
+}
+
+.dark .hm-cluster {
+  background: var(--color-brand-500);
+  color: var(--color-brand-950);
+}
+
+.hm-marker:hover .hm-cluster {
+  background: var(--color-brand-800);
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow:
+    0 0 0 9px color-mix(in srgb, var(--color-brand-500) 26%, transparent),
+    var(--shadow-lg);
+}
+
+.dark .hm-marker:hover .hm-cluster {
+  background: var(--color-brand-400);
+}
+
+/* ── Campus marker ────────────────────────────────────────────────────── */
+
+.hm-campus {
+  position: absolute;
+  inset: 0 auto auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hm-campus__disc {
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: var(--foreground);
+  color: var(--background);
+  border: 2.5px solid var(--surface);
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--foreground) 12%, transparent),
+    var(--shadow-lg);
+}
+
+.hm-campus__disc svg {
+  width: 19px;
+  height: 19px;
+}
+
+.hm-campus__label {
+  max-width: 148px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Popup ────────────────────────────────────────────────────────────── */
+
+[data-hostello-map] .hm-popup .leaflet-popup-content-wrapper {
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  color: var(--foreground);
+  box-shadow: var(--shadow-xl);
+}
+
+[data-hostello-map] .hm-popup .leaflet-popup-content {
+  margin: 0;
+  width: 250px !important;
+  line-height: 1.4;
+}
+
+[data-hostello-map] .hm-popup .leaflet-popup-tip-container {
+  width: 22px;
+  height: 12px;
+  margin-top: -1px;
+}
+
+[data-hostello-map] .hm-popup .leaflet-popup-tip {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  margin: -6px auto 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  box-shadow: none;
+}
+
+[data-hostello-map] .hm-popup .leaflet-popup-close-button {
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  backdrop-filter: blur(6px);
+  color: var(--foreground);
+  font: 700 17px/1 var(--font-sans);
+  padding: 0;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+[data-hostello-map] .hm-popup .leaflet-popup-close-button:hover {
+  background: var(--muted);
+  transform: scale(1.06);
+}
+
+[data-hostello-map] .hm-popup .leaflet-popup-close-button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ── Tooltip ──────────────────────────────────────────────────────────── */
+
+[data-hostello-map] .hm-tooltip {
+  padding: 4px 9px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--foreground);
+  font-size: 11.5px;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+}
+
+[data-hostello-map] .hm-tooltip::before {
+  display: none;
+}
+
+/* ── Attribution ──────────────────────────────────────────────────────── */
+
+[data-hostello-map] .leaflet-control-attribution {
+  padding: 2px 8px;
+  border-radius: 8px 0 0 0;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  color: var(--muted-foreground);
+  font-size: 10px;
+  line-height: 1.6;
+  box-shadow: none;
+}
+
+[data-hostello-map] .leaflet-control-attribution a {
+  color: var(--muted-foreground);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+[data-hostello-map] .leaflet-control-attribution a:hover {
+  color: var(--foreground);
+}
+
+[data-hostello-map] .leaflet-control-attribution svg {
+  display: none;
+}
+
+/* ── Campus radius ring ───────────────────────────────────────────────── */
+
+/* CSS beats SVG presentation attributes, so the ring picks up the brand token
+   without Leaflet ever being handed a literal colour. */
+[data-hostello-map] .hm-radius {
+  pointer-events: none;
+  stroke: var(--color-brand-600);
+  fill: var(--color-brand-500);
+}
+
+.dark [data-hostello-map] .hm-radius {
+  stroke: var(--color-brand-300);
+  fill: var(--color-brand-400);
+}
+
+/* ── Dual price slider ────────────────────────────────────────────────── */
+
+.hm-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: transparent;
+  pointer-events: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.hm-range:focus {
+  outline: none;
+}
+
+.hm-range::-webkit-slider-runnable-track {
+  height: 100%;
+  background: transparent;
+}
+
+.hm-range::-moz-range-track {
+  height: 100%;
+  background: transparent;
+}
+
+.hm-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: auto;
+  width: 20px;
+  height: 20px;
+  margin-top: 0;
+  border-radius: 999px;
+  border: 2px solid var(--color-brand-700);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.hm-range::-moz-range-thumb {
+  pointer-events: auto;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid var(--color-brand-700);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+}
+
+.hm-range:hover::-webkit-slider-thumb {
+  transform: scale(1.1);
+}
+
+.hm-range:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
+.hm-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ring) 30%, transparent);
+}
+
+.hm-range:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ring) 30%, transparent);
+}
+
+.dark .hm-range::-webkit-slider-thumb,
+.dark .hm-range::-moz-range-thumb {
+  border-color: var(--color-brand-400);
+  background: var(--surface-raised);
+}
+
+/* ── Motion ───────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .hm-pin,
+  .hm-cluster,
+  .hm-pin::after {
+    transition: none;
+  }
+  [data-hostello-map] .leaflet-fade-anim .leaflet-tile,
+  [data-hostello-map] .leaflet-zoom-anim .leaflet-zoom-animated {
+    transition: none !important;
+  }
+}

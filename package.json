@@ -6,12 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "data:build": "node scripts/build-dataset.js",
+    "db:seed": "node scripts/seed.js",
+    "db:reset": "node scripts/seed.js --fresh",
+    "db:seed:prod": "node scripts/seed-production.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
+    "framer-motion": "^12.43.0",
+    "jose": "^6.2.8",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^1.28.0",
+    "mongoose": "^9.9.1",
     "next": "16.3.0",
+    "nodemailer": "^9.0.4",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-leaflet": "^5.0.0",
+    "recharts": "^3.10.1",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

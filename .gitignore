@@ -36,6 +36,16 @@ yarn-error.log*
 # vercel
 .vercel
 
+# user uploads — runtime data, not source.
+# public/uploads/hostels holds ~100MB of listing photography restored from the
+# legacy platform; public/uploads/payments holds owner payment screenshots and
+# is sensitive. Both are served by NGINX in production. See README for restore.
+/public/uploads/*
+!/public/uploads/.gitkeep
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local build/verification scratch copy — not source
+/.verify/
