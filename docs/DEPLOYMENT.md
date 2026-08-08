@@ -54,10 +54,49 @@ nginx -t && systemctl reload nginx
 
 | Variable | Production value |
 |---|---|
-| `MONGODB_URI` | `mongodb://127.0.0.1:27017/hostello` |
+| `MONGODB_URI` | `mongodb://hostello_app:…@127.0.0.1:27017/hostello?authSource=hostello` |
 | `AUTH_SECRET` | 64 hex characters, unique to the host |
 | `NEXT_PUBLIC_SITE_URL` | `https://hostello.tech` |
-| `SMTP_HOST` … | Real credentials — see the caveat below |
+| `RESEND_API_KEY` | Resend API key — sends all transactional mail |
+| `MAIL_FROM` | `Hostello <no-reply@hostello.tech>` (domain must be verified in Resend) |
+
+## Email
+
+Mail goes out through [Resend](https://resend.com)'s HTTP API. `lib/mail.js`
+picks a transport in this order:
+
+1. `RESEND_API_KEY` set → Resend HTTP API
+2. else `SMTP_HOST` set → SMTP via nodemailer
+3. else → the code is printed to the journal (development)
+
+The HTTP API is preferred over Resend's SMTP endpoint because it needs no
+outbound mail ports and returns readable JSON errors instead of SMTP timeouts.
+
+The sending domain must be verified in the Resend dashboard, with the DKIM and
+SPF records they provide added to `hostello.tech`. Until that verification is
+complete Resend rejects sends from `@hostello.tech` with a 403.
+
+## CI/CD
+
+`.github/workflows/deploy.yml` runs on every push to `main` and on manual
+dispatch (Actions → Deploy to production → Run workflow).
+
+- **verify** — lints and builds against a real MongoDB service container, so a
+  broken build never reaches the server.
+- **deploy** — SSHes to the VPS and runs `/usr/local/bin/deploy-hostello.sh`,
+  then checks the homepage returns 200.
+
+The deploy key is pinned in `/root/.ssh/authorized_keys` with
+`command="/usr/local/bin/deploy-hostello.sh"` plus `no-pty` and the forwarding
+restrictions, so that key can run the deploy and nothing else — a leaked CI
+secret cannot open a root shell.
+
+Repository secrets: `SSH_PRIVATE_KEY`, `SSH_KNOWN_HOSTS`, `SSH_HOST`,
+`SSH_USER`.
+
+The deploy script builds *before* restarting, so a failed build leaves the
+running release untouched. If the health check fails after restart, it checks
+out the previous commit, rebuilds and restarts automatically.
 
 ## Seeding
 
@@ -100,26 +139,33 @@ tail -f /var/log/nginx/hostello.access.log
 
 ## TLS
 
-Once DNS for `hostello.tech` points at the host:
+Certificates are issued by Let's Encrypt for `hostello.tech` and
+`www.hostello.tech`, and `certbot.timer` renews them automatically:
 
 ```bash
-apt-get install -y certbot python3-certbot-nginx
-certbot --nginx -d hostello.tech -d www.hostello.tech
+certbot certificates      # inspect expiry
+certbot renew --dry-run   # rehearse renewal
 ```
 
-Certbot rewrites the vhost to listen on 443 and installs a renewal timer. After
-issuing, drop the `_` from `server_name` so the host stops answering for
-arbitrary Host headers.
+`deploy/nginx/hostello.conf` references the certificate paths directly, which
+stay stable across renewals, so the vhost never needs regenerating. Note that
+Ubuntu 24.04 ships NGINX 1.24, which has no `http2 on;` directive — HTTP/2 is
+enabled with `listen 443 ssl http2;`.
+
+The vhost defines four servers: an HTTP redirect, an HTTPS catch-all that
+returns 444 for unrecognised Host headers, a `www` → apex redirect, and the
+application itself.
 
 ## Known caveats
 
-- **SMTP is unconfigured.** With `SMTP_HOST` empty, signup and password-reset
-  codes are written to the journal instead of being emailed, so no outside user
-  can complete verification. Fill in real credentials before launch.
 - **Payment screenshots sit under `public/`.** NGINX returns 404 for
   `/uploads/payments/` so the static copies are unreachable, and the
   authenticated route still serves them by reading from disk. Moving the
   directory outside the web root remains the more durable fix.
+- **Listing photography is not in git.** The ~102 MB in
+  `public/uploads/hostels` is deployed out of band and survives deploys because
+  the deploy script only touches tracked files. A rebuilt host needs it copied
+  back before listings render their photos.
 - **Review counts without review documents.** Listings carry genuine `rating`
   and `reviewCount` values from the legacy platform, but no `Review` documents
   exist, so a listing can show a score while its reviews tab is empty. The
