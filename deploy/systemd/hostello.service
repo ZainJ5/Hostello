@@ -1,0 +1,48 @@
+[Unit]
+Description=Hostello Next.js application
+Documentation=https://github.com/ZainJ5/Hostello
+After=network-online.target mongod.service
+Wants=network-online.target
+Requires=mongod.service
+
+[Service]
+Type=simple
+User=hostello
+Group=hostello
+WorkingDirectory=/var/www/hostello
+
+Environment=NODE_ENV=production
+Environment=NEXT_TELEMETRY_DISABLED=1
+Environment=PORT=3000
+
+# Bound to loopback on purpose: the app is reachable only through NGINX, so
+# port 3000 is never exposed even if a firewall rule is later relaxed.
+ExecStart=/usr/bin/node node_modules/next/dist/bin/next start -H 127.0.0.1 -p 3000
+
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=hostello
+
+# ─── Sandboxing ────────────────────────────────────────────────────────
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictNamespaces=true
+LockPersonality=true
+# The only paths the app legitimately writes: uploaded imagery and the Next
+# image-optimisation cache.
+ReadWritePaths=/var/www/hostello/public/uploads
+ReadWritePaths=/var/www/hostello/.next
+
+[Install]
+WantedBy=multi-user.target
