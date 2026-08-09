@@ -211,7 +211,106 @@ only console change in this work.
 
 ---
 
-## 6. Naming
+## 6. Component specs already read out of Figma
+
+Captured here so no future session spends a rate limited `get_design_context`
+call, or its context budget, re-reading them. Every one is already built in
+`components/ds`.
+
+Shared focus pattern across every control: a transparent slot carries the
+focus ring so the control never changes size between states. Buttons use a 4px
+slot at radius 8; inputs and toggles use 3px at radius 7; filter chips use 3px
+at radius 5. The control inside is always radius 4.
+
+| Component | Node | Geometry | States |
+|---|---|---|---|
+| button/primary | 17:21 | slot p4 r8, control h48 px20 r4, border 1 | default, hover (keyline ink to cobalt), focus, pressed (inverts to ink with a yellow label), disabled (leaves yellow, muted ink on sunken), loading (spinner, same label) |
+| chip/filter | 27:50 | slot p3 r5, chip h38 px12 r2, border 1 | default, selected (solid ink, inverse text), hover (cobalt keyline), focus, pressed, disabled |
+| input/sort | 74:117 | slot p3 r7, control h44 px12 gap8 r4 | default, hover (cobalt), focus, open (ink keyline), disabled. Five, not seven |
+| input/view-toggle | 74:153 | slot p3 r7, group r4, segments h44 px14 | grid, list, hover, focus, disabled. Selected is solid ink |
+| nav/pagination | 78:55 | cells 44 square, r2, gap 6 desktop and 8 mobile | current is solid ink, idle hollow, ellipsis uses the hairline border, disabled Previous stays visible |
+| badge/status | 16:32 | px10 py6 r2 | solid ink means verified, outline means not. Outline carries a surface fill, never transparent |
+| card/hostel/search | 18:13 | w358, r4, border 1 hairline, body p16 gap12 | photo 4:3, no heart, no star, no Featured badge |
+| photo-slot/4x3 | 18:12 | fixed 4:3, p12, badge bottom left | no scrim. Empty is a designed state |
+| slot-strip/beds | 16:27 | segments flex fill, 12 tall, gap 4 | unknown, none, initials, named. See section 2 |
+| listing/campus-distance | 75:59 | rows py8 with a hairline underline | campus tag, name, km in mono, band |
+
+Sort options in the design, in order: Recommended, Rent low to high, Rent high
+to low, Closest to campus, Most reviewed, Newest listing.
+
+### Divergence: the sort menu is a native select
+
+The design draws a custom menu carrying the only shadow in the system. The
+build uses a native `select`, because it gives correct keyboard handling, a
+real listbox to a screen reader, and the platform picker on a phone. The
+closed control matches the frame exactly; the open menu is the platform's.
+
+### Two sort options need care
+
+`Closest to campus` is only meaningful when a campus filter is active, since
+there is otherwise no origin to sort from. `Most reviewed` sorts on the legacy
+`reviewCount`, which 62 of 124 listings carry while the `Review` collection is
+empty.
+
+The live site also has a `Top rated` sort that the design drops. It is a
+working feature, so it is kept as a seventh option rather than removed.
+
+### Still to read
+
+`site-header` 73:66, four variants: Desktop, Mobile, Mobile menu open, Desktop
+signed in. `site-footer` 73:156. Neither has been pulled yet.
+
+---
+
+## 7. Session handoff
+
+**State at the close of session 2.**
+
+Committed, local only, nothing pushed, nothing deployed:
+
+| Commit | What |
+|---|---|
+| `a862b23` | Stopped tracking AGENTS.md |
+| `ab337fe` | Token layer and the four typefaces |
+| `af3ac11` | First seven ds primitives |
+| `9bbeb79` | Implementation notes with the data audit |
+| `04604e5` | Detail page collapse and root cause |
+| `e4a52b4` | Browse controls added to the ds set |
+
+`components/ds` now holds eleven components: Badge, BedStrip, Button, Chip,
+Feedback, FilterChip, HostelCard, Pagination, PhotoSlot, SortSelect,
+ViewToggle. Build passes. No raw hex, no em dashes, and `app/(admin)`,
+`app/(owner)` and `components/ui` are untouched in every commit.
+
+**Next, in order:**
+
+1. Read `site-header` 73:66 and `site-footer` 73:156. They are the last two
+   pieces of browse chrome and are shared by every route, so they are worth
+   getting right before any page work.
+2. Build `/hostels` end to end at 390 and 1440 in both modes. The data layer
+   already works and is reusable as is: `components/hostels/query.js` holds
+   the facet counts, `filters.js` the vocabulary and page size of 12. Only the
+   presentation changes. Compute campus distance from `lat`/`lng`, never from
+   the stored `distanceKm`.
+3. Verify browse against the frames at both widths and both modes, and fix
+   what that turns up.
+4. Write and self review the roommate and community schemas. The hard
+   constraint is that the six compatibility answers are never readable by
+   another student, and it has to be enforced in the query rather than in a
+   component.
+5. Fan out the seven agent groups as grouped by the client. Nobody edits the
+   token layer or a ds primitive; if one needs changing the agent stops and
+   the change is made centrally.
+
+**Rules that do not move:** local commits only, nothing pushed, nothing
+deployed, no SSH. Everything through tokens, no raw hex or pixel values, seven
+states with visible focus, 44px targets, responsive from 360 up, no em dashes
+anywhere including comments, no invented data, occupancy renders as unknown,
+and the ink keyline never comes off a yellow control.
+
+---
+
+## 8. Naming
 
 "Booking" stays structural: the Mongo collection, the API routes, the owner
 and admin internals. Only what a student sees becomes "enquiry", including
