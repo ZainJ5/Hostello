@@ -1,25 +1,24 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Moon, Sun } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 /** Shared with the blocking script in `app/(public)/layout.js`. */
 export const THEME_STORAGE_KEY = 'hostello-theme';
 
 /**
+ * Restyled onto the 2026 tokens. The behaviour and the storage key are
+ * unchanged, because this control already worked and the design file has no
+ * toggle component of its own.
+ *
  * The class on <html> is the source of truth. It is written by the inline
- * script before first paint, so both icons can be driven by the `dark:`
- * variant alone. That keeps the server and first client render byte-identical
- * and avoids a hydration mismatch; only the label needs state.
+ * script before first paint, so both labels are driven by the `dark:` variant
+ * alone. Server and first client render stay byte identical and there is no
+ * hydration mismatch, which is why this carries no state at all.
+ *
+ * Presentation follows the header's theme-toggle slot: a 44 tall control with
+ * a hairline keyline and a one word label naming the mode it switches to.
  */
 export default function ThemeToggle({ className }) {
-  const [isDark, setIsDark] = useState(null);
-
-  useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'));
-  }, []);
-
   function toggle() {
     const root = document.documentElement;
     const next = !root.classList.contains('dark');
@@ -30,38 +29,25 @@ export default function ThemeToggle({ className }) {
     } catch {
       // Private mode or disabled storage. The toggle still works this visit.
     }
-    setIsDark(next);
   }
-
-  const label =
-    isDark === null
-      ? 'Switch colour theme'
-      : isDark
-        ? 'Switch to light theme'
-        : 'Switch to dark theme';
 
   return (
     <button
       type="button"
       onClick={toggle}
-      title={label}
-      aria-label={label}
       className={cn(
-        'relative grid size-11 shrink-0 cursor-pointer place-items-center rounded-xl',
-        'text-muted-foreground transition-colors duration-200',
-        'hover:bg-muted hover:text-foreground',
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+        'ds-body-s-strong inline-flex shrink-0 cursor-pointer items-center justify-center px-2.5',
+        'rounded-ds-chip border border-solid border-ds-control bg-ds-surface-raised text-ds-ink',
+        'transition-colors duration-150 motion-reduce:transition-none',
+        'hover:border-ds-cobalt',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt',
         className
       )}
+      style={{ height: 'var(--ds-control-h)' }}
     >
-      <Sun
-        aria-hidden="true"
-        className="size-5 rotate-0 scale-100 transition-transform duration-300 dark:-rotate-90 dark:scale-0"
-      />
-      <Moon
-        aria-hidden="true"
-        className="absolute size-5 rotate-90 scale-0 transition-transform duration-300 dark:rotate-0 dark:scale-100"
-      />
+      <span className="dark:hidden">Dark</span>
+      <span className="hidden dark:inline">Light</span>
+      <span className="sr-only">Switch colour theme</span>
     </button>
   );
 }
