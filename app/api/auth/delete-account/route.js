@@ -1,3 +1,5 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import { connectDB } from '@/lib/db';
 import { handler, ok, readJson, clientIp } from '@/lib/api';
 import { enforceRateLimit } from '@/lib/rate-limit';
@@ -107,6 +109,21 @@ export const DELETE = handler(async (req) => {
   // enquired after a student leaves. If that history ever needs to survive,
   // switch this to a `studentId: null` update rather than a delete.
   await Booking.deleteMany({ studentId: userId });
+
+  // ── Profile picture ──────────────────────────────────────────────────
+  // The file lives under public/uploads/avatars and is served straight off
+  // disk, so deleting only the row would leave a departing student's face
+  // hosted on the site indefinitely at a URL that still resolves.
+  if (typeof user.avatar === 'string' && user.avatar.startsWith('/uploads/avatars/')) {
+    const name = user.avatar.slice('/uploads/avatars/'.length);
+    if (name && !name.includes('/') && !name.includes('\\') && !name.includes('..')) {
+      try {
+        await fs.unlink(path.join(process.cwd(), 'public', 'uploads', 'avatars', name));
+      } catch {
+        // Already gone. Not worth failing the deletion over.
+      }
+    }
+  }
 
   // ── Saved listings ───────────────────────────────────────────────────
   // saveCount is denormalised too, so drop this user's saves from the tally.
