@@ -15,6 +15,14 @@ import { cn } from '@/lib/utils';
 const SLOT =
   'flex w-full rounded-ds-slot focus-within:outline-2 focus-within:outline-offset-0 focus-within:outline-ds-cobalt';
 
+/** The bordered box. Carries every border state so the control inside cannot. */
+const BOX =
+  'flex min-w-px flex-1 items-center gap-2 rounded-ds-inner border border-solid border-ds-control bg-ds-surface-raised hover:border-ds-cobalt focus-within:border-ds-ink has-[:disabled]:cursor-not-allowed has-[:disabled]:border-ds-hairline has-[:disabled]:bg-ds-surface-sunken';
+
+/** The control itself, which draws nothing. */
+const BARE =
+  'ds-body-m w-full min-w-px bg-transparent text-ds-ink placeholder:text-ds-ink-muted focus:outline-none disabled:cursor-not-allowed disabled:text-ds-ink-muted';
+
 const FACE =
   'ds-body-m w-full min-w-px rounded-ds-inner border border-solid border-ds-control bg-ds-surface-raised px-3 text-ds-ink placeholder:text-ds-ink-muted hover:border-ds-cobalt focus:border-ds-ink focus:outline-none disabled:cursor-not-allowed disabled:border-ds-hairline disabled:bg-ds-surface-sunken disabled:text-ds-ink-muted';
 
@@ -41,16 +49,19 @@ export function Field({ id, label, hint, error, required, children, className })
   );
 }
 
+/**
+ * The border sits on the wrapper, not on the input, so a unit like PKR sits
+ * inside the control rather than floating beside it. Same structure as
+ * `components/ds/SortSelect`, which is the one input shape the ds set already
+ * has.
+ */
 export function TextInput({ id, suffix, className, ...props }) {
   return (
     <span className={cn(SLOT, className)} style={PAD}>
-      <span
-        className="flex min-w-px flex-1 items-center gap-2 rounded-ds-inner"
-        style={LINE}
-      >
-        <input id={id} className={cn(FACE, 'h-full')} {...props} />
+      <span className={cn(BOX, 'px-3')} style={LINE}>
+        <input id={id} className={cn(BARE, 'h-full')} {...props} />
         {suffix ? (
-          <span className="ds-mono-meta shrink-0 pr-1 text-ds-ink-muted">{suffix}</span>
+          <span className="ds-mono-meta shrink-0 text-ds-ink-muted">{suffix}</span>
         ) : null}
       </span>
     </span>
@@ -68,8 +79,8 @@ export function TextArea({ id, rows = 4, className, ...props }) {
 export function Select({ id, options, className, ...props }) {
   return (
     <span className={cn(SLOT, className)} style={PAD}>
-      <span className="relative flex min-w-px flex-1 items-center" style={LINE}>
-        <select id={id} className={cn(FACE, 'h-full cursor-pointer appearance-none pr-9')} {...props}>
+      <span className={cn(BOX, 'px-3')} style={LINE}>
+        <select id={id} className={cn(BARE, 'h-full cursor-pointer appearance-none')} {...props}>
           {options.map((o) =>
             typeof o === 'string' ? (
               <option key={o} value={o}>
@@ -85,7 +96,7 @@ export function Select({ id, options, className, ...props }) {
         <svg
           aria-hidden="true"
           viewBox="0 0 12 7"
-          className="pointer-events-none absolute right-3 size-3 text-ds-ink"
+          className="size-3 shrink-0 text-ds-ink"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.5"
