@@ -1,53 +1,34 @@
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
-import HostelImage from '@/components/ui/HostelImage';
 import { cn } from '@/lib/utils';
 
 /**
- * City tile for the "browse by city" grid. The photo is a real listing from
- * that city rather than stock, so the shelf always reflects what is actually
- * on the platform.
+ * City tile from section/by-city 89:2565: a hairline box carrying the name and
+ * the count, nothing else.
+ *
+ * NO PHOTOGRAPH. The live site put a listing photo behind each city, which
+ * meant the tile for Karachi was one owner's bedroom standing in for a city of
+ * twenty million, and the two listings actually in it were invisible behind
+ * the picture. The count is the honest thing on this tile and it is what a
+ * student needs: Lahore says 3, and that tells them where they are.
+ *
+ * `photo` is accepted and ignored so the home page query does not have to
+ * change shape.
  */
-export default function CityCard({ city, count = 0, photo, className }) {
+export default function CityCard({ city, count = 0, className }) {
   return (
     <Link
       href={`/hostels?city=${encodeURIComponent(city)}`}
       className={cn(
-        'group relative isolate block overflow-hidden rounded-[var(--radius-card)] border border-border',
-        'transition-[transform,box-shadow] duration-300 ease-out',
-        'hover:-translate-y-1 hover:shadow-lg',
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+        'ds-elevated flex w-full flex-col justify-center gap-1 rounded-ds-inner px-3.5 py-3',
+        'transition-colors duration-150 motion-reduce:transition-none hover:border-ds-cobalt',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt',
         className
       )}
     >
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-muted sm:aspect-[3/4]">
-        <div className="absolute inset-0 transition-transform duration-300 ease-out group-hover:scale-105">
-          <HostelImage
-            src={photo}
-            name={city}
-            alt={`Student hostels in ${city}`}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          />
-        </div>
-
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent"
-        />
-
-        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-4">
-          <div className="min-w-0">
-            <p className="font-display truncate text-lg font-bold text-white">{city}</p>
-            <p className="tabular text-sm text-white/75">
-              {count} {count === 1 ? 'hostel' : 'hostels'}
-            </p>
-          </div>
-          <span className="grid size-9 shrink-0 place-items-center rounded-full bg-white/15 text-white backdrop-blur-sm transition-colors duration-200 group-hover:bg-white group-hover:text-slate-900">
-            <ArrowUpRight className="size-4" aria-hidden="true" />
-          </span>
-        </div>
-      </div>
+      <span className="ds-body-m-strong truncate text-ds-ink">{city}</span>
+      <span className="ds-mono-meta text-ds-ink-muted">
+        {count} {count === 1 ? 'hostel' : 'hostels'}
+      </span>
     </Link>
   );
 }
