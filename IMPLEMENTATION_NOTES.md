@@ -93,6 +93,41 @@ types, the strip appears in its unknown tier with no further work.
 Consequence worth stating plainly: on day one the card is name, distance, rent
 and chips. That is a good card and not a distinctive one.
 
+### The same problem, one page deeper: the listing detail page
+
+The detail page was designed around five sections. Every one of them is empty
+on day one:
+
+| Section | Field it renders | Populated |
+|---|---|---|
+| section/room-types-and-rent | `rooms` | 0 of 124 |
+| section/who-is-in-each-room | bed counts and occupancy | 0 of 124 |
+| section/house-rules | `rules` | 0 of 124 |
+| section/mess-menu | `messMenu`, `messMenuImages` | 6 of 124, and 1 of 124 |
+| section/reviews | `Review` documents | collection is empty |
+
+What survives is photos, description, facilities, computed campus distances,
+the rent range and contact. The deposit line inside the rent section also goes,
+because `securityDeposit` is 0 on every listing.
+
+So the page that the design makes the centre of the product renders, on day
+one, as a photo, a paragraph, a facilities grid, a distance table and a phone
+number. It is honest and it is much thinner than the Figma frame looks.
+
+### Root cause, so this is not met a sixth time
+
+**The design was built against what the About page promises a listing carries,
+not against what the database actually holds.** That is why this has now
+happened five separate times: bed occupancy, walk time, the compatibility
+glyph, the bed count itself, and now most of the detail page.
+
+The fix is never to invent the data. The site ships honest and thinner than
+the file looks, and what fills it back in is owners entering their own
+details, which is out of scope for this work and behind a frozen console.
+
+Before designing or building any further section, check the audit table in
+section 1 first.
+
 ### Do not over apply this rule
 
 Occupancy can never populate, because it needs an owner tool that does not
