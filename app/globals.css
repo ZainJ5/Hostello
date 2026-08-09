@@ -304,3 +304,201 @@
   }
   .skeleton::after { animation: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Hostello 2026 design system
+   ═══════════════════════════════════════════════════════════════
+   Additive layer for the student facing site. Every value below was
+   read out of Figma file NGn2ZcdIokcpYafpN17B2x, one variable
+   collection with two colour modes.
+
+   Nothing above this block is modified. The admin and owner consoles
+   keep the original Airbnb derived tokens and are unaffected.
+
+   Dark mode reuses the existing `.dark` class, so the theme toggle and
+   its localStorage key keep working exactly as before.
+*/
+
+:root {
+  /* Ink and its inverse */
+  --ds-ink: #16130e;
+  --ds-ink-muted: #5c564b;
+  --ds-on-ink: #ffffff;
+
+  /* Chrome yellow. Appears only on the action, the open slot and the
+     active filter, never as a background surface. It measures 1.90:1
+     against white, which is why every yellow control keeps a 1px ink
+     keyline: the keyline is the only thing satisfying WCAG 1.4.11 for
+     the control boundary. */
+  --ds-primary: #f2b10a;
+  --ds-on-primary: #16130e;
+
+  /* Cobalt carries interaction: hover keyline, focus ring, links */
+  --ds-accent-cobalt: #14487a;
+
+  --ds-error: #a00c5f;
+
+  /* surface and surface-raised are both white here and are NOT
+     interchangeable. Misuse is invisible until dark mode, where every
+     card would otherwise disappear into the page. */
+  --ds-surface: #ffffff;
+  --ds-surface-raised: #ffffff;
+  --ds-surface-sunken: #f1f1f0;
+
+  --ds-line-hairline: #dcd8ce;
+  --ds-line-control: #8a8272;
+
+  --ds-photo-standin: #7a6055;
+
+  /* Geometry, measured from button/primary 17:21 */
+  --ds-radius-control: 0.5rem;
+  --ds-radius-inner: 0.25rem;
+
+  /* Strip primitive. Beds are 12 tall because they are the thing being
+     chosen. Every other strip in the same grammar is 6, half height, so
+     two strips on one screen cannot be misread as each other. */
+  --ds-strip-bed: 0.75rem;
+  --ds-strip-meta: 0.375rem;
+
+  --ds-focus-width: 2px;
+  --ds-tap-min: 2.75rem; /* 44px */
+}
+
+.dark {
+  --ds-ink: #f2efe8;
+  --ds-ink-muted: #a9a296;
+  --ds-on-ink: #14120e;
+
+  /* Yellow and its ink label hold their value across both modes */
+  --ds-primary: #f2b10a;
+  --ds-on-primary: #16130e;
+
+  --ds-accent-cobalt: #7fb3e8;
+
+  /* Derived, not measured. The Figma file has no dark error frame, so
+     this is lifted from the light value to mirror its contrast: light
+     error reads 7.74:1 on white, this reads 7.63:1 on dark surface. */
+  --ds-error: #ea86b4;
+
+  --ds-surface: #14120e;
+  --ds-surface-raised: #23201a;
+  --ds-surface-sunken: #1e1b15;
+
+  --ds-line-hairline: #443f35;
+  --ds-line-control: #6e685c;
+
+  --ds-photo-standin: #7a6055;
+}
+
+/* Expose the palette as Tailwind utilities: bg-ds-surface, text-ds-ink,
+   border-ds-hairline. The `ds-` prefix guarantees no collision with the
+   frozen token set the consoles use. */
+@theme inline {
+  --color-ds-ink: var(--ds-ink);
+  --color-ds-ink-muted: var(--ds-ink-muted);
+  --color-ds-on-ink: var(--ds-on-ink);
+  --color-ds-primary: var(--ds-primary);
+  --color-ds-on-primary: var(--ds-on-primary);
+  --color-ds-cobalt: var(--ds-accent-cobalt);
+  --color-ds-error: var(--ds-error);
+  --color-ds-surface: var(--ds-surface);
+  --color-ds-surface-raised: var(--ds-surface-raised);
+  --color-ds-surface-sunken: var(--ds-surface-sunken);
+  --color-ds-hairline: var(--ds-line-hairline);
+  --color-ds-control: var(--ds-line-control);
+  --color-ds-photo: var(--ds-photo-standin);
+
+  --radius-ds-control: var(--ds-radius-control);
+  --radius-ds-inner: var(--ds-radius-inner);
+}
+
+/* ─── Type scale ────────────────────────────────────────────────
+   14 styles, each measured from the file. Sizes are rem, line heights
+   unitless and letter spacing em, so the scale survives a browser font
+   size change instead of freezing at the Figma pixel value.
+*/
+.ds-display-xl,
+.ds-display-m,
+.ds-display-s,
+.ds-logo-wordmark {
+  font-family: var(--font-familjen), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+}
+
+.ds-display-xl { font-size: 2.75rem;   line-height: 1.0909; letter-spacing: -0.0455em; }
+.ds-display-m  { font-size: 1.625rem;  line-height: 1.1538; letter-spacing: -0.0577em; }
+.ds-display-s  { font-size: 1.25rem;   line-height: 1.25;   letter-spacing: -0.05em; }
+.ds-logo-wordmark { font-size: 1.75rem; line-height: 1.1429; letter-spacing: -0.1071em; }
+
+.ds-body-l,
+.ds-body-m,
+.ds-body-m-strong,
+.ds-body-s,
+.ds-body-s-strong,
+.ds-label,
+.ds-figure-l {
+  font-family: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.ds-body-l        { font-size: 1.0625rem; line-height: 1.5294; letter-spacing: 0; font-weight: 400; }
+.ds-body-m        { font-size: 0.9375rem; line-height: 1.4667; letter-spacing: 0; font-weight: 400; }
+.ds-body-m-strong { font-size: 0.9375rem; line-height: 1.4667; letter-spacing: 0; font-weight: 600; }
+.ds-body-s        { font-size: 0.8125rem; line-height: 1.3846; letter-spacing: 0.0385em; font-weight: 400; }
+.ds-body-s-strong { font-size: 0.8125rem; line-height: 1.3846; letter-spacing: 0.0385em; font-weight: 600; }
+.ds-label {
+  font-size: 0.8125rem;
+  line-height: 1.2308;
+  letter-spacing: 0.1538em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Rent figures align digit under digit down a column, so tabular
+   numerals are part of the style rather than an opt in. */
+.ds-figure-l {
+  font-size: 1.375rem;
+  line-height: 1.1818;
+  letter-spacing: -0.0455em;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-mono-meta,
+.ds-mono-table {
+  font-family: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+.ds-mono-meta  { font-size: 0.75rem;   line-height: 1.3333; letter-spacing: 0.0833em; }
+.ds-mono-table { font-size: 0.8125rem; line-height: 1.3846; letter-spacing: 0.0769em; }
+
+/* Parent page labels. The 2.22 line height is the measured value and is
+   what Nastaliq needs to avoid clipping its descenders. */
+.ds-label-urdu {
+  font-family: var(--font-nastaliq), serif;
+  font-size: 1.125rem;
+  line-height: 2.2222;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+/* ─── Shared behaviour ──────────────────────────────────────────── */
+
+/* Elevation is a border in light mode and a value step in dark. Cards
+   never lift. Shadow is reserved for sheets, menus and toasts. */
+.ds-elevated {
+  background-color: var(--ds-surface-raised);
+  border: 1px solid var(--ds-line-hairline);
+}
+
+.ds-focusable:focus-visible {
+  outline: var(--ds-focus-width) solid var(--ds-accent-cobalt);
+  outline-offset: 2px;
+  border-radius: var(--ds-radius-inner);
+}
+
+/* Every interactive control clears the 44px minimum target. */
+.ds-tap {
+  min-height: var(--ds-tap-min);
+  min-width: var(--ds-tap-min);
+}
