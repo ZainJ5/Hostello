@@ -1,202 +1,113 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Expand, X } from 'lucide-react';
-import HostelImage from '@/components/ui/HostelImage';
+import { useCallback, useRef, useState } from 'react';
+import Image from 'next/image';
+import Badge from '@/components/ds/Badge';
+import PhotoSlot from '@/components/ds/PhotoSlot';
 import { cn } from '@/lib/utils';
 import { useDialog } from './use-dialog';
 
 /**
- * Photo gallery for the detail page.
+ * Figma section/photos inside page/hostel-detail 85:2009: three photo-slot/4x3
+ * frames across the 1280 column, the verified badge on the first one, and a
+ * line of type underneath that says where the photographs came from.
  *
- * Desktop adapts to how many photos a listing actually has: one hero, a hero
- * plus a stacked pair, or a hero plus a 2×2 grid. Every tile declares its
- * aspect ratio up front, so the block occupies its final height before a
- * single byte of image arrives.
+ * Three, not a mosaic. Owner photography is phone quality and always will be,
+ * and a hero-plus-thumbnails mosaic silently ranks one photo above the others
+ * when there is no reason to. Equal slots say the pictures are equal.
  *
- * Mobile is a native scroll-snap carousel (real momentum swiping, no JS
- * gesture handling) with a live "3 / 4" counter and dot indicators.
+ * NO SCRIM. Every element that sits on a photo carries its own fill, per
+ * photo-slot/4x3 18:12.
+ *
+ * On a phone the three become a native scroll-snap carousel, so swiping has
+ * real momentum and no gesture handling ships to the browser.
  */
-export default function Gallery({ images = [], name }) {
-  const photos = images.filter(Boolean);
+export default function Gallery({ images = [], name, verified = false, className }) {
+  const photos = (images || []).filter(Boolean);
   const [lightbox, setLightbox] = useState(-1);
   const [slide, setSlide] = useState(0);
-  const trackRef = useRef(null);
 
-  const open = useCallback((i) => setLightbox(i), []);
-  const close = useCallback(() => setLightbox(-1), []);
+  const open = useCallback((i) => setLightbox(i), [setLightbox]);
+  const close = useCallback(() => setLightbox(-1), [setLightbox]);
 
-  function onTrackScroll(e) {
+  const shown = photos.slice(0, 3);
+  const extra = photos.length - shown.length;
+
+  function onScroll(e) {
     const el = e.currentTarget;
-    const i = Math.round(el.scrollLeft / Math.max(1, el.clientWidth));
-    setSlide(Math.min(photos.length - 1, Math.max(0, i)));
+    setSlide(Math.min(photos.length - 1, Math.max(0, Math.round(el.scrollLeft / Math.max(1, el.clientWidth)))));
   }
 
-  const hero = photos[0];
-  const rest = photos.slice(1, 5);
-  const heroAlt = `${name}, main photo`;
+  // Nothing to open, and nothing to promise. The empty slot is a designed
+  // state rather than a broken image.
+  if (!photos.length) {
+    return (
+      <div className={cn('w-full', className)}>
+        <PhotoSlot src={null} alt="" className="rounded-ds-inner">
+          <Badge variant="outline">No photos yet</Badge>
+        </PhotoSlot>
+      </div>
+    );
+  }
+
+  const slot = (src, i) => (
+    <button
+      key={src}
+      type="button"
+      onClick={() => open(i)}
+      aria-label={`Open photo ${i + 1} of ${photos.length} full screen`}
+      className="relative block w-full shrink-0 cursor-pointer snap-center overflow-hidden rounded-ds-inner focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
+    >
+      <PhotoSlot src={src} alt={`${name}, photo ${i + 1}`} priority={i === 0}>
+        {i === 0 ? (
+          <Badge variant={verified ? 'solid' : 'outline'}>
+            {verified ? 'Verified' : 'Not verified'}
+          </Badge>
+        ) : null}
+        {i === 2 && extra > 0 ? <Badge variant="outline">{extra} more</Badge> : null}
+      </PhotoSlot>
+    </button>
+  );
 
   return (
-    <section aria-label={`Photos of ${name}`} className="relative">
-      {/* ── Mobile: swipeable carousel ── */}
-      <div className="relative -mx-4 sm:-mx-6 lg:hidden">
-        <div
-          ref={trackRef}
-          onScroll={onTrackScroll}
-          className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain"
-        >
-          {(photos.length ? photos : [null]).map((src, i) => (
-            <button
-              key={src || 'placeholder'}
-              type="button"
-              onClick={() => photos.length && open(i)}
-              aria-label={photos.length ? `Open photo ${i + 1} of ${photos.length} full screen` : undefined}
-              disabled={!photos.length}
-              className="relative aspect-[4/3] w-full shrink-0 cursor-pointer snap-center overflow-hidden bg-muted focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-ring"
-            >
-              <HostelImage
-                src={src}
-                name={name}
-                alt={`${name}, photo ${i + 1}`}
-                fill
-                priority={i === 0}
-                sizes="100vw"
-              />
-            </button>
-          ))}
-        </div>
-
-        {photos.length > 1 && (
-          <>
-            <p
-              aria-live="polite"
-              className="tabular pointer-events-none absolute bottom-3 right-4 rounded-full bg-slate-950/70 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm sm:right-6"
-            >
-              {slide + 1} / {photos.length}
-            </p>
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute bottom-3.5 left-1/2 flex -translate-x-1/2 gap-1.5"
-            >
-              {photos.map((src, i) => (
-                <span
-                  key={src}
-                  className={cn(
-                    'h-1.5 rounded-full bg-white transition-all duration-200',
-                    i === slide ? 'w-5 opacity-100' : 'w-1.5 opacity-55'
-                  )}
-                />
-              ))}
-            </div>
-          </>
-        )}
+    <div className={cn('w-full', className)}>
+      {/* Phone: one slot at a time, swipeable. */}
+      <div
+        onScroll={onScroll}
+        className="no-scrollbar flex snap-x snap-mandatory gap-2 overflow-x-auto overscroll-x-contain sm:hidden"
+      >
+        {photos.map((src, i) => (
+          <div key={src} className="w-full shrink-0 snap-center">
+            {slot(src, i)}
+          </div>
+        ))}
       </div>
 
-      {/* ── Desktop: adaptive mosaic ── */}
-      <div className="hidden lg:block">
-        {/* Track counts are chosen so the mosaic never leaves an empty cell:
-            with three thumbnails a 4×2 grid would strand the bottom-right
-            slot, so those stack in a single third column instead. */}
-        <div
-          className={cn(
-            'grid h-[26rem] gap-2 overflow-hidden rounded-[var(--radius-panel)] xl:h-[30rem]',
-            rest.length === 0 && 'grid-cols-1',
-            rest.length === 1 && 'grid-cols-2',
-            rest.length === 2 && 'grid-cols-3 grid-rows-2',
-            rest.length === 3 && 'grid-cols-3 grid-rows-3',
-            rest.length >= 4 && 'grid-cols-4 grid-rows-2'
-          )}
-        >
-          <button
-            type="button"
-            onClick={() => photos.length && open(0)}
-            disabled={!photos.length}
-            aria-label={photos.length ? 'Open photo 1 full screen' : undefined}
-            className={cn(
-              'group relative cursor-pointer overflow-hidden bg-muted focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-ring',
-              rest.length === 2 && 'col-span-2 row-span-2',
-              rest.length === 3 && 'col-span-2 row-span-3',
-              rest.length >= 4 && 'col-span-2 row-span-2'
-            )}
-          >
-            <HostelImage
-              src={hero}
-              name={name}
-              alt={heroAlt}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="transition-transform duration-500 ease-[var(--ease-out-quint)] group-hover:scale-[1.03]"
-            />
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 bg-slate-950/0 transition-colors duration-300 group-hover:bg-slate-950/10"
-            />
-          </button>
+      {photos.length > 1 ? (
+        <p aria-live="polite" className="ds-mono-meta mt-2 text-ds-ink-muted sm:hidden">
+          {slide + 1} of {photos.length}
+        </p>
+      ) : null}
 
-          {rest.map((src, i) => (
-            <button
-              key={src}
-              type="button"
-              onClick={() => open(i + 1)}
-              aria-label={`Open photo ${i + 2} full screen`}
-              className="group relative cursor-pointer overflow-hidden bg-muted focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-ring"
-            >
-              <HostelImage
-                src={src}
-                name={name}
-                alt={`${name}, photo ${i + 2}`}
-                fill
-                sizes="25vw"
-                className="transition-transform duration-500 ease-[var(--ease-out-quint)] group-hover:scale-[1.04]"
-              />
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 bg-slate-950/0 transition-colors duration-300 group-hover:bg-slate-950/10"
-              />
-            </button>
-          ))}
-        </div>
+      {/* Desktop: three equal slots. */}
+      <div className="hidden gap-2 sm:grid sm:grid-cols-3">{shown.map((src, i) => slot(src, i))}</div>
 
-        {photos.length > 0 && (
-          <button
-            type="button"
-            onClick={() => open(0)}
-            className="absolute bottom-4 right-4 inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl border border-border-strong bg-surface px-4 text-sm font-semibold text-foreground shadow-lg transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-          >
-            <Expand className="size-4" aria-hidden="true" />
-            Show all {photos.length} photo{photos.length === 1 ? '' : 's'}
-          </button>
-        )}
-      </div>
-
-      {lightbox >= 0 && (
-        <Lightbox
-          photos={photos}
-          name={name}
-          index={lightbox}
-          setIndex={setLightbox}
-          onClose={close}
-        />
-      )}
-    </section>
+      {lightbox >= 0 ? (
+        <Lightbox photos={photos} name={name} index={lightbox} setIndex={setLightbox} onClose={close} />
+      ) : null}
+    </div>
   );
 }
 
 /**
- * Full-screen viewer. Arrow keys and Escape are wired through `useDialog`,
- * which also locks body scroll, traps Tab inside the dialog and hands focus
- * back to the thumbnail that opened it.
+ * Full screen viewer. Arrow keys, Escape, the scroll lock, the focus trap and
+ * handing focus back to the slot that opened it all come from `useDialog`.
  */
 function Lightbox({ photos, name, index, setIndex, onClose }) {
   const panelRef = useRef(null);
-  const stripRef = useRef(null);
   const count = photos.length;
 
-  const go = useCallback(
-    (delta) => setIndex((i) => (i + delta + count) % count),
-    [count, setIndex]
-  );
+  const go = useCallback((delta) => setIndex((i) => (i + delta + count) % count), [count, setIndex]);
 
   const onKey = useCallback(
     (e) => {
@@ -213,11 +124,19 @@ function Lightbox({ photos, name, index, setIndex, onClose }) {
 
   useDialog(true, { ref: panelRef, onClose, onKey });
 
-  useEffect(() => {
-    stripRef.current
-      ?.querySelector(`[data-thumb="${index}"]`)
-      ?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
-  }, [index]);
+  const step = (label, delta) => (
+    <button
+      type="button"
+      onClick={() => go(delta)}
+      className={cn(
+        'ds-body-m-strong ds-tap inline-flex cursor-pointer items-center justify-center px-4',
+        'rounded-ds-inner border border-solid border-ds-control bg-ds-surface-raised text-ds-ink',
+        'hover:border-ds-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt'
+      )}
+    >
+      {label}
+    </button>
+  );
 
   return (
     <div
@@ -226,83 +145,43 @@ function Lightbox({ photos, name, index, setIndex, onClose }) {
       aria-modal="true"
       aria-label={`${name}, photo ${index + 1} of ${count}`}
       tabIndex={-1}
-      className="fixed inset-0 z-[100] flex flex-col bg-slate-950/95 outline-none animate-fade-in"
+      className="fixed inset-0 z-100 flex flex-col bg-ds-surface outline-none"
     >
-      <div className="flex shrink-0 items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <p className="tabular text-sm font-medium text-white/80" aria-live="polite">
-          {index + 1} / {count}
+      <div className="flex shrink-0 items-center justify-between gap-4 border-b border-solid border-ds-hairline px-4 py-3">
+        <p aria-live="polite" className="ds-mono-meta text-ds-ink-muted">
+          {index + 1} of {count}
         </p>
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close photo viewer"
-          className="grid size-11 cursor-pointer place-items-center rounded-xl text-white/80 transition-colors duration-150 hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          className={cn(
+            'ds-body-m-strong ds-tap inline-flex cursor-pointer items-center justify-center px-4',
+            'rounded-ds-inner border border-solid border-ds-ink bg-ds-surface-raised text-ds-ink',
+            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt'
+          )}
         >
-          <X className="size-5" aria-hidden="true" />
+          Close
         </button>
       </div>
 
-      <div className="relative flex min-h-0 flex-1 items-center justify-center px-2 sm:px-16">
-        {count > 1 && (
-          <button
-            type="button"
-            onClick={() => go(-1)}
-            aria-label="Previous photo"
-            className="absolute left-2 z-10 grid size-11 cursor-pointer place-items-center rounded-full bg-white/10 text-white backdrop-blur transition-colors duration-150 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:left-4 sm:size-12"
-          >
-            <ChevronLeft className="size-6" aria-hidden="true" />
-          </button>
-        )}
-
-        <div className="relative h-full w-full max-w-6xl">
-          <HostelImage
-            key={photos[index]}
-            src={photos[index]}
-            name={name}
-            alt={`${name}, photo ${index + 1} of ${count}`}
-            fill
-            priority
-            sizes="100vw"
-            className="object-contain"
-          />
-        </div>
-
-        {count > 1 && (
-          <button
-            type="button"
-            onClick={() => go(1)}
-            aria-label="Next photo"
-            className="absolute right-2 z-10 grid size-11 cursor-pointer place-items-center rounded-full bg-white/10 text-white backdrop-blur transition-colors duration-150 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:right-4 sm:size-12"
-          >
-            <ChevronRight className="size-6" aria-hidden="true" />
-          </button>
-        )}
+      <div className="relative min-h-0 flex-1 bg-ds-photo">
+        <Image
+          key={photos[index]}
+          src={photos[index]}
+          alt={`${name}, photo ${index + 1} of ${count}`}
+          fill
+          priority
+          sizes="100vw"
+          className="object-contain"
+        />
       </div>
 
-      {count > 1 && (
-        <div
-          ref={stripRef}
-          className="no-scrollbar flex shrink-0 justify-start gap-2 overflow-x-auto px-4 py-4 sm:justify-center sm:px-6"
-        >
-          {photos.map((src, i) => (
-            <button
-              key={src}
-              type="button"
-              data-thumb={i}
-              onClick={() => setIndex(i)}
-              aria-label={`Show photo ${i + 1}`}
-              aria-current={i === index ? 'true' : undefined}
-              className={cn(
-                'relative h-16 w-24 shrink-0 cursor-pointer overflow-hidden rounded-lg transition-all duration-200',
-                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white',
-                i === index ? 'ring-2 ring-white' : 'opacity-55 hover:opacity-100'
-              )}
-            >
-              <HostelImage src={src} name={name} alt="" fill sizes="96px" />
-            </button>
-          ))}
+      {count > 1 ? (
+        <div className="flex shrink-0 items-center justify-between gap-3 border-t border-solid border-ds-hairline px-4 py-3">
+          {step('Previous', -1)}
+          {step('Next', 1)}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

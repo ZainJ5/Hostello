@@ -1,20 +1,26 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Check, Share2 } from 'lucide-react';
+import Button from '@/components/ds/Button';
 import { cn } from '@/lib/utils';
 
 /**
- * Native share sheet where the platform offers one (all mobile browsers),
- * clipboard copy everywhere else. The confirmation is announced politely so
- * the outcome isn't colour-and-icon only.
+ * "Send this to your family" from aside/contact 85:2268.
+ *
+ * That is what this control is actually for in Pakistan: the person who
+ * decides is very often a parent, and the way it reaches them is WhatsApp. So
+ * the native share sheet is the first choice, because on every phone browser
+ * it opens WhatsApp with one tap. Clipboard copy is the desktop fallback.
+ *
+ * The outcome is announced politely and stated in words, never as a colour
+ * change on an icon.
  */
-export default function ShareButton({ title, text, className }) {
+export default function ShareButton({ title, text, label = 'Send this to your family', className }) {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!copied) return undefined;
-    const t = setTimeout(() => setCopied(false), 2200);
+    const t = setTimeout(() => setCopied(false), 2400);
     return () => clearTimeout(t);
   }, [copied]);
 
@@ -33,26 +39,13 @@ export default function ShareButton({ title, text, className }) {
   }
 
   return (
-    <button
-      type="button"
-      onClick={share}
-      className={cn(
-        'inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl px-3 text-sm font-medium',
-        'text-foreground transition-colors duration-200 hover:bg-muted',
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
-        className
-      )}
-    >
-      {copied ? (
-        <Check className="size-4 text-success" aria-hidden="true" />
-      ) : (
-        <Share2 className="size-4" aria-hidden="true" />
-      )}
-      <span className="hidden sm:inline">{copied ? 'Link copied' : 'Share'}</span>
+    <div className={cn('flex w-full flex-col gap-1', className)}>
+      <Button variant="secondary" onClick={share} className="w-full">
+        {copied ? 'Link copied' : label}
+      </Button>
       <span aria-live="polite" className="sr-only">
-        {copied ? 'Link copied to clipboard' : ''}
+        {copied ? 'Link copied to the clipboard' : ''}
       </span>
-      <span className="sr-only sm:hidden">Share this hostel</span>
-    </button>
+    </div>
   );
 }

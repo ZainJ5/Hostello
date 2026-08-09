@@ -1,58 +1,61 @@
-import { CircleSlash } from 'lucide-react';
+import Chip from '@/components/ds/Chip';
 import { FACILITIES } from '@/models/Hostel';
 import { cn } from '@/lib/utils';
-import { facilityIcon } from './facility-icons';
 
 /**
- * What the hostel offers, in the vocabulary's own order so the same facility
- * always sits in the same place across listings. Notable absences are listed
- * separately and struck through, because "no AC" is exactly the sort of thing
- * a student needs to learn before they visit, not after.
+ * Figma section/what-this-place-offers 85:2115. A wrapping row of chips, then
+ * one line naming the notable absences.
+ *
+ * The absences line is the part that earns its place. "No AC" is exactly what
+ * a student needs to learn before they take a rickshaw across Islamabad to
+ * look at a room, not after, and a grid of what is present cannot say it.
+ *
+ * Chips are in the vocabulary's own order, so the same facility sits in the
+ * same place on every listing and two hostels can be compared by shape.
  */
+
+/** Read in a sentence rather than as a database value. */
+const IN_WORDS = {
+  WiFi: 'wifi',
+  Meals: 'a mess',
+  AC: 'air conditioning',
+  'Power Backup': 'backup power',
+  'Attached Bath': 'an attached bath',
+  Laundry: 'laundry',
+  Transport: 'transport',
+};
+
+/** The handful people actively screen for. Anything else is not worth a line. */
+const NOTABLE = ['WiFi', 'Meals', 'AC', 'Power Backup', 'Attached Bath', 'Laundry', 'Transport'];
+
 export default function FacilitiesGrid({ facilities = [], className }) {
-  const has = new Set(facilities);
+  const has = new Set((facilities || []).filter(Boolean));
   const present = FACILITIES.filter((f) => has.has(f));
-  // Only call out the handful of amenities people actively screen for.
-  const NOTABLE = ['WiFi', 'Meals', 'AC', 'Power Backup', 'Attached Bath', 'Laundry'];
   const missing = NOTABLE.filter((f) => !has.has(f));
 
   if (!present.length && !missing.length) return null;
 
   return (
-    <div className={className}>
-      {present.length > 0 ? (
-        <ul className="grid grid-cols-1 gap-x-6 gap-y-3.5 sm:grid-cols-2">
-          {present.map((f) => {
-            const Icon = facilityIcon(f);
-            return (
-              <li key={f} className="flex items-center gap-3">
-                <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300">
-                  <Icon className="size-4.5" aria-hidden="true" />
-                </span>
-                <span className="min-w-0 text-sm text-foreground">{f}</span>
-              </li>
-            );
-          })}
+    <div className={cn('flex w-full flex-col gap-3', className)}>
+      {present.length ? (
+        <ul className="flex flex-wrap gap-2">
+          {present.map((f) => (
+            <li key={f}>
+              <Chip className="px-2.5 py-1.5">{f}</Chip>
+            </li>
+          ))}
         </ul>
       ) : (
-        <p className="text-sm text-muted-foreground">
-          The owner hasn&apos;t listed facilities yet. Worth asking when you call.
+        <p className="ds-body-m text-ds-ink-muted">
+          The owner has not listed what is included. Worth asking on the call.
         </p>
       )}
 
-      {missing.length > 0 && present.length > 0 && (
-        <div className="mt-6 border-t border-border pt-5">
-          <p className="mb-3 text-sm font-medium text-foreground">Not offered</p>
-          <ul className="flex flex-wrap gap-x-5 gap-y-2.5">
-            {missing.map((f) => (
-              <li key={f} className={cn('flex items-center gap-2 text-sm text-muted-foreground')}>
-                <CircleSlash className="size-4 shrink-0" aria-hidden="true" />
-                <span className="line-through decoration-muted-foreground/50">{f}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {missing.length && present.length ? (
+        <p className="ds-body-s text-ds-ink-muted">
+          Not offered: {missing.map((f) => IN_WORDS[f] || f.toLowerCase()).join(', ')}.
+        </p>
+      ) : null}
     </div>
   );
 }

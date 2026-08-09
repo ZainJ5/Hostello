@@ -1,47 +1,32 @@
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, CornerDownRight, MessageSquare, Star } from 'lucide-react';
 import Review from '@/models/Review';
-import { Avatar, EmptyState, Rating } from '@/components/ui/Feedback';
-import Button from '@/components/ui/Button';
-import { cn, timeAgo } from '@/lib/utils';
+import { EmptyState } from '@/components/ds/Feedback';
+import { cn, initials, timeAgo } from '@/lib/utils';
 
 export const REVIEWS_PER_PAGE = 6;
 
-const SUBSCORES = [
-  { key: 'cleanliness', label: 'Cleanliness' },
-  { key: 'food', label: 'Food' },
-  { key: 'security', label: 'Security' },
-  { key: 'location', label: 'Location' },
-  { key: 'valueForMoney', label: 'Value for money' },
-];
-
 /**
- * Loads the review summary and one page of published reviews.
+ * Figma section/reviews 85:2222.
  *
- * The distribution, the five sub-score averages and the row count all come out
- * of a single `$facet` aggregation, so the summary block costs one round trip
- * regardless of how many reviews a listing has accumulated.
+ * WHAT THE DATA ACTUALLY HOLDS. 62 of 124 listings carry a rating and a review
+ * count that came from Hostello's earlier site, and the `Review` collection is
+ * empty. So a listing can honestly show 4.9 from 138 students and have nothing
+ * for you to read. The design has no state for that, and inventing review text
+ * to fill the frame is exactly the thing this project refuses to do, so the
+ * aggregate is shown with a line saying where it came from and why the
+ * write-ups are not underneath it.
+ *
+ * The score is never dressed up with stars. A row of glyphs reads as texture
+ * at this size; the number reads as data.
  */
+
+/** Summary and one page of published reviews, in a single round trip each. */
 export async function loadReviews(hostelId, page = 1) {
   const [summaryRaw] = await Review.aggregate([
     { $match: { hostelId, status: 'published' } },
     {
       $facet: {
-        distribution: [{ $group: { _id: '$rating', count: { $sum: 1 } } }],
-        averages: [
-          {
-            $group: {
-              _id: null,
-              total: { $sum: 1 },
-              overall: { $avg: '$rating' },
-              cleanliness: { $avg: '$cleanliness' },
-              food: { $avg: '$food' },
-              security: { $avg: '$security' },
-              location: { $avg: '$location' },
-              valueForMoney: { $avg: '$valueForMoney' },
-            },
-          },
-        ],
+        averages: [{ $group: { _id: null, total: { $sum: 1 }, overall: { $avg: '$rating' } } }],
       },
     },
   ]);
@@ -50,11 +35,6 @@ export async function loadReviews(hostelId, page = 1) {
   const total = averages.total || 0;
   const pages = Math.max(1, Math.ceil(total / REVIEWS_PER_PAGE));
   const safePage = Math.min(Math.max(1, page), pages);
-
-  const distribution = [5, 4, 3, 2, 1].map((star) => ({
-    star,
-    count: summaryRaw?.distribution?.find((d) => d._id === star)?.count || 0,
-  }));
 
   const items = total
     ? await Review.find({ hostelId, status: 'published' })
@@ -65,178 +45,132 @@ export async function loadReviews(hostelId, page = 1) {
         .lean()
     : [];
 
-  return { total, pages, page: safePage, averages, distribution, items };
+  return { total, pages, page: safePage, overall: Number(averages.overall) || 0, items };
 }
 
-function ScoreBar({ label, value }) {
-  const v = Number(value) || 0;
+function Avatar({ name }) {
   return (
-    <div className="flex items-center gap-3">
-      <span className="w-32 shrink-0 text-sm text-muted-foreground">{label}</span>
-      <span className="h-1.5 min-w-0 flex-1 overflow-hidden rounded-full bg-muted">
-        <span
-          className="block h-full rounded-full bg-brand-600 transition-[width] duration-500"
-          style={{ width: `${(v / 5) * 100}%` }}
-        />
-      </span>
-      <span className="tabular w-9 shrink-0 text-right text-sm font-semibold text-foreground">
-        {v.toFixed(1)}
-      </span>
-    </div>
+    <span
+      aria-hidden="true"
+      className="ds-body-s-strong grid size-9 shrink-0 place-items-center rounded-ds-chip bg-ds-surface-sunken text-ds-ink"
+    >
+      {initials(name)}
+    </span>
   );
 }
 
-export default function ReviewsSection({ slug, reviews, className }) {
-  const { total, pages, page, averages, distribution, items } = reviews;
+export default function ReviewsSection({ slug, hostel, reviews, className }) {
+  const { total, pages, page, overall, items } = reviews;
 
-  if (!total) {
+  const legacyScore = Number(hostel?.rating) || 0;
+  const legacyCount = Number(hostel?.reviewCount) || 0;
+
+  // Nothing written and nothing inherited.
+  if (!total && !legacyCount) {
     return (
-      <div className={className} id="reviews">
+      <div id="reviews" className={className}>
         <EmptyState
-          icon={MessageSquare}
           title="No reviews yet"
-          description="Nobody has reviewed this hostel on Hostello. If you've lived here, your write-up would be the first thing the next student reads."
-          action={
-            <Button href={`/hostels/${slug}/book`} variant="secondary">
-              Request a room
-            </Button>
-          }
+          body="Nobody has reviewed this hostel on Hostello. If you have lived here, yours would be the first thing the next student reads."
         />
       </div>
     );
   }
 
-  const overall = Number(averages.overall) || 0;
-  const subs = SUBSCORES.filter((s) => Number(averages[s.key]) > 0);
+  // Inherited figures with nothing to read under them.
+  if (!total) {
+    return (
+      <div id="reviews" className={cn('flex w-full flex-col gap-2', className)}>
+        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <p className="ds-figure-l text-ds-ink">{legacyScore.toFixed(1)}</p>
+          <p className="ds-body-s min-w-px flex-1 text-ds-ink-muted">
+            from {legacyCount} {legacyCount === 1 ? 'student' : 'students'}
+          </p>
+        </div>
+        <p className="ds-body-s max-w-[80ch] text-ds-ink-muted">
+          That score is an aggregate carried over from Hostello&apos;s earlier site. The
+          individual write-ups behind it were not carried over, so there is nothing to read
+          here yet. Reviews written from now on appear in full, with the owner able to reply
+          once and unable to delete.
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <div className={className} id="reviews">
-      {/* ── Summary ── */}
-      <div className="grid gap-8 rounded-[var(--radius-panel)] border border-border bg-surface-sunken p-5 sm:p-6 lg:grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
-        <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:justify-center">
-          <p className="tabular font-display text-5xl font-extrabold leading-none tracking-tight text-foreground">
-            {overall.toFixed(1)}
-          </p>
-          <div>
-            <Rating value={overall} size="md" showValue={false} />
-            <p className="tabular mt-1 text-sm text-muted-foreground">
-              {total} review{total === 1 ? '' : 's'}
-            </p>
-          </div>
-        </div>
-
-        <div className="space-y-1.5">
-          {distribution.map(({ star, count }) => {
-            const pct = total ? (count / total) * 100 : 0;
-            return (
-              <div key={star} className="flex items-center gap-3">
-                <span className="tabular inline-flex w-9 shrink-0 items-center gap-0.5 text-sm text-muted-foreground">
-                  {star}
-                  <Star className="size-3 fill-current text-accent-400" aria-hidden="true" />
-                </span>
-                <span className="h-1.5 min-w-0 flex-1 overflow-hidden rounded-full bg-muted">
-                  <span
-                    className="block h-full rounded-full bg-accent-400"
-                    style={{ width: `${pct}%` }}
-                  />
-                </span>
-                <span className="tabular w-8 shrink-0 text-right text-sm text-muted-foreground">
-                  {count}
-                </span>
-              </div>
-            );
-          })}
-          <p className="sr-only">
-            {distribution
-              .map(({ star, count }) => `${count} ${star}-star review${count === 1 ? '' : 's'}`)
-              .join(', ')}
-          </p>
-        </div>
-
-        {subs.length > 0 && (
-          <div className="space-y-2.5">
-            {subs.map((s) => (
-              <ScoreBar key={s.key} label={s.label} value={averages[s.key]} />
-            ))}
-          </div>
-        )}
+    <div id="reviews" className={cn('flex w-full flex-col gap-4', className)}>
+      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+        <p className="ds-figure-l text-ds-ink">{overall.toFixed(1)}</p>
+        <p className="ds-body-s min-w-px flex-1 text-ds-ink-muted">
+          from {total} {total === 1 ? 'student who' : 'students who'} had an account when they
+          wrote it. Owners can reply and cannot delete.
+        </p>
       </div>
 
-      {/* ── Review list ── */}
-      <ul className="mt-6 grid gap-4 md:grid-cols-2">
+      <ul className="flex w-full flex-col gap-3">
         {items.map((r) => (
-          <li
-            key={String(r._id)}
-            className="flex flex-col rounded-[var(--radius-card)] border border-border bg-surface p-5"
-          >
+          <li key={String(r._id)} className="ds-elevated flex flex-col gap-3 rounded-ds-inner p-4">
             <div className="flex items-start gap-3">
-              <Avatar name={r.studentName || 'Student'} size="md" />
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-semibold text-foreground">
+              <Avatar name={r.studentName || 'Student'} />
+              <div className="min-w-px flex-1">
+                <p className="ds-body-m-strong truncate text-ds-ink">
                   {r.studentName || 'Hostello student'}
                 </p>
-                <p className="text-xs text-muted-foreground">
-                  <time dateTime={new Date(r.createdAt).toISOString()}>{timeAgo(r.createdAt)}</time>
+                <p className="ds-body-s text-ds-ink-muted">
+                  Rated {Number(r.rating).toFixed(1)} out of 5
                 </p>
               </div>
-              <Rating value={r.rating} size="sm" showValue={false} className="shrink-0" />
+              <time
+                dateTime={new Date(r.createdAt).toISOString()}
+                className="ds-mono-meta shrink-0 text-ds-ink-muted"
+              >
+                {timeAgo(r.createdAt)}
+              </time>
             </div>
 
-            {r.title && (
-              <p className="mt-3.5 text-sm font-semibold text-pretty text-foreground">{r.title}</p>
-            )}
-            <p className={cn('text-sm leading-relaxed text-pretty text-muted-foreground', r.title ? 'mt-1' : 'mt-3.5')}>
-              {r.comment}
-            </p>
+            {r.title ? <p className="ds-body-m-strong text-ds-ink">{r.title}</p> : null}
+            <p className="ds-body-s text-pretty text-ds-ink-muted">{r.comment}</p>
 
-            {r.ownerReply && (
-              <div className="mt-4 rounded-xl border border-border bg-surface-sunken p-3.5">
-                <p className="flex items-center gap-1.5 text-xs font-semibold text-brand-800 dark:text-brand-300">
-                  <CornerDownRight className="size-3.5" aria-hidden="true" />
-                  Reply from the owner
-                  {r.ownerRepliedAt && (
-                    <span className="font-normal text-muted-foreground">
-                      · {timeAgo(r.ownerRepliedAt)}
-                    </span>
-                  )}
-                </p>
-                <p className="mt-1.5 text-sm leading-relaxed text-pretty text-muted-foreground">
-                  {r.ownerReply}
+            {r.ownerReply ? (
+              <div className="flex flex-col gap-1 rounded-ds-inner bg-ds-surface-sunken p-3.5">
+                <p className="ds-label text-ds-ink-muted">Reply from the owner</p>
+                <p className="ds-body-s text-pretty text-ds-ink">{r.ownerReply}</p>
+                <p className="ds-body-s text-ds-ink-muted">
+                  An owner can reply once and cannot remove the review.
                 </p>
               </div>
-            )}
+            ) : null}
           </li>
         ))}
       </ul>
 
-      {pages > 1 && (
+      {pages > 1 ? (
         <nav
           aria-label="Review pages"
-          className="mt-6 flex items-center justify-between gap-3 border-t border-border pt-5"
+          className="flex items-center justify-between gap-3 border-t border-solid border-ds-hairline pt-4"
         >
-          <ReviewPageLink slug={slug} page={page - 1} disabled={page === 1} direction="prev" />
-          <p className="tabular text-sm text-muted-foreground">
+          <PageLink slug={slug} page={page - 1} disabled={page === 1} label="Newer reviews" rel="prev" />
+          <p className="ds-mono-meta text-ds-ink-muted">
             Page {page} of {pages}
           </p>
-          <ReviewPageLink slug={slug} page={page + 1} disabled={page === pages} direction="next" />
+          <PageLink slug={slug} page={page + 1} disabled={page === pages} label="Older reviews" rel="next" />
         </nav>
-      )}
+      ) : null}
     </div>
   );
 }
 
-function ReviewPageLink({ slug, page, disabled, direction }) {
-  const label = direction === 'prev' ? 'Newer reviews' : 'Older reviews';
-  const Icon = direction === 'prev' ? ChevronLeft : ChevronRight;
-  const classes =
-    'inline-flex h-11 items-center gap-2 rounded-xl border border-border px-4 text-sm font-medium transition-colors duration-200';
+function PageLink({ slug, page, disabled, label, rel }) {
+  const face =
+    'ds-body-s ds-tap inline-flex items-center justify-center rounded-ds-chip border border-solid px-3.5';
 
   if (disabled) {
     return (
-      <span aria-disabled="true" className={cn(classes, 'text-muted-foreground/50')}>
-        {direction === 'prev' && <Icon className="size-4" aria-hidden="true" />}
+      <span
+        aria-disabled="true"
+        className={cn(face, 'cursor-not-allowed border-ds-hairline bg-ds-surface-raised text-ds-ink-muted')}
+      >
         {label}
-        {direction === 'next' && <Icon className="size-4" aria-hidden="true" />}
       </span>
     );
   }
@@ -244,12 +178,14 @@ function ReviewPageLink({ slug, page, disabled, direction }) {
   return (
     <Link
       href={`/hostels/${slug}${page > 1 ? `?reviews=${page}` : ''}#reviews`}
-      rel={direction}
-      className={cn(classes, 'cursor-pointer bg-surface text-foreground hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring')}
+      rel={rel}
+      className={cn(
+        face,
+        'border-ds-control bg-ds-surface-raised text-ds-ink hover:border-ds-cobalt',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt'
+      )}
     >
-      {direction === 'prev' && <Icon className="size-4" aria-hidden="true" />}
       {label}
-      {direction === 'next' && <Icon className="size-4" aria-hidden="true" />}
     </Link>
   );
 }

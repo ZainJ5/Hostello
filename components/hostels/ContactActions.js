@@ -1,16 +1,20 @@
 'use client';
 
-import { MessageCircle, Phone } from 'lucide-react';
+import Button from '@/components/ds/Button';
 import { cn, normalizePhone, whatsappLink } from '@/lib/utils';
 
 /**
- * Call / WhatsApp buttons. Both are real anchors so long-press, "copy link"
- * and middle-click behave normally; the conversion ping is fired alongside the
- * navigation with `keepalive` rather than instead of it, so a slow network
- * can't hold up the student's call.
+ * The two routes that actually reach a hostel today: its own phone and its own
+ * WhatsApp. Both are real anchors, so long press, "copy link" and middle click
+ * behave the way a student expects.
  *
- * Nothing renders when the listing carries no number, because an inert phone
- * button is worse than no phone button.
+ * 104 of 124 listings carry a phone and 101 carry a WhatsApp number. THE
+ * TWENTY WITHOUT ONE ARE WHY THIS COMPONENT RENDERS NOTHING RATHER THAN A
+ * DISABLED BUTTON. An inert call button is worse than no call button: it looks
+ * like the site is broken rather than like the owner has not given a number.
+ *
+ * The conversion ping is fired alongside the navigation with `keepalive`, never
+ * instead of it, so a slow network cannot hold up the call.
  */
 export function trackContact(slug, channel) {
   try {
@@ -25,68 +29,45 @@ export function trackContact(slug, channel) {
   }
 }
 
-const BASE =
-  'inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-xl border ' +
-  'text-sm font-semibold transition-[background-color,box-shadow,transform] duration-200 ' +
-  'active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
+export function hasContact(hostel) {
+  return Boolean(normalizePhone(hostel?.contact?.phone) || hostel?.contact?.whatsapp);
+}
 
-/**
- * `compact` renders icon-only 48px squares for the mobile action bar, where
- * horizontal room is scarce; the accessible name moves to `aria-label`.
- */
-export default function ContactActions({
-  slug,
-  phone,
-  whatsapp,
-  hostelName,
-  compact = false,
-  className,
-}) {
-  const tel = normalizePhone(phone);
+export default function ContactActions({ hostel, className }) {
+  const slug = hostel.slug;
+  const tel = normalizePhone(hostel.contact?.phone);
   const wa = whatsappLink(
-    whatsapp || phone,
-    `Hi! I found ${hostelName} on Hostello and I'd like to ask about a room.`
+    hostel.contact?.whatsapp || hostel.contact?.phone,
+    `Hello, I found ${hostel.name} on Hostello and I would like to ask about a room.`
   );
 
   if (!tel && !wa) return null;
 
-  const shape = compact ? 'w-12 shrink-0' : 'flex-1 px-4';
-
   return (
-    <div className={cn('flex items-stretch gap-2.5', className)}>
-      {tel && (
-        <a
+    <div className={cn('flex w-full flex-col gap-2.5', className)}>
+      {tel ? (
+        <Button
           href={`tel:${tel}`}
+          variant="secondary"
+          className="w-full"
           onClick={() => trackContact(slug, 'call')}
-          aria-label={`Call ${hostelName}`}
-          className={cn(
-            BASE,
-            shape,
-            'border-border-strong bg-surface text-foreground hover:bg-muted'
-          )}
         >
-          <Phone className="size-4" aria-hidden="true" />
-          {!compact && 'Call'}
-        </a>
-      )}
-      {wa && (
-        <a
+          Call the hostel
+        </Button>
+      ) : null}
+
+      {wa ? (
+        <Button
           href={wa}
+          variant="secondary"
+          className="w-full"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackContact(slug, 'whatsapp')}
-          aria-label={`Message ${hostelName} on WhatsApp`}
-          className={cn(
-            BASE,
-            shape,
-            'border-success/30 bg-success-soft text-success hover:brightness-[0.97]',
-            'dark:bg-success/15 dark:text-emerald-300'
-          )}
         >
-          <MessageCircle className="size-4" aria-hidden="true" />
-          {!compact && 'WhatsApp'}
-        </a>
-      )}
+          WhatsApp the hostel
+        </Button>
+      ) : null}
     </div>
   );
 }

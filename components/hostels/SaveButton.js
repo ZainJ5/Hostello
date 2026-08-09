@@ -2,15 +2,20 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
-import { Heart } from 'lucide-react';
+import Button from '@/components/ds/Button';
 import { cn } from '@/lib/utils';
 
 /**
- * Optimistic save toggle. The saved-listings collection belongs to the student
- * stream (`POST /api/saved`), so this component only owns the interaction:
- * flip immediately, send the request, and roll back with an inline message if
- * it fails. A 401 is not a failure; it means "sign in first", so we route the
- * student to login and bring them back to this listing afterwards.
+ * Optimistic shortlist toggle. The saved collection belongs to the account
+ * area (`POST /api/saved`), so this owns the interaction only: flip
+ * immediately, send the request, roll back with a line of text if it fails.
+ *
+ * A 401 is not a failure, it means "sign in first", so the student is routed
+ * to login and brought back to the listing afterwards.
+ *
+ * The label carries the state in words as well as in the fill, because the
+ * card and the badge already use solid versus hollow to mean something else
+ * and a second meaning for the same shape would be ambiguous.
  */
 export default function SaveButton({ hostelId, initialSaved = false, className }) {
   const router = useRouter();
@@ -33,44 +38,32 @@ export default function SaveButton({ hostelId, initialSaved = false, className }
 
       if (res.status === 401 || res.status === 403) {
         setSaved(!next);
-        startTransition(() =>
-          router.push(`/login?next=${encodeURIComponent(pathname)}`)
-        );
+        startTransition(() => router.push(`/login?next=${encodeURIComponent(pathname)}`));
         return;
       }
       if (!res.ok) throw new Error('save failed');
     } catch {
       setSaved(!next);
-      setError('Could not save just now');
+      setError('Could not save just now. Try again.');
     }
   }
 
   return (
-    <div className={cn('inline-flex flex-col items-start', className)}>
-      <button
-        type="button"
+    <div className={cn('flex w-full flex-col gap-1', className)}>
+      <Button
+        variant="secondary"
         onClick={toggle}
-        aria-pressed={saved}
         disabled={isPending}
-        className={cn(
-          'inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl px-3 text-sm font-medium',
-          'transition-colors duration-200 hover:bg-muted',
-          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
-          saved ? 'text-danger' : 'text-foreground'
-        )}
+        aria-pressed={saved}
+        className="w-full"
       >
-        <Heart
-          className={cn('size-4 transition-transform duration-200', saved && 'scale-110 fill-current')}
-          aria-hidden="true"
-        />
-        <span className="hidden sm:inline">{saved ? 'Saved' : 'Save'}</span>
-        <span className="sr-only sm:hidden">{saved ? 'Remove from saved' : 'Save this hostel'}</span>
-      </button>
-      {error && (
-        <span role="status" className="mt-0.5 text-xs text-danger">
+        {saved ? 'Saved' : 'Save this hostel'}
+      </Button>
+      {error ? (
+        <p role="status" className="ds-body-s text-ds-error">
           {error}
-        </span>
-      )}
+        </p>
+      ) : null}
     </div>
   );
 }

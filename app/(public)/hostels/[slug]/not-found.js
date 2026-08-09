@@ -1,46 +1,46 @@
-import { Compass, Search } from 'lucide-react';
-import Button from '@/components/ui/Button';
+import Container from '@/components/public/Container';
+import Button from '@/components/ds/Button';
+import FilterChip from '@/components/ds/FilterChip';
 
 /**
- * Reached when a slug doesn't exist, or when the listing behind it is no longer
- * published. A hostel that was suspended or pulled looks identical to one that
- * never existed, which is deliberate: it keeps moderation state from leaking.
+ * Reached when a slug does not exist, and when the listing behind it is no
+ * longer published. A hostel that was suspended looks identical to one that
+ * never existed, which is deliberate: it keeps moderation state from leaking
+ * to anybody who can guess a URL.
+ *
+ * The page is a route back into the directory rather than an apology, because
+ * a student who lands here still needs a room.
  */
+const CAMPUSES = ['NUST', 'FAST', 'QAU', 'COMSATS', 'NUML', 'FJWU', 'Riphah'];
+
 export default function HostelNotFound() {
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col items-center px-4 py-24 text-center sm:px-6">
-      <span className="grid size-16 place-items-center rounded-2xl bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300">
-        <Compass className="size-8" aria-hidden="true" />
-      </span>
-
-      <h1 className="mt-6 text-h2 text-balance text-foreground">
-        This listing isn&apos;t available
+    <Container as="section" className="flex flex-col gap-6 pb-20 pt-16">
+      <h1 className="ds-display-xl max-w-[20ch] text-balance text-ds-ink">
+        This listing is not available
       </h1>
-      <p className="mt-3 text-base text-pretty text-muted-foreground">
-        It may have been taken down by the owner, or the link might have a typo
-        in it. Plenty of other hostels are still listed, so try searching by
-        city or university instead.
+      <p className="ds-body-l max-w-[70ch] text-pretty text-ds-ink-muted">
+        It may have been taken down by the owner, or the link may have a typo in it. The rest of
+        the directory is still here, so try a city or a campus instead.
       </p>
 
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <Button href="/hostels" variant="primary" size="lg">
-          <Search className="size-4" aria-hidden="true" />
-          Browse all hostels
-        </Button>
-        <Button href="/hostels?city=Islamabad" variant="secondary" size="lg">
+      <div className="flex flex-wrap items-center gap-3">
+        <Button href="/hostels">Browse all hostels</Button>
+        <Button href="/hostels?city=Islamabad" variant="secondary">
           Hostels in Islamabad
         </Button>
       </div>
 
-      <ul className="mt-10 flex flex-wrap items-center justify-center gap-2">
-        {['NUST', 'FAST', 'QAU', 'COMSATS', 'NUML', 'Riphah'].map((u) => (
-          <li key={u}>
-            <Button href={`/hostels?university=${encodeURIComponent(u)}`} variant="ghost" size="sm">
-              Near {u}
-            </Button>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div className="flex flex-col gap-2">
+        <p className="ds-label text-ds-ink-muted">Start with a campus</p>
+        <ul className="flex flex-wrap gap-1">
+          {CAMPUSES.map((u) => (
+            <li key={u}>
+              <FilterChip href={`/hostels?university=${encodeURIComponent(u)}`}>{u}</FilterChip>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Container>
   );
 }
