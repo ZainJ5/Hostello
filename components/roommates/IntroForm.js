@@ -115,7 +115,7 @@ export default function IntroForm({ match, alreadySent }) {
         <ul className="flex flex-col gap-3">
           {[
             `${firstName} can accept, ignore it, or block. Ignoring tells you nothing, which is deliberate.`,
-            `If ${firstName} accepts, you both see full names and whatever each of you chose to be reached on.`,
+            `If ${firstName} accepts, you each see whatever the other chose to be reached on. Surnames and the six answers are never shown, accepted or not.`,
             'Neither of you is committed to a room. Beds are still arranged with the hostel owner separately.',
           ].map((line) => (
             <li key={line} className="flex items-start gap-3">

@@ -113,7 +113,7 @@ export default async function RoommateMatchesPage() {
         {matches.length ? (
           <div className="ds-elevated flex flex-col gap-1 rounded-ds-inner p-4">
             <p className="ds-body-m-strong text-ds-ink">
-              Surnames stay hidden until you both accept an intro
+              Surnames are never shown, and neither are anybody&apos;s six answers
             </p>
             <p className="ds-body-s text-ds-ink-muted">
               The six blocks read sleep, clean, study, guests, smoke and noise, always in that

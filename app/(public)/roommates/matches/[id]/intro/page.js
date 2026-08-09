@@ -64,9 +64,10 @@ export default async function RoommateIntroPage({ params }) {
         <div className="flex flex-col gap-3">
           <h1 className="ds-display-xl text-ds-ink">Say hello to {match.displayName}</h1>
           <p className="ds-body-l text-ds-ink-muted">
-            {firstName} sees this message, your first name, your year and your department. Not
-            your surname, not how to reach you, and not one of your six answers, unless the
-            introduction is accepted.
+            {firstName} sees this message, your first name, your year and your department. Never
+            your surname and never one of your six answers, whether the introduction is accepted
+            or not. How to reach you is shared only if it is accepted, and only what you chose to
+            put there.
           </p>
         </div>
 
