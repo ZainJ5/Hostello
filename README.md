@@ -1,6 +1,6 @@
 # Hostello
 
-Pakistan's student hostel marketplace — browse and compare verified hostels near
+Pakistan's student hostel marketplace. Browse and compare verified hostels near
 NUST, FAST, QAU, COMSATS, NUML and other campuses, with a student account area,
 a self-service portal for hostel owners, and an admin console.
 
@@ -21,7 +21,7 @@ npm run dev
 
 Then open http://localhost:3000.
 
-### Demo accounts
+### Seeded accounts
 
 Password for all of them: `Password123!`
 
@@ -44,7 +44,7 @@ Password for all of them: `Password123!`
 | `UPLOAD_DIR` | Where listing photos and payment screenshots are written |
 
 **Email in development**: with `SMTP_HOST` empty, verification codes are not
-sent — they are printed to the server console in a boxed block. Signup, login,
+sent. They are printed to the server console in a boxed block, so signup, login,
 password reset and account deletion all work end to end without a mail server.
 Set the SMTP variables to send real mail.
 
@@ -55,22 +55,23 @@ Set the SMTP variables to send real mail.
 The listings are real, carried over from the previous Hostello platform rather
 than invented.
 
-- **Records** — merged from two sources by `scripts/build-dataset.js`:
+- **Records.** Merged from two sources by `scripts/build-dataset.js`:
   1. A production database export recovered from the legacy repo's git history
      (`backend/db_export/hostels.json` at commit `f9466fa`, deleted in a later
      commit). 66 records, authoritative for photography and pricing.
-  2. The legacy `backend/seeds/*.js` files — wider campus coverage
-     (Rawalpindi, RMU, FJWU, Arid, SZABIST, Riphah) but only stock image URLs.
+  2. The legacy `backend/seeds/*.js` files, which add wider campus coverage
+     (Rawalpindi, RMU, FJWU, Arid, SZABIST, Riphah) but carry only stock image
+     URLs.
 
   Merged on a normalised name, deduplicated, with facility strings and
   university abbreviations collapsed onto controlled vocabularies. Result:
   **124 hostels** in `data/hostels.json`.
 
-- **Photography** — 225 files restored to `public/uploads/hostels/`. Every one
+- **Photography.** 225 files restored to `public/uploads/hostels/`. Every one
   of the 199 image paths referenced by the recovered export resolves to a real
   file, so 65 listings carry their genuine photos. 51 more fall back to the
   stock URLs recorded in the seeds. The remaining 8 have no imagery at all and
-  render a branded monogram tile via `components/ui/HostelImage.js` — no photo
+  render a branded monogram tile via `components/ui/HostelImage.js`; no photo
   is ever invented for a listing that lacks one.
 
 `public/uploads/` is gitignored: it is runtime data, it is ~100MB, and the
@@ -94,9 +95,9 @@ analytics dashboards have a real trend to chart.
 app/
   (public)/       marketing site, browse, hostel detail, map
   (auth)/         login, signup, email verification, password reset
-  (student)/      /dashboard — bookings, saved, reviews, profile
-  (owner)/        /owner — listings, payments, bookings, analytics
-  (admin)/        /admin — moderation, approvals, platform analytics
+  (student)/      /dashboard: bookings, saved, reviews, profile
+  (owner)/        /owner: listings, payments, bookings, analytics
+  (admin)/        /admin: moderation, approvals, platform analytics
   api/            route handlers
 components/
   ui/             shared design-system kit (Button, Badge, Card, Field, …)
@@ -124,12 +125,12 @@ Only `published` listings are ever returned by public queries.
 
 ## Design system
 
-`DESIGN.md` is the source of truth — an Airbnb-derived system: a pure white
+`DESIGN.md` is the source of truth for an Airbnb-derived system: a pure white
 canvas, near-black ink, and a single brand voltage (Rausch `#ff385c`) carrying
 every primary CTA and save state, used scarcely. One type family (Inter, the
 documented substitute for Airbnb Cereal), 8px controls, ~14px cards, pill search
-surfaces, and exactly one shadow tier — depth comes from photography and
-rounded clipping, not stacked elevation.
+surfaces, and exactly one shadow tier. Depth comes from photography and rounded
+clipping, not stacked elevation.
 
 Those decisions are compiled into tokens in `app/globals.css`; there is no
 `tailwind.config.js` under Tailwind v4. Components reference semantic tokens
@@ -147,6 +148,6 @@ the toggle and is remembered per visitor.
 - Replace `AUTH_SECRET` with a 64-character random string.
 - Point NGINX at `public/uploads` and serve it directly.
 - Payment screenshots are served through an authenticated route, but the files
-  also sit under `public/`. Move that directory outside the web root before
-  going live.
+  also sit under `public/`. NGINX blocks `/uploads/payments/`; moving that
+  directory outside the web root is the more durable fix.
 # Hostello

@@ -4,7 +4,7 @@ import { serialize } from '@/lib/utils';
 import Hostel from '@/models/Hostel';
 
 /**
- * GET /api/hostels/:slug — one published listing.
+ * GET /api/hostels/:slug: one published listing.
  *
  * Response: `{ hostel: { …full document } }`, minus the fields the public has
  * no business reading (`ownerId`, moderation state, engagement counters).

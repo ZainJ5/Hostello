@@ -13,7 +13,7 @@ const ACCEPT = 'image/jpeg,image/png,image/webp,image/avif,image/gif';
 /**
  * Multi-file listing photos: drag-and-drop or browse, reorder by dragging or
  * with the arrow buttons (keyboard users get the same capability), delete, and
- * a clear cover marker — the first image is what every card shows.
+ * a clear cover marker, since the first image is what every card shows.
  *
  * Type and size are re-checked server-side against the file's real bytes; the
  * checks here only save a round trip.

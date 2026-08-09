@@ -5,24 +5,22 @@ import Footer from '@/components/public/Footer';
 /**
  * Runs before the first paint of everything below it: reads the saved choice
  * and stamps the `dark` class on <html> so the theme never flashes. Kept as a
- * string literal because it must be synchronous and inline — a bundled module
- * would be too late. The storage key matches `THEME_STORAGE_KEY` in
+ * string literal because it must be synchronous and inline; a bundled module
+ * would run too late. The storage key matches `THEME_STORAGE_KEY` in
  * components/public/ThemeToggle.
  *
- * The public site deliberately defaults to LIGHT rather than following the OS
- * preference. This is a photography-led marketplace on a white canvas (see
- * DESIGN.md) — listing photos and the single Rausch accent are calibrated
- * against white, and a visitor arriving with a dark OS setting would otherwise
- * never see the intended presentation. Dark remains available via the toggle
- * and is honoured on every later visit.
+ * The public site defaults to LIGHT rather than following the OS preference:
+ * listing photos and the single Rausch accent are calibrated against white
+ * (see DESIGN.md). Dark remains available via the toggle and is honoured on
+ * every later visit.
  */
 const THEME_SCRIPT = `(function(){try{var s=localStorage.getItem('hostello-theme');var d=s==='dark';var e=document.documentElement;e.classList.toggle('dark',d);e.style.colorScheme=d?'dark':'light';}catch(_){}})();`;
 
 export default async function PublicLayout({ children }) {
   const session = await getSession();
 
-  // The JWT payload carries claims the client never needs — pass only what the
-  // navbar renders.
+  // The JWT payload carries claims the client never needs, so pass only what
+  // the navbar renders.
   const navSession = session
     ? { name: session.name || '', email: session.email || '', role: session.role || 'student' }
     : null;

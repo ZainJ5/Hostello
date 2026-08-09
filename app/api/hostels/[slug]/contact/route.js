@@ -6,8 +6,8 @@ import { recordEngagement } from '../../_track';
 /**
  * POST /api/hostels/:slug/contact
  *
- * Increments `Hostel.contactClicks` and appends a `PageView { kind: 'contact' }`
- * — the conversion signal on the owner dashboard. Fired from `<ContactActions>`
+ * Increments `Hostel.contactClicks` and appends a `PageView { kind: 'contact' }`,
+ * the conversion signal on the owner dashboard. Fired from `<ContactActions>`
  * the moment a student taps Call or WhatsApp.
  *
  * Deliberately *not* deduplicated: unlike a page view, every tap is a genuine

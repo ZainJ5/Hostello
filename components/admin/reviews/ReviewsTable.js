@@ -251,7 +251,7 @@ export default function ReviewsTable({ rows, total, page, pages, perPage, hostel
                               {row.flagCount}
                             </Badge>
                           ) : (
-                            <span className="text-xs text-muted-foreground">—</span>
+                            <span className="text-xs text-muted-foreground">None</span>
                           )}
                         </Td>
                         <Td>

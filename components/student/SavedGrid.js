@@ -11,7 +11,7 @@ import { useToast } from './Toast';
 /**
  * The saved shortlist.
  *
- * Removing a card is optimistic — it disappears on click, the request follows,
+ * Removing a card is optimistic: it disappears on click, the request follows,
  * and a toast offers Undo for five seconds. Undo restores the card at its
  * original index rather than appending it, so the grid doesn't reshuffle under
  * the student's eyes. A failed request rolls the card straight back and says so.
@@ -29,7 +29,7 @@ export default function SavedGrid({ hostels: initial }) {
     const res = await fetch('/api/saved', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      // Explicit desired state, not "toggle" — repeated calls converge.
+      // Explicit desired state, not "toggle", so repeated calls converge.
       body: JSON.stringify({ hostelId, saved }),
     });
     const data = await res.json().catch(() => ({}));

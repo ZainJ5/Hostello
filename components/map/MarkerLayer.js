@@ -13,7 +13,7 @@ import PopupCard from './PopupCard';
  *
  * Two reasons: hovering a row in the result list must not re-render a few
  * hundred components (it only toggles one class on one DOM node), and the
- * clustering pass only has to run when the zoom changes — Leaflet's projection
+ * clustering pass only has to run when the zoom changes. Leaflet's projection
  * is absolute for a given zoom, so panning leaves the grouping untouched.
  */
 export default function MarkerLayer({
@@ -81,7 +81,7 @@ export default function MarkerLayer({
           icon: clusterIcon(g.count),
           keyboard: false,
           alt: `${g.count} hostels`,
-          title: `${g.count} hostels — click to zoom in`,
+          title: `${g.count} hostels. Click to zoom in`,
         });
         marker.on('click', () => {
           map.fitBounds(g.bounds, { padding: [72, 72], maxZoom: 17, animate: true });

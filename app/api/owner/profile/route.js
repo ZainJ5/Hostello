@@ -9,7 +9,7 @@ import { auditOwner } from '@/app/(owner)/_lib/audit';
 
 /**
  * Updates the owner's own profile. The document loaded is always the one the
- * session resolves to — there is no id in the URL, so there is nothing to
+ * session resolves to, and there is no id in the URL, so there is nothing to
  * tamper with. Email and role are intentionally not editable here: changing an
  * email is an auth flow (it needs re-verification) and role is an admin action.
  */

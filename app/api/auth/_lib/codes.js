@@ -9,10 +9,10 @@ export const CODE_TTL_MINUTES = 10;
 export const MAX_ATTEMPTS = 5;
 
 /**
- * True when a real mail server is configured. When false, sendVerificationCode
- * prints the code to the server console instead of sending it — the intended
- * development path. Callers surface this as a flag so the UI can explain where
- * the code went. The code itself is never returned to the client.
+ * True when a mail server is configured. When false, sendVerificationCode logs
+ * the code server-side instead of transmitting it. Callers surface the result
+ * as a boolean flag so the UI can tell the user whether to expect an email.
+ * The code itself is never returned to the client.
  */
 export function mailConfigured() {
   return Boolean(process.env.SMTP_HOST);
@@ -30,7 +30,7 @@ function invalidCode(message, status = 400) {
  * Any outstanding code for the same pair is consumed first, so a resend
  * invalidates the previous one and only the newest code in the mailbox works.
  *
- * Returns only `{ delivered }` — never the code, on any path.
+ * Returns only `{ delivered }`, never the code, on any path.
  */
 export async function issueCode({ email, purpose }) {
   await VerificationCode.updateMany(
@@ -53,7 +53,7 @@ export async function issueCode({ email, purpose }) {
 /**
  * Checks a submitted code against the newest unconsumed record.
  *
- * `consume: false` validates without spending the code — used by
+ * `consume: false` validates without spending the code. It is used by
  * /api/auth/verify for the `reset` and `delete-account` purposes, where the
  * follow-up request (reset-password, DELETE delete-account) is the call that
  * actually performs the state change and must be the one to consume it.

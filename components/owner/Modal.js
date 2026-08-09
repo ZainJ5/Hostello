@@ -46,8 +46,8 @@ export function Modal({ open, onClose, title, description, children, footer, siz
     const previous = document.activeElement;
     const { overflow } = document.body.style;
     document.body.style.overflow = 'hidden';
-    // Focus the panel itself, not the first control — announcing the title
-    // first is friendlier than dropping straight into an input.
+    // Focus the panel itself, not the first control, so the title is announced
+    // before the user is dropped into an input.
     panelRef.current?.focus();
     return () => {
       document.body.style.overflow = overflow;
@@ -116,7 +116,7 @@ export function Modal({ open, onClose, title, description, children, footer, siz
 
 /**
  * Every destructive action in the console routes through this. `onConfirm` may
- * return a promise — the button stays in its loading state until it settles.
+ * return a promise; the button stays in its loading state until it settles.
  */
 export function ConfirmDialog({
   open,

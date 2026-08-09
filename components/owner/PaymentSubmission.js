@@ -86,7 +86,7 @@ function CopyField({ label, value, note }) {
               clearTimeout(timer.current);
               timer.current = setTimeout(() => setCopied(false), 1800);
             } catch {
-              /* clipboard blocked — the value is selectable on screen anyway */
+              /* clipboard blocked; the value is selectable on screen anyway */
             }
           }}
           aria-label={`Copy ${label}`}
@@ -163,7 +163,7 @@ export default function PaymentSubmission({ listing, payment, billing }) {
       return;
     }
     if (candidate.type && !ACCEPT.includes(candidate.type)) {
-      setFormError('Upload an image — JPG, PNG, WebP, AVIF or GIF.');
+      setFormError('Upload an image: JPG, PNG, WebP, AVIF or GIF.');
       return;
     }
     chooseFile(candidate);
@@ -175,7 +175,7 @@ export default function PaymentSubmission({ listing, payment, billing }) {
     setErrors({});
 
     if (!file) {
-      setFormError('Attach the screenshot of your transfer — it is how we verify the payment.');
+      setFormError('Attach the screenshot of your transfer. It is how we verify the payment.');
       return;
     }
 
@@ -189,7 +189,7 @@ export default function PaymentSubmission({ listing, payment, billing }) {
     setSubmitting(true);
     try {
       await apiSend(`/api/owner/listings/${listing._id}/payment`, { form });
-      toast.success('Payment submitted — an admin will review it shortly.');
+      toast.success('Payment submitted. An admin will review it shortly.');
       chooseFile(null);
       router.refresh();
     } catch (err) {
@@ -241,9 +241,9 @@ export default function PaymentSubmission({ listing, payment, billing }) {
                   Awaiting admin approval
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground text-pretty">
-                  We have your receipt. An admin usually reviews payments within a working day —
-                  the listing goes live automatically the moment it is approved. You will get an
-                  email either way.
+                  We have your receipt. An admin usually reviews payments within a working day,
+                  and the listing goes live automatically the moment it is approved. You will get
+                  an email either way.
                 </p>
                 <dl className="tabular mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-sm sm:grid-cols-4">
                   <div>
@@ -257,7 +257,7 @@ export default function PaymentSubmission({ listing, payment, billing }) {
                   <div>
                     <dt className="text-xs text-muted-foreground">Reference</dt>
                     <dd className="truncate font-semibold text-foreground">
-                      {payment.transactionRef || '—'}
+                      {payment.transactionRef || 'Not given'}
                     </dd>
                   </div>
                   <div>
@@ -365,7 +365,7 @@ export default function PaymentSubmission({ listing, payment, billing }) {
                 >
                   {preview ? (
                     <div className="space-y-3">
-                      {/* Local object URL — never leaves the browser until submit. */}
+                      {/* Local object URL; never leaves the browser until submit. */}
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={preview}
@@ -478,7 +478,7 @@ export default function PaymentSubmission({ listing, payment, billing }) {
           </div>
         </Card>
 
-        <Alert tone="info" title="No card payments — on purpose">
+        <Alert tone="info" title="No card payments, on purpose">
           Hostello does not run a payment gateway. You transfer directly, we check the receipt by
           hand, and no card details ever touch this site.
         </Alert>

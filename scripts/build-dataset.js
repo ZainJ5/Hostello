@@ -2,12 +2,12 @@
  * Builds the canonical hostel dataset at data/hostels.json by merging two
  * sources recovered from the legacy Hostello project:
  *
- *   1. data/legacy/hostels.json — a production DB export recovered from git
+ *   1. data/legacy/hostels.json, a production DB export recovered from git
  *      history (commit f9466fa, later deleted). 66 records whose `images`
  *      point at real uploaded photos now living in public/uploads/hostels.
  *      This is authoritative for photography and live pricing.
  *
- *   2. backend/seeds/*.js in the legacy repo — ~145 records with wider
+ *   2. backend/seeds/*.js in the legacy repo, ~145 records with wider
  *      coverage (Rawalpindi, RMU, FJWU, Arid, SZABIST, Riphah) but only
  *      Unsplash stock URLs for imagery.
  *
@@ -194,7 +194,8 @@ function extractSeedArray(src, file) {
       });
       names.push(m[1]);
     } catch {
-      // References a runtime value (require, mongoose, …) — not our array.
+      // References a runtime value (require, mongoose, and so on), so it is
+      // not the array we are looking for.
     }
     decl.lastIndex = end;
   }
@@ -215,7 +216,7 @@ function extractSeedArray(src, file) {
 
 function loadSeeds() {
   if (!fs.existsSync(SEEDS_DIR)) {
-    console.warn(`  ! legacy seeds not found at ${SEEDS_DIR} — skipping`);
+    console.warn(`  ! legacy seeds not found at ${SEEDS_DIR}, skipping`);
     return [];
   }
   let out = [];
@@ -322,7 +323,7 @@ function main() {
     : [];
   console.log(`  + hostels.json: ${dbRecords.length}`);
 
-  // DB export first — it owns real photography and current pricing.
+  // DB export first, because it owns real photography and current pricing.
   const merged = new Map();
   for (const r of dbRecords) {
     const key = norm(r.name);
@@ -353,7 +354,7 @@ function main() {
   }
 
   const hostels = [...merged.values()].sort((a, b) => {
-    // Real-photo, verified listings lead — they present best on the grid.
+    // Real-photo, verified listings lead, since they present best on the grid.
     const score = (h) =>
       (h.images.some((i) => i.startsWith('/uploads/')) ? 4 : 0) +
       (h.verified ? 2 : 0) +

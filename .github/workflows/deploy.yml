@@ -68,7 +68,7 @@ jobs:
 
       - name: Run deploy
         # Reaching port 22 from GitHub's runners is occasionally blocked
-        # upstream of the host — the connection times out rather than being
+        # upstream of the host: the connection times out rather than being
         # refused, and a later attempt from a different runner IP succeeds.
         # Retry before giving up so a network blip does not fail a good deploy.
         run: |
@@ -93,7 +93,7 @@ jobs:
             # 255 is ssh's own transport failure; anything else came from the
             # deploy script itself and retrying would not help.
             if [ $status -ne 255 ]; then
-              echo "deploy script failed with exit $status — not retrying"
+              echo "deploy script failed with exit $status, not retrying"
               exit $status
             fi
             echo "ssh transport failed (exit 255)"

@@ -8,7 +8,7 @@ import { verifyCode } from '../_lib/codes';
 import { SUSPENDED_MESSAGE } from '../_lib/users';
 
 /**
- * POST /api/auth/reset-password — { email, code, password }
+ * POST /api/auth/reset-password: { email, code, password }
  *
  * Consumes the `reset` code, then sets the new password. The user is left
  * signed out and sent to /login: a password change should end with proving the
@@ -39,7 +39,7 @@ export const POST = handler(async (req) => {
 
   user.passwordHash = await hashPassword(password);
   // Reading the code proves control of the mailbox, which is exactly what
-  // signup verification asks for — so an account stuck unverified is released.
+  // signup verification asks for, so an account stuck unverified is released.
   user.emailVerified = true;
   await user.save();
 

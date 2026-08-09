@@ -64,7 +64,7 @@ export const PATCH = handler(async (req, ctx) => {
 
 /**
  * Deletes a listing. Only drafts and rejected listings can be removed by the
- * owner — anything that has been live, paid for, or is mid-review has records
+ * owner. Anything that has been live, paid for, or is mid-review has records
  * attached to it and has to go through an admin.
  */
 export const DELETE = handler(async (req, ctx) => {

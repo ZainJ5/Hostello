@@ -7,7 +7,7 @@ import { publicUser } from '../_lib/users';
 /**
  * GET /api/auth/me
  *
- * Returns `{ user: null }` with a 200 when signed out — "not signed in" is a
+ * Returns `{ user: null }` with a 200 when signed out. "Not signed in" is a
  * normal answer, not an error, and callers shouldn't need a try/catch to ask.
  *
  * The record is re-read from the database rather than trusted from the JWT, so

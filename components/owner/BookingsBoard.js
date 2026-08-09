@@ -21,7 +21,7 @@ const STATUS_TABS = [
 ];
 
 /**
- * Booking requests for this owner's listings only — the query behind it is
+ * Booking requests for this owner's listings only. The query behind it is
  * scoped by `ownerId` server-side, and the listing filter can only ever narrow
  * that set further.
  */

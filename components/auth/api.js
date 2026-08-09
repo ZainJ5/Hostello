@@ -1,8 +1,8 @@
 /**
  * Thin fetch wrapper for the auth endpoints.
  *
- * Never throws on a non-2xx: every auth failure — wrong password, unverified
- * email, rate limited — is a normal outcome the form has to render, so the
+ * Never throws on a non-2xx: every auth failure (wrong password, unverified
+ * email, rate limited) is a normal outcome the form has to render, so the
  * caller gets `{ ok, status, data }` and branches on it. Only a dropped
  * connection produces `status: 0`.
  */

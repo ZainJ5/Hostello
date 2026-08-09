@@ -8,7 +8,7 @@ import { recordEngagement } from '../../_track';
  *
  * Increments `Hostel.views` and appends a `PageView { kind: 'view' }`.
  * Called once per visitor per browser session by `<ViewTracker>`, which holds
- * the dedupe key in `sessionStorage` — the server-side rate limit below is a
+ * the dedupe key in `sessionStorage`. The server-side rate limit below is a
  * flood guard, not the deduplication mechanism.
  *
  * Body (optional): `{ referrer?: string }`

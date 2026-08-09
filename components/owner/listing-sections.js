@@ -48,7 +48,7 @@ export function FormSection({ title, description, children, id }) {
   );
 }
 
-/** Multi-select chips. Keyboard operable — each option is a real button. */
+/** Multi-select chips. Keyboard operable, because each option is a real button. */
 function ChipGroup({ label, hint, options, selected, onToggle, error, allowCustom, customLabel }) {
   const [custom, setCustom] = useState('');
   const groupId = useId();
@@ -152,7 +152,7 @@ export function BasicsSection({ values, setField, errors }) {
         error={errors.name}
         maxLength={120}
         placeholder="Al-Noor Girls Hostel G-11"
-        hint="Use the name on your signboard — students search for it."
+        hint="Use the name on your signboard, because students search for it."
       />
 
       <div className="grid gap-5 sm:grid-cols-2">
@@ -193,7 +193,7 @@ export function BasicsSection({ values, setField, errors }) {
 
       <ChipGroup
         label="Universities nearby"
-        hint="Pick every campus within a reasonable commute — this is how most students filter."
+        hint="Pick every campus within a reasonable commute. This is how most students filter."
         options={UNIVERSITIES}
         selected={values.universities}
         onToggle={(uni) =>
@@ -218,7 +218,7 @@ export function BasicsSection({ values, setField, errors }) {
       >
         {GENDERS.map((g) => (
           <option key={g} value={g}>
-            {g === 'Mixed' ? 'Mixed — men and women' : `${g} only`}
+            {g === 'Mixed' ? 'Mixed (men and women)' : `${g} only`}
           </option>
         ))}
       </Select>
@@ -247,7 +247,7 @@ export function PricingSection({ values, setField, errors, roomTypes = [] }) {
     <FormSection
       id="pricing"
       title="Pricing"
-      description="Monthly rent in PKR. Be exact — students filter hard on price."
+      description="Monthly rent in PKR. Be exact, because students filter hard on price."
     >
       <div className="grid gap-5 sm:grid-cols-2">
         <Input
@@ -461,7 +461,7 @@ export function DetailsSection({ values, setField, errors, facilities = [] }) {
 
       <ChipGroup
         label="Facilities"
-        hint="Only tick what you actually provide — students review honestly."
+        hint="Only tick what you actually provide. Students review honestly."
         options={facilities}
         selected={values.facilities}
         onToggle={(f) =>
@@ -534,7 +534,7 @@ export function DetailsSection({ values, setField, errors, facilities = [] }) {
 
         {rules.length < 6 && (
           <div className="mt-3">
-            <p className="mb-2 text-xs text-muted-foreground">Common rules — tap to add:</p>
+            <p className="mb-2 text-xs text-muted-foreground">Common rules, tap to add:</p>
             <div className="flex flex-wrap gap-2">
               {SUGGESTED_RULES.filter((s) => !rules.includes(s)).map((s) => (
                 <button
@@ -711,7 +711,7 @@ export function LocationSection({ values, setField, errors }) {
                   These coordinates are outside Pakistan
                 </p>
                 <p className="tabular mt-0.5 text-sm text-muted-foreground">
-                  {lat.toFixed(6)}, {lng.toFixed(6)} — did you swap latitude and longitude?
+                  {lat.toFixed(6)}, {lng.toFixed(6)}. Did you swap latitude and longitude?
                 </p>
               </>
             ) : (
@@ -726,7 +726,7 @@ export function LocationSection({ values, setField, errors }) {
                     : 'Check it on the map before you submit.'}
                   {distance !== null && distance > 40 && (
                     <span className="ml-1 font-medium text-warning dark:text-amber-300">
-                      That is a long way out — double-check the pin.
+                      That is a long way out, so double-check the pin.
                     </span>
                   )}
                 </p>

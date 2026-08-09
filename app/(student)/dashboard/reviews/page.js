@@ -13,7 +13,7 @@ export default async function ReviewsPage() {
   await connectDB();
 
   const [reviews, pendingIds] = await Promise.all([
-    // Scoped by studentId — only the caller's own reviews.
+    // Scoped by studentId: only the caller's own reviews.
     Review.find({ studentId: user._id })
       .sort({ createdAt: -1 })
       .populate('hostelId', 'name slug city area images rating reviewCount')
@@ -35,8 +35,8 @@ export default async function ReviewsPage() {
         <h1 className="text-h2 text-foreground">My reviews</h1>
         <p className="mt-1.5 text-sm text-muted-foreground text-pretty">
           Reviews you have written, and the hostels you are eligible to review. Only
-          students with a confirmed or completed booking can review a hostel — that is
-          what makes these worth reading.
+          students with a confirmed or completed booking can review a hostel, and that
+          is what makes these worth reading.
         </p>
       </header>
 

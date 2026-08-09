@@ -18,7 +18,7 @@ export default function RecentBookings({ bookings }) {
     <Card className="flex h-full flex-col">
       <CardHeader
         title="Recent booking requests"
-        description="Pending requests first — students rarely wait more than a day."
+        description="Pending requests first. Students rarely wait more than a day."
         action={
           <Button href="/owner/bookings" variant="ghost" size="sm">
             View all

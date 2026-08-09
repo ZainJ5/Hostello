@@ -6,7 +6,7 @@ import { hostelInput, normalizeHostel, uniqueSlug } from '@/app/api/admin/_lib/h
 import { writeAudit } from '@/app/api/admin/_lib/audit';
 import { serialize } from '@/lib/utils';
 
-/** Lightweight list endpoint — the pages render server-side, this backs tooling. */
+/** Lightweight list endpoint. The pages render server-side; this backs tooling. */
 export const GET = handler(async (req) => {
   await connectDB();
   await requireRole('admin');

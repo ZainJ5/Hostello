@@ -10,8 +10,8 @@ import Review from '@/models/Review';
  * moment one code path forgets to update them. Every review create, edit,
  * delete and status flip in `app/api/reviews/**` calls this instead of doing
  * its own arithmetic, so the aggregate is always recomputed from scratch
- * rather than nudged by a delta — an incremental `$inc` would compound any
- * error forever, a full recompute self-heals.
+ * rather than nudged by a delta. An incremental `$inc` would compound any
+ * error forever, whereas a full recompute self-heals.
  *
  * Only `published` reviews count. A review that has been auto-flagged or
  * removed by an admin is hidden on the public detail page, so leaving it in
@@ -27,7 +27,7 @@ export async function recomputeHostelRating(hostelId) {
     { $group: { _id: null, avg: { $avg: '$rating' }, count: { $sum: 1 } } },
   ]);
 
-  // One decimal place — matches how `Rating` renders it, so the stored value
+  // One decimal place, matching how `Rating` renders it, so the stored value
   // and the displayed value are never a rounding apart.
   const rating = agg ? Math.round(agg.avg * 10) / 10 : 0;
   const reviewCount = agg ? agg.count : 0;

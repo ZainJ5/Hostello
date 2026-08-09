@@ -20,7 +20,7 @@ export function Spinner({ className }) {
 
 /**
  * Shown when a list has no rows. Always offers the action that would create
- * the first one — an empty screen with no exit is a dead end.
+ * the first one, because an empty screen with no exit is a dead end.
  */
 export function EmptyState({ icon: Icon, title, description, action, className }) {
   return (
@@ -57,9 +57,7 @@ export function Rating({ value = 0, count, size = 'md', showValue = true, classN
       className={cn('inline-flex items-center gap-1.5', className)}
       aria-label={`Rated ${v.toFixed(1)} out of 5${count ? ` from ${count} reviews` : ''}`}
     >
-      {/* Stars render in ink, not gold — a deliberate choice carried over
-          from the source system, where yellow stars read as cheap in a
-          travel context. */}
+      {/* Stars render in ink, not gold, per the design system. */}
       <span className="inline-flex" aria-hidden="true">
         {[0, 1, 2, 3, 4].map((i) => {
           // Fraction of this star that should be filled, 0–1.

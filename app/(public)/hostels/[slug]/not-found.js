@@ -3,8 +3,8 @@ import Button from '@/components/ui/Button';
 
 /**
  * Reached when a slug doesn't exist, or when the listing behind it is no longer
- * published — a hostel that was suspended or pulled looks identical to one that
- * never existed, which is deliberate: we don't leak moderation state.
+ * published. A hostel that was suspended or pulled looks identical to one that
+ * never existed, which is deliberate: it keeps moderation state from leaking.
  */
 export default function HostelNotFound() {
   return (
@@ -18,7 +18,7 @@ export default function HostelNotFound() {
       </h1>
       <p className="mt-3 text-base text-pretty text-muted-foreground">
         It may have been taken down by the owner, or the link might have a typo
-        in it. There are 124 other published hostels waiting — try searching by
+        in it. Plenty of other hostels are still listed, so try searching by
         city or university instead.
       </p>
 

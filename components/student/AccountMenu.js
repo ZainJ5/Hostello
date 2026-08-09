@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 
 /**
  * Compact account control for the student shell. Sign-out posts to the auth
- * stream's endpoint, then navigates home and refreshes — the refresh clears
+ * stream's endpoint, then navigates home and refreshes. The refresh clears
  * the client router cache so no dashboard payload rendered under the old
  * session can be restored with the back button.
  */
@@ -44,7 +44,7 @@ export default function AccountMenu({ name, email, avatar }) {
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
     } catch {
-      // Network failure still falls through to the redirect below — the route
+      // Network failure still falls through to the redirect below. The route
       // guard will bounce them if the cookie somehow survived.
     }
     router.replace('/');

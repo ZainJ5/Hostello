@@ -124,7 +124,7 @@ const STEPS = [
   {
     icon: ListChecks,
     title: 'Compare what actually matters',
-    body: 'Real photos, facilities, mess menus, room types and reviews from students — laid out the same way on every listing.',
+    body: 'Real photos, facilities, mess menus, room types and reviews from students, laid out the same way on every listing.',
   },
   {
     icon: Handshake,
@@ -137,7 +137,7 @@ const TRUST_POINTS = [
   {
     icon: ShieldCheck,
     title: 'Nothing goes live unreviewed',
-    body: 'Every submission is checked by a human before it appears in search — address, photos, rooms and rent all have to line up.',
+    body: 'Every submission is checked by a human before it appears in search: address, photos, rooms and rent all have to line up.',
   },
   {
     icon: BadgeCheck,
@@ -219,7 +219,7 @@ export default async function HomePage() {
             </h1>
 
             <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground text-pretty sm:text-lg">
-              Compare verified hostels near NUST, FAST, QAU, COMSATS and every other major campus —
+              Compare verified hostels near NUST, FAST, QAU, COMSATS and every other major campus:
               real photos, real rents{data.minPrice ? ` from ${formatPKR(data.minPrice)} a month` : ''}, and
               reviews from students who actually lived there.
             </p>
@@ -311,7 +311,7 @@ export default async function HomePage() {
               className="mt-10 bg-surface"
               icon={Sparkles}
               title="No featured hostels yet"
-              description="Nothing is highlighted right now — browse the full directory instead."
+              description="Nothing is highlighted right now. Browse the full directory instead."
               action={<Button href="/hostels">Browse all hostels</Button>}
             />
           )}

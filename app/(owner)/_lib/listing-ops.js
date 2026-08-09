@@ -11,19 +11,19 @@ import { slugify } from '@/lib/utils';
  * Why: the listing fee buys a publication period, not a publication event.
  * Taking a paid, ranked listing dark for a day because the owner corrected a
  * phone number or a rent figure punishes exactly the behaviour we want, and it
- * teaches owners to leave stale prices up rather than risk the downtime — which
+ * teaches owners to leave stale prices up rather than risk the downtime, which
  * is worse for students than the edit ever was.
  *
  * What we do instead, so the loophole is not free:
  *   1. Every edit is written to `AuditLog`, so admins have a full history.
  *   2. An edit that changes a *material* field (identity, location, price,
  *      gender, contact) clears `verified`. The listing stays live, but it loses
- *      its "Verified" trust badge until an admin re-checks it — reputation is
+ *      its "Verified" trust badge until an admin re-checks it. Reputation is
  *      re-earned, distribution is not interrupted.
  *   3. `rejected` and `suspended` listings are excluded: those are already out
  *      of public view and must go back through review.
  *
- * The one edit that *is* gated is resubmission from `rejected` — see
+ * The one edit that *is* gated is resubmission from `rejected`. See
  * `nextStatusAfterSubmit` below.
  * ═══════════════════════════════════════════════════════════════════════
  */
@@ -47,7 +47,7 @@ const MATERIAL_FIELDS = [
 function isAllowedImage(value) {
   if (typeof value !== 'string') return false;
   if (value.startsWith('/uploads/hostels/')) return !value.includes('..');
-  // The 59 imported listings carry Unsplash URLs; both hosts are already
+  // Imported listings carry Unsplash URLs; both hosts are already
   // whitelisted in next.config.mjs. Nothing else is accepted, so an owner
   // cannot point a listing at an arbitrary or `javascript:` URL.
   return /^https:\/\/(images|plus)\.unsplash\.com\//.test(value);
@@ -55,7 +55,7 @@ function isAllowedImage(value) {
 
 /**
  * Builds a slug that is unique across the collection. Called only while a
- * listing is still a draft — once published, the slug is frozen so public
+ * listing is still a draft. Once published, the slug is frozen so public
  * links and search rankings survive a rename.
  */
 export async function uniqueSlug(name, excludeId) {
@@ -73,7 +73,7 @@ export async function uniqueSlug(name, excludeId) {
 /**
  * Applies a validated patch to a hostel document in place and reports whether
  * anything material changed. Vocabularies are re-checked against the model's
- * own exports here — the client's copy of the list is never trusted.
+ * own exports here, because the client's copy of the list is never trusted.
  */
 export function applyListingPatch(hostel, patch) {
   let materialChanged = false;
@@ -113,7 +113,7 @@ export function applyListingPatch(hostel, patch) {
   }
 
   // Derive the advertised band from the room table when the owner left the
-  // min/max blank — an empty range renders as a single price on the card.
+  // min/max blank. An empty range renders as a single price on the card.
   const rooms = hostel.rooms || [];
   const roomPrices = rooms.map((r) => r.price).filter((p) => Number(p) > 0);
   if (patch.priceMin !== undefined) set('priceMin', patch.priceMin);
@@ -156,7 +156,7 @@ export function applyListingPatch(hostel, patch) {
  *   draft            → pending_payment   (the fee has never been paid)
  *   pending_payment  → pending_payment   (still owes the fee; no-op)
  *   rejected         → pending_review    if a payment is already approved or
- *                                        still under review — the owner should
+ *                                        still under review, so the owner does
  *                                        not pay twice for one listing period
  *                    → pending_payment   otherwise (no payment, or it was the
  *                                        payment itself that was rejected)

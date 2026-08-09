@@ -65,7 +65,7 @@ export default function HostelCard({
   const reviews = Number(reviewCount) || 0;
   const distance = Number(distanceKm) || 0;
 
-  // Most `area` values already end in the city — don't print it twice.
+  // Most `area` values already end in the city, so don't print it twice.
   const areaText = String(area || '').trim();
   const cityText = String(city || '').trim();
   const location =
@@ -76,14 +76,9 @@ export default function HostelCard({
         : `${areaText}, ${cityText}`;
 
   /**
-   * The system allows exactly one floating badge over a photo. Featured is
-   * the scarcer signal (30 of 124 listings) so it outranks Verified, which
-   * covers 95 and would otherwise appear on nearly every card and mean
-   * nothing.
-   *
-   * Deliberately not called "Guest favourite" like the source system does —
-   * this flag is set by an admin, not earned from guest ratings, and naming
-   * it after reviews would misrepresent where it comes from.
+   * At most one floating badge sits over a photo. Featured is the scarcer
+   * signal so it outranks Verified, which covers most listings and would
+   * otherwise appear on nearly every card and mean nothing.
    */
   const badge = featured ? 'Featured' : verified ? 'Verified' : null;
 
@@ -91,7 +86,7 @@ export default function HostelCard({
     event.preventDefault();
     event.stopPropagation();
     const next = !saved;
-    setSaved(next); // Optimistic — the caller owns persistence.
+    setSaved(next); // Optimistic; the caller owns persistence.
     onSave?.(hostel, next);
   }
 
@@ -110,7 +105,7 @@ export default function HostelCard({
           <HostelImage
             src={shots[0]}
             name={name}
-            alt={cityText ? `${name} — ${cityText}` : name}
+            alt={cityText ? `${name}, ${cityText}` : name}
             fill
             priority={priority}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -177,7 +172,7 @@ export default function HostelCard({
           <h3 className="line-clamp-1 text-[15px] font-semibold leading-snug text-foreground">
             {name}
           </h3>
-          {/* A single ink star plus the figure, rather than a five-star row —
+          {/* A single ink star plus the figure, rather than a five-star row:
               at card scale the row reads as texture, the number reads as data. */}
           {reviews > 0 && (
             <span

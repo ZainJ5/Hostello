@@ -5,8 +5,8 @@ import { connectDB } from '@/lib/db';
 /**
  * Page-level guard. `proxy.js` already blocks non-admins at the edge; this is
  * the second lock, so a routing mistake can never render admin data. Route
- * handlers call `requireRole('admin')` directly — they want the 401/403, not
- * a redirect.
+ * handlers call `requireRole('admin')` directly, because they want the
+ * 401/403, not a redirect.
  */
 export async function requireAdminPage() {
   let session = null;

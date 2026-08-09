@@ -15,7 +15,7 @@ const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
  * Confirm or decline a booking request.
  *
  * `Booking` has no `ownerId` of its own, so ownership is proved through the
- * hostel it points at — the booking is loaded first, then its hostel, and
+ * hostel it points at: the booking is loaded first, then its hostel, and
  * `assertOwned` runs on the hostel before anything is written.
  */
 export const PATCH = handler(async (req, ctx) => {
@@ -40,9 +40,8 @@ export const PATCH = handler(async (req, ctx) => {
   booking.respondedAt = new Date();
   await booking.save();
 
-  // The student is told either way. Mail is best-effort — with no SMTP host
-  // configured `sendNotification` logs and resolves, so a dev machine never
-  // fails a confirmation because it cannot send email.
+  // The student is told either way. Mail is best-effort: a send that fails is
+  // caught below, so a mail outage never costs the owner their confirmation.
   if (booking.studentEmail) {
     const confirmed = status === 'confirmed';
     try {

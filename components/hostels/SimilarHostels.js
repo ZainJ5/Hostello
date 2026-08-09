@@ -37,7 +37,7 @@ export default function SimilarHostels({ hostels, className }) {
         More hostels like this
       </h2>
       <p className="mt-1.5 text-sm text-muted-foreground">
-        Same city or the same campus — worth a look before you commit.
+        Same city or the same campus. Worth a look before you commit.
       </p>
 
       <ul className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">

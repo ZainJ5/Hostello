@@ -18,13 +18,13 @@ import { resolvePaymentScreenshot } from '@/app/(owner)/_lib/uploads';
  * any auth check, so this route raises the bar rather than closing the hole:
  *   • Filenames are 16 bytes of CSPRNG hex (`pay-<32 hex>.<ext>`) and are never
  *     rendered in owner-facing HTML, so they cannot be enumerated or scraped.
- *   • Anyone who does learn an exact filename — from a server backup, a log, or
- *     a leaked database row — can still fetch it directly.
+ *   • Anyone who does learn an exact filename (from a server backup, a log, or
+ *     a leaked database row) can still fetch it directly.
  * The real fix is to move the payments directory outside the web root (or deny
  * `location /uploads/payments/` at the NGINX layer that already fronts
  * `public/uploads` in production). That change belongs to the deployment
- * configuration, which this stream does not own; it is called out here so it is
- * not mistaken for a solved problem.
+ * configuration rather than this route, and is recorded here so the gap is not
+ * mistaken for a solved problem.
  * ───────────────────────────────────────────────────────────────────────
  */
 export const GET = handler(async (req, ctx) => {
@@ -35,7 +35,7 @@ export const GET = handler(async (req, ctx) => {
   const payment = await Payment.findById(objectIdOr404(id, 'receipt'))
     .select('ownerId screenshot')
     .lean();
-  // 404 for both "missing" and "someone else's" — see `assertOwned`.
+  // 404 for both "missing" and "someone else's". See `assertOwned`.
   assertOwned(payment, session, 'receipt');
 
   const resolved = resolvePaymentScreenshot(payment.screenshot);
@@ -45,8 +45,8 @@ export const GET = handler(async (req, ctx) => {
   try {
     bytes = await fs.readFile(resolved.abs);
   } catch {
-    // The seed writes a placeholder path with no file behind it; the UI shows
-    // a "receipt unavailable" state rather than a broken image.
+    // A record can still point at a path with no file behind it, so the UI
+    // shows a "receipt unavailable" state rather than a broken image.
     return fail('That receipt file is missing from storage', 404);
   }
 

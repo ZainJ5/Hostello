@@ -6,9 +6,9 @@ import { useCallback, useEffect, useState } from 'react';
  * Counts down to a deadline.
  *
  * The remaining seconds are *derived* from a deadline timestamp rather than
- * decremented on each tick, so a backgrounded tab — where setInterval gets
- * throttled to once a minute — still shows the right number the moment it
- * comes back, and there is no state to drift out of sync.
+ * decremented on each tick. A backgrounded tab, where setInterval gets
+ * throttled to once a minute, still shows the right number the moment it comes
+ * back, and there is no state to drift out of sync.
  */
 export function useCountdown(seconds = 60) {
   const [deadline, setDeadline] = useState(() => Date.now() + seconds * 1000);
@@ -20,7 +20,7 @@ export function useCountdown(seconds = 60) {
     const id = setInterval(() => {
       const tick = Date.now();
       setNow(tick);
-      // Nothing left to count — stop waking the tab up.
+      // Nothing left to count, so stop waking the tab up.
       if (tick >= deadline) clearInterval(id);
     }, 250);
     return () => clearInterval(id);

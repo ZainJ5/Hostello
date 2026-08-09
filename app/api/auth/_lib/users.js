@@ -15,8 +15,8 @@ export function homeForRole(role) {
 /**
  * The only shape of a user that ever leaves the server.
  *
- * `passwordHash` carries `select: false`, so it is normally absent already —
- * this builds an allow-list rather than deleting keys, so a field added to the
+ * `passwordHash` carries `select: false`, so it is normally absent already.
+ * This builds an allow-list rather than deleting keys, so a field added to the
  * model later cannot leak by default.
  */
 export function publicUser(user) {

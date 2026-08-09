@@ -12,8 +12,8 @@ const offsetPct = (index) => ((SHEET_MAX - SHEET_SNAPS[index]) / SHEET_MAX) * 10
 /**
  * Draggable results sheet for the mobile layout.
  *
- * Dragging writes `transform` straight to the node — no React state per
- * pointermove — and only commits a snap index on release.
+ * Dragging writes `transform` straight to the node (no React state per
+ * pointermove) and only commits a snap index on release.
  */
 export default function BottomSheet({ snapIndex, onSnapIndexChange, label, children }) {
   const sheetRef = useRef(null);

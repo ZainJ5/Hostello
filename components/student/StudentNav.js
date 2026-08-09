@@ -14,10 +14,10 @@ const TABS = [
 ];
 
 /**
- * Horizontal tab rail. Students have five sections, not fifteen, so a slim
- * strip under the header reads better than the sidebar the owner and admin
- * consoles need — and it collapses to a scrollable rail at 375px without
- * hiding anything behind a menu.
+ * Horizontal tab rail. Students have five sections, so a slim strip under the
+ * header is used instead of the sidebar the owner and admin consoles need. It
+ * collapses to a scrollable rail at 375px without hiding anything behind a
+ * menu.
  */
 export default function StudentNav({ counts = {} }) {
   const pathname = usePathname();

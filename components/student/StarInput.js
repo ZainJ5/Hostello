@@ -9,7 +9,7 @@ const WORDS = ['', 'Poor', 'Fair', 'Good', 'Very good', 'Excellent'];
 /**
  * Star picker built on a native radio group, so arrow keys, Space and screen
  * readers all work without a single custom key handler. The visible label
- * spells the score out in words as well as stars — never colour or shape alone.
+ * spells the score out in words as well as stars, never colour or shape alone.
  */
 export default function StarInput({
   name,
@@ -71,7 +71,7 @@ export default function StarInput({
                 aria-hidden="true"
               />
               <span className="sr-only">
-                {n} star{n === 1 ? '' : 's'} — {WORDS[n]}
+                {n} star{n === 1 ? '' : 's'}, {WORDS[n]}
               </span>
             </label>
           ))}

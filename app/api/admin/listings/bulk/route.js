@@ -30,7 +30,7 @@ export const POST = handler(async (req) => {
   if (list.length > 200) return fail('Bulk actions are capped at 200 listings', 400);
   if (!ACTIONS[action]) return fail('Unknown bulk action', 422);
 
-  // Featured slots are a paid, finite inventory — never let a bulk action
+  // Featured slots are a paid, finite inventory, so never let a bulk action
   // quietly blow past the configured cap.
   if (action === 'feature') {
     const settings = await getSettings();
@@ -43,7 +43,7 @@ export const POST = handler(async (req) => {
       return fail(
         room === 0
           ? `All ${settings?.featuredSlots ?? 0} featured slots are in use. Unfeature a listing first.`
-          : `Only ${room} featured slot${room === 1 ? '' : 's'} left — you selected ${list.length}.`,
+          : `Only ${room} featured slot${room === 1 ? '' : 's'} left, but you selected ${list.length}.`,
         409
       );
     }

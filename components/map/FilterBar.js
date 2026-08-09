@@ -117,7 +117,7 @@ export default function FilterBar({ filters, onChange, onClear, open, onToggleOp
               <option value="">No campus</option>
               {CAMPUSES.map((c) => (
                 <option key={c.id} value={c.id}>
-                  {c.name} — {c.sector}
+                  {c.name}, {c.sector}
                 </option>
               ))}
             </Select>

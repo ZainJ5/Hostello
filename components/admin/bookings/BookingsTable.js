@@ -53,7 +53,7 @@ function Detail({ label, children }) {
   return (
     <div className="grid grid-cols-[8rem_minmax(0,1fr)] gap-3 border-b border-border py-2 last:border-0">
       <dt className="text-xs font-medium text-muted-foreground">{label}</dt>
-      <dd className="min-w-0 text-sm text-foreground text-pretty">{children ?? '—'}</dd>
+      <dd className="min-w-0 text-sm text-foreground text-pretty">{children ?? 'Not given'}</dd>
     </div>
   );
 }
@@ -198,7 +198,7 @@ export default function BookingsTable({ rows, total, page, pages, perPage, hoste
                       <Td>
                         <div className="flex items-center gap-2.5">
                           <Avatar name={row.studentName || row.studentEmail} size="sm" />
-                          <Stacked primary={row.studentName || '—'} secondary={row.studentEmail} />
+                          <Stacked primary={row.studentName || 'Unnamed'} secondary={row.studentEmail} />
                         </div>
                       </Td>
                       <Td>
@@ -214,9 +214,9 @@ export default function BookingsTable({ rows, total, page, pages, perPage, hoste
                           <span className="text-xs text-muted-foreground">Deleted listing</span>
                         )}
                       </Td>
-                      <Td className="text-sm text-muted-foreground">{row.roomType || '—'}</Td>
+                      <Td className="text-sm text-muted-foreground">{row.roomType || 'Any'}</Td>
                       <Td className="whitespace-nowrap text-sm">
-                        {row.moveInDate ? formatDate(row.moveInDate) : '—'}
+                        {row.moveInDate ? formatDate(row.moveInDate) : 'Not specified'}
                       </Td>
                       <Td align="right" className="tabular">
                         {row.durationMonths || 1}
@@ -288,7 +288,7 @@ export default function BookingsTable({ rows, total, page, pages, perPage, hoste
               <Detail label="Student">
                 <div className="flex items-center gap-2">
                   <Avatar name={open.studentName} size="sm" />
-                  <span>{open.studentName || '—'}</span>
+                  <span>{open.studentName || 'Unnamed'}</span>
                 </div>
               </Detail>
               <Detail label="Email">
@@ -326,7 +326,7 @@ export default function BookingsTable({ rows, total, page, pages, perPage, hoste
                   'Deleted listing'
                 )}
               </Detail>
-              <Detail label="Room type">{open.roomType || '—'}</Detail>
+              <Detail label="Room type">{open.roomType || 'Any'}</Detail>
               <Detail label="Move-in">
                 {open.moveInDate ? formatDate(open.moveInDate) : 'Not specified'}
               </Detail>

@@ -24,7 +24,7 @@ import { cn, formatCompact } from '@/lib/utils';
  * Charts read their colours out of the design tokens at runtime rather than
  * hardcoding hex values, so a theme switch (or a rebrand) is picked up without
  * touching this file. Before hydration the raw `var(--…)` strings are used,
- * which browsers resolve in SVG presentation attributes anyway — the effect
+ * which browsers resolve in SVG presentation attributes anyway. The effect
  * below just pins them to concrete values so gradients and fills stay stable.
  */
 const TOKENS = {
@@ -336,8 +336,8 @@ export function ReferrerChart({ data, height = 260 }) {
           </PieChart>
         </ResponsiveContainer>
       </div>
-      {/* The legend doubles as the data table — the segments are never the only
-          way to read a value. */}
+      {/* The legend doubles as the data table, so the segments are never the
+          only way to read a value. */}
       <ul className="w-full min-w-0 flex-1 space-y-2">
         {data.map((entry, i) => (
           <li key={entry.source} className="flex items-center gap-2.5 text-sm">
@@ -417,7 +417,7 @@ export function RatingTrendChart({ data, height = 260 }) {
   if (!hasPoints) {
     return (
       <p className="px-4 py-10 text-center text-sm text-muted-foreground">
-        No reviews yet — your rating trend starts with your first review.
+        No reviews yet. Your rating trend starts with your first review.
       </p>
     );
   }

@@ -1,23 +1,23 @@
-# Hostello — build contracts
+# Hostello build contracts
 
-Every agent codes against this file. Do not redefine anything described here;
-import it. If something you need is missing, build it inside **your own**
-directory rather than editing a file another stream owns.
+The codebase is written against this file. Do not redefine anything described
+here; import it. If something you need is missing, add it inside the directory
+that owns it rather than editing files another area owns.
 
-## Stack facts (Next.js 16.3 — differs from older knowledge)
+## Stack facts (Next.js 16.3)
 
 - **JavaScript only.** No TypeScript, no `.ts`/`.tsx`. Use `.js`.
 - App Router, React 19, Tailwind **v4** (CSS-first config in `app/globals.css`;
   there is no `tailwind.config.js`).
-- `cookies()`, `headers()`, `params`, and `searchParams` are **async** — always
-  `await` them:
+- `cookies()`, `headers()`, `params`, and `searchParams` are **async**, so
+  always `await` them:
   ```js
   export default async function Page({ params, searchParams }) {
     const { slug } = await params
     const sp = await searchParams
   }
   ```
-- `middleware.js` no longer exists — the file is **`proxy.js`** at the project
+- `middleware.js` no longer exists. The file is **`proxy.js`** at the project
   root and exports a function named `proxy`. Node runtime only.
 - Import alias is `@/*` → project root (e.g. `@/lib/db`, `@/components/ui/Button`).
 - Mongo runs locally at `mongodb://127.0.0.1:27017/hostello` and is **already
@@ -25,7 +25,7 @@ directory rather than editing a file another stream owns.
 
 ## Design system
 
-**`DESIGN.md` at the project root is the source of truth** — an Airbnb-derived
+**`DESIGN.md` at the project root is the source of truth** for an Airbnb-derived
 system: white canvas, near-black ink, and a single brand voltage (Rausch
 `#ff385c`) used scarcely. Read it before writing UI.
 
@@ -36,14 +36,14 @@ Those decisions are compiled into tokens in `app/globals.css`.
 |---|---|
 | Brand | `bg-brand-500` (Rausch), `brand-700` for press, scale `brand-50…950` |
 | Second high-emphasis action | `bg-foreground text-background` (ink fill) |
-| Neutral ramp (was amber) | `accent-50…700` — greyscale, not a second brand colour |
+| Neutral ramp (was amber) | `accent-50…700` (greyscale, not a second brand colour) |
 | Surfaces | `bg-background`, `bg-surface`, `bg-surface-sunken`, `bg-muted` |
 | Text | `text-foreground`, `text-muted-foreground` |
 | Lines | `border-border`, `border-border-strong` |
 | Status | `text-success`, `text-warning`, `text-danger`, `text-info` (+ `-soft` bg) |
 | Radius | `rounded-lg` (8px controls), `rounded-[var(--radius-card)]` (14px cards), `rounded-full` (pills) |
 | Shadow | One tier only. `shadow-md` is it; the other names resolve to the same thing. |
-| Type | `text-display`, `text-h1`, `text-h2`, `text-h3` — headings are weight **600**, not 700 |
+| Type | `text-display`, `text-h1`, `text-h2`, `text-h3`; headings are weight **600**, not 700 |
 | Numbers | add `tabular` to any figure that updates or aligns in a column |
 
 Rules that are not negotiable:
@@ -54,18 +54,18 @@ Rules that are not negotiable:
 - One family only (Inter). There is no separate display face.
 - Star ratings render in **ink**, never gold.
 - At most **one** floating badge over a photo.
-- Inputs focus to a 2px ink border — no coloured glow ring.
+- Inputs focus to a 2px ink border, with no coloured glow ring.
 - Transitions 150–300ms. Respect `prefers-reduced-motion` (already handled
-  globally — just don't add inline animation that bypasses it).
+  globally, so don't add inline animation that bypasses it).
 - Body text ≥ 14px; contrast ≥ 4.5:1 both themes. Dark mode via the `.dark`
   class on `<html>`.
 - Responsive at 375 / 768 / 1024 / 1440. No horizontal scroll on the page body;
   wide tables scroll inside their own `overflow-x-auto` container.
-- Loading states use `<Skeleton>` sized like the content it replaces — never a
+- Loading states use `<Skeleton>` sized like the content it replaces, never a
   bare spinner for a full page.
 - Every list needs an `<EmptyState>` with an action.
 
-## Shared UI kit — import, do not rebuild
+## Shared UI kit (import, do not rebuild)
 
 ```js
 import Button from '@/components/ui/Button'
@@ -87,7 +87,7 @@ import { Skeleton, Spinner, EmptyState, Rating, Avatar, Alert } from '@/componen
 // EmptyState: icon, title, description, action
 
 import HostelImage from '@/components/ui/HostelImage'
-// Renders a branded monogram tile when `src` is falsy — 59 listings have no
+// Renders a branded monogram tile when `src` is falsy; 59 listings have no
 // photo. Props: src, alt, name, fill, sizes, priority, className
 ```
 
@@ -121,20 +121,20 @@ export const POST = handler(async (req) => {
 and anything with `err.status` to that status.
 
 **Always call `serialize()` on Mongoose docs before passing them to a Client
-Component** — raw ObjectId/Date are not serialisable across the boundary.
+Component.** Raw ObjectId/Date are not serialisable across the boundary.
 
-## Models — `@/models/*`
+## Models (`@/models/*`)
 
 `User` `Hostel` `Booking` `Review` `Payment` `VerificationCode` `AuditLog` `PageView`
 
 Read the model file before querying it. Key facts:
 
-- `User.passwordHash` has `select: false` — use `.select('+passwordHash')`.
+- `User.passwordHash` has `select: false`, so use `.select('+passwordHash')`.
 - `User.role`: `student | owner | admin`.
 - `Hostel.status`: `draft | pending_payment | pending_review | published |
   rejected | suspended`. **Public queries must filter `status: 'published'`.**
-- `Hostel` denormalises `rating`, `reviewCount`, `views`, `contactClicks`,
-  `saveCount` — update them when the underlying rows change.
+- `Hostel` denormalises `rating`, `reviewCount`, `views`, `contactClicks` and
+  `saveCount`. Update them when the underlying rows change.
 - `Payment.status`: `pending | approved | rejected`. Approving a payment is
   what flips its hostel to `published`.
 - `PageView` is the per-event table behind the analytics charts
@@ -145,7 +145,8 @@ Read the model file before querying it. Key facts:
 - 124 published hostels + 3 awaiting review.
 - Photos at `/uploads/hostels/*` (real, 225 files). 59 listings instead carry
   `https://images.unsplash.com/...` URLs; both are already allowed in
-  `next.config.mjs`. 8 listings have **no** images — `HostelImage` covers them.
+  `next.config.mjs`. 8 listings have **no** images, and `HostelImage` covers
+  them.
 - Cities: Islamabad (91), Rawalpindi (28), Lahore (3), Karachi (2).
 - Universities: NUST, FAST, QAU, COMSATS, NUML, SZABIST, Riphah, RMU, FJWU,
   Arid Agriculture, Air University, Bahria University, Foundation University,
@@ -153,7 +154,7 @@ Read the model file before querying it. Key facts:
 - Facility vocabulary is the `FACILITIES` array exported from `@/models/Hostel`.
 - Price range PKR 5,000 – 35,000.
 
-## Demo accounts (password `Password123!`)
+## Seeded accounts (password `Password123!`)
 
 | Email | Role |
 |---|---|
@@ -162,9 +163,9 @@ Read the model file before querying it. Key facts:
 | `owner2@hostello.tech` | owner |
 | `student@hostello.tech` | student |
 
-## Routes — ownership map
+## Routes and component ownership
 
-Build only inside the paths your task assigns you.
+Each product area owns its routes and its component directory.
 
 | Area | Routes | Components |
 |---|---|---|
@@ -175,11 +176,11 @@ Build only inside the paths your task assigns you.
 | Student | `app/(student)/**`, `app/api/bookings/**`, `app/api/reviews/**`, `app/api/saved/**` | `components/student/*` |
 | Owner | `app/(owner)/**`, `app/api/owner/**` | `components/owner/*` |
 | Admin | `app/(admin)/**`, `app/api/admin/**` | `components/admin/*` |
-| Hostel read API | `app/api/hostels/**` | — |
+| Hostel read API | `app/api/hostels/**` | none |
 
-## Shared component contracts (fixed — build to these signatures)
+## Shared component contracts (fixed; build to these signatures)
 
-`components/public/HostelCard.js` — default export
+`components/public/HostelCard.js` has a default export:
 
 ```js
 <HostelCard hostel={hostel} priority={false} showSave />
@@ -188,7 +189,7 @@ Build only inside the paths your task assigns you.
 //   verified, featured, available, distanceKm }
 ```
 
-`components/public/Navbar.js` — default export, takes `{ session }` (may be null).
-`components/public/Footer.js` — default export, no props.
+`components/public/Navbar.js` has a default export and takes `{ session }` (may be null).
+`components/public/Footer.js` has a default export and takes no props.
 
-Verify your work with `npx next build` before reporting done.
+Verify changes with `npx next build`.

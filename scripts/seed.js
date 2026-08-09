@@ -1,7 +1,10 @@
 /**
- * Seeds MongoDB from data/hostels.json (produced by build-dataset.js) plus a
- * demo account set and generated reviews/bookings/traffic so the dashboards
- * have something real to chart on a fresh install.
+ * Local seeder. Loads data/hostels.json (produced by build-dataset.js) and
+ * adds a fixed account set plus generated reviews, bookings and traffic so
+ * the dashboards have data to chart on a fresh install.
+ *
+ * Not for production: use scripts/seed-production.js there, which imports the
+ * real listings only.
  *
  * Usage:
  *   node scripts/seed.js          # upsert hostels, keep existing users
@@ -60,7 +63,7 @@ const REVIEW_SNIPPETS = [
   ['Clean and well managed', 'Housekeeping comes daily and the washrooms are maintained properly. Would recommend to anyone studying nearby.'],
   ['Decent, could be better', 'Location and price are unbeatable. Rooms are a bit tight if you are sharing with three others.'],
   ['Excellent security', 'CCTV everywhere and the gate is manned round the clock. My parents were satisfied after visiting.'],
-  ['Food needs improvement', 'Everything else is fine — the building is new and rooms are airy. The mess menu gets repetitive though.'],
+  ['Food needs improvement', 'Everything else is fine. The building is new and rooms are airy, though the mess menu gets repetitive.'],
   ['Perfect for university students', 'Walking distance from campus, backup power during load shedding, and the owner responds quickly to complaints.'],
 ];
 
@@ -129,7 +132,7 @@ async function run() {
   // ─── Hostels ──────────────────────────────────────────────────────────
   const dataFile = path.join(__dirname, '..', 'data', 'hostels.json');
   if (!fs.existsSync(dataFile)) {
-    console.error('data/hostels.json missing — run: node scripts/build-dataset.js');
+    console.error('data/hostels.json missing. Run: node scripts/build-dataset.js');
     process.exit(1);
   }
   const dataset = JSON.parse(fs.readFileSync(dataFile, 'utf8'));
@@ -279,7 +282,7 @@ async function run() {
       }
     }
   }
-  // Insert in chunks — a single 100k-document insert can exceed the BSON limit.
+  // Insert in chunks, since a single 100k-document insert can exceed the BSON limit.
   for (let i = 0; i < views.length; i += 5000) {
     await PageView.insertMany(views.slice(i, i + 5000), { ordered: false });
   }
@@ -322,7 +325,7 @@ async function run() {
           name: s.name,
           slug,
           city: s.city,
-          area: 'Submitted by owner — awaiting review',
+          area: 'Submitted by owner, awaiting review',
           universities: s.unis,
           gender: s.gender,
           price: s.price,

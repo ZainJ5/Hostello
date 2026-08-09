@@ -15,7 +15,7 @@ import PageView from '@/models/PageView';
  */
 
 // Pakistan Standard Time is UTC+5 with no daylight saving, so a fixed offset is
-// exact. Charts bucket by PKT day, not UTC day — otherwise an evening view in
+// exact. Charts bucket by PKT day, not UTC day; otherwise an evening view in
 // Islamabad lands on the previous day's column.
 const PKT_OFFSET_MS = 5 * 60 * 60 * 1000;
 export const PKT_OFFSET = '+05:00';
@@ -73,7 +73,7 @@ export function objectIdOr404(value, label = 'record') {
  *   can move an owner off their own scope.
  * - `admin` sessions may pass an explicit `ownerId` (query string on pages,
  *   body field on routes) to inspect one owner's console. With no override an
- *   admin sees their own — normally empty — scope; the cross-owner view lives
+ *   admin sees their own (normally empty) scope; the cross-owner view lives
  *   in /admin.
  */
 export async function getOwnerContext(overrideOwnerId) {
@@ -93,7 +93,7 @@ export async function getOwnerContext(overrideOwnerId) {
   }
 
   if (!ownerId) {
-    const err = new Error('Your session is no longer valid — sign in again');
+    const err = new Error('Your session is no longer valid. Sign in again.');
     err.status = 401;
     throw err;
   }
@@ -104,7 +104,7 @@ export async function getOwnerContext(overrideOwnerId) {
 /**
  * The ownership gate. Called on every document a mutation touches.
  *
- * Admins bypass it, explicitly and only when `session.role === 'admin'` — the
+ * Admins bypass it, explicitly and only when `session.role === 'admin'`. The
  * comparison below runs for every other session with no early exit above it.
  * A document that exists but belongs to someone else answers 404, not 403, so
  * an owner cannot probe for the existence of a competitor's listing.
@@ -126,7 +126,7 @@ export async function loadOwnedHostel(id, session) {
   return assertOwned(hostel, session, 'listing');
 }
 
-/** Hostel ids belonging to this owner — the join key for every child query. */
+/** Hostel ids belonging to this owner: the join key for every child query. */
 export async function ownedHostelIds(ownerId) {
   const rows = await Hostel.find({ ownerId }).select('_id').lean();
   return rows.map((r) => r._id);

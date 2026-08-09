@@ -98,7 +98,7 @@ function Lightbox({ open, src, caption, onClose }) {
   );
 }
 
-/** Falls back to a labelled tile — several seeded receipts point at no file. */
+/** Falls back to a labelled tile when a receipt points at a missing file. */
 function ReceiptImage({ src, alt, className, thumb }) {
   const [broken, setBroken] = useState(false);
 
@@ -442,7 +442,7 @@ export default function PaymentsQueue({ rows, total, page, pages, perPage, metho
           rows={4}
           value={reason}
           onChange={(e) => setReason(e.target.value)}
-          placeholder="The screenshot is cropped — we cannot read the transaction reference."
+          placeholder="The screenshot is cropped, so we cannot read the transaction reference."
           hint="At least 5 characters. This is sent to the owner verbatim."
         />
       </Modal>

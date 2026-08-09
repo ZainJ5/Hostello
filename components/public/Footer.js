@@ -68,7 +68,7 @@ export default function Footer() {
             </Link>
 
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground text-pretty">
-              Hostello is where students across Pakistan find a room they can trust — verified
+              Hostello is where students across Pakistan find a room they can trust, with verified
               listings, honest rents and reviews from people who actually lived there. No brokers,
               no hidden commission.
             </p>

@@ -35,7 +35,7 @@ export default async function BookPage({ params }) {
   const { slug } = await params;
   const next = `/hostels/${slug}/book`;
 
-  // Public route, but the form writes a row owned by a user — so it needs a
+  // Public route, but the form writes a row owned by a user, so it needs a
   // session before it renders anything, not just before it submits.
   const session = await getSession();
   if (!session) redirect(`/login?next=${encodeURIComponent(next)}`);
@@ -75,7 +75,7 @@ export default async function BookPage({ params }) {
           </h1>
           <p className="mt-2 text-sm text-muted-foreground text-pretty">
             Hostello passes your request straight to the owner. No booking fee, no
-            payment, no commitment — they reply and you decide.
+            payment, no commitment. They reply and you decide.
           </p>
         </header>
 
@@ -91,7 +91,7 @@ export default async function BookPage({ params }) {
                 }
               >
                 Sent {timeAgo(existing.createdAt)}. Rather than sending a second request,
-                open the one you already have — the owner&apos;s reply and contact details
+                open the one you already have. The owner&apos;s reply and contact details
                 appear there.
               </Alert>
 

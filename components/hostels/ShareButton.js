@@ -28,7 +28,7 @@ export default function ShareButton({ title, text, className }) {
       await navigator.clipboard.writeText(url);
       setCopied(true);
     } catch {
-      // A dismissed share sheet rejects too — nothing to report either way.
+      // A dismissed share sheet rejects too, so there is nothing to report.
     }
   }
 

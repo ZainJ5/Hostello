@@ -13,7 +13,7 @@ const body = {
     .trim()
     .min(
       MIN_REVIEW_LENGTH,
-      `Tell other students a little more — at least ${MIN_REVIEW_LENGTH} characters`
+      `Tell other students a little more: at least ${MIN_REVIEW_LENGTH} characters`
     )
     .max(2000, 'Keep your review under 2000 characters'),
   cleanliness: subScore,

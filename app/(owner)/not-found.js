@@ -5,7 +5,7 @@ import { EmptyState } from '@/components/ui/Feedback';
 export const metadata = { title: 'Not found' };
 
 /**
- * Shown when a listing, booking or receipt id does not resolve — including when
+ * Shown when a listing, booking or receipt id does not resolve, including when
  * it exists but belongs to another owner. The two cases are deliberately
  * indistinguishable so ids cannot be probed from this console.
  */

@@ -197,7 +197,7 @@ export default function AdminShell({ session, counts, children }) {
     try {
       localStorage.setItem('hostello-admin-sidebar', next);
     } catch {
-      /* private mode — the preference simply doesn't persist */
+      /* private mode; the preference simply doesn't persist */
     }
   }, []);
 

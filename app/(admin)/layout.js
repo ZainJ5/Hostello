@@ -20,7 +20,7 @@ export const metadata = {
  */
 const BOOTSTRAP = `(function(){try{
 var r=document.documentElement;
-/* Light by default, matching the public site — the shared 'hostello-theme'
+/* Light by default, matching the public site. The shared 'hostello-theme'
    key means a visitor who picks light there must not be flipped to dark on
    arriving here just because their OS preference says so. */
 var t=localStorage.getItem('hostello-theme');
@@ -31,7 +31,7 @@ if(s==='collapsed')r.dataset.adminSidebar='collapsed';
 
 /**
  * Chart tokens. Series colours are the only place the console names a colour
- * value directly — SVG needs a real paint. Each slot is a step from the
+ * value directly, because SVG needs a real paint. Each slot is a step from the
  * Hostello scales in app/globals.css, and the five-slot order was validated
  * for lightness band, chroma, CVD separation and 3:1 contrast against both
  * the light (#ffffff) and dark (#0f172a) chart surfaces.
@@ -46,8 +46,8 @@ html:not([data-admin-sidebar="collapsed"]) .admin-only-collapsed{display:none}
 html.dark .admin-only-light{display:none}
 html:not(.dark) .admin-only-dark{display:none}
 
-/* Categorical series use the historic Airbnb brand set — Rausch, Babu,
-   Arches, Hof, Foggy — which stays on-brand while remaining distinguishable
+/* Categorical series use the historic Airbnb brand set (Rausch, Babu,
+   Arches, Hof, Foggy), which stays on-brand while remaining distinguishable
    at small sizes and for the common colour-vision deficiencies. The
    sequential ramp is a single-hue rose scale so ordered data reads as
    ordered rather than categorical. */

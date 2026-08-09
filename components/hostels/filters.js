@@ -3,7 +3,7 @@
  *
  * The browse page, the filter UI and the read API all import from here, so a
  * URL pasted into a new tab reproduces the exact same result set, and the map
- * agent can build a query string without guessing at parameter names.
+ * can build a query string without guessing at parameter names.
  *
  * Wire format (every parameter is optional):
  *   q           free text            "girls hostel h-13"
@@ -23,7 +23,7 @@
 
 /*
  * This module is imported by Client Components, so it must never reach for
- * `@/models/Hostel` — that would drag mongoose (and `tls`/`net`) into the
+ * `@/models/Hostel`, because that would drag mongoose (and `tls`/`net`) into the
  * browser bundle. The facility vocabulary travels the other way instead: the
  * server pads it into `facets.facilities`, so the filter UI still renders the
  * canonical list without owning a copy of it.
@@ -31,7 +31,7 @@
 
 export const PAGE_SIZE = 12;
 
-/** Slider domain. Matches the seeded corpus (PKR 5,000 – 35,000 entry rents). */
+/** Slider domain, covering the usual PKR 5,000 to 35,000 entry rents. */
 export const PRICE_MIN = 5000;
 export const PRICE_MAX = 35000;
 export const PRICE_STEP = 500;
@@ -105,7 +105,7 @@ export function parseFilters(sp) {
   return {
     q: String(get('q') || '').trim().slice(0, 120),
     // Cities are free-form in the data, so they are not validated against a
-    // whitelist — an unknown city simply matches nothing.
+    // whitelist; an unknown city simply matches nothing.
     city: splitList(get('city')).slice(0, 8),
     university: String(get('university') || '').trim().slice(0, 60),
     gender,
@@ -219,8 +219,8 @@ export function toChips(f) {
 }
 
 /**
- * "124 hostels near NUST" — the headline above the grid. Kept here so the
- * browse page and the API-driven map share one phrasing.
+ * Builds the headline above the grid, such as "18 hostels near NUST". Kept
+ * here so the browse page and the API-driven map share one phrasing.
  */
 export function resultsSummary(total, f) {
   const noun = total === 1 ? 'hostel' : 'hostels';

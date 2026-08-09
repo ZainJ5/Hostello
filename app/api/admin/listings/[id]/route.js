@@ -106,7 +106,7 @@ export const PATCH = handler(async (req, ctx) => {
 });
 
 /**
- * Hard delete. The listing's dependent rows go with it — leaving orphaned
+ * Hard delete. The listing's dependent rows go with it, because leaving orphaned
  * bookings and reviews pointing at a missing hostel would break every screen
  * that joins them.
  */

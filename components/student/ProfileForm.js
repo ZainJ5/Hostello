@@ -12,7 +12,7 @@ import { useToast } from './Toast';
 
 const INITIAL = { ok: false, error: '', fieldErrors: {} };
 
-/** Keep a value the seed data carries but our list doesn't, so saving can't wipe it. */
+/** Keep a stored value our list doesn't contain, so saving can't wipe it. */
 function withCurrent(list, current) {
   if (current && !list.includes(current)) return [current, ...list];
   return list;

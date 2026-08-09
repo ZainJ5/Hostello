@@ -90,7 +90,7 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
   }, []);
 
   // The public layout owns the navbar, so its height is measured rather than
-  // assumed — the map fills exactly what is left of the viewport.
+  // assumed, and the map fills exactly what is left of the viewport.
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return undefined;
@@ -115,7 +115,7 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
     };
   }, []);
 
-  /* ── URL mirroring — every view is a shareable link ──────────────────── */
+  /* ── URL mirroring: every view is a shareable link ────────────────────── */
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -144,7 +144,7 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
       params.delete('radius');
       params.delete('campus');
       params.set('limit', String(MAX_RESULTS));
-      // The map has no use for the facet aggregation — skip that round trip.
+      // The map has no use for the facet aggregation, so skip that round trip.
       params.set('facets', '0');
       if (nextBounds) params.set('bounds', boundsToParam(nextBounds));
 
@@ -157,7 +157,7 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
       const data = await res.json();
       const returned = Array.isArray(data?.hostels) ? data.hostels : [];
       const rows = returned.filter(hasCoords);
-      // A shape we cannot map is no better than a failed request — keep the
+      // A shape we cannot map is no better than a failed request, so keep the
       // rows already on screen rather than blanking the map.
       if (returned.length > 0 && rows.length === 0) {
         throw new Error('hostels api returned no coordinates');
@@ -182,7 +182,7 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
 
   useEffect(() => () => abortRef.current?.abort(), []);
 
-  // Map movement — debounced, and only when "search as I move" is on.
+  // Map movement is debounced, and only runs when "search as I move" is on.
   useEffect(() => {
     if (!bounds) return undefined;
     if (!filters.live && searchedOnceRef.current) {
@@ -240,7 +240,7 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
   const handleHover = useCallback((id) => setHoveredId(id), []);
 
   // Both breakpoints render a list, so the rows are namespaced and each copy is
-  // scrolled independently — duplicate ids would break `getElementById`.
+  // scrolled independently; duplicate ids would break `getElementById`.
   const revealRow = useCallback((id) => {
     requestAnimationFrame(() => {
       for (const prefix of ['hm-desktop', 'hm-sheet']) {
@@ -334,7 +334,7 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
           >
             <TriangleAlert className="mt-px size-3.5 shrink-0" aria-hidden="true" />
             <span>
-              Live search is unavailable right now — showing the listings already loaded, filtered
+              Live search is unavailable right now. Showing the listings already loaded, filtered
               to this map view.
             </span>
           </div>
@@ -411,7 +411,7 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
             >
               <TriangleAlert className="mt-px size-3.5 shrink-0" aria-hidden="true" />
               <span>
-                Live search is unavailable — showing loaded listings, filtered to this map view.
+                Live search is unavailable. Showing loaded listings, filtered to this map view.
               </span>
             </div>
           </div>

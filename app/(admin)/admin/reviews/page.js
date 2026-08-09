@@ -35,7 +35,7 @@ export default async function AdminReviewsPage({ searchParams }) {
 
   const [result] = await Review.aggregate([
     { $match: match },
-    // Flagged first — this page is a moderation queue.
+    // Flagged first: this page is a moderation queue.
     { $addFields: { rank: { $indexOfArray: [['flagged', 'published', 'removed'], '$status'] } } },
     { $sort: { rank: 1, flagCount: -1, createdAt: -1 } },
     {

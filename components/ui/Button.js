@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 /**
- * Follows the Airbnb-derived spec in DESIGN.md: flat fills, 8px radius,
- * 48px default height, weight 500. Buttons carry no shadow — depth in this
+ * Follows the button spec in DESIGN.md: flat fills, 8px radius,
+ * 48px default height, weight 500. Buttons carry no shadow; depth in this
  * system comes from photography and rounded clipping, not elevation.
  *
  * Variants map to intent, not colour, so pages never hand-pick a shade:

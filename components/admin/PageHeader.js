@@ -25,7 +25,7 @@ export default function PageHeader({ eyebrow, title, description, actions, class
   );
 }
 
-/** Section divider inside a dense page — a label with a hairline rule. */
+/** Section divider inside a dense page: a label with a hairline rule. */
 export function SectionTitle({ title, description, action, className }) {
   return (
     <div className={cn('flex flex-wrap items-end justify-between gap-3', className)}>

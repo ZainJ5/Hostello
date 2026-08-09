@@ -16,9 +16,8 @@ import { cn } from '@/lib/utils';
  * Result feedback for every async action in the student area.
  *
  * The default context value is a working no-op so `useToast()` is safe in
- * components that also render outside the provider — `SaveButton` ships on
- * public listing pages, which are owned by another stream and mount no
- * provider of their own.
+ * components that also render outside the provider. `SaveButton` ships on
+ * public listing pages, which mount no provider of their own.
  */
 const ToastContext = createContext({
   toast: () => '',

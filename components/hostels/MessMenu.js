@@ -63,7 +63,7 @@ export default function MessMenu({ menu, images = [], name, className }) {
               <HostelImage
                 src={src}
                 name={name}
-                alt={`${name} — mess menu photo ${i + 1}`}
+                alt={`${name}, mess menu photo ${i + 1}`}
                 fill
                 sizes="(max-width: 640px) 100vw, 45vw"
               />

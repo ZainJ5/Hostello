@@ -176,7 +176,7 @@ function Shell({ user, summary, children }) {
   const [open, setOpen] = useState(false);
   const [lastPath, setLastPath] = useState(pathname);
 
-  // Close the slide-over whenever the route changes — including on a browser
+  // Close the slide-over whenever the route changes, including on a browser
   // back/forward, where no nav item was clicked. Adjusted during render rather
   // than in an effect so the panel never paints over the new page for a frame.
   if (lastPath !== pathname) {
@@ -270,10 +270,10 @@ function Shell({ user, summary, children }) {
 }
 
 /**
- * Sidebar shell for `/owner`. A deliberate sibling of the admin console — same
- * tokens, same 264px rail, same density — but branded to the owner's business
- * rather than to Hostello operations, with the "Add new hostel" CTA sitting
- * above the navigation where an owner's primary job lives.
+ * Sidebar shell for `/owner`. It mirrors the admin console (same tokens, same
+ * 264px rail, same density) but is branded to the owner's business rather than
+ * to Hostello operations, with the "Add new hostel" CTA sitting above the
+ * navigation where an owner's primary job lives.
  */
 export default function OwnerShell({ user, summary, children }) {
   return (

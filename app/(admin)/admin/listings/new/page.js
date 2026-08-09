@@ -22,7 +22,7 @@ export default async function NewListingPage() {
       <PageHeader
         eyebrow="Listings"
         title="New listing"
-        description="Create a hostel by hand — useful for imports, phone submissions and anything an owner cannot do themselves."
+        description="Create a hostel by hand. Useful for imports, phone submissions and anything an owner cannot do themselves."
         actions={
           <Button href="/admin/listings" variant="secondary" size="sm">
             <ArrowLeft className="size-4" aria-hidden="true" />

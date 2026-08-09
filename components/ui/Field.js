@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 /**
  * Per DESIGN.md: 8px radius, hairline outline, and on focus the border
- * thickens to 2px ink — no glow, no ring. `inset` box-shadow supplies the
+ * thickens to 2px ink, with no glow and no ring. `inset` box-shadow supplies the
  * second pixel so the control never shifts by 1px when focused.
  */
 const CONTROL =

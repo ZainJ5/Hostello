@@ -26,7 +26,7 @@ export function TrafficPanel({ series }) {
 
   return (
     <ChartCard
-      title="Traffic — last 30 days"
+      title="Traffic, last 30 days"
       description={`${total.toLocaleString('en-PK')} listing views recorded across the platform`}
       height={260}
       empty={empty}

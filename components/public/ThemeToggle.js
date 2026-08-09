@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 export const THEME_STORAGE_KEY = 'hostello-theme';
 
 /**
- * The class on <html> is the source of truth — it is written by the inline
+ * The class on <html> is the source of truth. It is written by the inline
  * script before first paint, so both icons can be driven by the `dark:`
  * variant alone. That keeps the server and first client render byte-identical
  * and avoids a hydration mismatch; only the label needs state.
@@ -28,7 +28,7 @@ export default function ThemeToggle({ className }) {
     try {
       window.localStorage.setItem(THEME_STORAGE_KEY, next ? 'dark' : 'light');
     } catch {
-      // Private mode / storage disabled — the toggle still works for this visit.
+      // Private mode or disabled storage. The toggle still works this visit.
     }
     setIsDark(next);
   }

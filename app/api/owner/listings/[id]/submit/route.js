@@ -24,7 +24,7 @@ export const POST = handler(async (req, ctx) => {
   if (['pending_review', 'published'].includes(hostel.status)) {
     return fail(
       hostel.status === 'published'
-        ? 'This listing is already live — edits publish immediately, no resubmission needed.'
+        ? 'This listing is already live. Edits publish immediately, so no resubmission is needed.'
         : 'This listing is already with an admin for review.',
       409
     );

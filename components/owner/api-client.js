@@ -9,7 +9,7 @@ export async function apiSend(url, { method = 'POST', body, form, signal } = {})
   const init = { method, signal };
 
   if (form) {
-    // Never set Content-Type for FormData — the browser has to add the boundary.
+    // Never set Content-Type for FormData: the browser has to add the boundary.
     init.body = form;
   } else if (body !== undefined) {
     init.headers = { 'Content-Type': 'application/json' };

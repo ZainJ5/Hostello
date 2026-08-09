@@ -169,7 +169,7 @@ export default function SettingsForm({ settings, methods, featuredInUse }) {
 
           {form.accounts.length === 0 ? (
             <p className="mt-2 rounded-xl border border-dashed border-border-strong bg-surface-sunken px-3 py-4 text-center text-sm text-muted-foreground">
-              No accounts configured — owners have nowhere to send the fee.
+              No accounts added yet, so owners have nowhere to send the fee.
             </p>
           ) : (
             <ul className="mt-2 space-y-2">
@@ -226,7 +226,7 @@ export default function SettingsForm({ settings, methods, featuredInUse }) {
 
       <Section
         title="Featured listings"
-        description="Featured slots are finite inventory — bulk actions refuse to exceed the cap."
+        description="Featured slots are finite inventory, so bulk actions refuse to exceed the cap."
         icon={Sparkles}
       >
         <div className="grid gap-4 sm:grid-cols-3">

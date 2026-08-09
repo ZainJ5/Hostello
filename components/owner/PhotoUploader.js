@@ -27,7 +27,7 @@ const ACCEPT = 'image/jpeg,image/png,image/webp,image/avif,image/gif';
  * Photo manager for a listing: multi-file upload, drag-and-drop, reorder, set
  * cover, delete.
  *
- * The cover photo is simply position 1 — "set as cover" moves the photo to the
+ * The cover photo is simply position 1. "Set as cover" moves the photo to the
  * front rather than storing a separate flag, so the two controls can never
  * disagree. Reordering is available from the keyboard as well as by dragging,
  * because drag-and-drop on its own is not operable without a pointer.
@@ -53,7 +53,7 @@ export default function PhotoUploader({ listingId, images, onChange, error }) {
       return;
     }
     if (images.length + files.length > MAX_PHOTOS) {
-      setLocalError(`You can upload ${MAX_PHOTOS} photos in total — ${images.length} are already here.`);
+      setLocalError(`You can upload ${MAX_PHOTOS} photos in total, and ${images.length} are already here.`);
       return;
     }
 
@@ -152,8 +152,8 @@ export default function PhotoUploader({ listingId, images, onChange, error }) {
           {uploading ? 'Uploading…' : 'Drag photos here'}
         </p>
         <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground text-pretty">
-          JPG, PNG, WebP, AVIF or GIF, up to {MAX_MB} MB each. The first photo becomes the cover —
-          make it the one that sells the room.
+          JPG, PNG, WebP, AVIF or GIF, up to {MAX_MB} MB each. The first photo becomes the cover,
+          so make it the one that sells the room.
         </p>
         <input
           ref={inputRef}
@@ -279,7 +279,7 @@ export default function PhotoUploader({ listingId, images, onChange, error }) {
         again.
         {pendingDelete?.index === 0 && images.length > 1 && (
           <span className="mt-2 block font-medium text-foreground">
-            This is your cover photo — the next photo takes its place.
+            This is your cover photo, so the next photo takes its place.
           </span>
         )}
       </ConfirmDialog>

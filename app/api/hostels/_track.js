@@ -5,7 +5,7 @@ import PageView from '@/models/PageView';
 
 /**
  * Shared engagement-tracking helper for the `/view` and `/contact` endpoints.
- * Not a route file — only `route.js` becomes an endpoint, so this module is
+ * Not a route file: only `route.js` becomes an endpoint, so this module is
  * private to `app/api/hostels/**`.
  */
 

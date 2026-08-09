@@ -67,7 +67,7 @@ export default function OtpInput({
     if (!digits) return;
 
     // A password manager or Android autofill can drop the whole code into one
-    // box — treat that like a paste.
+    // box, so treat that like a paste.
     if (digits.length > 1) {
       emit(digits, Math.min(digits.length, OTP_LENGTH - 1), { force: true });
       return;

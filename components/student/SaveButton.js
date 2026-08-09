@@ -7,15 +7,16 @@ import { cn } from '@/lib/utils';
 import { useToast } from './Toast';
 
 /**
- * Save / unsave toggle for a listing. Shared component — the browse and detail
- * pages mount it too, so it makes no assumption about the page around it.
+ * Save / unsave toggle for a listing. This is a shared component: the browse
+ * and detail pages mount it too, so it makes no assumption about the page
+ * around it.
  *
  * - Works signed-out: the POST comes back 401 and the student is sent to
  *   `/login?next=<where they were>` so they land back on the same card.
  * - Optimistic: the heart flips on click and rolls back if the request fails.
  * - Idempotent on the wire: it sends the *desired* state rather than "toggle",
  *   so a double-click can't leave the UI and `Hostel.saveCount` disagreeing.
- * - Safe inside a card that is itself a link — the click is stopped before it
+ * - Safe inside a card that is itself a link: the click is stopped before it
  *   bubbles into the anchor.
  *
  * The current location is read from `window` inside the handler rather than
@@ -45,8 +46,8 @@ export default function SaveButton({
   const [busy, setBusy] = useState(false);
   const mounted = useRef(true);
 
-  // `initialSaved` seeds the state at mount only. After that this button is
-  // the authority on its own listing — it flips optimistically and reconciles
+  // `initialSaved` sets the state at mount only. After that this button is
+  // the authority on its own listing: it flips optimistically and reconciles
   // with the server response, so re-syncing from the prop would fight it. When
   // a parent replaces its list it remounts these by key and the fresh server
   // value is picked up then.

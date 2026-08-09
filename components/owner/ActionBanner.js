@@ -9,8 +9,8 @@ import { cn } from '@/lib/utils';
 /**
  * Console-wide banner for anything that is blocking an owner from earning.
  * Ordered by urgency: money owed first, then rejections, then things that are
- * merely waiting on us. Dismissal is per-session only — the work is still real,
- * so it comes back on the next visit.
+ * merely waiting on us. Dismissal is per-session only, because the work is
+ * still real, so it comes back on the next visit.
  */
 function buildItems(summary) {
   if (!summary) return [];
@@ -70,7 +70,7 @@ function buildItems(summary) {
         summary.pendingReview === 1
           ? '1 listing is in review'
           : `${summary.pendingReview} listings are in review`,
-      body: 'Nothing for you to do — we will email you as soon as an admin approves it.',
+      body: 'Nothing for you to do. We will email you as soon as an admin approves it.',
       href: '/owner/listings?status=pending_review',
       cta: 'View status',
     });
@@ -91,9 +91,9 @@ export default function ActionBanner({ summary }) {
   const [dismissed, setDismissed] = useState([]);
 
   // Dismissal only silences the banner the owner actually read. As soon as the
-  // underlying counts move — a new rejection, a payment cleared — the nudge
-  // comes back. Adjusted during render; an effect here would paint the stale
-  // banner first.
+  // underlying counts move (a new rejection, a payment cleared) the nudge comes
+  // back. Adjusted during render; an effect here would paint the stale banner
+  // first.
   const signature = `${summary?.pendingPayment}:${summary?.rejected}:${summary?.pendingReview}:${summary?.rejectedPayments}`;
   const [lastSignature, setLastSignature] = useState(signature);
   if (lastSignature !== signature) {

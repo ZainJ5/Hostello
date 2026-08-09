@@ -9,8 +9,8 @@ import { cn } from '@/lib/utils';
 /**
  * Every chart on this console is wrapped in this frame, so all of them get the
  * same three guarantees: a legend that never relies on colour alone (each
- * swatch carries its own line pattern), an empty state, and a table view —
- * the WCAG-clean twin of the plot for anyone who cannot read the marks.
+ * swatch carries its own line pattern), an empty state, and a table view. The
+ * table is the WCAG-clean twin of the plot for anyone who cannot read the marks.
  */
 export default function ChartCard({
   title,

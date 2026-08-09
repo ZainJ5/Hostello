@@ -183,7 +183,7 @@ export function Drawer({ open, onClose, title, description, children, footer }) 
 
 /**
  * Destructive confirmation. When `confirmPhrase` is set the action stays
- * disabled until the admin types it back exactly — no muscle-memory deletes.
+ * disabled until the admin types it back exactly, so no muscle-memory deletes.
  */
 export function ConfirmDialog({
   open,

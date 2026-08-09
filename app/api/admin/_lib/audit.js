@@ -6,7 +6,7 @@ export { actionLabel, ACTION_LABELS } from '@/components/admin/labels';
 /**
  * Appends one row to the privileged-action trail. Never throws into the
  * caller: an audit write failing must not roll back the action the admin
- * already performed — it is logged and swallowed.
+ * already performed, so it is logged and swallowed.
  */
 export async function writeAudit(req, session, entry) {
   try {

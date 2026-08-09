@@ -1,16 +1,16 @@
 @import 'tailwindcss';
 
 /* Dark mode is driven by the `.dark` class on <html> (set by the theme script
-   in the public layout), not by the OS media query — without this the `dark:`
+   in the public layout), not by the OS media query. Without this the `dark:`
    utilities and the `.dark` token block below would disagree. */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ═══════════════════════════════════════════════════════════════════
-   Hostello Design System — Airbnb-derived (see DESIGN.md)
+   Hostello Design System: Airbnb-derived (see DESIGN.md)
 
    A photography-led marketplace system: a pure white canvas, near-black
    ink, and a SINGLE brand voltage (Rausch #ff385c) that carries every
-   primary CTA and save state. Used scarcely — most of a page is white
+   primary CTA and save state. Used scarcely, so most of a page is white
    and ink with one or two Rausch moments.
 
    Token NAMES are unchanged from the previous system on purpose: every
@@ -47,9 +47,9 @@
   --color-accent-700: #3f3f3f;
 
   /* ─── Historic secondary brand set ───
-     Babu, Arches and Hof. Not used in mainline UI chrome — reserved for
-     categorical chart series and generated placeholder tiles, where a
-     single hue could not carry the distinction. */
+     Babu, Arches and Hof. Not used in mainline UI chrome. Reserved for
+     categorical chart series and photo fallback tiles, where a single
+     hue could not carry the distinction. */
   --color-babu: #00a699;
   --color-babu-deep: #00756c;
   --color-arches: #fc642d;
@@ -77,8 +77,8 @@
   --font-display: var(--font-inter), Circular, -apple-system, system-ui,
     sans-serif;
 
-  /* Display weights stay modest — the system trusts photography and
-     whitespace for hierarchy, not typographic muscle. */
+  /* Display weights stay modest: hierarchy comes from photography and
+     whitespace rather than heavy type. */
   --text-display: clamp(2rem, 1.45rem + 2.4vw, 3rem);
   --text-display--line-height: 1.08;
   --text-display--letter-spacing: -0.022em;
@@ -105,7 +105,7 @@
   --shadow-lg: rgb(0 0 0 / 0.02) 0 0 0 1px, rgb(0 0 0 / 0.04) 0 2px 6px 0,
     rgb(0 0 0 / 0.1) 0 4px 8px 0;
   --shadow-xl: rgb(0 0 0 / 0.04) 0 0 0 1px, rgb(0 0 0 / 0.12) 0 8px 28px 0;
-  /* No coloured glow anywhere in this system — these resolve to the same tier. */
+  /* No coloured glow anywhere in this system, so these resolve to the same tier. */
   --shadow-brand: rgb(0 0 0 / 0.02) 0 0 0 1px, rgb(0 0 0 / 0.04) 0 2px 6px 0,
     rgb(0 0 0 / 0.1) 0 4px 8px 0;
   --shadow-accent: rgb(0 0 0 / 0.02) 0 0 0 1px, rgb(0 0 0 / 0.04) 0 2px 6px 0,
@@ -140,8 +140,8 @@
   --overlay: rgb(0 0 0 / 0.5);
 }
 
-/* The source system ships no dark mode for its public web. This app does —
-   the owner and admin consoles need it — so the palette is carried over at
+/* The source system ships no dark mode for its public web. This app needs one
+   for the owner and admin consoles, so the palette is carried over at
    equivalent contrast rather than dropped. */
 .dark {
   --background: #0f0f0f;
@@ -189,15 +189,15 @@
     font-feature-settings: 'cv05', 'cv11';
   }
 
-  /* 600 rather than 700 — the source system's headlines are deliberately
-     quieter than a typical SaaS page. */
+  /* 600 rather than 700: headlines are deliberately quieter here than on a
+     typical SaaS page. */
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     font-weight: 600;
     letter-spacing: -0.015em;
   }
 
-  /* Visible focus is a hard requirement — never remove without replacing. */
+  /* Visible focus is a hard requirement. Never remove without replacing. */
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;

@@ -118,7 +118,7 @@ export default function BookingForm({ hostel, user }) {
           <h2 className="mt-5 text-h3 text-foreground">Request sent</h2>
           <p className="mt-2 text-sm text-muted-foreground text-pretty">
             We&apos;ve emailed {hostel.name} your details. Owners usually reply within a
-            day or two — you&apos;ll see their answer, and their phone number once they
+            day or two. You&apos;ll see their answer, and their phone number once they
             confirm, under My Bookings.
           </p>
 
@@ -216,7 +216,7 @@ export default function BookingForm({ hostel, user }) {
                 return (
                   <option key={type} value={type}>
                     {type}
-                    {room?.price ? ` — ${formatPKR(room.price)}/month` : ''}
+                    {room?.price ? `, ${formatPKR(room.price)}/month` : ''}
                     {room && room.available === 0 ? ' (waitlist)' : ''}
                   </option>
                 );
@@ -266,8 +266,8 @@ export default function BookingForm({ hostel, user }) {
               value={form.message}
               onChange={(e) => set('message', e.target.value)}
               maxLength={1000}
-              placeholder="Tell them what you study, when you'd like to visit, and anything you need to check — meals, gate timing, attached bath…"
-              hint={`${form.message.length}/1000 — optional, but a short note gets a faster reply.`}
+              placeholder="Tell them what you study, when you'd like to visit, and anything you need to check: meals, gate timing, attached bath…"
+              hint={`${form.message.length}/1000. Optional, but a short note gets a faster reply.`}
               error={errors.message}
             />
 

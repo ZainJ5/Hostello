@@ -19,15 +19,15 @@ export default function FilterSidebar({ filters, facets, className }) {
   const [draft, setDraft] = useState(filters);
   const timer = useRef(null);
   // Mirrors `draft` so `apply` can read the latest value without re-creating
-  // itself, and without scheduling the navigation inside a state updater —
-  // updaters must stay pure or StrictMode's double-invoke leaks a timer.
+  // itself, and without scheduling the navigation inside a state updater.
+  // Updaters must stay pure or StrictMode's double-invoke leaks a timer.
   const draftRef = useRef(filters);
 
   const urlKey = buildQuery(filters);
   const draftKey = buildQuery(draft);
 
-  // Adopt the server's state when the URL moved without us — back/forward, a
-  // removed chip, "Clear all" — but never while an edit is still settling.
+  // Adopt the server's state when the URL moved without us (back/forward, a
+  // removed chip, "Clear all"), but never while an edit is still settling.
   useEffect(() => {
     if (isPending || timer.current) return;
     if (draftKey !== urlKey) {
@@ -82,7 +82,7 @@ export default function FilterSidebar({ filters, facets, className }) {
               onClick={() => {
                 clearTimeout(timer.current);
                 timer.current = null;
-                // Clearing keeps sort order and layout — only constraints go.
+                // Clearing keeps sort order and layout; only constraints go.
                 const cleared = { ...DEFAULT_FILTERS, sort: filters.sort, view: filters.view };
                 draftRef.current = cleared;
                 setDraft(cleared);

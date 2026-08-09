@@ -91,7 +91,7 @@ export default async function OwnerListingsPage({ searchParams }) {
           title={total === 0 ? 'No listings yet' : `Nothing in “${TAB_LABELS[status] || status}”`}
           description={
             total === 0
-              ? 'Add your first hostel. You can save a draft at any point and finish it later — nothing is lost.'
+              ? 'Add your first hostel. You can save a draft at any point and finish it later. Nothing is lost.'
               : 'Try another status filter, or add a new hostel.'
           }
           action={

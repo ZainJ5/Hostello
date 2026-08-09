@@ -35,8 +35,8 @@ export default function RespondDialog({ booking, mode, onClose, onDone }) {
       });
       toast.success(
         confirming
-          ? `Confirmed — ${booking.studentName || 'the student'} has been emailed.`
-          : `Declined — ${booking.studentName || 'the student'} has been emailed.`
+          ? `Confirmed. ${booking.studentName || 'The student'} has been emailed.`
+          : `Declined. ${booking.studentName || 'The student'} has been emailed.`
       );
       onDone?.(data.booking);
       onClose?.();
@@ -108,7 +108,7 @@ export default function RespondDialog({ booking, mode, onClose, onDone }) {
           hint={
             confirming
               ? 'Tell them what to bring, or when to visit. This goes into the email.'
-              : 'A short honest reason — "no female rooms free until March" — saves everyone time.'
+              : 'A short honest reason, such as "no female rooms free until March", saves everyone time.'
           }
           value={message}
           onChange={(e) => setMessage(e.target.value)}

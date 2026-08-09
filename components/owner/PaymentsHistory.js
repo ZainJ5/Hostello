@@ -131,7 +131,7 @@ export default function PaymentsHistory({ payments, totals }) {
                     {payment.method}
                   </td>
                   <td className="tabular max-w-[160px] truncate px-4 py-3 text-muted-foreground">
-                    {payment.transactionRef || '—'}
+                    {payment.transactionRef || 'Not given'}
                   </td>
                   <td className="px-4 py-3">
                     <StatusBadge status={payment.status} size="sm" />
@@ -168,7 +168,7 @@ export default function PaymentsHistory({ payments, totals }) {
       )}
 
       <p className={cn('mt-4 text-xs text-muted-foreground')}>
-        Receipts are private — only you and Hostello admins can open them.
+        Receipts are private. Only you and Hostello admins can open them.
       </p>
 
       {viewing && <ReceiptViewer payment={viewing} onClose={() => setViewing(null)} />}

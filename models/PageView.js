@@ -14,13 +14,13 @@ const pageViewSchema = new mongoose.Schema(
       index: true,
     },
     ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
-    // 'view' | 'contact' | 'save' — contact and save are the conversion signals.
+    // 'view' | 'contact' | 'save'. Contact and save are the conversion signals.
     kind: { type: String, enum: ['view', 'contact', 'save'], default: 'view', index: true },
     // Hashed visitor fingerprint; enough to deduplicate without storing IPs.
     visitor: { type: String, default: '' },
     referrer: { type: String, default: '' },
-    // Indexed below with a TTL rather than `index: true` here — declaring
-    // both would create two indexes on the same key.
+    // Indexed below with a TTL rather than `index: true` here, because
+    // declaring both would create two indexes on the same key.
     createdAt: { type: Date, default: Date.now },
   },
   { versionKey: false }

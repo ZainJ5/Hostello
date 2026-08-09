@@ -11,7 +11,7 @@ import { formatDistance } from './filters';
 const GENDER_TONE = { Female: 'accent', Male: 'info', Mixed: 'brand' };
 
 /**
- * Compact horizontal card — photo left, details right. The column is ~40% of
+ * Compact horizontal card: photo left, details right. The column is ~40% of
  * the viewport, far too narrow for the full grid card used on /hostels.
  *
  * Two interactive targets, deliberately not nested: a full-bleed button that

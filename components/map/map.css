@@ -1,5 +1,5 @@
 /*
- * Map chrome — Hostello design system.
+ * Map chrome for the Hostello design system.
  *
  * Everything here either lives under a `hm-` prefix or is a Leaflet class
  * scoped inside `[data-hostello-map]`, so nothing leaks into the rest of the
@@ -21,7 +21,7 @@ html[data-hostello-map-open] body {
 /* ── Base container ───────────────────────────────────────────────────── */
 
 /* Transparent so the branded grid behind the map shows through if the tile
-   server is unreachable — a failed basemap reads as texture, not as a bug. */
+   server is unreachable, so a failed basemap reads as texture, not a bug. */
 [data-hostello-map] .leaflet-container {
   background: transparent;
   font-family: var(--font-sans);

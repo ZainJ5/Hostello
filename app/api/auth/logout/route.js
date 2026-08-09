@@ -4,7 +4,7 @@ import { destroySession } from '@/lib/auth';
 /**
  * POST /api/auth/logout
  *
- * Clearing the cookie is the whole job — sessions are stateless JWTs, so there
+ * Clearing the cookie is the whole job: sessions are stateless JWTs, so there
  * is no server-side record to revoke. POST rather than GET so a `<img>` tag on
  * another site can't sign the user out.
  */

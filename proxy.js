@@ -4,11 +4,11 @@ import { SESSION_COOKIE_NAME, verifySessionToken } from '@/lib/auth';
 /**
  * Route guard. Next 16 renamed `middleware` to `proxy`; the function must be
  * named `proxy` and runs on the Node.js runtime (the `edge` runtime and the
- * `runtime` segment option are not available here — setting one throws).
+ * `runtime` segment option are not available here, and setting one throws).
  *
  * This is an optimistic check: it verifies the session JWT's signature and
  * expiry, nothing more. It keeps signed-out visitors from ever seeing a
- * dashboard shell, but it is not the authorisation boundary — every route
+ * dashboard shell, but it is not the authorisation boundary. Every route
  * handler and page behind these prefixes still calls `requireRole`, because a
  * matcher change or a new route would otherwise silently remove all protection.
  *
@@ -56,7 +56,7 @@ export async function proxy(request) {
 /**
  * Positive matchers, so the proxy never runs for `/api/**` (including
  * `/api/auth/*`), `_next/static`, `_next/image`, `/uploads/*` or anything else
- * in `public/`. Values must be literals — Next reads them at build time.
+ * in `public/`. Values must be literals, because Next reads them at build time.
  */
 export const config = {
   matcher: ['/dashboard/:path*', '/owner/:path*', '/admin/:path*'],

@@ -13,7 +13,7 @@ const toggleSchema = z.object({
   hostelId: z.string().regex(/^[a-f\d]{24}$/i, 'That listing could not be found'),
   /**
    * Optional desired state. Omit it and the call toggles; send it and the call
-   * is idempotent — the client can retry, or fire twice from a double-click,
+   * is idempotent, so the client can retry, or fire twice from a double-click,
    * and both the saved list and `Hostel.saveCount` land in the same place.
    */
   saved: z.boolean().optional(),
@@ -25,7 +25,7 @@ function visitorHash(userId) {
 }
 
 /**
- * GET /api/saved — the caller's saved listings, most recently saved first.
+ * GET /api/saved: the caller's saved listings, most recently saved first.
  *
  * `User.savedHostels` is append-ordered, so reversing it gives recency without
  * storing a timestamp. Suspended and unpublished listings are filtered out
@@ -51,7 +51,7 @@ export const GET = handler(async () => {
 });
 
 /**
- * POST /api/saved — save or unsave a listing.
+ * POST /api/saved: save or unsave a listing.
  *
  * Counter integrity is the whole job here. `Hostel.saveCount` and the
  * `PageView` analytics row are only touched when the student's array actually
@@ -93,7 +93,7 @@ export const POST = handler(async (req) => {
   if (changed) {
     if (desired) {
       await Hostel.updateOne({ _id: hostel._id }, { $inc: { saveCount: 1 } });
-      // Owner analytics read `PageView`, not the counter — `save` is one of
+      // Owner analytics read `PageView`, not the counter, and `save` is one of
       // the two conversion signals on their dashboard.
       try {
         await PageView.create({

@@ -31,9 +31,9 @@ const SECTIONS = [
 ];
 
 /**
- * Single-page sectioned edit form — the same field groups the wizard uses, with
- * everything on screen at once because an editor already knows the shape of
- * their listing and only wants to change one thing.
+ * Single-page sectioned edit form using the same field groups as the wizard,
+ * with everything on screen at once because an editor already knows the shape
+ * of their listing and only wants to change one thing.
  */
 export default function ListingEditor({ listing, facilities, roomTypes }) {
   const router = useRouter();
@@ -79,7 +79,7 @@ export default function ListingEditor({ listing, facilities, roomTypes }) {
       toast.success(
         data.status === 'pending_payment'
           ? 'Submitted. Next: upload your payment proof.'
-          : 'Resubmitted — an admin will review it shortly.'
+          : 'Resubmitted. An admin will review it shortly.'
       );
       router.push(data.next);
       router.refresh();
@@ -112,7 +112,7 @@ export default function ListingEditor({ listing, facilities, roomTypes }) {
 
         {listing.status === 'published' && (
           <Alert tone="info" title="This listing is live">
-            Edits publish immediately — your listing never goes offline while you update it.
+            Edits publish immediately, so your listing never goes offline while you update it.
             Changing the name, location, price or contact details pauses the “Verified” badge until
             an admin re-checks it.
           </Alert>
@@ -132,7 +132,7 @@ export default function ListingEditor({ listing, facilities, roomTypes }) {
 
         {listing.status === 'pending_review' && (
           <Alert tone="info" title="With an admin for review">
-            Your payment is being checked. You can still edit — the version an admin sees is
+            Your payment is being checked. You can still edit. The version an admin sees is
             whatever is saved when they open it.
           </Alert>
         )}

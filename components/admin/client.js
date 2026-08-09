@@ -1,9 +1,9 @@
 'use client';
 
 /**
- * Thin wrapper over fetch for every admin mutation. Always resolves — callers
- * branch on `res.ok` and surface `res.error` in a toast rather than trying to
- * catch across an await boundary.
+ * Thin wrapper over fetch for every admin mutation. It always resolves, so
+ * callers branch on `res.ok` and surface `res.error` in a toast rather than
+ * trying to catch across an await boundary.
  */
 export async function apiSend(url, { method = 'POST', body, signal } = {}) {
   try {
@@ -43,7 +43,7 @@ export async function apiSend(url, { method = 'POST', body, signal } = {}) {
       ok: false,
       status: 0,
       data: null,
-      error: 'Network error — check your connection and try again',
+      error: 'Network error. Check your connection and try again',
       fieldErrors: null,
     };
   }
@@ -53,9 +53,9 @@ export function apiGet(url, opts) {
   return apiSend(url, { method: 'GET', ...opts });
 }
 
-/** 12 Aug 2026, 14:05 — used wherever a bare date is too coarse. */
+/** 12 Aug 2026, 14:05, used wherever a bare date is too coarse. */
 export function formatDateTime(value) {
-  if (!value) return '—';
+  if (!value) return 'Not recorded';
   return new Date(value).toLocaleString('en-PK', {
     day: 'numeric',
     month: 'short',

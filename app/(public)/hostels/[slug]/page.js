@@ -34,7 +34,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 /**
  * `cache` de-duplicates the lookup between `generateMetadata` and the page
- * body, which React renders in the same request — one query, not two.
+ * body, which React renders in the same request, so it costs one query, not two.
  */
 const getHostel = cache(async (slug) => {
   if (!slug) return null;
@@ -70,7 +70,7 @@ export async function generateMetadata({ params }) {
   const image = absoluteUrl(hostel.images?.[0]);
 
   return {
-    title: `${hostel.name} — ${hostel.city}`,
+    title: `${hostel.name}, ${hostel.city}`,
     description,
     alternates: { canonical: `/hostels/${hostel.slug}` },
     openGraph: {
@@ -248,7 +248,7 @@ export default async function HostelDetailPage({ params, searchParams }) {
           </div>
 
           <div className="flex shrink-0 items-center gap-1">
-            <ShareButton title={hostel.name} text={`${hostel.name} — ${where || hostel.city}`} />
+            <ShareButton title={hostel.name} text={`${hostel.name}, ${where || hostel.city}`} />
             <SaveButton hostelId={hostel._id} />
           </div>
         </header>
@@ -307,7 +307,7 @@ export default async function HostelDetailPage({ params, searchParams }) {
                     This owner hasn&apos;t published house rules yet
                   </p>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Worth confirming before you pay a deposit — these are the four
+                    Worth confirming before you pay a deposit. These are the four
                     that catch students out most often:
                   </p>
                   <ul className="mt-3 space-y-2">
@@ -315,7 +315,7 @@ export default async function HostelDetailPage({ params, searchParams }) {
                       'Gate and curfew timings, and whether they differ at weekends',
                       'Guest and family visiting policy',
                       'Notice period for leaving, and whether the deposit is refundable',
-                      'What the rent includes — electricity, gas, mess and laundry',
+                      'What the rent includes: electricity, gas, mess and laundry',
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-2.5">
                         <CircleHelp
@@ -351,7 +351,7 @@ export default async function HostelDetailPage({ params, searchParams }) {
             </Section>
           </div>
 
-          {/* Sticky right rail — `self-start` stops the grid stretching the
+          {/* Sticky right rail. `self-start` stops the grid stretching the
               aside to the content column's height, which would kill sticky. */}
           <aside className="hidden self-start lg:block">
             <div className="sticky top-24">

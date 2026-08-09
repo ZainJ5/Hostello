@@ -214,7 +214,7 @@ export default function UsersTable({ rows, total, page, pages, perPage, stats })
                         <StatusBadge status={row.status} size="sm" />
                       </Td>
                       <Td className="text-sm text-muted-foreground">
-                        {[row.city, row.university].filter(Boolean).join(' · ') || '—'}
+                        {[row.city, row.university].filter(Boolean).join(' · ') || 'Not set'}
                       </Td>
                       <Td align="right" className="tabular">
                         {row.listings || 0}

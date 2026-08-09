@@ -8,7 +8,7 @@ import crypto from 'node:crypto';
  * The client's `type` on a `File` is attacker-controlled, so every upload is
  * checked three ways before it touches disk: declared MIME, byte length, and a
  * magic-number sniff of the first bytes. The extension we write is derived from
- * the sniffed type, never from the uploaded filename — that also removes any
+ * the sniffed type, never from the uploaded filename, which also removes any
  * chance of a path-traversal or double-extension filename landing in `public/`.
  */
 
@@ -55,7 +55,7 @@ function sniff(buf) {
   if (buf.toString('ascii', 0, 4) === 'RIFF' && buf.toString('ascii', 8, 12) === 'WEBP') {
     return 'image/webp';
   }
-  // ISO-BMFF: `....ftyp<brand>` — AVIF and HEIC share the box layout.
+  // ISO-BMFF: `....ftyp<brand>`. AVIF and HEIC share the box layout.
   if (buf.toString('ascii', 4, 8) === 'ftyp') {
     const brand = buf.toString('ascii', 8, 12);
     if (brand === 'avif' || brand === 'avis') return 'image/avif';
@@ -96,9 +96,8 @@ async function validateImage(file, maxBytes, what) {
 }
 
 /**
- * Listing photo. Keeps the existing `hostel-<timestamp>-<random>.<ext>`
- * convention already used by the 225 seeded files so nothing on disk needs a
- * migration.
+ * Listing photo. Keeps the existing `hostel-<timestamp>-<random>.<ext>` naming
+ * convention so nothing already on disk needs a migration.
  */
 export async function saveHostelPhoto(file) {
   const { buf, ext } = await validateImage(file, MAX_PHOTO_BYTES, 'photo');
@@ -110,8 +109,8 @@ export async function saveHostelPhoto(file) {
 
 /**
  * Payment screenshot. Unlike listing photos these are private, so the filename
- * is 32 hex characters of CSPRNG entropy — not guessable by enumeration — and
- * the UI reads them back through the authenticated
+ * is 32 hex characters of CSPRNG entropy, so it cannot be guessed by
+ * enumeration, and the UI reads them back through the authenticated
  * `/api/owner/payments/[id]/screenshot` route rather than the public path.
  */
 export async function savePaymentScreenshot(file) {
@@ -153,7 +152,7 @@ export function resolvePaymentScreenshot(stored) {
 /**
  * Deletes a listing photo from disk after it has been removed from the
  * document. Best-effort: a missing file is not an error worth failing the
- * request over, and images seeded from Unsplash have no local file at all.
+ * request over, and images hosted on Unsplash have no local file at all.
  */
 export async function deleteHostelPhoto(stored) {
   if (typeof stored !== 'string' || !stored.startsWith('/uploads/hostels/')) return;

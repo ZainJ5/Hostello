@@ -4,7 +4,7 @@
 #
 # Installed to /usr/local/bin/deploy-hostello.sh and pinned as the forced
 # command on the CI key in /root/.ssh/authorized_keys, so that key can run this
-# and nothing else — a leaked CI secret cannot open a root shell.
+# and nothing else: a leaked CI secret cannot open a root shell.
 #
 # The build runs before the service restarts: if it fails, the script exits
 # non-zero and the currently-running release is left untouched.
@@ -55,7 +55,7 @@ for attempt in 1 2 3 4 5 6 7 8 9 10; do
   log "health check attempt ${attempt}: HTTP ${code}"
 done
 
-log "ERROR: health check never returned 200 — rolling back to ${PREVIOUS}"
+log "ERROR: health check never returned 200, rolling back to ${PREVIOUS}"
 git reset --hard --quiet "$PREVIOUS"
 npm ci --no-audit --no-fund
 NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 npm run build

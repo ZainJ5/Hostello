@@ -7,12 +7,12 @@ import User from '@/models/User';
 import { issueCode, mailConfigured } from '../_lib/codes';
 
 /**
- * POST /api/auth/resend — { email, purpose }
+ * POST /api/auth/resend: { email, purpose }
  *
  * Hard-limited to 3 per 10 minutes per address: this endpoint is the cheapest
  * way to turn the app into an email cannon aimed at someone else's inbox.
  *
- * The response never reveals whether the address is registered — the limiter
+ * The response never reveals whether the address is registered: the limiter
  * runs before the lookup, and the payload is identical either way.
  */
 export const POST = handler(async (req) => {

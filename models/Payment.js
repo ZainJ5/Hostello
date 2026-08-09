@@ -38,8 +38,7 @@ const paymentSchema = new mongoose.Schema(
     transactionRef: { type: String, default: '', trim: true },
     paidAt: { type: Date, default: null },
 
-    // Path under public/uploads/payments — served directly in development and
-    // by NGINX in production.
+    // Path under public/uploads/payments, served as a static file by NGINX.
     screenshot: { type: String, required: true },
 
     status: {

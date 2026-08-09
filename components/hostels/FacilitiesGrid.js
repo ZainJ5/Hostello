@@ -6,8 +6,8 @@ import { facilityIcon } from './facility-icons';
 /**
  * What the hostel offers, in the vocabulary's own order so the same facility
  * always sits in the same place across listings. Notable absences are listed
- * separately and struck through — "no AC" is exactly the sort of thing a
- * student needs to learn before they visit, not after.
+ * separately and struck through, because "no AC" is exactly the sort of thing
+ * a student needs to learn before they visit, not after.
  */
 export default function FacilitiesGrid({ facilities = [], className }) {
   const has = new Set(facilities);
@@ -36,7 +36,7 @@ export default function FacilitiesGrid({ facilities = [], className }) {
         </ul>
       ) : (
         <p className="text-sm text-muted-foreground">
-          The owner hasn&apos;t listed facilities yet — worth asking when you call.
+          The owner hasn&apos;t listed facilities yet. Worth asking when you call.
         </p>
       )}
 

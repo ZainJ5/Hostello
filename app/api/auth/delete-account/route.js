@@ -16,7 +16,7 @@ import { issueCode, verifyCode } from '../_lib/codes';
  *
  * Step one: emails a `delete-account` code to the signed-in user's own
  * address. Deletion is irreversible, so it is gated on the same proof of
- * mailbox control as signup — a hijacked open tab shouldn't be enough.
+ * mailbox control as signup: a hijacked open tab shouldn't be enough.
  */
 export const POST = handler(async (req) => {
   await connectDB();
@@ -43,7 +43,7 @@ export const POST = handler(async (req) => {
 });
 
 /**
- * DELETE /api/auth/delete-account — { code }
+ * DELETE /api/auth/delete-account: { code }
  *
  * Step two: verifies the code, then removes the account and everything that
  * points at it. There is no soft-delete and no undo.
@@ -69,7 +69,7 @@ export const DELETE = handler(async (req) => {
 
   // ── Reviews ──────────────────────────────────────────────────────────
   // Hostel.rating / reviewCount are denormalised, so the listings this user
-  // reviewed have to be recomputed — otherwise a deleted review keeps voting.
+  // reviewed have to be recomputed, otherwise a deleted review keeps voting.
   const reviews = await Review.find({ studentId: userId }).select('hostelId').lean();
   const reviewedHostelIds = [
     ...new Map(reviews.map((r) => [String(r.hostelId), r.hostelId])).values(),
@@ -102,9 +102,9 @@ export const DELETE = handler(async (req) => {
   }
 
   // ── Bookings ─────────────────────────────────────────────────────────
-  // Removed outright, as specified. Note the Booking model denormalises
+  // Bookings are removed outright. The Booking model denormalises
   // studentName/Email/Phone precisely so an owner keeps a record of who
-  // enquired after a student leaves — if that history ever needs to survive,
+  // enquired after a student leaves. If that history ever needs to survive,
   // switch this to a `studentId: null` update rather than a delete.
   await Booking.deleteMany({ studentId: userId });
 
@@ -120,8 +120,8 @@ export const DELETE = handler(async (req) => {
   // ── Owned listings ───────────────────────────────────────────────────
   // Suspended rather than deleted, and unlinked from the departing owner.
   //
-  // Deleting them would take live listings — with their reviews, bookings and
-  // paid listing fees — down with the account, and students holding a
+  // Deleting them would take live listings (with their reviews, bookings and
+  // paid listing fees) down with the account, and students holding a
   // confirmed booking would lose the page they booked through. Leaving them
   // published is worse: a listing with no owner has nobody to answer the
   // phone. `suspended` is the one status that means "was live, is not now,

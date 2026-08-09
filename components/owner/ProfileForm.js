@@ -171,7 +171,7 @@ export default function ProfileForm({ profile }) {
             </p>
             <p className="mt-1 text-sm font-medium break-all text-foreground">{profile.email}</p>
             <p className="mt-1 text-xs text-muted-foreground text-pretty">
-              Changing your email needs re-verification — contact support and we will move it for
+              Changing your email needs re-verification. Contact support and we will move it for
               you.
             </p>
           </div>
@@ -190,7 +190,7 @@ export default function ProfileForm({ profile }) {
       <Card>
         <CardHeader
           title="Password"
-          description="You need your current password — that is what stops an open laptop becoming a lockout."
+          description="You need your current password. That is what stops an open laptop becoming a lockout."
         />
         <form onSubmit={changePassword} noValidate className="space-y-5 p-5 pt-4">
           <Input

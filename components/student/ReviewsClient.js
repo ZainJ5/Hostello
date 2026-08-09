@@ -51,7 +51,7 @@ export default function ReviewsClient({ reviews: initial, reviewable }) {
       toast({
         tone: 'success',
         title: 'Review published',
-        description: 'It is live on the listing now — thank you.',
+        description: 'It is live on the listing now. Thank you.',
       });
     }
     startTransition(() => router.refresh());
@@ -67,7 +67,7 @@ export default function ReviewsClient({ reviews: initial, reviewable }) {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Could not delete that review');
 
-      // It becomes reviewable again — the booking that earned it still stands.
+      // It becomes reviewable again, because the booking that earned it still stands.
       if (review.hostelId?._id) {
         setPending((list) =>
           list.some((h) => String(h._id) === String(review.hostelId._id))
@@ -103,7 +103,7 @@ export default function ReviewsClient({ reviews: initial, reviewable }) {
               Hostels you can review
             </h2>
             <p className="mt-1 text-sm text-muted-foreground text-pretty">
-              You stayed, or the owner confirmed you — your review carries real weight.
+              You stayed, or the owner confirmed you, so your review carries real weight.
             </p>
           </div>
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -163,7 +163,7 @@ export default function ReviewsClient({ reviews: initial, reviewable }) {
             title="You haven't written a review yet"
             description={
               pending.length > 0
-                ? 'You have a hostel waiting above — a few honest lines take two minutes and help every student after you.'
+                ? 'You have a hostel waiting above. A few honest lines take two minutes and help every student after you.'
                 : 'Once a hostel confirms your booking, you can share what the stay was really like.'
             }
             action={

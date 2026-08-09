@@ -9,9 +9,9 @@ import { facilityIcon } from './facility-icons';
 import { GENDERS } from './filters';
 
 /**
- * Controlled filter form. It owns no URL state of its own — the desktop rail
- * pushes every change straight to the router, the mobile sheet buffers changes
- * until "Show results" — so both surfaces render identical controls.
+ * Controlled filter form. It owns no URL state of its own: the desktop rail
+ * pushes every change straight to the router and the mobile sheet buffers
+ * changes until "Show results", so both surfaces render identical controls.
  *
  * `value`  : parsed filter object
  * `onChange`: (patch, meta) => void, where meta.debounce hints how long the
@@ -36,8 +36,8 @@ export default function FilterPanel({ value, facets, onChange, className }) {
     [facets]
   );
 
-  // Cities always render every option the corpus knows about, so a zero-count
-  // city stays visible (disabled) instead of vanishing mid-interaction.
+  // Cities always render every known option, so a zero-count city stays
+  // visible (disabled) instead of vanishing mid-interaction.
   const cities = useMemo(() => {
     const known = new Set([...(facets?.cities || []).map((c) => c.value), ...(value.city || [])]);
     return [...known].sort(

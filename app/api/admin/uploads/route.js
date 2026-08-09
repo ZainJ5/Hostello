@@ -9,7 +9,7 @@ export const runtime = 'nodejs';
 
 /**
  * Multipart listing-photo upload. Type and size are enforced here, on the
- * server, against the file's actual bytes — the browser's accept attribute is
+ * server, against the file's actual bytes. The browser's accept attribute is
  * a convenience, not a control.
  */
 export const POST = handler(async (req) => {

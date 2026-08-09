@@ -8,7 +8,7 @@ import { CAMPUSES, campusesInCity, getCampus } from './campuses';
  * Address plus a distance table to every campus this listing is tagged with.
  *
  * Listings only store `distanceKm` to their *nearest* university, which can't
- * answer "and how far is COMSATS?" — so distances are computed here with
+ * answer "and how far is COMSATS?", so distances are computed here with
  * `haversineKm` against the campus coordinate table. Straight-line distance is
  * labelled as such; on Islamabad's grid it runs roughly 20–30% under the road
  * distance and we don't want to imply otherwise.
@@ -25,7 +25,7 @@ export default function LocationSection({ hostel, className }) {
   const hasCoords = Number.isFinite(lat) && Number.isFinite(lng) && (lat !== 0 || lng !== 0);
 
   // Tagged campuses first, then anything else in the same city that is close
-  // enough to be useful — a listing 30km from a campus isn't "near" it.
+  // enough to be useful; a listing 30km from a campus isn't "near" it.
   const tagged = universities.map((u) => getCampus(u)).filter(Boolean);
   const taggedNames = new Set(tagged.map((c) => c.name));
   const nearby = hasCoords

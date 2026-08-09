@@ -9,13 +9,13 @@ import { useDialog } from './use-dialog';
 /**
  * Photo gallery for the detail page.
  *
- * Desktop adapts to how many photos a listing actually has (the corpus tops out
- * at four, and eight listings have none): one hero, a hero plus a stacked pair,
- * or a hero plus a 2×2 grid. Every tile declares its aspect ratio up front, so
- * the block occupies its final height before a single byte of image arrives.
+ * Desktop adapts to how many photos a listing actually has: one hero, a hero
+ * plus a stacked pair, or a hero plus a 2×2 grid. Every tile declares its
+ * aspect ratio up front, so the block occupies its final height before a
+ * single byte of image arrives.
  *
- * Mobile is a native scroll-snap carousel — real momentum swiping, no JS
- * gesture handling — with a live "3 / 4" counter and dot indicators.
+ * Mobile is a native scroll-snap carousel (real momentum swiping, no JS
+ * gesture handling) with a live "3 / 4" counter and dot indicators.
  */
 export default function Gallery({ images = [], name }) {
   const photos = images.filter(Boolean);
@@ -34,7 +34,7 @@ export default function Gallery({ images = [], name }) {
 
   const hero = photos[0];
   const rest = photos.slice(1, 5);
-  const heroAlt = `${name} — main photo`;
+  const heroAlt = `${name}, main photo`;
 
   return (
     <section aria-label={`Photos of ${name}`} className="relative">
@@ -57,7 +57,7 @@ export default function Gallery({ images = [], name }) {
               <HostelImage
                 src={src}
                 name={name}
-                alt={`${name} — photo ${i + 1}`}
+                alt={`${name}, photo ${i + 1}`}
                 fill
                 priority={i === 0}
                 sizes="100vw"
@@ -145,7 +145,7 @@ export default function Gallery({ images = [], name }) {
               <HostelImage
                 src={src}
                 name={name}
-                alt={`${name} — photo ${i + 2}`}
+                alt={`${name}, photo ${i + 2}`}
                 fill
                 sizes="25vw"
                 className="transition-transform duration-500 ease-[var(--ease-out-quint)] group-hover:scale-[1.04]"
@@ -224,7 +224,7 @@ function Lightbox({ photos, name, index, setIndex, onClose }) {
       ref={panelRef}
       role="dialog"
       aria-modal="true"
-      aria-label={`${name} — photo ${index + 1} of ${count}`}
+      aria-label={`${name}, photo ${index + 1} of ${count}`}
       tabIndex={-1}
       className="fixed inset-0 z-[100] flex flex-col bg-slate-950/95 outline-none animate-fade-in"
     >
@@ -259,7 +259,7 @@ function Lightbox({ photos, name, index, setIndex, onClose }) {
             key={photos[index]}
             src={photos[index]}
             name={name}
-            alt={`${name} — photo ${index + 1} of ${count}`}
+            alt={`${name}, photo ${index + 1} of ${count}`}
             fill
             priority
             sizes="100vw"

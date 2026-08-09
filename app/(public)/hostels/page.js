@@ -36,12 +36,12 @@ export async function generateMetadata({ searchParams }) {
       : 'in Pakistan';
   const who = f.gender ? `${f.gender.toLowerCase()} ` : '';
   const title = f.q
-    ? `“${f.q}” — student hostels ${where}`
+    ? `“${f.q}”: student hostels ${where}`
     : `Student ${who}hostels ${where}`;
 
   // Filtered permutations are near-duplicates; only the clean list is worth
   // indexing, though every variant still passes link equity through. The key
-  // is omitted entirely rather than set to `undefined` — an explicit
+  // is omitted entirely rather than set to `undefined`, because an explicit
   // `undefined` unsets the root layout's directive instead of inheriting it.
   const narrowed = hasActiveFilters(f) || f.page > 1;
 
@@ -93,7 +93,7 @@ export default async function HostelsPage({ searchParams }) {
         </h1>
         <p className="mt-3 text-base text-pretty text-muted-foreground">
           Every listing here is reviewed before it goes live. Filter by budget,
-          facilities and how close it sits to your university — then message the
+          facilities and how close it sits to your university, then message the
           owner yourself, with no agent in between.
         </p>
 
@@ -181,7 +181,7 @@ export default async function HostelsPage({ searchParams }) {
               <EmptyState
                 icon={SearchX}
                 title="No hostels match those filters"
-                description="Nothing in the 124 published listings fits every constraint at once. Loosening the budget or dropping a facility usually brings results straight back."
+                description="Nothing in the directory fits every constraint at once. Loosening the budget or dropping a facility usually brings results straight back."
                 action={
                   <div className="flex flex-wrap items-center justify-center gap-3">
                     <Button

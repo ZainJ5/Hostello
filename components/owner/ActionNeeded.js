@@ -93,7 +93,7 @@ export default function ActionNeeded({ dashboard }) {
       tone: 'info',
       icon: Clock,
       title: hostel.name,
-      body: 'With an admin for approval — nothing for you to do.',
+      body: 'With an admin for approval. Nothing for you to do.',
       href: '/owner/listings?status=pending_review',
       cta: 'View',
       passive: true,

@@ -8,7 +8,7 @@ import { verifyCode } from '../_lib/codes';
 import { publicUser, homeForRole, SUSPENDED_MESSAGE } from '../_lib/users';
 
 /**
- * POST /api/auth/verify — { email, code, purpose }
+ * POST /api/auth/verify: { email, code, purpose }
  *
  * `signup` is the only purpose that mutates state here: it flips
  * `emailVerified` and opens a session. `reset` and `delete-account` are

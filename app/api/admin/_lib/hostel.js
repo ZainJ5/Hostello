@@ -80,7 +80,8 @@ export async function uniqueSlug(preferred, excludeId) {
 
 /**
  * Fills the derived fields the model expects but the form does not ask for,
- * so a listing saved from the admin console looks identical to a seeded one.
+ * so a listing saved from the admin console is stored in the same shape as
+ * every other listing.
  */
 export function normalizeHostel(data) {
   const roomPrices = (data.rooms || []).map((r) => Number(r.price) || 0).filter(Boolean);

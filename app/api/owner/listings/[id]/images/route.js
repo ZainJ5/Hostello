@@ -15,8 +15,8 @@ import { auditOwner } from '@/app/(owner)/_lib/audit';
 /**
  * Photo upload. Multipart, one or many files under the `files` key.
  *
- * Every file is validated server-side in `_lib/uploads.js` — declared MIME,
- * byte length and a magic-number sniff — before anything is written, and the
+ * Every file is validated server-side in `_lib/uploads.js` (declared MIME,
+ * byte length and a magic-number sniff) before anything is written, and the
  * filename is generated here rather than taken from the upload.
  */
 export const POST = handler(async (req, ctx) => {
@@ -38,7 +38,7 @@ export const POST = handler(async (req, ctx) => {
   const existing = hostel.images || [];
   if (existing.length + files.length > MAX_PHOTOS_PER_LISTING) {
     return fail(
-      `A listing can hold ${MAX_PHOTOS_PER_LISTING} photos — you have ${existing.length}.`,
+      `A listing can hold ${MAX_PHOTOS_PER_LISTING} photos, and you have ${existing.length}.`,
       422
     );
   }
@@ -75,7 +75,7 @@ export const PATCH = handler(async (req, ctx) => {
 
   const current = hostel.images || [];
   const next = images.filter((img) => current.includes(img));
-  // Reordering must be a permutation — never a way to add or drop a photo.
+  // Reordering must be a permutation, never a way to add or drop a photo.
   if (next.length !== current.length) {
     return fail('That photo order no longer matches this listing. Refresh and try again.', 409);
   }

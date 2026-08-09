@@ -13,7 +13,7 @@ export default async function SavedPage() {
 
   const ids = (user.savedHostels || []).map(String);
 
-  // Only published listings — a suspended one would render as a dead card the
+  // Only published listings: a suspended one would render as a dead card the
   // student can't act on.
   const rows = ids.length
     ? await Hostel.find({ _id: { $in: ids }, status: 'published' })

@@ -42,7 +42,7 @@ function num(v) {
   return Number(v || 0).toLocaleString('en-PK');
 }
 
-/** One tooltip for every chart — same geometry, same type scale, both themes. */
+/** One tooltip for every chart: same geometry, same type scale, both themes. */
 function AdminTooltip({ active, payload, label, labelFormatter, valueFormatter, total }) {
   if (!active || !payload?.length) return null;
   const fmt = valueFormatter || num;
@@ -78,7 +78,7 @@ const CURSOR_FILL = { fill: 'var(--muted)', fillOpacity: 0.55 };
 
 // ─── Time series ─────────────────────────────────────────────────────────
 
-/** Single-measure area. One series, so no legend — the card title names it. */
+/** Single-measure area. One series, so no legend; the card title names it. */
 export function TrafficArea({ data, dataKey = 'views', name = 'Views', yLabel = 'Page views' }) {
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -168,7 +168,7 @@ export function MultiLine({ data, series, yLabel = 'Events' }) {
   );
 }
 
-/** Stacked daily bars — a 2px surface gap keeps segments from fusing. */
+/** Stacked daily bars. A 2px surface gap keeps segments from fusing. */
 export function StackedBars({ data, series, yLabel = 'New users' }) {
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -390,7 +390,7 @@ export function FunnelBars({ data }) {
  */
 /**
  * Rounds shares to whole percents that still add up to 100. Rounding each
- * slice independently drifts — 48.8 / 48.0 / 0.8 renders as 49 / 48 / 1 or,
+ * slice independently drifts: 48.8 / 48.0 / 0.8 renders as 49 / 48 / 1 or,
  * with different inputs, as a visible "101%". Largest-remainder assigns the
  * leftover points to the slices with the biggest fractional parts.
  */

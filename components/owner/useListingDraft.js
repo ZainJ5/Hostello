@@ -101,7 +101,7 @@ export function toPatchPayload(values) {
 
   if (values.gender) payload.gender = values.gender;
 
-  // An empty box means "not answered yet", not zero — sending 0 would silently
+  // An empty box means "not answered yet", not zero. Sending 0 would silently
   // wipe a price the owner has already saved.
   for (const key of NUMERIC_FIELDS) {
     const raw = values[key];
@@ -146,7 +146,7 @@ export function useListingDraft({ listing }) {
 
   const setField = useCallback((key, value) => {
     setValues((current) => ({ ...current, [key]: value }));
-    // Clear the field's own error the moment the owner starts fixing it —
+    // Clear the field's own error the moment the owner starts fixing it,
     // including nested `contact.phone` style keys.
     setErrors((current) => {
       const keys = Object.keys(current).filter((k) => k === key || k.startsWith(`${key}.`));

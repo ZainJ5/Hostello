@@ -75,7 +75,7 @@ export default async function AdminPaymentsPage({ searchParams }) {
     });
   }
 
-  // Pending first — this is a work queue, not a ledger.
+  // Pending first: this is a work queue, not a ledger.
   pipeline.push(
     {
       $addFields: {
@@ -111,7 +111,7 @@ export default async function AdminPaymentsPage({ searchParams }) {
       <PageHeader
         eyebrow="Marketplace"
         title="Payments"
-        description="There is no gateway — owners transfer the listing fee and upload a receipt. Approving one publishes its listing and emails the owner."
+        description="Owners transfer the listing fee manually and upload a receipt. Approving one publishes its listing and emails the owner."
         actions={
           <div className="flex flex-wrap items-center gap-2">
             <Badge tone="neutral">Listing fee {formatPKR(settings?.listingFee ?? 0)}</Badge>

@@ -16,7 +16,7 @@ export const metadata = {
  * Deliberately lighter than the owner and admin consoles: five sections don't
  * justify a persistent sidebar, so the chrome is one slim header plus a tab
  * rail that becomes a horizontal scroller on a phone. Everything below is the
- * student's own data — the guard here runs before any of it is fetched.
+ * student's own data, and the guard here runs before any of it is fetched.
  */
 export default async function StudentLayout({ children }) {
   const { user } = await requireStudentUser('/dashboard', 'name email avatar');
@@ -59,7 +59,7 @@ export default async function StudentLayout({ children }) {
 
         <footer className="border-t border-border bg-surface">
           <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
-            <p>© {new Date().getFullYear()} Hostello — Pakistan&apos;s student hostel finder</p>
+            <p>© {new Date().getFullYear()} Hostello. Pakistan&apos;s student hostel finder</p>
             <Link
               href="/hostels"
               className="cursor-pointer font-medium text-brand-700 transition-colors duration-200 hover:text-brand-800 dark:text-brand-400 dark:hover:text-brand-300"

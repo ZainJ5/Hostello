@@ -353,7 +353,7 @@ export default function HostelForm({
                 }}
                 hint={
                   slugTouched
-                    ? 'Manual override — clear it to follow the name again.'
+                    ? 'Manual override. Clear it to follow the name again.'
                     : 'Generated from the name. Type here to override.'
                 }
               />
@@ -523,7 +523,7 @@ export default function HostelForm({
             <div className="mt-3">
               <Field
                 label="Pick on a map"
-                hint="No map picker here yet — open the map, drop a pin, then paste the link or the coordinates below."
+                hint="Open the map, drop a pin, then paste the link or the coordinates below."
               >
                 <div className="flex flex-wrap gap-2">
                   <input
@@ -638,7 +638,7 @@ export default function HostelForm({
 
             {form.rooms.length === 0 ? (
               <p className="mt-2 rounded-xl border border-dashed border-border-strong bg-surface-sunken px-3 py-4 text-center text-sm text-muted-foreground">
-                No room breakdown yet — the headline rent is used on its own.
+                No room breakdown yet, so the headline rent is used on its own.
               </p>
             ) : (
               <ul className="mt-2 space-y-2">

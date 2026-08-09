@@ -2,7 +2,7 @@
  * Client-side mirrors of the rules in `@/lib/validators/auth`.
  *
  * These exist so a typo gets an answer on blur instead of after a round trip.
- * They are convenience only — the server schemas are the authority, and every
+ * They are a convenience only. The server schemas are the authority, and every
  * form still renders whatever `fieldErrors` comes back in a 422.
  *
  * Deliberately plain JS: importing the Zod schemas here would pull the whole
@@ -84,7 +84,7 @@ export function scorePassword(value) {
 
 /**
  * Accepts only a same-origin path. `//evil.com` and `/\evil.com` are
- * protocol-relative URLs — the browser treats both as another origin, which is
+ * protocol-relative URLs. The browser treats both as another origin, which is
  * how an open redirect gets in.
  */
 export function safeNext(value) {

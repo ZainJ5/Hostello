@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
  * Optimistic save toggle. The saved-listings collection belongs to the student
  * stream (`POST /api/saved`), so this component only owns the interaction:
  * flip immediately, send the request, and roll back with an inline message if
- * it fails. A 401 is not a failure — it means "sign in first", so we route the
+ * it fails. A 401 is not a failure; it means "sign in first", so we route the
  * student to login and bring them back to this listing afterwards.
  */
 export default function SaveButton({ hostelId, initialSaved = false, className }) {

@@ -88,7 +88,7 @@ export default async function AdminUsersPage({ searchParams }) {
       <PageHeader
         eyebrow="People"
         title="Users"
-        description="Every account on Hostello — students, hostel owners and admins."
+        description="Every account on Hostello: students, hostel owners and admins."
       />
 
       <UsersTable

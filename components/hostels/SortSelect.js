@@ -7,8 +7,8 @@ import { SORTS, hostelsHref } from './filters';
 
 /**
  * Sort is a real navigation so the chosen order lives in the URL. Changing it
- * always returns to page 1 — page 3 of "price low to high" has nothing to do
- * with page 3 of "newest".
+ * always returns to page 1, because page 3 of "price low to high" has nothing
+ * to do with page 3 of "newest".
  */
 export default function SortSelect({ filters, className }) {
   const router = useRouter();

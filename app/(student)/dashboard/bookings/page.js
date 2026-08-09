@@ -14,7 +14,7 @@ export default async function BookingsPage({ searchParams }) {
 
   await connectDB();
 
-  // Scoped by studentId — the only rows this page can ever read are the
+  // Scoped by studentId: the only rows this page can ever read are the
   // caller's own, whatever is in the query string.
   const rows = await Booking.find({ studentId: user._id })
     .sort({ createdAt: -1 })

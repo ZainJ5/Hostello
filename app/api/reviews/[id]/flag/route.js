@@ -18,13 +18,13 @@ function badId(id) {
 }
 
 /**
- * POST /api/reviews/[id]/flag — report a review as abusive or fake.
+ * POST /api/reviews/[id]/flag: report a review as abusive or fake.
  *
  * Rate limited to one flag per user per review per day, which makes the call
  * effectively idempotent: a double-click, or a retry after a dropped
  * connection, cannot inflate `flagCount`. Once the threshold is reached the
  * review moves to `flagged`, drops out of the public listing and out of the
- * hostel's average — so the rating is recomputed here too.
+ * hostel's average, so the rating is recomputed here too.
  */
 export const POST = handler(async (req, ctx) => {
   await connectDB();
@@ -42,7 +42,7 @@ export const POST = handler(async (req, ctx) => {
   }
 
   if (review.status !== 'published') {
-    // Already flagged or removed — treat as a no-op success so the UI settles.
+    // Already flagged or removed, so treat as a no-op success and let the UI settle.
     return ok({ flagged: true, alreadyReported: true });
   }
 

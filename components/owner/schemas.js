@@ -3,7 +3,7 @@ import { PK_BOUNDS } from './constants';
 
 /**
  * Isomorphic validation. The wizard runs these per step for inline feedback and
- * the route handlers run the same objects again server-side — the client copy is
+ * the route handlers run the same objects again server-side. The client copy is
  * a convenience, never the gate. Kept free of any `@/models` import so it can be
  * bundled for the browser.
  *
@@ -38,7 +38,7 @@ export const basicsSchema = z.object({
 const pricingShape = {
   price: z.coerce
     .number('Enter the monthly rent')
-    .min(1000, 'Rent looks too low — enter the monthly amount in PKR')
+    .min(1000, 'Rent looks too low. Enter the monthly amount in PKR')
     .max(500000, 'Rent looks too high'),
   priceMin: z.coerce.number().min(0).max(500000),
   priceMax: z.coerce.number().min(0).max(500000),
@@ -62,7 +62,7 @@ export const detailsSchema = z.object({
   description: z
     .string()
     .trim()
-    .min(60, 'Write at least 60 characters — students skip listings with thin descriptions')
+    .min(60, 'Write at least 60 characters. Students skip listings with thin descriptions')
     .max(4000, 'Keep the description under 4000 characters'),
   facilities: z.array(z.string().trim()).min(1, 'Select at least one facility').max(40),
   rules: z.array(z.string().trim().min(1).max(160)).max(20),

@@ -1,11 +1,11 @@
 /**
- * Writes public/uploads/payments/sample-receipt.png — the stand-in screenshot
- * attached to the demo payment records created by seed.js.
+ * Writes public/uploads/payments/sample-receipt.png, the stand-in screenshot
+ * attached to the payment records created by scripts/seed.js.
  *
- * Real submissions are uploaded by owners; this exists only so the admin
- * approval queue renders a real image on a fresh install instead of a broken
- * thumbnail. Drawn as raw pixels and PNG-encoded with zlib, so the project
- * needs no image library.
+ * Real submissions are uploaded by owners. This file only keeps the admin
+ * approval queue from showing a broken thumbnail on a fresh local install.
+ * It is drawn as raw pixels and PNG-encoded with zlib, so the project needs
+ * no image library.
  */
 const fs = require('fs');
 const path = require('path');
@@ -14,7 +14,7 @@ const zlib = require('zlib');
 const W = 720;
 const H = 1080;
 
-// Palette echoes the app's tokens so the mock doesn't clash with the UI.
+// Palette echoes the app's tokens so the image doesn't clash with the UI.
 const INK = [15, 23, 42];
 const TEAL = [15, 118, 110];
 const MUTED = [148, 163, 184];
@@ -82,7 +82,7 @@ textLine(W / 2 - 110, 440, 220, 42, INK);
 
 fill(76, 528, W - 152, 2, LINE);
 
-// Detail rows — label on the left, value on the right.
+// Detail rows: label on the left, value on the right.
 const rows = [
   [120, 200],
   [140, 240],

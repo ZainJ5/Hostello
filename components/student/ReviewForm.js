@@ -35,11 +35,11 @@ function fromReview(review) {
 
 /**
  * Write or edit a review. One component for both, because the fields are
- * identical and the only difference is the verb and the endpoint — keeping
+ * identical and the only difference is the verb and the endpoint. Keeping
  * them together means the validation copy can't drift apart.
  *
  * The caller mounts this only while it is open and keys it by target, so the
- * form state is seeded from props at mount and never needs resetting.
+ * form state is initialised from props at mount and never needs resetting.
  */
 export default function ReviewForm({ open, onClose, hostel, review, onSaved }) {
   const editing = Boolean(review?._id);
@@ -57,7 +57,7 @@ export default function ReviewForm({ open, onClose, hostel, review, onSaved }) {
     const next = {};
     if (!form.rating) next.rating = 'Pick a star rating';
     if (form.comment.trim().length < MIN_REVIEW_LENGTH) {
-      next.comment = `At least ${MIN_REVIEW_LENGTH} characters — what would you tell a friend?`;
+      next.comment = `At least ${MIN_REVIEW_LENGTH} characters. What would you tell a friend?`;
     }
     setErrors(next);
     return Object.keys(next).length === 0;
@@ -120,7 +120,7 @@ export default function ReviewForm({ open, onClose, hostel, review, onSaved }) {
       title={editing ? 'Edit your review' : `Review ${name}`}
       description={
         editing
-          ? 'Update your rating or rewrite what you said — the hostel average updates instantly.'
+          ? 'Update your rating or rewrite what you said. The hostel average updates instantly.'
           : 'Honest, specific detail helps the next student more than anything else.'
       }
       footer={
@@ -155,7 +155,7 @@ export default function ReviewForm({ open, onClose, hostel, review, onSaved }) {
           onChange={(e) => set('title', e.target.value)}
           maxLength={120}
           placeholder="Clean rooms, great WiFi, strict gate timing"
-          hint="Optional — one line other students will scan first."
+          hint="Optional. One line other students will scan first."
           error={errors.title}
         />
 

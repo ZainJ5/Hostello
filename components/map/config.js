@@ -5,16 +5,16 @@
  * client components share one source of truth instead of drifting.
  */
 
-/** Roughly the Islamabad–Rawalpindi twin-city bowl, where 119 of 124 listings sit. */
+/** Roughly the Islamabad–Rawalpindi twin-city bowl, where most listings sit. */
 export const DEFAULT_CENTER = [33.6461, 73.0169];
 export const DEFAULT_ZOOM = 11;
 export const MIN_ZOOM = 5;
 export const MAX_ZOOM = 19;
 
-/** The read API caps `limit` at 500; the whole published set is 124 rows. */
+/** The read API caps `limit` at 500, which comfortably covers one map view. */
 export const MAX_RESULTS = 500;
 
-/** Ten listings are seeded with `price: 0` ("ask the owner"), so the floor is 0. */
+/** Some listings carry `price: 0` ("ask the owner"), so the floor is 0. */
 export const PRICE_FLOOR = 0;
 export const PRICE_CEIL = 35000;
 export const PRICE_STEP = 1000;
@@ -22,7 +22,7 @@ export const PRICE_STEP = 1000;
 export const CITIES = ['Islamabad', 'Rawalpindi', 'Lahore', 'Karachi'];
 
 /**
- * Picking a city has to move the map — Lahore and Karachi are ~1,100 km from
+ * Picking a city has to move the map: Lahore and Karachi are ~1,100 km from
  * the default view, so filtering alone would just empty the screen.
  */
 export const CITY_VIEWS = {
@@ -215,7 +215,7 @@ const OSM_ATTRIBUTION =
 
 /**
  * Both basemaps are rendered from OpenStreetMap data by CARTO and need no key.
- * `{r}` resolves to `@2x` on retina screens — Leaflet substitutes it whether or
+ * `{r}` resolves to `@2x` on retina screens. Leaflet substitutes it whether or
  * not `detectRetina` is set, and CARTO serves the HiDPI tile at that path.
  */
 export const TILE_THEMES = {

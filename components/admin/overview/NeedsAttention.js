@@ -61,7 +61,7 @@ export default function NeedsAttention({ payments = [], listings = [] }) {
   async function submitRejection() {
     if (!reject) return;
     if (reason.trim().length < 5) {
-      return toast({ tone: 'warning', title: 'Add a reason', description: 'At least 5 characters — the owner sees this.' });
+      return toast({ tone: 'warning', title: 'Add a reason', description: 'At least 5 characters. The owner sees this.' });
     }
     setSaving(true);
     const res =
@@ -229,7 +229,7 @@ export default function NeedsAttention({ payments = [], listings = [] }) {
           rows={4}
           value={reason}
           onChange={(e) => setReason(e.target.value)}
-          placeholder="The screenshot is cropped — we cannot read the transaction reference."
+          placeholder="The screenshot is cropped, so we cannot read the transaction reference."
           hint={`${reason.trim().length}/5 characters minimum`}
         />
       </Modal>

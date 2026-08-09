@@ -109,7 +109,7 @@ export default async function OwnerDashboardPage({ searchParams }) {
         />
         <StatCard
           label="Average rating"
-          value={stats.rating ? stats.rating.toFixed(1) : '—'}
+          value={stats.rating ? stats.rating.toFixed(1) : '–'}
           delta={stats.ratingDelta ?? undefined}
           icon={Star}
           hint={`across ${stats.ratingCount} review${stats.ratingCount === 1 ? '' : 's'}`}
@@ -142,9 +142,9 @@ export default async function OwnerDashboardPage({ searchParams }) {
   );
 }
 
-// An owner with a large portfolio (the demo account has 64) would otherwise
-// turn the dashboard into an endless scroll. Show the busiest few and send
-// the rest to the analytics page, which is built for comparison.
+// An owner with a large portfolio would otherwise turn the dashboard into an
+// endless scroll. Show the busiest few and send the rest to the analytics
+// page, which is built for comparison.
 const PERFORMANCE_PREVIEW = 8;
 
 function PerformanceTable({ rows }) {

@@ -157,7 +157,7 @@ export function ResetFilters({ onReset, active }) {
   );
 }
 
-/** Range chips used by the analytics page. Never a select — three options. */
+/** Range chips used by the analytics page. Never a select, only three options. */
 export function RangePicker({ value, onChange, options, pending }) {
   return (
     <div
@@ -263,7 +263,7 @@ export function Pagination({ page, pages, total, perPage, onPage, label = 'rows'
   );
 }
 
-/** Dims the list while a navigation is in flight — never a skeleton flash. */
+/** Dims the list while a navigation is in flight, never a skeleton flash. */
 export function PendingOverlay({ pending, children }) {
   return (
     <div

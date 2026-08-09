@@ -19,8 +19,8 @@ const siteUrl = () => process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000
  * Both branches are idempotent: the status transition is a conditional update,
  * so a double-click, a retried request, or two admins working the queue at the
  * same time still produces exactly one state change, one audit row and one
- * email. A repeat call returns 200 with `alreadyDone` rather than an error —
- * the caller's intent is already satisfied.
+ * email. A repeat call returns 200 with `alreadyDone` rather than an error,
+ * because the caller's intent is already satisfied.
  */
 export const PATCH = handler(async (req, ctx) => {
   await connectDB();
@@ -162,7 +162,7 @@ export const PATCH = handler(async (req, ctx) => {
       to: owner.email,
       subject: 'We could not verify your Hostello payment',
       heading: 'Payment needs another look',
-      body: `We were unable to verify the ${formatPKR(payment.amount)} listing fee for “${hostel?.name || 'your listing'}”. Reason: ${why} — please upload a clearer screenshot or a corrected transaction reference.`,
+      body: `We were unable to verify the ${formatPKR(payment.amount)} listing fee for “${hostel?.name || 'your listing'}”. Reason: ${why}. Please upload a clearer screenshot or a corrected transaction reference.`,
       cta: { label: 'Upload a new receipt', href: `${siteUrl()}/owner/payments` },
     }).catch((err) => console.error('[payments] rejection email failed', err));
   }

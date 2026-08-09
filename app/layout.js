@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google';
 import './globals.css';
 
-// One family carries the entire scale — display, body, navigation, microcopy.
+// One family carries the entire scale: display, body, navigation, microcopy.
 // Inter is the documented open-source substitute for Airbnb Cereal VF.
 const inter = Inter({
   subsets: ['latin'],
@@ -14,11 +14,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Hostello — Pakistan's Student Hostel Finder",
+    default: "Hostello: Pakistan's Student Hostel Finder",
     template: '%s · Hostello',
   },
   description:
-    'Compare verified student hostels near NUST, FAST, QAU, COMSATS, NUML and more. Real photos, real prices, real reviews — find your room in minutes.',
+    'Compare verified student hostels near NUST, FAST, QAU, COMSATS, NUML and more. Real photos, real prices and real reviews, so you can find your room in minutes.',
   keywords: [
     'student hostel Pakistan',
     'hostel near NUST',
@@ -30,7 +30,7 @@ export const metadata = {
     type: 'website',
     locale: 'en_PK',
     siteName: 'Hostello',
-    title: "Hostello — Pakistan's Student Hostel Finder",
+    title: "Hostello: Pakistan's Student Hostel Finder",
     description:
       'Compare verified student hostels near Pakistan\'s top universities. Real photos, real prices, real reviews.',
   },

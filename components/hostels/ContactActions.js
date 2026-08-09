@@ -9,8 +9,8 @@ import { cn, normalizePhone, whatsappLink } from '@/lib/utils';
  * navigation with `keepalive` rather than instead of it, so a slow network
  * can't hold up the student's call.
  *
- * Nothing renders when the listing carries no number — an inert phone button
- * is worse than no phone button.
+ * Nothing renders when the listing carries no number, because an inert phone
+ * button is worse than no phone button.
  */
 export function trackContact(slug, channel) {
   try {

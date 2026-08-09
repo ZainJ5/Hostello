@@ -200,7 +200,7 @@ export default function AnalyticsDashboard({ initial }) {
                   </div>
                   <div className="shrink-0 text-right">
                     <p className="tabular text-sm font-semibold text-foreground">
-                      {i === 0 ? '—' : `${f.stepRate}%`}
+                      {i === 0 ? 'Baseline' : `${f.stepRate}%`}
                     </p>
                     <p className="tabular text-xs text-muted-foreground">{f.overallRate}% of views</p>
                   </div>
@@ -317,7 +317,7 @@ export default function AnalyticsDashboard({ initial }) {
             height={300}
             empty={!topBookings.length}
             emptyTitle="No bookings in this window"
-            emptyDescription="Try a longer range — booking requests are less frequent than views."
+            emptyDescription="Try a longer range. Booking requests are less frequent than views."
             table={{
               caption: 'Top listings by bookings',
               columns: [

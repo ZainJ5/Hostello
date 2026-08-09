@@ -45,7 +45,7 @@ const createSchema = z.object({
 });
 
 /**
- * GET /api/bookings — the caller's own requests, newest first.
+ * GET /api/bookings: the caller's own requests, newest first.
  * Always scoped by `studentId: session.userId`; there is no parameter that can
  * widen it to another student's rows.
  */
@@ -69,7 +69,7 @@ export const GET = handler(async (req) => {
   return ok({ bookings: serialize(rows.map(redactContact)) });
 });
 
-/** POST /api/bookings — create a request against a published listing. */
+/** POST /api/bookings: create a request against a published listing. */
 export const POST = handler(async (req) => {
   await connectDB();
   const session = await requireRole('student', 'owner', 'admin');
@@ -105,7 +105,7 @@ export const POST = handler(async (req) => {
     });
   }
 
-  // One live request per student per hostel — a second one just spams the
+  // One live request per student per hostel. A second one just spams the
   // owner with a decision they have already been asked to make.
   const active = await Booking.findOne({
     hostelId: hostel._id,
@@ -159,7 +159,7 @@ export const POST = handler(async (req) => {
 });
 
 /**
- * Email the owner. Never allowed to fail the request — the booking is already
+ * Email the owner. Never allowed to fail the request: the booking is already
  * durable and visible in the owner portal, so a bounced SMTP connection must
  * not cost the student their submission.
  */

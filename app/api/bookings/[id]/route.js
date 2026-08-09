@@ -15,7 +15,7 @@ function badId(id) {
 }
 
 /**
- * GET /api/bookings/[id] — one of the caller's own requests.
+ * GET /api/bookings/[id]: one of the caller's own requests.
  * A booking belonging to someone else returns 404 rather than 403, so the
  * endpoint can't be used to probe which booking ids exist.
  */
@@ -35,7 +35,7 @@ export const GET = handler(async (req, ctx) => {
 });
 
 /**
- * PATCH /api/bookings/[id] — the student side of a booking's lifecycle, which
+ * PATCH /api/bookings/[id]: the student side of a booking's lifecycle, which
  * is exactly one transition: `pending -> cancelled`, on their own request.
  * Confirming, rejecting and completing belong to the owner portal; this route
  * refuses them outright rather than trusting the caller's role.

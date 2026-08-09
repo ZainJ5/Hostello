@@ -29,7 +29,7 @@ export function actionLabel(action) {
   return ACTION_LABELS[action] || String(action || '').replace(/[.\-_]/g, ' ');
 }
 
-/** Tone used for the dot beside an activity row — never the only cue. */
+/** Tone used for the dot beside an activity row, never the only cue. */
 export function actionTone(action) {
   if (!action) return 'neutral';
   if (action.endsWith('.delete') || action.endsWith('.reject') || action.endsWith('.remove')) {

@@ -76,7 +76,7 @@ export default function AuditTable({ rows, total, page, pages, perPage, actions,
             description={
               filtersActive
                 ? 'Reset the filters to see the full trail.'
-                : 'Every privileged action — approvals, status changes, deletions and settings edits — is appended here as it happens.'
+                : 'Every privileged action (approvals, status changes, deletions and settings edits) is appended here as it happens.'
             }
             action={
               filtersActive ? (
@@ -150,7 +150,7 @@ export default function AuditTable({ rows, total, page, pages, perPage, actions,
                             </div>
                           </Td>
                           <Td>
-                            <span className="text-sm text-foreground">{row.targetType || '—'}</span>
+                            <span className="text-sm text-foreground">{row.targetType || 'None'}</span>
                             {row.targetId && (
                               <p className="max-w-56 truncate font-mono text-[11px] text-muted-foreground">
                                 {row.targetId}
@@ -158,7 +158,7 @@ export default function AuditTable({ rows, total, page, pages, perPage, actions,
                             )}
                           </Td>
                           <Td className="font-mono text-xs text-muted-foreground">
-                            {row.ip || '—'}
+                            {row.ip || 'Unknown'}
                           </Td>
                           <Td align="right" className="whitespace-nowrap">
                             <span className="block text-sm text-foreground">

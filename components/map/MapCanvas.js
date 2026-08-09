@@ -47,7 +47,7 @@ function MapBridge({ onBoundsChange, onMapReady, campus, radiusKm, ariaLabel }) 
     const container = map.getContainer();
     // `region` rather than `application`: Leaflet already makes the container
     // focusable and arrow-key pannable, and the result list is the accessible
-    // equivalent — there is no reason to take browse mode away.
+    // equivalent, so there is no reason to take browse mode away.
     container.setAttribute('role', 'region');
     container.setAttribute('aria-label', ariaLabel);
     container.setAttribute('aria-roledescription', 'interactive map');

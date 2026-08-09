@@ -24,9 +24,8 @@ function gradientFor(seed) {
 }
 
 /**
- * 59 of the 124 imported listings have no uploaded photography. Rather than
- * ship a broken <img>, those render a branded monogram tile that still reads
- * as a deliberate design rather than a missing asset.
+ * A listing with no uploaded photography renders a branded monogram tile
+ * instead of a broken <img>, so the gap still reads as deliberate design.
  */
 export default function HostelImage({
   src,
@@ -44,7 +43,7 @@ export default function HostelImage({
     return (
       <div
         role="img"
-        aria-label={`${name || alt} — no photo available`}
+        aria-label={`${name || alt}, no photo available`}
         className={cn(
           'relative grid place-items-center overflow-hidden bg-gradient-to-br',
           gradientFor(name || alt || 'hostel'),

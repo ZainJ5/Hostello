@@ -15,7 +15,7 @@ import { auditOwner } from '@/app/(owner)/_lib/audit';
  * admin queue: `pending_payment` → `pending_review`.
  *
  * There is no gateway to call, so the screenshot is the receipt. Approving the
- * `Payment` in the admin panel is what publishes the hostel — this route never
+ * `Payment` in the admin panel is what publishes the hostel; this route never
  * sets `published` itself.
  */
 export const POST = handler(async (req, ctx) => {
@@ -30,7 +30,7 @@ export const POST = handler(async (req, ctx) => {
   });
 
   if (hostel.status === 'published') {
-    return fail('This listing is already live — no further payment is due.', 409);
+    return fail('This listing is already live, so no further payment is due.', 409);
   }
   if (hostel.status === 'draft') {
     return fail('Finish and submit the listing before paying the fee.', 409);
@@ -67,7 +67,7 @@ export const POST = handler(async (req, ctx) => {
 
   const file = form.get('screenshot');
   if (!file || typeof file === 'string') {
-    return fail('Attach a screenshot of the transfer — it is how we verify the payment.', 422);
+    return fail('Attach a screenshot of the transfer, since it is how we verify the payment.', 422);
   }
   // Validated (MIME + size + magic bytes) and written with an unguessable name.
   const screenshot = await savePaymentScreenshot(file);
@@ -98,7 +98,7 @@ export const POST = handler(async (req, ctx) => {
       method: payment.method,
       expected: billing.amount,
       // Flag a short payment for the reviewing admin instead of rejecting it
-      // here — partial transfers happen and are a human conversation.
+      // here, because partial transfers happen and are a human conversation.
       short: payment.amount < billing.amount,
     },
   });

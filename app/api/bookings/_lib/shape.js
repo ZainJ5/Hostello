@@ -6,7 +6,7 @@
 /**
  * The subset of the listing a student may see attached to their own booking.
  * `contact` is selected here but stripped by `redactContact` unless the request
- * has been confirmed — an owner's phone number is exactly what they are trading
+ * has been confirmed. An owner's phone number is exactly what they are trading
  * for a confirmation, so it is not handed out on a pending or rejected one.
  */
 export const HOSTEL_FIELDS =

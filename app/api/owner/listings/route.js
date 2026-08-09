@@ -36,8 +36,8 @@ export const POST = handler(async (req) => {
   const body = await readJson(req);
   const patch = draftListingSchema.parse(body);
 
-  // Admins may seed a draft on an owner's behalf; owners always get their own
-  // id, with no way to spoof it from the body.
+  // Admins may create a draft on an owner's behalf; owners always get their
+  // own id, with no way to spoof it from the body.
   const { ownerId } = await getOwnerContext(session.role === 'admin' ? body.ownerId : null);
 
   const name = patch.name || 'Untitled listing';
@@ -52,7 +52,7 @@ export const POST = handler(async (req) => {
 
   applyListingPatch(hostel, patch);
   // `city` and `price` are required by the schema; a brand-new draft may not
-  // have reached the pricing step yet, so keep the placeholders valid.
+  // have reached the pricing step yet, so fall back to valid defaults.
   if (!hostel.city) hostel.city = 'Islamabad';
   if (hostel.price == null) hostel.price = 0;
 

@@ -38,7 +38,7 @@ function Metric({ icon: Icon, value, label }) {
 
 /**
  * One listing in the owner's portfolio. Everything an owner needs to decide
- * what to do next is on the card itself — status, traffic, and the single
+ * what to do next is on the card itself: status, traffic, and the single
  * action that moves the listing forward.
  */
 export default function ListingCard({ listing }) {
@@ -75,7 +75,7 @@ export default function ListingCard({ listing }) {
       toast.success(
         nextValue
           ? 'Marked as taking bookings.'
-          : 'Marked as full — students see it as unavailable.'
+          : 'Marked as full. Students see it as unavailable.'
       );
       router.refresh();
     } catch (err) {
@@ -129,7 +129,7 @@ export default function ListingCard({ listing }) {
           <Metric
             icon={Star}
             label="Rating"
-            value={listing.reviewCount ? listing.rating.toFixed(1) : '—'}
+            value={listing.reviewCount ? listing.rating.toFixed(1) : 'None yet'}
           />
           <Metric icon={Bookmark} label="Saves" value={listing.saveCount || 0} />
         </div>
@@ -203,7 +203,7 @@ export default function ListingCard({ listing }) {
             <span className="min-w-0">
               <span className="block text-sm font-medium text-foreground">Taking bookings</span>
               <span className="block text-xs text-muted-foreground">
-                Turn off when you are full — the listing stays live.
+                Turn off when you are full. The listing stays live.
               </span>
             </span>
             <input

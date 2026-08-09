@@ -22,7 +22,7 @@ export default function OwnerError({ error, reset }) {
         </span>
         <h1 className="text-h3 text-foreground">Something went wrong</h1>
         <p className="max-w-md text-sm text-muted-foreground text-pretty">
-          We could not load this part of your console. Nothing you saved has been lost — try again,
+          We could not load this part of your console. Nothing you saved has been lost. Try again,
           and if it keeps happening, tell us what you were doing.
         </p>
         {error?.digest && (

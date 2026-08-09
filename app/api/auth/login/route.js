@@ -9,8 +9,8 @@ import { publicUser, homeForRole, SUSPENDED_MESSAGE } from '../_lib/users';
 
 /**
  * A real bcrypt hash of a string nobody knows. Compared against when the email
- * doesn't exist so an unknown address costs the same ~200ms as a known one —
- * without it, response time alone enumerates registered users.
+ * doesn't exist so an unknown address costs the same ~200ms as a known one.
+ * Without it, response time alone enumerates registered users.
  */
 const TIMING_EQUALISER_HASH =
   '$2b$12$v3iP/3lOB8oKO3sXPvZw9uWHwePMqdPPG.mrErcriARKH2FcFLc0m';
@@ -19,7 +19,7 @@ const TIMING_EQUALISER_HASH =
 const BAD_CREDENTIALS = 'Email or password is incorrect';
 
 /**
- * POST /api/auth/login — { email, password }
+ * POST /api/auth/login: { email, password }
  *
  * Unverified accounts get a 403 carrying `code: 'EMAIL_NOT_VERIFIED'` plus a
  * fresh code, so the client can route straight to /verify instead of showing a

@@ -1,11 +1,11 @@
 /**
  * Lightweight screen-space grid clustering.
  *
- * `leaflet.markercluster` is not installed and pulling it in for 124 points
- * would be a poor trade, so points are bucketed into a fixed pixel grid at the
- * *current zoom*. Leaflet's projection is absolute for a given zoom level, so
- * the grouping only ever has to be recomputed when the zoom changes — panning
- * leaves it untouched, which is what keeps the map smooth.
+ * `leaflet.markercluster` is not installed, and pulling it in for this many
+ * points would be a poor trade, so points are bucketed into a fixed pixel grid
+ * at the *current zoom*. Leaflet's projection is absolute for a given zoom
+ * level, so the grouping only has to be recomputed when the zoom changes.
+ * Panning leaves it untouched, which is what keeps the map smooth.
  *
  * O(n) with one Map allocation; ~500 points cost well under a millisecond.
  */

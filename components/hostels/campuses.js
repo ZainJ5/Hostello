@@ -1,11 +1,11 @@
 /**
- * Approximate campus centroids for the universities the corpus references.
+ * Approximate campus centroids for the universities listings reference.
  *
  * The listing documents only store the distance to their *nearest* university
  * (`distanceKm`), which isn't enough to answer "how far is this from FAST?" on
- * the detail page. These coordinates are eyeballed from the main campus of each
- * institution and are accurate to a few hundred metres — plenty for a "2.4 km
- * away" line, not a substitute for routing.
+ * the detail page. These coordinates are taken from the main campus of each
+ * institution and are accurate to a few hundred metres, which is enough for a
+ * "2.4 km away" line but not a substitute for routing.
  */
 
 export const CAMPUSES = {
@@ -44,7 +44,7 @@ export function getCampus(name) {
   return CAMPUSES[name] || null;
 }
 
-/** Every campus whose city matches — used to widen a listing's distance table. */
+/** Every campus whose city matches, used to widen a listing's distance table. */
 export function campusesInCity(city) {
   return CAMPUS_NAMES.map((k) => CAMPUSES[k]).filter((c) => c.city === city);
 }

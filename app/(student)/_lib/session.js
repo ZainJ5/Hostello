@@ -10,7 +10,7 @@ const ALLOWED_ROLES = ['student', 'owner', 'admin'];
  * Page-level guard for `/dashboard/**`.
  *
  * `proxy.js` already blocks these routes, but a proxy is a convenience, not a
- * security boundary — a route that renders a student's bookings must prove for
+ * security boundary: a route that renders a student's bookings must prove for
  * itself who is asking. Every page in this group calls this first and then
  * scopes every query by the id it returns, so one student's session can never
  * read another's rows.
@@ -38,7 +38,7 @@ export async function requireStudentUser(nextPath = '/dashboard', fields = '') {
     .select(fields || 'name email phone university city gender avatar savedHostels role')
     .lean();
 
-  // Session valid but the account is gone (deleted in another tab) — start over.
+  // Session valid but the account is gone (deleted in another tab). Start over.
   if (!user) redirect('/login');
 
   return { session, user };

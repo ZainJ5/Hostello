@@ -13,7 +13,7 @@ import { auditOwner } from '@/app/(owner)/_lib/audit';
  * the admin queue, and bumps `flagCount`.
  *
  * Flagging deliberately does NOT delete the review or change the hostel's
- * rating — an owner must never be able to make criticism disappear on their own
+ * rating. An owner must never be able to make criticism disappear on their own
  * say-so. Only an admin can move it to `removed`, and only that transition
  * recomputes the rating.
  */

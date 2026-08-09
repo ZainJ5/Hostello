@@ -12,7 +12,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Local build/verification scratch copy — a duplicate of the app that is
+    // Local build/verification scratch copy, a duplicate of the app that is
     // gitignored, so linting it only produces phantom findings.
     ".verify/**",
   ]),

@@ -20,7 +20,7 @@ export async function generateMetadata({ params }) {
 
 export default async function EditListingPage({ params }) {
   const { id } = await params;
-  // Ownership is enforced inside loadOwnedHostel — a listing belonging to
+  // Ownership is enforced inside loadOwnedHostel: a listing belonging to
   // another owner is indistinguishable from one that does not exist.
   const { session } = await getOwnerContext();
   let doc;

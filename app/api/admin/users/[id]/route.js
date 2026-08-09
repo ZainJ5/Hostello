@@ -16,7 +16,7 @@ const OID = /^[a-f0-9]{24}$/i;
 async function guardLastAdmin(user, session) {
   if (user.role !== 'admin') return null;
   const admins = await User.countDocuments({ role: 'admin', status: 'active' });
-  if (admins <= 1) return fail('This is the only active admin — promote someone else first', 409);
+  if (admins <= 1) return fail('This is the only active admin. Promote someone else first', 409);
   if (String(user._id) === String(session.userId)) {
     return fail('You cannot change your own admin access from here', 409);
   }

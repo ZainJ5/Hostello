@@ -32,7 +32,7 @@ export default async function AdminOverviewPage() {
       <PageHeader
         eyebrow="Overview"
         title={`Welcome back, ${(session.name || 'admin').split(' ')[0]}`}
-        description="Everything happening across Hostello — listings, money, people and traffic."
+        description="Everything happening across Hostello: listings, money, people and traffic."
         actions={
           <>
             <Button href="/admin/analytics" variant="secondary" size="sm">

@@ -10,7 +10,7 @@ import { canReviewHostel } from './_lib/eligibility';
 import { recomputeHostelRating } from './_lib/rating';
 import { normaliseSubScores, reviewCreateSchema } from './_lib/schema';
 
-/** GET /api/reviews — the caller's own reviews, newest first. */
+/** GET /api/reviews: the caller's own reviews, newest first. */
 export const GET = handler(async () => {
   await connectDB();
   const session = await requireRole('student', 'owner', 'admin');
@@ -24,12 +24,12 @@ export const GET = handler(async () => {
 });
 
 /**
- * POST /api/reviews — write a review.
+ * POST /api/reviews: write a review.
  *
  * Two gates before anything is written:
- *   1. eligibility — the student must hold a `confirmed` or `completed`
+ *   1. eligibility: the student must hold a `confirmed` or `completed`
  *      booking on this hostel (see `_lib/eligibility.js` for the reasoning);
- *   2. uniqueness — the model carries a unique index on
+ *   2. uniqueness: the model carries a unique index on
  *      `{ hostelId, studentId }`, so one student gets one review per hostel.
  *      We pre-check so the message can name the fix, and still catch the
  *      duplicate-key error, because two tabs submitting at once slip past a
@@ -68,7 +68,7 @@ export const POST = handler(async (req) => {
 
   if (existing) {
     return fail(
-      "You've already reviewed this hostel — edit your existing review instead",
+      "You've already reviewed this hostel. Edit your existing review instead",
       409,
       { reviewId: String(existing._id) }
     );
@@ -93,10 +93,10 @@ export const POST = handler(async (req) => {
       status: 'published',
     });
   } catch (err) {
-    // Lost the race against another tab — the unique index caught it.
+    // Lost the race against another tab; the unique index caught it.
     if (err?.code === 11000) {
       return fail(
-        "You've already reviewed this hostel — edit your existing review instead",
+        "You've already reviewed this hostel. Edit your existing review instead",
         409
       );
     }

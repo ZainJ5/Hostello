@@ -4,7 +4,7 @@ import HostelCard from '@/components/public/HostelCard';
 import SaveButton from './SaveButton';
 
 /**
- * `HostelCard` owns its heart's appearance but not its persistence — it keeps
+ * `HostelCard` owns its heart's appearance but not its persistence. It keeps
  * local state and hands the caller an `onSave` callback. Inside the account
  * area we already know which listings are saved and we want the toggle to hit
  * the API, so the card's own control is switched off and a real `SaveButton`

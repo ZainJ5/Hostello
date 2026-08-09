@@ -18,7 +18,7 @@ internet ──▶ NGINX :80/:443 ──┬──▶ /uploads/     → disk (nev
 | `/var/www/hostello` | Application checkout, owned by the `hostello` user |
 | `/var/www/hostello/.env.local` | Secrets, mode `600`, **not** in git |
 | `/var/www/hostello/public/uploads/hostels` | Listing photography (~100 MB) |
-| `/var/www/hostello/public/uploads/payments` | Payment screenshots — private |
+| `/var/www/hostello/public/uploads/payments` | Payment screenshots (private) |
 | `/etc/nginx/sites-available/hostello.conf` | Copied from `deploy/nginx/` |
 | `/etc/systemd/system/hostello.service` | Copied from `deploy/systemd/` |
 
@@ -30,7 +30,7 @@ The service account is a system user with `nologin`; the app never runs as root.
 # System packages
 apt-get install -y nginx mongodb-org nodejs fail2ban ufw
 
-# Firewall — allow SSH before enabling, or you lose access
+# Firewall: allow SSH before enabling, or you lose access
 ufw allow 22/tcp && ufw allow 80/tcp && ufw allow 443/tcp
 ufw default deny incoming && ufw --force enable
 
@@ -49,7 +49,7 @@ systemctl daemon-reload && systemctl enable --now hostello
 nginx -t && systemctl reload nginx
 ```
 
-`.env.local` must be created by hand — generate the secret with
+`.env.local` must be created by hand. Generate the secret with
 `openssl rand -hex 32`:
 
 | Variable | Production value |
@@ -57,7 +57,7 @@ nginx -t && systemctl reload nginx
 | `MONGODB_URI` | `mongodb://hostello_app:…@127.0.0.1:27017/hostello?authSource=hostello` |
 | `AUTH_SECRET` | 64 hex characters, unique to the host |
 | `NEXT_PUBLIC_SITE_URL` | `https://hostello.tech` |
-| `RESEND_API_KEY` | Resend API key — sends all transactional mail |
+| `RESEND_API_KEY` | Resend API key that sends all transactional mail |
 | `MAIL_FROM` | `Hostello <no-reply@hostello.tech>` (domain must be verified in Resend) |
 
 ## Email
@@ -81,14 +81,14 @@ complete Resend rejects sends from `@hostello.tech` with a 403.
 `.github/workflows/deploy.yml` runs on every push to `main` and on manual
 dispatch (Actions → Deploy to production → Run workflow).
 
-- **verify** — lints and builds against a real MongoDB service container, so a
+- **verify** lints and builds against a real MongoDB service container, so a
   broken build never reaches the server.
-- **deploy** — SSHes to the VPS and runs `/usr/local/bin/deploy-hostello.sh`,
+- **deploy** SSHes to the VPS and runs `/usr/local/bin/deploy-hostello.sh`,
   then checks the homepage returns 200.
 
 The deploy key is pinned in `/root/.ssh/authorized_keys` with
 `command="/usr/local/bin/deploy-hostello.sh"` plus `no-pty` and the forwarding
-restrictions, so that key can run the deploy and nothing else — a leaked CI
+restrictions, so that key can run the deploy and nothing else: a leaked CI
 secret cannot open a root shell.
 
 Repository secrets: `SSH_PRIVATE_KEY`, `SSH_KNOWN_HOSTS`, `SSH_HOST`,
@@ -111,8 +111,9 @@ sudo -u hostello ADMIN_EMAIL=you@hostello.tech ADMIN_PASSWORD='…' \
 
 It imports the 124 real listings from `data/hostels.json`, preserving the
 rating and review counts carried over from the legacy platform, and creates one
-administrator. Listings are stored with `ownerId: null` — they are directory
-entries, not owner-submitted records, and a real owner claims one later.
+administrator. Listings are stored with `ownerId: null`, because they are
+directory entries rather than owner-submitted records, and a real owner claims
+one later.
 
 Pass `--purge-demo` to strip development seed data from a database that was
 restored from a dev dump.
@@ -149,7 +150,7 @@ certbot renew --dry-run   # rehearse renewal
 
 `deploy/nginx/hostello.conf` references the certificate paths directly, which
 stay stable across renewals, so the vhost never needs regenerating. Note that
-Ubuntu 24.04 ships NGINX 1.24, which has no `http2 on;` directive — HTTP/2 is
+Ubuntu 24.04 ships NGINX 1.24, which has no `http2 on;` directive, so HTTP/2 is
 enabled with `listen 443 ssl http2;`.
 
 The vhost defines four servers: an HTTP redirect, an HTTPS catch-all that
@@ -169,5 +170,5 @@ application itself.
 - **Review counts without review documents.** Listings carry genuine `rating`
   and `reviewCount` values from the legacy platform, but no `Review` documents
   exist, so a listing can show a score while its reviews tab is empty. The
-  alternative — zeroing them — would contradict the listing descriptions, which
+  alternative, zeroing them, would contradict the listing descriptions, which
   quote the same figures.

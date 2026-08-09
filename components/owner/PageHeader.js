@@ -3,8 +3,8 @@ import { ChevronLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 /**
- * Consistent page masthead for the console. Server component — nothing here is
- * interactive beyond links.
+ * Consistent page masthead for the console. Server component, so nothing here
+ * is interactive beyond links.
  */
 export default function PageHeader({ title, description, action, back, className }) {
   return (

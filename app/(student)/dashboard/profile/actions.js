@@ -62,7 +62,7 @@ function invalid(err) {
 /** Save the student's own profile. */
 export async function updateProfileAction(prevState, formData) {
   const session = await getSession();
-  if (!session) return { ok: false, error: 'Your session expired — sign in again' };
+  if (!session) return { ok: false, error: 'Your session expired. Sign in again.' };
 
   const parsed = profileSchema.safeParse({
     name: formData.get('name') ?? '',
@@ -96,7 +96,7 @@ export async function updateProfileAction(prevState, formData) {
 
   if (!updated) return { ok: false, error: 'We could not find your account' };
 
-  // The name is baked into the session JWT, so re-issue it — otherwise the
+  // The name is baked into the session JWT, so re-issue it. Otherwise the
   // public navbar would keep greeting them by their old name until sign-in.
   if (updated.name !== session.name) {
     await createSession({
@@ -113,7 +113,7 @@ export async function updateProfileAction(prevState, formData) {
 /** Change the student's own password, proving the current one first. */
 export async function changePasswordAction(prevState, formData) {
   const session = await getSession();
-  if (!session) return { ok: false, error: 'Your session expired — sign in again' };
+  if (!session) return { ok: false, error: 'Your session expired. Sign in again.' };
 
   const parsed = passwordSchema.safeParse({
     currentPassword: formData.get('currentPassword') ?? '',

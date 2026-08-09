@@ -4,12 +4,11 @@ import mongoose from 'mongoose';
  * Listing-fee configuration and the out-of-band payment instructions shown on
  * the payment screen.
  *
- * There is no `Settings` model in `@/models` — the collection is optional and
+ * There is no `Settings` model in `@/models`: the collection is optional and
  * may be created later by the admin stream. So we read it defensively straight
  * off the driver (`settings` collection, `{ key: 'payment' }`) and fall back to
- * these constants when it is absent or malformed. The fallback numbers match
- * what the seed writes for the three pending listings: PKR 5,000 for a 6-month
- * listing period.
+ * these constants when it is absent or malformed. The fallback numbers are the
+ * standard listing fee of PKR 5,000 for a 6-month listing period.
  */
 export const LISTING_FEE_FALLBACK = {
   amount: 5000,
@@ -21,7 +20,7 @@ export const LISTING_FEE_FALLBACK = {
       label: 'Meezan Bank',
       accountTitle: 'Hostello Technologies (Pvt) Ltd',
       accountNumber: 'PK36 MEZN 0001 2345 6789 0123',
-      note: 'IBAN — use the listing name as the transfer remark.',
+      note: 'IBAN. Use the listing name as the transfer remark.',
     },
     {
       method: 'JazzCash',
@@ -41,7 +40,7 @@ export const LISTING_FEE_FALLBACK = {
 };
 
 /**
- * Returns the live billing configuration. Never throws — a missing collection,
+ * Returns the live billing configuration. Never throws: a missing collection,
  * a driver hiccup, or a half-written document all degrade to the constants
  * above so the owner can still pay.
  */

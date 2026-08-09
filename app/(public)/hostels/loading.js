@@ -2,8 +2,8 @@ import { Skeleton } from '@/components/ui/Feedback';
 import { HostelGridSkeleton } from '@/components/hostels/HostelCardSkeleton';
 
 /**
- * Mirrors `/hostels` exactly — same page padding, same header block, same
- * 19rem rail plus fluid results split, same 12-card grid — so the real page
+ * Mirrors `/hostels` exactly: same page padding, same header block, same
+ * 19rem rail plus fluid results split, same 12-card grid. The real page then
  * swaps in without a single pixel of movement.
  */
 export default function HostelsLoading() {

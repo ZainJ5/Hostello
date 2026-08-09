@@ -20,7 +20,7 @@ const CHECKS = [
   {
     icon: BadgeCheck,
     title: 'Verified means confirmed, not claimed',
-    body: 'The badge is only applied once we have confirmed the hostel exists at the address given and that the listed number is answered by the owner or warden — not an agent reselling the room.',
+    body: 'The badge is only applied once we have confirmed the hostel exists at the address given and that the listed number is answered by the owner or warden, not an agent reselling the room.',
   },
   {
     icon: MessageCircle,
@@ -93,7 +93,7 @@ export default async function AboutPage() {
           <p className="mt-5 text-lg leading-relaxed text-muted-foreground text-pretty">
             Most students in Pakistan still find their room through a WhatsApp forward, a Facebook
             group or a cousin who studied here two years ago. You arrive, you look at one room, and
-            you sign — with no idea what the rent should be or whether the photos were real.
+            you sign, with no idea what the rent should be or whether the photos were real.
           </p>
         </Container>
       </section>
@@ -107,9 +107,9 @@ export default async function AboutPage() {
               <p className="mt-4 text-base leading-relaxed text-muted-foreground text-pretty">
                 Hostello is a public directory of student hostels, organised the way students
                 actually search: by campus first, then by city, gender and budget. Each listing
-                carries the same information in the same place — photos, room types, rent, security
-                deposit, facilities, mess menu, house rules, distance to campus and reviews — so two
-                hostels can genuinely be compared instead of guessed at.
+                carries the same information in the same place: photos, room types, rent, security
+                deposit, facilities, mess menu, house rules, distance to campus and reviews. That
+                way two hostels can genuinely be compared instead of guessed at.
               </p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground text-pretty">
                 We are not an agency and we do not hold rooms. When you find something you like, you

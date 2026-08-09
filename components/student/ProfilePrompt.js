@@ -11,8 +11,8 @@ const KEY = 'hostello:profile-prompt-dismissed';
  * write, and the prompt quietly returns on a new device where the profile is
  * still thin.
  *
- * Read through `useSyncExternalStore` so the server snapshot is "dismissed" —
- * the prompt is absent from the HTML and appears on hydration only when it
+ * Read through `useSyncExternalStore` so the server snapshot is "dismissed".
+ * The prompt is absent from the HTML and appears on hydration only when it
  * really should. Reading in an effect instead would either flash the banner in
  * for people who already dismissed it, or trigger a cascading render.
  */
@@ -24,7 +24,7 @@ function getSnapshot() {
     try {
       cached = window.localStorage.getItem(KEY) === '1';
     } catch {
-      cached = false; // Private mode — showing it is the safer default.
+      cached = false; // Private mode, so showing it is the safer default.
     }
   }
   return cached;
@@ -44,7 +44,7 @@ function dismiss() {
   try {
     window.localStorage.setItem(KEY, '1');
   } catch {
-    /* nothing to persist to — the prompt just returns next visit */
+    /* nothing to persist to, so the prompt just returns next visit */
   }
   listeners.forEach((l) => l());
 }
@@ -74,7 +74,7 @@ export default function ProfilePrompt({ missing = [] }) {
           </h2>
           <p className="mt-1 text-sm text-brand-800/90 text-pretty dark:text-brand-200/80">
             Add {what} and we&apos;ll put hostels near your campus at the top of every
-            list — and pre-fill your details on booking requests.
+            list, and pre-fill your details on booking requests.
           </p>
         </div>
         <Link

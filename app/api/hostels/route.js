@@ -5,7 +5,7 @@ import { parseFilters } from '@/components/hostels/filters';
 import { searchHostels } from '@/components/hostels/query';
 
 /**
- * GET /api/hostels — the public read API behind the browse page and the map.
+ * GET /api/hostels: the public read API behind the browse page and the map.
  *
  * ── Query parameters ────────────────────────────────────────────────────────
  * Everything `/hostels` accepts, parsed by the same `parseFilters`, so a browse
@@ -13,7 +13,7 @@ import { searchHostels } from '@/components/hostels/query';
  *
  *   q           string     free text across name / area / city / description /
  *                          universities (case-insensitive substring)
- *   city        csv        "Islamabad,Rawalpindi" — matches any
+ *   city        csv        "Islamabad,Rawalpindi" (matches any)
  *   university  string     exact campus name, e.g. "NUST"
  *   gender      string     "Male" | "Female" | "Mixed"
  *   minPrice    int        PKR; ignored at the 5000 floor

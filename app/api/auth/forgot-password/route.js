@@ -6,14 +6,14 @@ import User from '@/models/User';
 import { issueCode, mailConfigured } from '../_lib/codes';
 
 /**
- * POST /api/auth/forgot-password — { email }
+ * POST /api/auth/forgot-password: { email }
  *
  * Always answers 200 with the same body, whether or not the address is
  * registered. A "no account found" error here would turn this endpoint into a
  * free membership oracle for anyone with a list of emails.
  *
  * The per-address send budget is checked with the non-throwing `rateLimit`, so
- * a flood is silently dropped rather than answered with a 429 — a 429 would
+ * a flood is silently dropped rather than answered with a 429. A 429 would
  * leak the same information the generic response is hiding.
  */
 export const POST = handler(async (req) => {

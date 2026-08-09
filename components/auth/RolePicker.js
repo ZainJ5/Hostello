@@ -19,12 +19,9 @@ const OPTIONS = [
 ];
 
 /**
- * Two selectable cards rather than a dropdown — this choice changes the whole
- * product, so it should read as a decision, not a form field.
- *
- * Native radios do the work: they are visually hidden but still receive focus,
- * so arrow keys move between the cards and Space selects, exactly as a screen
- * reader user expects from a radio group.
+ * Two selectable cards backed by native radios: they are visually hidden but
+ * still receive focus, so arrow keys move between the cards and Space selects,
+ * exactly as a screen reader user expects from a radio group.
  */
 export default function RolePicker({
   value,

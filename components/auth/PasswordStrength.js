@@ -6,7 +6,7 @@ import { PASSWORD_RULES, scorePassword } from './validation';
 
 /*
  * Text colours step away from the raw status tokens where those tokens don't
- * clear 4.5:1 on the surface behind them — `warning` (#d97706) and `success`
+ * clear 4.5:1 on the surface behind them. `warning` (#d97706) and `success`
  * (#059669) both fall short on white at this size, so the light theme borrows
  * the darker step from the same hue.
  */
@@ -19,8 +19,8 @@ const TONES = [
 ];
 
 /**
- * Strength meter for the signup and reset forms. The four bars are decorative —
- * the word beside them ("Weak" … "Strong") and the checklist below carry the
+ * Strength meter for the signup and reset forms. The four bars are decorative.
+ * The word beside them ("Weak" … "Strong") and the checklist below carry the
  * meaning, so the reading never depends on colour alone.
  */
 export default function PasswordStrength({ value = '', className }) {
@@ -69,7 +69,7 @@ export default function PasswordStrength({ value = '', className }) {
                 <X className="size-3.5 shrink-0 opacity-50" aria-hidden="true" />
               )}
               <span>{rule.label}</span>
-              <span className="sr-only">{passed ? '— met' : '— not met yet'}</span>
+              <span className="sr-only">{passed ? ': met' : ': not met yet'}</span>
             </li>
           );
         })}

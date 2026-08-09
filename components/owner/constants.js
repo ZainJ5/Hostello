@@ -2,9 +2,9 @@
  * Client-safe vocabularies for the owner console.
  *
  * `FACILITIES` and `ROOM_TYPES` deliberately live in `@/models/Hostel` and are
- * NOT re-declared here — importing that file into a Client Component would drag
- * mongoose into the browser bundle. Server Components read them from the model
- * and pass them down as props.
+ * NOT re-declared here, because importing that file into a Client Component
+ * would drag mongoose into the browser bundle. Server Components read them
+ * from the model and pass them down as props.
  */
 
 export const CITIES = ['Islamabad', 'Rawalpindi', 'Lahore', 'Karachi'];
@@ -41,7 +41,7 @@ export const CITY_CENTRES = {
   Karachi: { lat: 24.8607, lng: 67.0011 },
 };
 
-/** National bounding box — anything outside is almost certainly a typo. */
+/** National bounding box. Anything outside is almost certainly a typo. */
 export const PK_BOUNDS = { minLat: 23.5, maxLat: 37.1, minLng: 60.8, maxLng: 77.9 };
 
 export const SUGGESTED_RULES = [
@@ -81,7 +81,7 @@ export const NEXT_ACTION = {
     hint: 'We are checking your payment. This usually takes under 24 hours.',
   },
   published: {
-    label: 'Live — nothing to do',
+    label: 'Live, nothing to do',
     tone: 'success',
     hint: 'Students can find and contact this listing.',
   },

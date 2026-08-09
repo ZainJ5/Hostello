@@ -20,7 +20,7 @@ const RANGES = [
 export default async function OwnerAnalyticsPage({ searchParams }) {
   const sp = await searchParams;
   const requested = Number(sp?.range);
-  // PageView rows have a 90-day TTL, so 90 is the hard ceiling — anything
+  // PageView rows have a 90-day TTL, so 90 is the hard ceiling; anything
   // longer would silently chart a partial window.
   const range = RANGES.some((r) => r.value === requested) ? requested : 30;
 
@@ -161,7 +161,7 @@ export default async function OwnerAnalyticsPage({ searchParams }) {
                       {row.saves.toLocaleString('en-PK')}
                     </td>
                     <td className="tabular py-3 pl-3 text-right text-foreground">
-                      {row.views ? `${row.conversion}%` : '—'}
+                      {row.views ? `${row.conversion}%` : '–'}
                     </td>
                   </tr>
                 ))}

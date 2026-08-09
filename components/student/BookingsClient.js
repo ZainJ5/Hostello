@@ -149,7 +149,7 @@ export default function BookingsClient({ bookings: initial, initialStatus = 'all
           }
           description={
             bookings.length === 0
-              ? 'Find a hostel you like and send the owner a request — every reply lands here.'
+              ? 'Find a hostel you like and send the owner a request. Every reply lands here.'
               : 'Try another filter, or send a request to a hostel you have saved.'
           }
           action={
@@ -238,7 +238,7 @@ export default function BookingsClient({ bookings: initial, initialStatus = 'all
       >
         <p className="text-sm text-muted-foreground text-pretty">
           You can always send {confirmTarget?.hostelId?.name || 'this hostel'} a fresh request
-          later — cancelling only withdraws this one.
+          later. Cancelling only withdraws this one.
         </p>
       </Drawer>
     </div>
@@ -287,7 +287,7 @@ function BookingRow({ booking, busy, onOpen, onCancel }) {
             <Fact label="Room type" value={booking.roomType || 'Any'} />
             <Fact
               label="Move-in"
-              value={booking.moveInDate ? formatDate(booking.moveInDate) : '—'}
+              value={booking.moveInDate ? formatDate(booking.moveInDate) : 'Not set'}
             />
             <Fact label="Duration" value={formatDuration(booking.durationMonths)} />
           </dl>
@@ -345,7 +345,7 @@ function BookingDetail({ booking }) {
   const phone = normalizePhone(contact?.phone);
   const wa = whatsappLink(
     contact?.whatsapp || contact?.phone,
-    `Hi, I'm ${booking.studentName} — I sent a booking request for ${hostel?.name || 'your hostel'} on Hostello.`
+    `Hi, I'm ${booking.studentName}. I sent a booking request for ${hostel?.name || 'your hostel'} on Hostello.`
   );
 
   return (
@@ -374,11 +374,11 @@ function BookingDetail({ booking }) {
         <Fact label="Room type" value={booking.roomType || 'Any'} />
         <Fact
           label="Move-in"
-          value={booking.moveInDate ? formatDate(booking.moveInDate) : '—'}
+          value={booking.moveInDate ? formatDate(booking.moveInDate) : 'Not set'}
         />
         <Fact label="Duration" value={formatDuration(booking.durationMonths)} />
-        <Fact label="Your name" value={booking.studentName || '—'} />
-        <Fact label="Your number" value={booking.studentPhone || '—'} />
+        <Fact label="Your name" value={booking.studentName || 'Not given'} />
+        <Fact label="Your number" value={booking.studentPhone || 'Not given'} />
       </dl>
 
       <section aria-label="Message thread" className="space-y-3">
@@ -392,7 +392,7 @@ function BookingDetail({ booking }) {
           <p className="mt-1.5 text-sm text-foreground text-pretty">
             {booking.message || (
               <span className="text-muted-foreground italic">
-                No message — just the request details above.
+                No message. Just the request details above.
               </span>
             )}
           </p>

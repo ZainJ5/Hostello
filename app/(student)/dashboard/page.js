@@ -51,7 +51,7 @@ export default async function OverviewPage() {
         .lean(),
     ]);
 
-  // Most recently saved first — `savedHostels` is append-ordered.
+  // Most recently saved first, because `savedHostels` is append-ordered.
   const order = new Map(savedIds.map((id, i) => [id, i]));
   const savedSorted = [...savedHostels].sort(
     (a, b) => order.get(String(b._id)) - order.get(String(a._id))

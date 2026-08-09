@@ -36,7 +36,7 @@ export const PATCH = handler(async (req, ctx) => {
 
   const before = review.status;
   review.status = next;
-  // Approving clears the report counter — the flag has been adjudicated.
+  // Approving clears the report counter, since the flag has been adjudicated.
   if (action === 'approve') review.flagCount = 0;
   await review.save();
 

@@ -57,7 +57,7 @@ export default function LoginForm({ nextPath = '', passwordWasReset = false }) {
 
     setSubmitting(false);
 
-    // The account exists but has never confirmed its address — send them to
+    // The account exists but has never confirmed its address, so send them to
     // the screen that can fix it instead of showing a dead end.
     if (data?.code === 'EMAIL_NOT_VERIFIED') {
       const query = new URLSearchParams({ email: data.email, purpose: 'signup' });
@@ -81,7 +81,7 @@ export default function LoginForm({ nextPath = '', passwordWasReset = false }) {
         eyebrow="Welcome back"
         icon={LogIn}
         title="Sign in to Hostello"
-        description="Pick up where you left off — your saved hostels and enquiries are waiting."
+        description="Pick up where you left off. Your saved hostels and enquiries are waiting."
       />
 
       {passwordWasReset && (

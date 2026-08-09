@@ -4,8 +4,8 @@ import { cn } from '@/lib/utils';
 
 /**
  * Horizontal campus rail. Bleeds to the viewport edge below `lg` so the last
- * card is visibly cut off — the cheapest possible "there is more here" cue —
- * and hides its scrollbar rather than reserving a strip of empty space.
+ * card is visibly cut off, which is the cheapest "there is more here" cue, and
+ * hides its scrollbar rather than reserving a strip of empty space.
  */
 export default function UniversityRail({ universities = [], className }) {
   if (!universities.length) return null;

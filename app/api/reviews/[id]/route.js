@@ -11,7 +11,7 @@ function badId(id) {
 }
 
 /**
- * PATCH /api/reviews/[id] — edit your own review.
+ * PATCH /api/reviews/[id]: edit your own review.
  * Scoped by `studentId`, so the id in the URL can only ever reach a row the
  * caller wrote. A review an admin has `removed` is frozen: editing it would
  * quietly undo a moderation decision.
@@ -47,7 +47,7 @@ export const PATCH = handler(async (req, ctx) => {
   return ok({ review: serialize(review.toObject()), hostel: totals });
 });
 
-/** DELETE /api/reviews/[id] — remove your own review, then rebuild the average. */
+/** DELETE /api/reviews/[id]: remove your own review, then rebuild the average. */
 export const DELETE = handler(async (req, ctx) => {
   await connectDB();
   const session = await requireRole('student', 'owner', 'admin');

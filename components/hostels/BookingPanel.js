@@ -77,7 +77,7 @@ export function BookingCard({ hostel, className }) {
       />
 
       <p className="mt-3 text-center text-xs text-muted-foreground">
-        You won&apos;t be charged yet — requests go straight to the owner.
+        You won&apos;t be charged yet. Requests go straight to the owner.
       </p>
 
       <dl className="mt-5 space-y-2.5 border-t border-border pt-4 text-sm">

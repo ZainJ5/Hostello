@@ -10,7 +10,7 @@ import { useEffect, useRef } from 'react';
  * two ways a counter normally gets inflated) but resets when the session ends,
  * which is the granularity the owner dashboard charts assume.
  *
- * Rendered null — it exists purely for the effect.
+ * Renders null; it exists purely for the effect.
  */
 export default function ViewTracker({ slug }) {
   const fired = useRef(false);
@@ -26,7 +26,7 @@ export default function ViewTracker({ slug }) {
       if (sessionStorage.getItem(key)) return;
       sessionStorage.setItem(key, String(Date.now()));
     } catch {
-      // Private mode or blocked storage — fall through and count the view.
+      // Private mode or blocked storage. Fall through and count the view.
     }
 
     // Deliberately not abortable: StrictMode's immediate unmount in

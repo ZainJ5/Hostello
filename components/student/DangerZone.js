@@ -13,10 +13,10 @@ import { useToast } from './Toast';
 const CONFIRM_WORD = 'DELETE';
 
 /**
- * Account deletion, two steps and no shortcuts.
+ * Account deletion in two steps:
  *
- *   1. `POST /api/auth/delete-account` — emails a six digit code.
- *   2. `DELETE /api/auth/delete-account` with that code — permanent.
+ *   1. `POST /api/auth/delete-account` emails a six digit code.
+ *   2. `DELETE /api/auth/delete-account` with that code, which is permanent.
  *
  * Both endpoints belong to the auth stream; this component only calls them.
  * The typed confirmation word before step 1 exists so the destructive path

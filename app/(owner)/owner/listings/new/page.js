@@ -22,11 +22,11 @@ export default async function NewListingPage({ searchParams }) {
     try {
       doc = await loadOwnedHostel(sp.id, session);
     } catch {
-      // Missing, or someone else's — the console answers the same either way.
+      // Missing, or someone else's: the console answers the same either way.
       notFound();
     }
     // A listing that has moved past `draft` belongs in the editor, not the
-    // wizard — the wizard's job is finishing a first-time setup.
+    // wizard, whose job is finishing a first-time setup.
     if (doc.status !== 'draft') redirect(`/owner/listings/${doc._id}/edit`);
     listing = serialize(doc.toObject());
   }

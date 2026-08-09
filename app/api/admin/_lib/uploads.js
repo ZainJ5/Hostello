@@ -47,7 +47,7 @@ function sniff(buf) {
   return null;
 }
 
-/** `hostel-<timestamp>-<random>.<ext>` — the convention already on disk. */
+/** `hostel-<timestamp>-<random>.<ext>`, the convention already on disk. */
 export function hostelFilename(ext) {
   return `hostel-${Date.now()}-${Math.floor(Math.random() * 1_000_000)}.${ext}`;
 }
@@ -68,7 +68,7 @@ export async function saveHostelImage(file) {
   }
   if (file.size > MAX_UPLOAD_BYTES) {
     throw reject(
-      `"${file.name || 'image'}" is ${(file.size / 1024 / 1024).toFixed(1)} MB — the limit is 8 MB`,
+      `"${file.name || 'image'}" is ${(file.size / 1024 / 1024).toFixed(1)} MB. The limit is 8 MB`,
       413
     );
   }

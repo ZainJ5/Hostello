@@ -101,7 +101,7 @@ export function useToast() {
   const ctx = useContext(ToastContext);
   if (ctx) return ctx;
   // Rendering a client component outside the shell (e.g. in a test) should not
-  // crash — degrade to a no-op rather than throwing.
+  // crash, so degrade to a no-op rather than throwing.
   const noop = () => {};
   return { push: noop, dismiss: noop, success: noop, error: noop, info: noop };
 }

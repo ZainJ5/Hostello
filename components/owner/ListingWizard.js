@@ -162,7 +162,7 @@ export default function ListingWizard({ listing, facilities, roomTypes }) {
         // keystroke is autosaved against it.
         const id = await draft.createDraft();
         router.replace(`/owner/listings/new?id=${id}`, { scroll: false });
-        toast.success('Draft saved — you can leave and come back any time.');
+        toast.success('Draft saved. You can leave and come back any time.');
       } else if (draft.dirty) {
         await draft.save();
       }
@@ -258,7 +258,7 @@ export default function ListingWizard({ listing, facilities, roomTypes }) {
         {isLast && !formError && (
           <Alert tone="info" title="What happens next" className="mt-5">
             Submitting moves this listing to <strong>awaiting payment</strong>. You transfer the
-            listing fee, upload the screenshot, and an admin publishes it — usually within a day.
+            listing fee, upload the screenshot, and an admin publishes it, usually within a day.
           </Alert>
         )}
       </Card>

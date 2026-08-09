@@ -39,7 +39,7 @@ export default async function ListingPaymentPage({ params }) {
         <EmptyState
           icon={FileText}
           title="Finish the listing first"
-          description="Complete every step and submit it — the listing fee is only due once the listing is ready to be reviewed."
+          description="Complete every step and submit it. The listing fee is only due once the listing is ready to be reviewed."
           action={
             <Button href={`/owner/listings/new?id=${listing._id}`} variant="primary">
               Continue setup

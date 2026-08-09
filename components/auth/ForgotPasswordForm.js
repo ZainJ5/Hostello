@@ -36,8 +36,8 @@ export default function ForgotPasswordForm({ initialEmail = '' }) {
 
     if (ok) {
       // The endpoint answers the same way whether or not the address is
-      // registered, so the next screen is the confirmation — it says a code
-      // was sent without ever claiming the account exists.
+      // registered, so the next screen is the confirmation. It says a code was
+      // sent without ever claiming the account exists.
       router.push(`/reset-password?email=${encodeURIComponent(data.email || email.trim())}`);
       return;
     }

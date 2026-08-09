@@ -19,7 +19,7 @@ export default async function AdminAnalyticsPage({ searchParams }) {
       <PageHeader
         eyebrow="Insight"
         title="Analytics"
-        description="Traffic, conversion and inventory across the whole marketplace — every series aggregated live from PageView, Booking, Review, User and Hostel."
+        description="Traffic, conversion and inventory across the whole marketplace. Every series is aggregated live from PageView, Booking, Review, User and Hostel."
       />
 
       <AnalyticsDashboard initial={serialize(data)} />

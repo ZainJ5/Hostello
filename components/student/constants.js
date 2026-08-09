@@ -5,7 +5,7 @@
  * `ROOM_TYPES` and `BOOKING_STATUSES` are deliberately re-declared here rather
  * than imported from `@/models/*`: a Client Component that imports a model
  * would drag mongoose into the browser bundle. The model files remain the
- * source of truth — these lists mirror them and are asserted against the enum
+ * source of truth. These lists mirror them and are asserted against the enum
  * on the server before anything is written.
  */
 
@@ -21,7 +21,7 @@ export const BOOKING_STATUSES = [
   'completed',
 ];
 
-/** Filter rail on /dashboard/bookings — `all` is a UI-only pseudo status. */
+/** Filter rail on /dashboard/bookings. `all` is a UI-only pseudo status. */
 export const BOOKING_FILTERS = [
   { value: 'all', label: 'All' },
   { value: 'pending', label: 'Pending' },
@@ -32,7 +32,7 @@ export const BOOKING_FILTERS = [
 ];
 
 /**
- * A booking is only "live" in these two states — used to block a second
+ * A booking is only "live" in these two states. Used to block a second
  * request for the same hostel and to unlock the review form.
  */
 export const ACTIVE_BOOKING_STATUSES = ['pending', 'confirmed'];
@@ -53,14 +53,14 @@ export const REVIEW_SUBSCORES = [
 
 export const MIN_REVIEW_LENGTH = 20;
 
-/** Exactly the fields `HostelCard` reads — keeps every card query identical. */
+/** Exactly the fields `HostelCard` reads, which keeps every card query identical. */
 export const HOSTEL_CARD_FIELDS =
   '_id slug name city area universities gender price priceMin priceMax ' +
   'rating reviewCount images facilities verified featured available distanceKm';
 
 export const GENDERS = ['Male', 'Female', 'Other'];
 
-/** Cities and universities present in the seeded dataset. */
+/** Cities and universities Hostello currently covers. */
 export const CITIES = ['Islamabad', 'Rawalpindi', 'Lahore', 'Karachi'];
 
 export const UNIVERSITIES = [
@@ -109,7 +109,7 @@ export function toISODate(value) {
   return d.toISOString().slice(0, 10);
 }
 
-/** "6 months" / "1 month" — used everywhere a duration is rendered. */
+/** "6 months" / "1 month", used everywhere a duration is rendered. */
 export function formatDuration(months) {
   const n = Number(months) || 0;
   if (n === 12) return '1 year';

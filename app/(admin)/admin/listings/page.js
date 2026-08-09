@@ -81,7 +81,7 @@ export default async function AdminListingsPage({ searchParams }) {
       <PageHeader
         eyebrow="Marketplace"
         title="Listings"
-        description="Every hostel on the platform, in any state — draft, in review, live, suspended or rejected."
+        description="Every hostel on the platform, in any state: draft, in review, live, suspended or rejected."
         actions={
           <Button href="/admin/listings/new" size="sm">
             <Plus className="size-4" aria-hidden="true" />

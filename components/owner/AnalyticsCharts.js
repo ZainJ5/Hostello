@@ -46,8 +46,8 @@ function SeriesToggle({ active, onToggle }) {
 }
 
 /**
- * Every series here is a real aggregation of this owner's own `PageView`,
- * `Booking` and `Review` rows — nothing is sampled, estimated or padded.
+ * Every series here aggregates this owner's own `PageView`, `Booking` and
+ * `Review` rows. Nothing is sampled, estimated or padded.
  */
 export default function AnalyticsCharts({ data }) {
   const [series, setSeries] = useState(['views', 'contacts', 'saves']);
@@ -68,7 +68,7 @@ export default function AnalyticsCharts({ data }) {
     <div className="space-y-4">
       <ChartFrame
         title="Traffic over time"
-        description={`Views, contact clicks and saves across your listings — ${rangeLabel}.`}
+        description={`Views, contact clicks and saves across your listings, ${rangeLabel}.`}
         summary={`Daily traffic for the ${rangeLabel}: ${data.totals.views} views, ${data.totals.contacts} contact clicks, ${data.totals.saves} saves.`}
         action={<SeriesToggle active={series} onToggle={toggle} />}
         height={320}
@@ -79,7 +79,7 @@ export default function AnalyticsCharts({ data }) {
       <div className="grid gap-4 xl:grid-cols-2">
         <ChartFrame
           title="Listing comparison"
-          description={`Your busiest listings — ${rangeLabel}.`}
+          description={`Your busiest listings, ${rangeLabel}.`}
           summary={`Views, contacts and saves per listing for the ${rangeLabel}.`}
           empty={!data.comparison.length}
           emptyLabel="Add a listing and its traffic appears here."
@@ -105,7 +105,7 @@ export default function AnalyticsCharts({ data }) {
       <div className="grid gap-4 xl:grid-cols-2">
         <ChartFrame
           title="Where your visitors come from"
-          description={`Referrer of every listing view — ${rangeLabel}.`}
+          description={`Referrer of every listing view, ${rangeLabel}.`}
           summary={data.referrers.map((r) => `${r.source}: ${r.value}`).join(', ') || 'No data'}
           height={260}
         >
@@ -116,7 +116,7 @@ export default function AnalyticsCharts({ data }) {
 
         <ChartFrame
           title="Booking requests by outcome"
-          description={`What happened to the requests you received — ${rangeLabel}.`}
+          description={`What happened to the requests you received, ${rangeLabel}.`}
           summary={data.bookingBreakdown.map((b) => `${b.status}: ${b.value}`).join(', ')}
           height={260}
         >

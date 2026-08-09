@@ -15,8 +15,8 @@ export default async function LoginPage({ searchParams }) {
   const sp = await searchParams;
   const nextPath = safeNext(sp?.next);
 
-  // Already signed in — send them where they were going rather than showing a
-  // form that would just sign them in again.
+  // Already signed in, so send them where they were going rather than showing
+  // a form that would just sign them in again.
   const session = await getSession();
   if (session) redirect(nextPath || homeForRole(session.role));
 

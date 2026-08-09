@@ -1,9 +1,9 @@
 import { Skeleton } from '@/components/ui/Feedback';
 
 /**
- * Mirrors the detail page's geometry — breadcrumb, title block, the 26rem
- * gallery mosaic, the content/rail split — so the real page drops in without
- * shifting anything the student is already looking at.
+ * Mirrors the detail page's geometry: breadcrumb, title block, the 26rem
+ * gallery mosaic and the content/rail split. The real page then drops in
+ * without shifting anything the student is already looking at.
  */
 export default function HostelDetailLoading() {
   return (

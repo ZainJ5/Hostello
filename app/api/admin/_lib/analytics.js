@@ -31,7 +31,7 @@ function dayKey(d) {
   return startOfDayUTC(d).toISOString().slice(0, 10);
 }
 
-/** Continuous day axis — charts must not skip a day just because it had no rows. */
+/** Continuous day axis, so charts never skip a day just because it had no rows. */
 function dayAxis(days, endDate = new Date()) {
   const out = [];
   const end = startOfDayUTC(endDate);
@@ -334,7 +334,7 @@ export async function getAnalytics(daysInput) {
       ]),
     ]);
 
-  // ── Listing composition (127 docs — reduced in JS so labels stay exact) ──
+  // ── Listing composition (reduced in JS so labels stay exact) ──
   const cityMap = new Map();
   const uniMap = new Map();
   const genderMap = new Map();

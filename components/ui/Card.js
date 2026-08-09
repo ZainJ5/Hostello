@@ -63,7 +63,7 @@ export function StatCard({ label, value, delta, icon: Icon, hint, className }) {
                 !up && !down && 'bg-muted text-muted-foreground'
               )}
             >
-              {/* Arrow plus sign — never colour alone to convey direction. */}
+              {/* Arrow plus sign, so colour is never the only cue for direction. */}
               <span aria-hidden="true">{up ? '↑' : down ? '↓' : '→'}</span>
               {up ? '+' : ''}
               {delta}%

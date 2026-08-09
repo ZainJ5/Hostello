@@ -3,7 +3,7 @@ import Hostel from '@/models/Hostel';
 
 /**
  * Hostel.rating / reviewCount are denormalised onto the listing so cards do not
- * need a join — which means any change to a review's visibility has to write
+ * need a join, which means any change to a review's visibility has to write
  * them back. Removed reviews drop out of the average; flagged ones stay in
  * until an admin actually removes them.
  */

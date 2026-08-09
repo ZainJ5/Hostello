@@ -39,16 +39,16 @@ function escapeRegex(s) {
  * `name/area/city/description` text index.
  *
  * `$text` only matches whole stemmed words, so the short prefixes people
- * actually type — "gul", "h-1", "nus" — return nothing for "Gulberg", "H-12"
+ * actually type ("gul", "h-1", "nus") return nothing for "Gulberg", "H-12"
  * and "NUST". A regex gives true substring behaviour, matches inside sector
  * codes that Mongo's tokeniser splits apart, and lets us search the
  * `universities` array too (not part of the text index). Each whitespace
  * separated term must hit at least one field, so extra words narrow the result
  * set rather than widening it, which is what the text index would do.
  *
- * The trade-off is an unindexed scan; across 124 published listings that is
- * sub-millisecond. Past a few thousand rows this should become an Atlas Search
- * autocomplete index rather than `$text`.
+ * The trade-off is an unindexed scan, which stays sub-millisecond at the
+ * current catalogue size. Past a few thousand rows this should become an Atlas
+ * Search autocomplete index rather than `$text`.
  */
 function textClause(q) {
   const terms = String(q || '')
@@ -95,8 +95,8 @@ function merge(...parts) {
 /**
  * Splits the filter into the always-on base and the four facet dimensions, so
  * each facet can be counted against *every other* active filter but not
- * against itself — the behaviour that keeps a checkbox list from collapsing to
- * a single option the moment you tick it.
+ * against itself. That is what keeps a checkbox list from collapsing to a
+ * single option the moment you tick it.
  */
 export function filterParts(filters, { bounds } = {}) {
   const f = filters;
@@ -121,7 +121,7 @@ export function filterParts(filters, { bounds } = {}) {
     city: f.city?.length ? { city: { $in: f.city } } : null,
     university: f.university ? { universities: f.university } : null,
     gender: f.gender ? { gender: f.gender } : null,
-    // $all, not $in — ticking two facilities means "has both".
+    // $all, not $in: ticking two facilities means "has both".
     facilities: f.facilities?.length ? { facilities: { $all: f.facilities } } : null,
   };
 }
@@ -133,8 +133,8 @@ export function buildMongoQuery(filters, opts) {
 }
 
 const SORT_SPECS = {
-  // `price` is 0 on ten imported listings, so both price sorts key off the
-  // rent band instead of the legacy scalar.
+  // `price` is 0 on some listings, so both price sorts key off the rent band
+  // instead of the legacy scalar.
   'price-asc': { priceMin: 1, priceMax: 1 },
   'price-desc': { priceMax: -1, priceMin: -1 },
   rating: { rating: -1, reviewCount: -1 },
@@ -194,8 +194,8 @@ export async function facetCounts(filters, opts) {
 
   /**
    * Pads a facet with the vocabulary values that scored zero, so a checkbox
-   * never disappears mid-interaction — it greys out with a 0 beside it, which
-   * tells the student something the missing row can't. This is also how the
+   * never disappears mid-interaction. It greys out with a 0 beside it, which
+   * tells the student something a missing row can't. This is also how the
    * canonical `FACILITIES` list reaches the client filter panel without the
    * browser bundle importing a mongoose model.
    */
@@ -216,7 +216,7 @@ export async function facetCounts(filters, opts) {
 
 /**
  * Runs the listing query and the facet aggregation together.
- * Returns `{ hostels, total, page, pages, facets }` — the exact shape
+ * Returns `{ hostels, total, page, pages, facets }`, the exact shape
  * `GET /api/hostels` serialises.
  */
 export async function searchHostels(filters, { bounds, limit, withFacets = true } = {}) {

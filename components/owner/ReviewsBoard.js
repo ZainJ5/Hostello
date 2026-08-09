@@ -187,11 +187,11 @@ function ReportDialog({ review, onClose }) {
       <div className="space-y-4">
         <Alert tone="warning" title="Reporting does not hide the review">
           It stays public and keeps counting toward your rating. A moderator decides whether it
-          breaks the rules — a low rating on its own is not grounds for removal.
+          breaks the rules. A low rating on its own is not grounds for removal.
         </Alert>
         <Textarea
           label="What is wrong with it?"
-          hint="Be specific. “This student never stayed here — no booking under that name” is actionable; “unfair” is not."
+          hint="Be specific. “This student never stayed here, no booking under that name” is actionable; “unfair” is not."
           value={reason}
           onChange={(e) => setReason(e.target.value)}
           rows={4}
@@ -227,7 +227,7 @@ export default function ReviewsBoard({ reviews, hostels, counts, average, breakd
         <Card className="p-5">
           <p className="text-sm font-medium text-muted-foreground">Across all your listings</p>
           <p className="tabular mt-2 text-4xl font-bold tracking-tight text-foreground">
-            {average ? average.toFixed(1) : '—'}
+            {average ? average.toFixed(1) : 'None yet'}
           </p>
           <Rating value={average} size="sm" showValue={false} className="mt-1" />
           <p className="tabular mt-1 text-xs text-muted-foreground">
@@ -376,7 +376,7 @@ export default function ReviewsBoard({ reviews, hostels, counts, average, breakd
                 <div className="mt-3 flex justify-end border-t border-border pt-3">
                   {review.status === 'flagged' ? (
                     <p className="text-xs text-warning dark:text-amber-300">
-                      Reported — waiting on a moderator.
+                      Reported. Waiting on a moderator.
                     </p>
                   ) : (
                     <Button variant="ghost" size="sm" onClick={() => setReporting(review)}>
