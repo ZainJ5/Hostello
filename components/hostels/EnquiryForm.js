@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/ds/Button';
 import { Alert } from '@/components/ds/Feedback';
 import { cn, normalizePhone, whatsappLink } from '@/lib/utils';
+import { SECTION_TITLE } from '@/components/public/type';
 import { Input, Select, Textarea } from './Field';
 import ShareButton from './ShareButton';
 import { trackContact } from './ContactActions';
@@ -127,7 +128,7 @@ export default function EnquiryForm({ hostel, user, existing, className }) {
     return (
       <div className={cn('flex w-full flex-col gap-6', className)}>
         <div className="flex flex-col gap-2">
-          <h2 className="ds-display-m text-ds-ink">Enquiry sent</h2>
+          <h2 className={cn(SECTION_TITLE, 'text-ds-ink')}>Enquiry sent</h2>
           <p className="ds-body-m max-w-[80ch] text-pretty text-ds-ink-muted">
             It is recorded against your account and you can open it any time under Saved and
             enquiries. Hostello holds no rooms, so nothing is reserved and nothing is paid.

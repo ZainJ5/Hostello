@@ -1,3 +1,5 @@
+import { cn } from '@/lib/utils';
+import { TITLE } from '@/components/public/type';
 import Container from '@/components/public/Container';
 import Button from '@/components/ds/Button';
 import FilterChip from '@/components/ds/FilterChip';
@@ -16,7 +18,7 @@ const CAMPUSES = ['NUST', 'FAST', 'QAU', 'COMSATS', 'NUML', 'FJWU', 'Riphah'];
 export default function HostelNotFound() {
   return (
     <Container as="section" className="flex flex-col gap-6 pb-20 pt-16">
-      <h1 className="ds-display-xl max-w-[20ch] text-balance text-ds-ink">
+      <h1 className={cn(TITLE, 'max-w-[20ch] text-balance text-ds-ink')}>
         This listing is not available
       </h1>
       <p className="ds-body-l max-w-[70ch] text-pretty text-ds-ink-muted">

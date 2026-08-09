@@ -5,6 +5,7 @@ import { connectDB } from '@/lib/db';
 import Hostel from '@/models/Hostel';
 import { cn, serialize } from '@/lib/utils';
 
+import { TITLE } from '@/components/public/type';
 import Container from '@/components/public/Container';
 import Badge from '@/components/ds/Badge';
 
@@ -209,7 +210,7 @@ export default async function HostelDetailPage({ params, searchParams }) {
       {/* ── Header ── */}
       <Container as="section" className="flex flex-col gap-4 pb-6 pt-6">
         <Breadcrumbs items={crumbs} />
-        <h1 className="ds-display-xl text-balance text-ds-ink">{hostel.name}</h1>
+        <h1 className={cn(TITLE, 'text-balance text-ds-ink')}>{hostel.name}</h1>
         <p className="ds-body-l text-ds-ink-muted">{where}</p>
         <div className="flex flex-wrap gap-2">
           <Badge variant={hostel.verified ? 'solid' : 'outline'}>

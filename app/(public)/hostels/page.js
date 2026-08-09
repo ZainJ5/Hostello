@@ -1,6 +1,7 @@
 import { connectDB } from '@/lib/db';
-import { serialize } from '@/lib/utils';
+import { cn, serialize } from '@/lib/utils';
 
+import { TITLE } from '@/components/public/type';
 import Container from '@/components/public/Container';
 import Button from '@/components/ds/Button';
 import HostelCard from '@/components/ds/HostelCard';
@@ -102,7 +103,7 @@ export default async function HostelsPage({ searchParams }) {
       {/* ── Band one: where you are and what you are looking at ── */}
       <Container as="section" className="flex flex-col gap-6 pb-7 pt-7">
         <Breadcrumbs items={browseCrumbs(filters)} />
-        <h1 className="ds-display-xl text-balance text-ds-ink">{browseTitle(filters)}</h1>
+        <h1 className={cn(TITLE, 'text-balance text-ds-ink')}>{browseTitle(filters)}</h1>
         <p className="ds-body-l max-w-[75ch] text-pretty text-ds-ink-muted">
           {total} {total === 1 ? 'listing' : 'listings'}, every one checked by a person before
           it went live. Filter by campus, rent and what is included, then contact the owner

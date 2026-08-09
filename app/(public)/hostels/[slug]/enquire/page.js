@@ -3,12 +3,13 @@ import { notFound } from 'next/navigation';
 
 import { getSession } from '@/lib/auth';
 import { connectDB } from '@/lib/db';
-import { formatPKR, serialize } from '@/lib/utils';
+import { cn, formatPKR, serialize } from '@/lib/utils';
 import Booking from '@/models/Booking';
 import Hostel from '@/models/Hostel';
 import User from '@/models/User';
 import { ACTIVE_BOOKING_STATUSES } from '@/components/student/constants';
 
+import { TITLE } from '@/components/public/type';
 import Container from '@/components/public/Container';
 import Breadcrumbs from '@/components/hostels/Breadcrumbs';
 import EnquiryForm from '@/components/hostels/EnquiryForm';
@@ -106,7 +107,7 @@ export default async function EnquirePage({ params }) {
     <>
       <Container as="section" className="flex flex-col gap-4 pb-6 pt-6">
         <Breadcrumbs items={crumbs} />
-        <h1 className="ds-display-xl text-balance text-ds-ink">Contact the owner</h1>
+        <h1 className={cn(TITLE, 'text-balance text-ds-ink')}>Contact the owner</h1>
         <p className="ds-body-l max-w-[85ch] text-pretty text-ds-ink-muted">
           {hostel.name}, {where}.{rent ? ` ${rent} a month.` : ''}
         </p>

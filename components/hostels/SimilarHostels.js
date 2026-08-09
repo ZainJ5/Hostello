@@ -1,6 +1,7 @@
 import Hostel from '@/models/Hostel';
 import HostelCard from '@/components/ds/HostelCard';
-import { serialize } from '@/lib/utils';
+import { cn, serialize } from '@/lib/utils';
+import { SECTION_TITLE } from '@/components/public/type';
 import { CARD_PROJECTION } from './query';
 import { cardCampus } from './campus-distance';
 
@@ -37,7 +38,7 @@ export default function SimilarHostels({ hostels, className }) {
 
   return (
     <section aria-labelledby="similar-h" className={className}>
-      <h2 id="similar-h" className="ds-display-m text-ds-ink">
+      <h2 id="similar-h" className={cn(SECTION_TITLE, 'text-ds-ink')}>
         More hostels like this
       </h2>
       <p className="ds-body-m mt-2 text-ds-ink-muted">

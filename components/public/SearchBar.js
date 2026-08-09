@@ -76,7 +76,7 @@ export default function SearchBar({ universities = [], className }) {
         </div>
       </div>
 
-      <Button type="submit" className="shrink-0">
+      <Button type="submit" className="w-full sm:w-auto sm:shrink-0">
         Show hostels
       </Button>
     </form>

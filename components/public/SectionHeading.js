@@ -1,3 +1,4 @@
+import { SECTION_TITLE } from './type';
 import { cn } from '@/lib/utils';
 
 /**
@@ -13,7 +14,7 @@ export default function SectionHeading({ title, description, action, className }
   return (
     <div className={cn('flex w-full flex-col gap-5', className)}>
       <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
-        <h2 className="ds-display-m min-w-px max-w-[30ch] text-balance text-ds-ink">{title}</h2>
+        <h2 className={cn(SECTION_TITLE, 'min-w-px max-w-[30ch] text-balance text-ds-ink')}>{title}</h2>
         {action ? <div className="shrink-0">{action}</div> : null}
       </div>
       {description ? (

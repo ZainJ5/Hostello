@@ -2,6 +2,7 @@ import { connectDB } from '@/lib/db';
 import Hostel from '@/models/Hostel';
 import { cn, serialize } from '@/lib/utils';
 
+import { TITLE } from '@/components/public/type';
 import Container from '@/components/public/Container';
 import SearchBar from '@/components/public/SearchBar';
 import SectionHeading from '@/components/public/SectionHeading';
@@ -131,7 +132,7 @@ export default async function HomePage() {
             a two column layout with a hole in it. Recorded in the handover.
           */}
           <div className="flex max-w-165 flex-col gap-7">
-            <h1 className="ds-display-xl text-balance text-ds-ink">
+            <h1 className={cn(TITLE, 'text-balance text-ds-ink')}>
               Where Pakistan&apos;s students find their room
             </h1>
 
