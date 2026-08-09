@@ -49,3 +49,6 @@ next-env.d.ts
 
 # local build/verification scratch copy, not source
 /.verify/
+
+# Rewritten by next dev via generate-agent-files.js, which reintroduces em dashes.
+AGENTS.md
