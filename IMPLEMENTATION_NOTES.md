@@ -293,6 +293,64 @@ to the colour mode. Minimum height 20, below which the wordmark drops.
 
 ## 7. Session handoff
 
+**State during session 6.**
+
+### Agent 1 died and was recovered
+
+Agent 1 (home, browse, listing detail, enquire) terminated on an out of memory
+API error mid task. Its work survived in the working tree and was verified and
+committed centrally as `4143a03`: all four routes exist, import the ds set and
+build clean. `/hostels/[slug]/book` is gone and `/hostels/[slug]/enquire` has
+replaced it. Agent 7, the state set, is now running last as planned.
+
+### Client supplied artwork, and a reversal on the logo
+
+Three SVGs were supplied and committed:
+
+| File | Used by |
+|---|---|
+| `public/brand/hostello-logo.svg` | the mark in `components/ds/Logo.js` |
+| `public/brand/hostello-logo-dark.svg` | generated, dark mode variant of the same |
+| `public/illustrations/hero-shared-room.svg` | the home hero, two column from lg |
+| `public/illustrations/find-a-roommate.svg` | the home roommates section |
+
+**This reverses the earlier decision to draw the mark from tokens.** That
+decision existed because `logo-usage` requires the ink to lift in dark mode
+while the yellow holds its value, and an SVG carries baked fills. The supplied
+artwork is richer than the three rectangle door and is what the client wants
+shipped, so the requirement is met a different way: a second export with only
+the two ink fills lifted (`#231E1F` to `#F2EFE8`, `#453A34` to `#C9C3B6`), and
+CSS picks one. A filter was rejected because it would invert the yellow too.
+
+If the artwork ever changes, **regenerate the dark variant**, or the two will
+drift apart.
+
+### The shair, and a wazan concern
+
+A couplet now sits below the roommates section on the home page, set in
+`.ds-label-urdu` (Noto Nastaliq Urdu at the 2.22 line height the design gives
+it) with `dir="rtl"` and `lang="ur"` on the element, since the rest of the
+document runs left to right.
+
+The client's text had `اتوں` where `باتوں` was intended, which the Roman
+transliteration confirms. Corrected.
+
+**The two misras do not appear to share one behr.** Scanning by syllable
+weight, the first runs to roughly 22 morae and the second to roughly 24, so
+the second line is about a foot longer:
+
+```
+باتوں باتوں میں گزر جائے گا یہ سفر          (~22)
+منزل کی فِکر کرنا، یہ کام دوستوں کا ہے        (~24)
+```
+
+It is shipped exactly as supplied rather than silently rewritten, because it
+is the client's own verse and scansion of Urdu poetry is not something to
+guess at. Dropping `یہ` from the second misra brings the two closer but does
+not fully resolve it. **This wants an Urdu poet's eye before launch.**
+
+---
+
 **State during session 5, fan out in progress.**
 
 ### Agents landed so far
