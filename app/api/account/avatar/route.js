@@ -81,7 +81,10 @@ export const POST = handler(async (req) => {
   const session = await requireRole();
   await connectDB();
 
-  enforceRateLimit(`avatar:${session.userId}`, { max: 10, windowMs: 60 * 60_000 });
+  // A cheap guard against a flood, generous enough that a student picking the
+  // wrong file repeatedly is never locked out. The real quota is applied after
+  // validation, so only a file that actually gets written counts against it.
+  enforceRateLimit(`avatar:attempt:${session.userId}`, { max: 60, windowMs: 60 * 60_000 });
 
   const form = await req.formData();
   const file = form.get('file');
@@ -106,6 +109,10 @@ export const POST = handler(async (req) => {
   if (file.type && file.type !== real) {
     throw badRequest('That file does not match its image type', 415);
   }
+
+  // Counted here, once the upload is known to be a real image, so ten
+  // rejections do not cost a student their ability to set a picture.
+  enforceRateLimit(`avatar:write:${session.userId}`, { max: 10, windowMs: 60 * 60_000 });
 
   await fs.mkdir(AVATAR_DIR, { recursive: true });
 
