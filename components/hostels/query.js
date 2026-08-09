@@ -118,7 +118,13 @@ export function filterParts(filters, { bounds } = {}) {
 
   return {
     base,
-    city: f.city?.length ? { city: { $in: f.city } } : null,
+    // Matched case insensitively on purpose. The city landing pages use a
+    // lowercase slug (/hostels/in/islamabad), so a hand edited or shared
+    // ?city=islamabad used to return a confident "0 hostels in islamabad" for
+    // a city that has 91.
+    city: f.city?.length
+      ? { city: { $in: f.city.map((c) => new RegExp(`^${escapeRegex(c)}$`, 'i')) } }
+      : null,
     university: f.university ? { universities: f.university } : null,
     gender: f.gender ? { gender: f.gender } : null,
     // $all, not $in: ticking two facilities means "has both".
