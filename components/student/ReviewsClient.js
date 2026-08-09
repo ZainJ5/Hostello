@@ -3,19 +3,9 @@
 import { useState, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import {
-  Compass,
-  MessageSquareText,
-  Pencil,
-  SquarePen,
-  Star,
-  Trash2,
-} from 'lucide-react';
-import { StatusBadge } from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
-import { EmptyState, Rating } from '@/components/ui/Feedback';
-import HostelImage from '@/components/ui/HostelImage';
+import Badge from '@/components/ds/Badge';
+import Button from '@/components/ds/Button';
+import { EmptyState } from '@/components/ds/Feedback';
 import { formatDate, timeAgo } from '@/lib/utils';
 import { REVIEW_SUBSCORES } from './constants';
 import Drawer from './Drawer';
@@ -24,9 +14,15 @@ import { useToast } from './Toast';
 
 /**
  * Reviews the student has written, plus the hostels they are entitled to
- * review but haven't. The eligibility list is computed on the server from
- * `confirmed`/`completed` bookings, so this shelf can never offer a hostel the
- * API would then refuse.
+ * review but have not.
+ *
+ * The eligibility list is computed on the server from confirmed or completed
+ * enquiries, so this shelf can never offer a hostel the API would then refuse.
+ * On a fresh database both lists are empty, which is why each one has a real
+ * empty state and neither renders a count that could only ever read zero.
+ *
+ * The design file has no frame for this route. It is built in the same shell
+ * as the four that do have frames.
  */
 export default function ReviewsClient({ reviews: initial, reviewable }) {
   const router = useRouter();
@@ -44,7 +40,11 @@ export default function ReviewsClient({ reviews: initial, reviewable }) {
       setReviews((list) =>
         list.map((r) => (r._id === saved._id ? { ...r, ...saved, hostelId: r.hostelId } : r))
       );
-      toast({ tone: 'success', title: 'Review updated', description: 'Thanks for keeping it current.' });
+      toast({
+        tone: 'success',
+        title: 'Review updated',
+        description: 'Thanks for keeping it current.',
+      });
     } else {
       setReviews((list) => [{ ...saved, hostelId: hostel }, ...list]);
       setPending((list) => list.filter((h) => String(h._id) !== String(hostel?._id)));
@@ -67,7 +67,7 @@ export default function ReviewsClient({ reviews: initial, reviewable }) {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Could not delete that review');
 
-      // It becomes reviewable again, because the booking that earned it still stands.
+      // It becomes reviewable again, because the enquiry that earned it stands.
       if (review.hostelId?._id) {
         setPending((list) =>
           list.some((h) => String(h._id) === String(review.hostelId._id))
@@ -86,7 +86,7 @@ export default function ReviewsClient({ reviews: initial, reviewable }) {
       setReviews(before); // rollback
       toast({
         tone: 'danger',
-        title: 'Could not delete',
+        title: 'Could not delete it',
         description: err.message || 'Please try again in a moment.',
       });
     } finally {
@@ -95,86 +95,60 @@ export default function ReviewsClient({ reviews: initial, reviewable }) {
   }
 
   return (
-    <div className="space-y-8">
-      {pending.length > 0 && (
-        <section aria-labelledby="reviewable-heading">
-          <div className="mb-4">
-            <h2 id="reviewable-heading" className="text-h3 text-foreground">
+    <div className="flex flex-col gap-8">
+      {pending.length > 0 ? (
+        <section aria-labelledby="reviewable-heading" className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <h2 id="reviewable-heading" className="ds-display-m text-ds-ink">
               Hostels you can review
             </h2>
-            <p className="mt-1 text-sm text-muted-foreground text-pretty">
+            <p className="ds-body-s text-pretty text-ds-ink-muted">
               You stayed, or the owner confirmed you, so your review carries real weight.
             </p>
           </div>
-          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <ul className="flex flex-col gap-3">
             {pending.map((hostel) => (
-              <li key={String(hostel._id)}>
-                <Card className="flex items-center gap-4 p-4">
-                  <div className="relative size-16 shrink-0 overflow-hidden rounded-xl">
-                    <HostelImage
-                      src={hostel.images?.[0]}
-                      name={hostel.name}
-                      alt={hostel.name}
-                      sizes="64px"
-                    />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <Link
-                      href={`/hostels/${hostel.slug}`}
-                      className="block cursor-pointer truncate text-sm font-semibold text-foreground transition-colors duration-200 hover:text-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring dark:hover:text-brand-400"
-                    >
-                      {hostel.name}
-                    </Link>
-                    <p className="truncate text-xs text-muted-foreground">
-                      {[hostel.area, hostel.city].filter(Boolean).join(', ')}
-                    </p>
-                  </div>
-                  <Button
-                    variant="accent"
-                    size="sm"
-                    className="shrink-0"
-                    onClick={() => setWritingFor(hostel)}
+              <li
+                key={String(hostel._id)}
+                className="ds-elevated flex flex-col gap-3 rounded-ds-inner p-4 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div className="min-w-0">
+                  <Link
+                    href={`/hostels/${hostel.slug}`}
+                    className="ds-body-m-strong block truncate text-ds-ink underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
                   >
-                    <SquarePen className="size-4" aria-hidden="true" />
-                    Write review
-                  </Button>
-                </Card>
+                    {hostel.name}
+                  </Link>
+                  <p className="ds-body-s truncate text-ds-ink-muted">
+                    {[hostel.area, hostel.city].filter(Boolean).join(', ')}
+                  </p>
+                </div>
+                <Button className="shrink-0" onClick={() => setWritingFor(hostel)}>
+                  Write a review
+                </Button>
               </li>
             ))}
           </ul>
         </section>
-      )}
+      ) : null}
 
-      <section aria-labelledby="my-reviews-heading">
-        <div className="mb-4">
-          <h2 id="my-reviews-heading" className="text-h3 text-foreground">
-            Your reviews
-          </h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {reviews.length
-              ? `${reviews.length} review${reviews.length === 1 ? '' : 's'} written.`
-              : 'Nothing written yet.'}
-          </p>
-        </div>
+      <section aria-labelledby="my-reviews-heading" className="flex flex-col gap-4">
+        <h2 id="my-reviews-heading" className="ds-display-m text-ds-ink">
+          Your reviews
+        </h2>
 
         {reviews.length === 0 ? (
           <EmptyState
-            icon={Star}
-            title="You haven't written a review yet"
-            description={
+            title="You have not written a review yet"
+            body={
               pending.length > 0
-                ? 'You have a hostel waiting above. A few honest lines take two minutes and help every student after you.'
-                : 'Once a hostel confirms your booking, you can share what the stay was really like.'
+                ? 'There is a hostel waiting above. A few honest lines take two minutes and help every student who looks at that listing after you.'
+                : 'Once an owner confirms one of your enquiries, you can say what the place was actually like. Only students the owner confirmed can review a hostel, and that is what makes these worth reading.'
             }
-            action={
-              <Button href="/hostels" variant="primary">
-                <Compass className="size-4" aria-hidden="true" />
-                Browse hostels
-              </Button>
-            }
+            action={<Button href="/hostels">Browse hostels</Button>}
           />
         ) : (
-          <ul className="space-y-4">
+          <ul className="flex flex-col gap-4">
             {reviews.map((review) => (
               <li key={review._id}>
                 <ReviewRow
@@ -190,7 +164,7 @@ export default function ReviewsClient({ reviews: initial, reviewable }) {
 
       {/* Mounted only while open and keyed by target, so each visit starts
           from the props rather than from whatever was typed last time. */}
-      {writingFor && (
+      {writingFor ? (
         <ReviewForm
           key={`write-${writingFor._id}`}
           open
@@ -198,9 +172,9 @@ export default function ReviewsClient({ reviews: initial, reviewable }) {
           onClose={() => setWritingFor(null)}
           onSaved={handleSaved}
         />
-      )}
+      ) : null}
 
-      {editing && (
+      {editing ? (
         <ReviewForm
           key={`edit-${editing._id}`}
           open
@@ -209,31 +183,29 @@ export default function ReviewsClient({ reviews: initial, reviewable }) {
           onClose={() => setEditing(null)}
           onSaved={handleSaved}
         />
-      )}
+      ) : null}
 
       <Drawer
         open={Boolean(confirmDelete)}
         onClose={() => setConfirmDelete(null)}
         size="sm"
         title="Delete this review?"
-        description="It will be removed from the listing and the hostel's rating recalculated."
+        description="It comes off the listing and the hostel's rating is recalculated."
         footer={
           <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <Button variant="secondary" onClick={() => setConfirmDelete(null)} disabled={deleting}>
               Keep it
             </Button>
             <Button
-              variant="danger"
               loading={deleting}
               onClick={() => confirmDelete && remove(confirmDelete)}
             >
-              <Trash2 className="size-4" aria-hidden="true" />
-              Delete review
+              Delete it
             </Button>
           </div>
         }
       >
-        <p className="text-sm text-muted-foreground text-pretty">
+        <p className="ds-body-m text-pretty text-ds-ink-muted">
           This cannot be undone, though you can write a new review for{' '}
           {confirmDelete?.hostelId?.name || 'the hostel'} afterwards.
         </p>
@@ -247,85 +219,75 @@ function ReviewRow({ review, onEdit, onDelete }) {
   const subs = REVIEW_SUBSCORES.filter((s) => review[s.key] != null);
 
   return (
-    <Card className="p-4 sm:p-5">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-3">
-          <div className="relative size-12 shrink-0 overflow-hidden rounded-xl">
-            <HostelImage
-              src={hostel?.images?.[0]}
-              name={hostel?.name}
-              alt={hostel?.name || 'Hostel'}
-              sizes="48px"
-            />
-          </div>
-          <div className="min-w-0">
+    <article className="ds-elevated flex flex-col gap-3 rounded-ds-inner p-4">
+      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+        <div className="min-w-0">
+          <h3 className="ds-display-s text-ds-ink">
             {hostel?.slug ? (
               <Link
                 href={`/hostels/${hostel.slug}`}
-                className="block cursor-pointer truncate font-semibold text-foreground transition-colors duration-200 hover:text-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring dark:hover:text-brand-400"
+                className="underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
               >
                 {hostel.name}
               </Link>
             ) : (
-              <p className="font-semibold text-foreground">Listing removed</p>
+              'Listing removed'
             )}
-            <p className="truncate text-xs text-muted-foreground">
-              Reviewed {formatDate(review.createdAt)}
-              {review.updatedAt && review.updatedAt !== review.createdAt
-                ? ` · edited ${timeAgo(review.updatedAt)}`
-                : ''}
-            </p>
-          </div>
+          </h3>
+          <p className="ds-body-s text-ds-ink-muted">
+            Reviewed {formatDate(review.createdAt)}
+            {review.updatedAt && review.updatedAt !== review.createdAt
+              ? `, edited ${timeAgo(review.updatedAt)}`
+              : ''}
+          </p>
         </div>
-        <div className="flex items-center gap-2">
-          {review.status !== 'published' && <StatusBadge status={review.status} />}
-          <Rating value={review.rating} size="sm" />
+        <div className="flex shrink-0 items-center gap-2">
+          {review.status !== 'published' ? (
+            <Badge variant="outline">{review.status}</Badge>
+          ) : null}
+          <p className="ds-figure-l text-ds-ink">
+            {review.rating}
+            <span className="ds-body-s text-ds-ink-muted"> of 5</span>
+          </p>
         </div>
       </div>
 
-      {review.title && (
-        <p className="mt-3 font-semibold text-foreground text-pretty">{review.title}</p>
-      )}
-      <p className="mt-1.5 text-sm text-muted-foreground text-pretty">{review.comment}</p>
+      {review.title ? (
+        <p className="ds-body-m-strong text-pretty text-ds-ink">{review.title}</p>
+      ) : null}
+      <p className="ds-body-m text-pretty text-ds-ink-muted">{review.comment}</p>
 
-      {subs.length > 0 && (
-        <dl className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
+      {subs.length > 0 ? (
+        <dl className="flex flex-wrap gap-x-4 gap-y-1">
           {subs.map((s) => (
-            <div key={s.key} className="flex items-center gap-1.5 text-xs">
-              <dt className="text-muted-foreground">{s.label}</dt>
-              <dd className="tabular font-semibold text-foreground">{review[s.key]}/5</dd>
+            <div key={s.key} className="flex items-center gap-1.5">
+              <dt className="ds-body-s text-ds-ink-muted">{s.label}</dt>
+              <dd className="ds-mono-meta text-ds-ink">{review[s.key]}/5</dd>
             </div>
           ))}
         </dl>
-      )}
+      ) : null}
 
-      {review.ownerReply && (
-        <div className="mt-4 rounded-xl border border-brand-200 bg-brand-50 p-3.5 dark:border-brand-900 dark:bg-brand-950/50">
-          <p className="flex items-center gap-1.5 text-xs font-semibold text-brand-900 dark:text-brand-200">
-            <MessageSquareText className="size-3.5" aria-hidden="true" />
+      {review.ownerReply ? (
+        <div className="rounded-ds-inner border border-solid border-ds-ink bg-ds-surface-sunken p-4">
+          <p className="ds-body-s-strong text-ds-ink">
             Reply from {hostel?.name || 'the owner'}
-            {review.ownerRepliedAt && (
-              <span className="font-normal text-brand-800/70 dark:text-brand-300/70">
-                {timeAgo(review.ownerRepliedAt)}
-              </span>
-            )}
+            {review.ownerRepliedAt ? (
+              <span className="ds-body-s text-ds-ink-muted"> {timeAgo(review.ownerRepliedAt)}</span>
+            ) : null}
           </p>
-          <p className="mt-1.5 text-sm text-brand-900 text-pretty dark:text-brand-100">
-            {review.ownerReply}
-          </p>
+          <p className="ds-body-m mt-1.5 text-pretty text-ds-ink">{review.ownerReply}</p>
         </div>
-      )}
+      ) : null}
 
-      <div className="mt-4 flex flex-wrap gap-2">
-        <Button variant="secondary" size="sm" onClick={onEdit}>
-          <Pencil className="size-4" aria-hidden="true" />
+      <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+        <Button variant="secondary" onClick={onEdit} className="sm:flex-1">
           Edit
         </Button>
-        <Button variant="ghost" size="sm" onClick={onDelete}>
-          <Trash2 className="size-4" aria-hidden="true" />
+        <Button variant="secondary" onClick={onDelete} className="sm:flex-1">
           Delete
         </Button>
       </div>
-    </Card>
+    </article>
   );
 }

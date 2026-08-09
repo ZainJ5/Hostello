@@ -8,8 +8,14 @@ const WORDS = ['', 'Poor', 'Fair', 'Good', 'Very good', 'Excellent'];
 
 /**
  * Star picker built on a native radio group, so arrow keys, Space and screen
- * readers all work without a single custom key handler. The visible label
- * spells the score out in words as well as stars, never colour or shape alone.
+ * readers all work without a single custom key handler.
+ *
+ * Solid ink for a star that counts, a hollow keyline for one that does not,
+ * which is the same grammar as the badge, the filter chip and the bed strip.
+ * There is no gold here: the palette carries chrome yellow for actions only,
+ * and a yellow star at 1.90:1 on white would not be perceivable anyway. The
+ * score is spelled out in words beside the row, so the reading never depends
+ * on the drawing.
  */
 export default function StarInput({
   name,
@@ -23,21 +29,17 @@ export default function StarInput({
   const groupId = useId();
   const [hover, setHover] = useState(0);
   const shown = hover || value;
-  const px = size === 'sm' ? 'size-5' : 'size-8';
+  const px = size === 'sm' ? 'size-5' : 'size-7';
 
   return (
-    <fieldset className="space-y-1.5">
-      <legend className="block text-sm font-medium text-foreground">
+    <fieldset className="flex flex-col gap-1.5">
+      <legend className="ds-body-s-strong text-ds-ink">
         {label}
-        {required && (
-          <span className="ml-0.5 text-danger" aria-hidden="true">
-            *
-          </span>
-        )}
+        {required ? <span className="text-ds-ink-muted"> (required)</span> : null}
       </legend>
 
-      <div className="flex items-center gap-3" onMouseLeave={() => setHover(0)}>
-        <div className="flex items-center gap-0.5">
+      <div className="flex flex-wrap items-center gap-3" onMouseLeave={() => setHover(0)}>
+        <div className="flex items-center">
           {[1, 2, 3, 4, 5].map((n) => (
             <label
               key={n}
@@ -45,9 +47,8 @@ export default function StarInput({
               onMouseEnter={() => setHover(n)}
               title={WORDS[n]}
               className={cn(
-                'grid size-11 cursor-pointer place-items-center rounded-lg transition-[background-color,transform] duration-200',
-                'hover:bg-muted has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ring',
-                shown >= n && 'scale-105'
+                'ds-tap grid cursor-pointer place-items-center rounded-ds-inner',
+                'has-focus-visible:outline-2 has-focus-visible:-outline-offset-2 has-focus-visible:outline-ds-cobalt'
               )}
             >
               <input
@@ -62,10 +63,8 @@ export default function StarInput({
               <Star
                 className={cn(
                   px,
-                  'transition-colors duration-200',
-                  shown >= n
-                    ? 'text-accent-400'
-                    : 'text-slate-300 dark:text-slate-600'
+                  'transition-colors duration-150 motion-reduce:transition-none',
+                  shown >= n ? 'text-ds-ink' : 'text-ds-control'
                 )}
                 fill={shown >= n ? 'currentColor' : 'none'}
                 aria-hidden="true"
@@ -76,22 +75,16 @@ export default function StarInput({
             </label>
           ))}
         </div>
-        <span
-          className={cn(
-            'text-sm font-medium',
-            shown ? 'text-foreground' : 'text-muted-foreground'
-          )}
-        >
-          {shown ? `${shown}/5 · ${WORDS[shown]}` : 'Tap a star'}
+        <span className={cn('ds-body-m', shown ? 'text-ds-ink' : 'text-ds-ink-muted')}>
+          {shown ? `${shown} of 5, ${WORDS[shown]}` : 'Pick a star'}
         </span>
       </div>
 
-      {error && (
-        <p className="flex items-start gap-1 text-xs text-danger" role="alert">
-          <span aria-hidden="true">⚠</span>
+      {error ? (
+        <p className="ds-body-s text-ds-error" role="alert">
           {error}
         </p>
-      )}
+      ) : null}
     </fieldset>
   );
 }

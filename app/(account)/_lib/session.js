@@ -7,18 +7,23 @@ import User from '@/models/User';
 const ALLOWED_ROLES = ['student', 'owner', 'admin'];
 
 /**
- * Page-level guard for `/dashboard/**`.
+ * Page-level guard for `/account/**`.
  *
- * `proxy.js` already blocks these routes, but a proxy is a convenience, not a
- * security boundary: a route that renders a student's bookings must prove for
- * itself who is asking. Every page in this group calls this first and then
- * scopes every query by the id it returns, so one student's session can never
- * read another's rows.
+ * This is the authorisation boundary and always was: a route that renders a
+ * student's own rows must prove for itself who is asking. Every page in this
+ * group calls this first and then scopes every query by the id it returns, so
+ * one student's session can never read another's rows.
+ *
+ * NOTE. `proxy.js` still matches `/dashboard/:path*` and not `/account/:path*`,
+ * because the proxy is outside this agent's scope. Nothing is unprotected,
+ * since the guard below runs in the layout before any page fetches anything,
+ * but the optimistic pre-render check no longer fires for these routes. The
+ * matcher needs `/account/:path*` adding centrally.
  *
  * Redirects (rather than throwing a 403) so a signed-out student lands on the
  * login form and is returned to the page they wanted.
  */
-export async function requireStudentSession(nextPath = '/dashboard') {
+export async function requireStudentSession(nextPath = '/account') {
   const session = await getSession();
   if (!session) redirect(`/login?next=${encodeURIComponent(nextPath)}`);
   if (!ALLOWED_ROLES.includes(session.role)) redirect('/');
@@ -30,7 +35,7 @@ export async function requireStudentSession(nextPath = '/dashboard') {
  * the database rather than the JWT so an edit made a second ago is reflected
  * immediately instead of after the next sign-in.
  */
-export async function requireStudentUser(nextPath = '/dashboard', fields = '') {
+export async function requireStudentUser(nextPath = '/account', fields = '') {
   const session = await requireStudentSession(nextPath);
   await connectDB();
 

@@ -1,278 +1,185 @@
 import Link from 'next/link';
-import {
-  ArrowRight,
-  Bookmark,
-  CalendarCheck,
-  ChevronRight,
-  Clock,
-  Compass,
-  Sparkles,
-  Star,
-} from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card, { CardBody, CardHeader, StatCard } from '@/components/ui/Card';
-import { StatusBadge } from '@/components/ui/Badge';
-import { EmptyState } from '@/components/ui/Feedback';
-import HostelImage from '@/components/ui/HostelImage';
-import HostelCardWithSave from '@/components/student/HostelCardWithSave';
-import ProfilePrompt from '@/components/student/ProfilePrompt';
-import { HOSTEL_CARD_FIELDS, formatDuration } from '@/components/student/constants';
+import Button from '@/components/ds/Button';
+import { Alert, EmptyState } from '@/components/ds/Feedback';
+import AccountPage from '@/components/student/AccountPage';
 import { connectDB } from '@/lib/db';
-import { formatDate, serialize, timeAgo } from '@/lib/utils';
 import Booking from '@/models/Booking';
 import Hostel from '@/models/Hostel';
 import Review from '@/models/Review';
-import { getRecommendations } from '../_lib/recommendations';
 import { requireStudentUser } from '../_lib/session';
+import { SAVED_ROW_FIELDS, savedRowMeta } from '../_lib/rows';
 
 export const metadata = { title: 'Overview' };
 
-export default async function OverviewPage() {
-  const { user } = await requireStudentUser('/dashboard');
+/**
+ * The account index.
+ *
+ * The design file has no frame for this route, which is a gap in the file
+ * rather than permission to delete a working page: every other account frame
+ * carries a breadcrumb whose middle crumb is "Account", so the file expects
+ * this page to exist. It is composed entirely from what is already built, the
+ * ds primitives plus the compact saved row the account-saved frame draws, and
+ * introduces no new pattern.
+ *
+ * NO ZERO COUNTERS. `Review` and `Booking` are both empty on a fresh
+ * production database, so a figure on those rows would read 0 on day one for
+ * every student. Each row renders a figure only when there is something to
+ * count and a sentence when there is not, which is the same rule the rest of
+ * the site follows about absent data.
+ *
+ * The previous version of this page also carried a "Recommended for you"
+ * shelf. It is gone, along with `_lib/recommendations.js`: the account area is
+ * the record of what you have done, browse is where listings are chosen, and
+ * the header carries Browse hostels on every page of the site.
+ */
+export default async function AccountOverviewPage() {
+  const { user } = await requireStudentUser('/account');
   await connectDB();
 
   const studentId = user._id;
   const savedIds = (user.savedHostels || []).map(String);
 
-  const [confirmedCount, pendingCount, reviewCount, savedHostels, recentBookings] =
-    await Promise.all([
-      Booking.countDocuments({ studentId, status: 'confirmed' }),
-      Booking.countDocuments({ studentId, status: 'pending' }),
-      Review.countDocuments({ studentId }),
-      savedIds.length
-        ? Hostel.find({ _id: { $in: savedIds }, status: 'published' })
-            .select(HOSTEL_CARD_FIELDS)
-            .lean()
-        : [],
-      Booking.find({ studentId })
-        .sort({ createdAt: -1 })
-        .limit(4)
-        .populate('hostelId', 'name slug city area images')
-        .lean(),
-    ]);
+  const [enquiryCount, reviewCount, savedHostels] = await Promise.all([
+    Booking.countDocuments({ studentId }),
+    Review.countDocuments({ studentId }),
+    savedIds.length
+      ? Hostel.find({ _id: { $in: savedIds }, status: 'published' })
+          .select(SAVED_ROW_FIELDS)
+          .lean()
+      : [],
+  ]);
 
-  // Most recently saved first, because `savedHostels` is append-ordered.
+  // `savedHostels` is append-ordered, so reversing gives most-recent-first.
   const order = new Map(savedIds.map((id, i) => [id, i]));
-  const savedSorted = [...savedHostels].sort(
+  const saved = [...savedHostels].sort(
     (a, b) => order.get(String(b._id)) - order.get(String(a._id))
   );
 
-  const { items: recommended, reason } = await getRecommendations({
-    university: user.university,
-    city: user.city,
-    excludeIds: savedIds,
-    limit: 3,
-  });
-
-  const missing = [
-    !user.university && 'university',
-    !user.city && 'city',
-  ].filter(Boolean);
-
   const firstName = String(user.name || '').split(' ')[0] || 'there';
 
+  const rows = [
+    {
+      label: 'Saved hostels',
+      count: saved.length,
+      empty: 'Nothing saved yet',
+      href: '/account/saved',
+      cta: 'Open your shortlist',
+    },
+    {
+      label: 'Enquiries sent',
+      count: enquiryCount,
+      empty: 'None sent yet',
+      href: '/account/enquiries',
+      cta: 'See who you contacted',
+    },
+    {
+      label: 'Reviews written',
+      count: reviewCount,
+      empty: 'None written yet',
+      href: '/account/reviews',
+      cta: 'Write or edit a review',
+    },
+  ];
+
   return (
-    <div className="space-y-8">
-      <header>
-        <h1 className="text-h2 text-foreground">
-          Welcome back, <span className="text-brand-700 dark:text-brand-400">{firstName}</span>
-        </h1>
-        <p className="mt-1.5 text-sm text-muted-foreground text-pretty">
-          Track your booking requests, revisit saved hostels and share what your stay was
-          really like.
-        </p>
-      </header>
+    <AccountPage
+      title={`Hello, ${firstName}`}
+      lead="Your shortlist, the owners you have contacted and the reviews you have left. Nothing here is visible to a hostel owner unless you contacted them."
+    >
+      <div className="flex flex-col gap-8">
+        {!user.university ? (
+          <Alert title="Set your university">
+            Every distance on the site is measured from your campus, and without one the
+            saved list cannot say how far anything is.{' '}
+            <Link
+              href="/account/profile"
+              className="text-ds-cobalt underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
+            >
+              Add it to your profile
+            </Link>
+            .
+          </Alert>
+        ) : null}
 
-      {missing.length > 0 && <ProfilePrompt missing={missing} />}
-
-      <section aria-label="Your activity">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard
-            label="Active bookings"
-            value={confirmedCount}
-            icon={CalendarCheck}
-            hint={confirmedCount ? 'Confirmed by the owner' : 'None confirmed yet'}
-          />
-          <StatCard
-            label="Pending requests"
-            value={pendingCount}
-            icon={Clock}
-            hint={pendingCount ? 'Awaiting an owner reply' : 'Nothing waiting'}
-          />
-          <StatCard
-            label="Saved hostels"
-            value={savedSorted.length}
-            icon={Bookmark}
-            hint={savedSorted.length ? 'Shortlisted for later' : 'Nothing saved yet'}
-          />
-          <StatCard
-            label="Reviews written"
-            value={reviewCount}
-            icon={Star}
-            hint={reviewCount ? 'Thanks for helping others' : 'Share your experience'}
-          />
-        </div>
-      </section>
-
-      <section aria-labelledby="recent-requests">
-        <Card>
-          <CardHeader
-            title={<span id="recent-requests">Your booking requests</span>}
-            description="The most recent requests you have sent to hostel owners."
-            action={
-              recentBookings.length > 0 ? (
-                <Button href="/dashboard/bookings" variant="ghost" size="sm">
-                  View all
-                  <ChevronRight className="size-4" aria-hidden="true" />
-                </Button>
-              ) : null
-            }
-          />
-          <CardBody>
-            {recentBookings.length === 0 ? (
-              <EmptyState
-                icon={CalendarCheck}
-                title="No requests yet"
-                description="When you find a hostel you like, send the owner a request and track their reply here."
-                action={
-                  <Button href="/hostels" variant="primary">
-                    <Compass className="size-4" aria-hidden="true" />
-                    Browse hostels
-                  </Button>
+        <section aria-labelledby="activity-heading" className="flex flex-col gap-3">
+          <h2 id="activity-heading" className="ds-display-m text-ds-ink">
+            Where you are up to
+          </h2>
+          <ul className="ds-elevated flex flex-col rounded-ds-inner">
+            {rows.map((row, i) => (
+              <li
+                key={row.label}
+                className={
+                  i > 0
+                    ? 'flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-solid border-ds-hairline p-4'
+                    : 'flex flex-wrap items-center justify-between gap-x-4 gap-y-2 p-4'
                 }
-              />
-            ) : (
-              <ul className="divide-y divide-border">
-                {recentBookings.map((booking) => {
-                  const hostel = booking.hostelId;
-                  return (
-                    <li key={String(booking._id)} className="first:pt-0 last:pb-0 py-3">
-                      <Link
-                        href={
-                          hostel?.slug
-                            ? `/hostels/${hostel.slug}`
-                            : '/dashboard/bookings'
-                        }
-                        className="group flex cursor-pointer items-center gap-3 rounded-xl p-2 transition-colors duration-200 hover:bg-muted focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring sm:gap-4"
-                      >
-                        <div className="relative size-14 shrink-0 overflow-hidden rounded-xl sm:size-16">
-                          <HostelImage
-                            src={hostel?.images?.[0]}
-                            name={hostel?.name}
-                            alt={hostel?.name || 'Hostel'}
-                            sizes="64px"
-                          />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-semibold text-foreground group-hover:text-brand-700 dark:group-hover:text-brand-400">
-                            {hostel?.name || 'Listing removed'}
-                          </p>
-                          <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                            {[
-                              booking.roomType,
-                              booking.moveInDate
-                                ? `Move-in ${formatDate(booking.moveInDate)}`
-                                : null,
-                              formatDuration(booking.durationMonths),
-                            ]
-                              .filter(Boolean)
-                              .join(' · ')}
-                          </p>
-                          <p className="mt-0.5 text-xs text-muted-foreground">
-                            Requested {timeAgo(booking.createdAt)}
-                          </p>
-                        </div>
-                        <div className="flex shrink-0 items-center gap-2">
-                          <StatusBadge status={booking.status} />
-                          <ChevronRight
-                            className="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5"
-                            aria-hidden="true"
-                          />
-                        </div>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </CardBody>
-        </Card>
-      </section>
-
-      <section aria-labelledby="saved-heading">
-        <div className="mb-4 flex items-end justify-between gap-4">
-          <div>
-            <h2 id="saved-heading" className="text-h3 text-foreground">
-              Saved hostels
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Your shortlist, ready when you are.
-            </p>
-          </div>
-          {savedSorted.length > 0 && (
-            <Button href="/dashboard/saved" variant="ghost" size="sm">
-              See all {savedSorted.length}
-              <ChevronRight className="size-4" aria-hidden="true" />
-            </Button>
-          )}
-        </div>
-
-        {savedSorted.length === 0 ? (
-          <EmptyState
-            icon={Bookmark}
-            title="Nothing saved yet"
-            description="Tap the heart on any listing to keep it here while you compare."
-            action={
-              <Button href="/hostels" variant="primary">
-                <Compass className="size-4" aria-hidden="true" />
-                Start browsing
-              </Button>
-            }
-          />
-        ) : (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {savedSorted.slice(0, 3).map((hostel) => (
-              <HostelCardWithSave
-                key={String(hostel._id)}
-                hostel={serialize(hostel)}
-                initialSaved
-              />
-            ))}
-          </div>
-        )}
-      </section>
-
-      {recommended.length > 0 && (
-        <section aria-labelledby="recommended-heading">
-          <div className="mb-4 flex items-end justify-between gap-4">
-            <div>
-              <h2
-                id="recommended-heading"
-                className="flex items-center gap-2 text-h3 text-foreground"
               >
-                <Sparkles className="size-5 text-accent-500" aria-hidden="true" />
-                Recommended for you
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">{reason}</p>
-            </div>
-            <Button href="/hostels" variant="ghost" size="sm">
-              Explore more
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </Button>
-          </div>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Recommendations exclude saved listings by construction, so the
-                heart always starts empty here. */}
-            {recommended.map((hostel) => (
-              <HostelCardWithSave
-                key={String(hostel._id)}
-                hostel={serialize(hostel)}
-                initialSaved={false}
-              />
+                <div className="min-w-0">
+                  <p className="ds-body-m-strong text-ds-ink">{row.label}</p>
+                  {row.count > 0 ? (
+                    <p className="ds-figure-l text-ds-ink">{row.count}</p>
+                  ) : (
+                    <p className="ds-body-s text-ds-ink-muted">{row.empty}</p>
+                  )}
+                </div>
+                <Link
+                  href={row.href}
+                  className="ds-body-m ds-tap inline-flex items-center rounded-ds-inner text-ds-cobalt underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ds-cobalt"
+                >
+                  {row.cta}
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
-      )}
-    </div>
+
+        <section aria-labelledby="saved-heading" className="flex flex-col gap-3">
+          <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
+            <h2 id="saved-heading" className="ds-display-m text-ds-ink">
+              Your shortlist
+            </h2>
+            {saved.length > 3 ? (
+              <Link
+                href="/account/saved"
+                className="ds-body-m ds-tap inline-flex items-center rounded-ds-inner text-ds-cobalt underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ds-cobalt"
+              >
+                All {saved.length} saved
+              </Link>
+            ) : null}
+          </div>
+
+          {saved.length === 0 ? (
+            <EmptyState
+              title="Nothing saved yet"
+              body="Save a hostel from its listing and it waits here while you compare. Saving tells the owner nothing and holds no room."
+              action={<Button href="/hostels">Browse hostels</Button>}
+            />
+          ) : (
+            <ul className="flex flex-col gap-3">
+              {saved.slice(0, 3).map((hostel) => {
+                const meta = savedRowMeta(hostel, user.university);
+                return (
+                  <li
+                    key={String(hostel._id)}
+                    className="ds-elevated flex flex-col gap-1 rounded-ds-inner p-4"
+                  >
+                    <h3 className="ds-display-s text-ds-ink">
+                      <Link
+                        href={`/hostels/${hostel.slug}`}
+                        className="underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
+                      >
+                        {hostel.name}
+                      </Link>
+                    </h3>
+                    {meta ? <p className="ds-body-s text-ds-ink-muted">{meta}</p> : null}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </section>
+      </div>
+    </AccountPage>
   );
 }

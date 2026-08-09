@@ -1,23 +1,23 @@
 import { connectDB } from '@/lib/db';
-import { serialize } from '@/lib/utils';
 import Hostel from '@/models/Hostel';
+import AccountPage from '@/components/student/AccountPage';
 import SavedGrid from '@/components/student/SavedGrid';
-import { HOSTEL_CARD_FIELDS } from '@/components/student/constants';
 import { requireStudentUser } from '../../_lib/session';
+import { SAVED_ROW_FIELDS, toSavedRow } from '../../_lib/rows';
 
 export const metadata = { title: 'Saved hostels' };
 
 export default async function SavedPage() {
-  const { user } = await requireStudentUser('/dashboard/saved', 'savedHostels');
+  const { user } = await requireStudentUser('/account/saved', 'savedHostels university');
   await connectDB();
 
   const ids = (user.savedHostels || []).map(String);
 
-  // Only published listings: a suspended one would render as a dead card the
+  // Only published listings: a suspended one would render as a dead row the
   // student can't act on.
   const rows = ids.length
     ? await Hostel.find({ _id: { $in: ids }, status: 'published' })
-        .select(HOSTEL_CARD_FIELDS)
+        .select(SAVED_ROW_FIELDS)
         .lean()
     : [];
 
@@ -27,23 +27,20 @@ export default async function SavedPage() {
   rows.sort((a, b) => order.get(String(b._id)) - order.get(String(a._id)));
 
   return (
-    <div className="space-y-6">
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-h2 text-foreground">Saved hostels</h1>
-          <p className="mt-1.5 text-sm text-muted-foreground text-pretty">
-            Your shortlist. Compare them side by side, then send a request when you are
-            ready.
+    <AccountPage
+      title="Saved hostels"
+      lead="Kept in the order you saved them. Saving tells the owner nothing and holds no room."
+      current="Saved hostels"
+    >
+      <div className="flex flex-col gap-4">
+        <SavedGrid hostels={rows.map((row) => toSavedRow(row, user.university))} />
+        {rows.length ? (
+          <p className="ds-body-s text-ds-ink-muted">
+            Distances are a straight line to your campus, so the walk is always longer.
+            Set your university on the profile page if the distance is missing.
           </p>
-        </div>
-        {rows.length > 0 && (
-          <p className="tabular text-sm text-muted-foreground">
-            {rows.length} saved
-          </p>
-        )}
-      </header>
-
-      <SavedGrid hostels={serialize(rows)} />
-    </div>
+        ) : null}
+      </div>
+    </AccountPage>
   );
 }

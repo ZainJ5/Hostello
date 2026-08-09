@@ -9,7 +9,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { CircleAlert, CircleCheck, Info, TriangleAlert, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 /**
@@ -28,25 +28,14 @@ export function useToast() {
   return useContext(ToastContext);
 }
 
-const TONES = {
-  success: {
-    icon: CircleCheck,
-    ring: 'border-success/30',
-    accent: 'text-success dark:text-emerald-300',
-  },
-  danger: {
-    icon: CircleAlert,
-    ring: 'border-danger/30',
-    accent: 'text-danger dark:text-red-300',
-  },
-  warning: {
-    icon: TriangleAlert,
-    ring: 'border-warning/30',
-    accent: 'text-warning dark:text-amber-300',
-  },
-  info: { icon: Info, ring: 'border-info/30', accent: 'text-info dark:text-sky-300' },
-};
-
+/**
+ * The 2026 palette carries one status colour, `error`, so a toast is not
+ * colour coded four ways. `danger` takes the error keyline and an error
+ * coloured title; every other tone is an ordinary surface with an ink title.
+ * The title always says what happened in words, which is what the reading
+ * depends on. The tone names are unchanged, because callers outside the
+ * account area pass them.
+ */
 let seq = 0;
 
 export function ToastProvider({ children }) {
@@ -105,43 +94,44 @@ export function ToastProvider({ children }) {
 }
 
 function ToastRow({ toast, onDismiss }) {
-  const tone = TONES[toast.tone] || TONES.info;
-  const Icon = tone.icon;
+  const isError = toast.tone === 'danger';
 
   return (
     <div
       role="status"
       className={cn(
-        'animate-scale-in pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-[var(--radius-card)] border bg-surface p-4 shadow-lg',
-        tone.ring
+        'animate-scale-in pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-ds-inner border border-solid bg-ds-surface-raised p-4',
+        isError ? 'border-ds-error' : 'border-ds-hairline'
       )}
+      style={{ boxShadow: 'var(--ds-shadow-menu)' }}
     >
-      <Icon className={cn('mt-0.5 size-5 shrink-0', tone.accent)} aria-hidden="true" />
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-semibold text-foreground">{toast.title}</p>
-        {toast.description && (
-          <p className="mt-0.5 text-sm text-muted-foreground text-pretty">
+        <p className={cn('ds-body-m-strong', isError ? 'text-ds-error' : 'text-ds-ink')}>
+          {toast.title}
+        </p>
+        {toast.description ? (
+          <p className="ds-body-s mt-0.5 text-pretty text-ds-ink-muted">
             {toast.description}
           </p>
-        )}
-        {toast.action && (
+        ) : null}
+        {toast.action ? (
           <button
             type="button"
             onClick={() => {
               onDismiss();
               toast.action.onClick();
             }}
-            className="mt-2 inline-flex h-8 cursor-pointer items-center rounded-lg px-2.5 text-sm font-semibold text-brand-700 transition-colors duration-200 hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring dark:text-brand-300 dark:hover:bg-brand-950"
+            className="ds-body-m-strong ds-tap inline-flex cursor-pointer items-center justify-start rounded-ds-inner text-ds-cobalt underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ds-cobalt"
           >
             {toast.action.label}
           </button>
-        )}
+        ) : null}
       </div>
       <button
         type="button"
         onClick={onDismiss}
         aria-label="Dismiss notification"
-        className="-m-1.5 grid size-8 shrink-0 cursor-pointer place-items-center rounded-lg text-muted-foreground transition-colors duration-200 hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        className="-m-2 grid size-11 shrink-0 cursor-pointer place-items-center rounded-ds-inner text-ds-ink-muted transition-colors duration-150 hover:text-ds-ink focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ds-cobalt motion-reduce:transition-none"
       >
         <X className="size-4" aria-hidden="true" />
       </button>

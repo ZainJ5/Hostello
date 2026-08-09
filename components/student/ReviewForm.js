@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Button from '@/components/ui/Button';
-import { Input, Select, Textarea } from '@/components/ui/Field';
-import { Alert } from '@/components/ui/Feedback';
+import Button from '@/components/ds/Button';
+import { Alert } from '@/components/ds/Feedback';
+import { SelectInput, TextArea, TextInput } from '@/components/auth/Field';
 import Drawer from './Drawer';
 import StarInput from './StarInput';
 import { MIN_REVIEW_LENGTH, REVIEW_SUBSCORES } from './constants';
@@ -128,18 +128,18 @@ export default function ReviewForm({ open, onClose, hostel, review, onSaved }) {
           <Button variant="secondary" onClick={onClose} disabled={saving}>
             Cancel
           </Button>
-          <Button type="submit" form="review-form" variant="primary" loading={saving}>
+          <Button type="submit" form="review-form" loading={saving}>
             {editing ? 'Save changes' : 'Publish review'}
           </Button>
         </div>
       }
     >
-      <form id="review-form" onSubmit={submit} className="space-y-5" noValidate>
-        {error && (
-          <Alert tone="danger" title="That didn't save">
+      <form id="review-form" onSubmit={submit} className="flex flex-col gap-5" noValidate>
+        {error ? (
+          <Alert tone="error" title="That did not save">
             {error}
           </Alert>
-        )}
+        ) : null}
 
         <StarInput
           name="rating"
@@ -149,40 +149,40 @@ export default function ReviewForm({ open, onClose, hostel, review, onSaved }) {
           error={errors.rating}
         />
 
-        <Input
+        <TextInput
           label="Headline"
           value={form.title}
           onChange={(e) => set('title', e.target.value)}
           maxLength={120}
-          placeholder="Clean rooms, great WiFi, strict gate timing"
+          placeholder="Clean rooms, good WiFi, strict gate timing"
           hint="Optional. One line other students will scan first."
           error={errors.title}
         />
 
-        <Textarea
+        <TextArea
           label="Your review"
           required
           rows={6}
           value={form.comment}
           onChange={(e) => set('comment', e.target.value)}
           maxLength={2000}
-          placeholder="What were the rooms, food, security and management actually like? Anything you wish you had known before moving in?"
+          placeholder="What were the rooms, the food, the security and the management actually like? Anything you wish you had known before moving in?"
           error={errors.comment}
           hint={
             remaining > 0
               ? `${remaining} more character${remaining === 1 ? '' : 's'} to go`
-              : `${form.comment.length}/2000`
+              : `${form.comment.length} of 2000 characters`
           }
         />
 
-        <fieldset className="space-y-3">
-          <legend className="text-sm font-medium text-foreground">
+        <fieldset className="flex flex-col gap-3">
+          <legend className="ds-body-s-strong text-ds-ink">
             Score the details{' '}
-            <span className="font-normal text-muted-foreground">(optional)</span>
+            <span className="ds-body-s text-ds-ink-muted">(optional)</span>
           </legend>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {REVIEW_SUBSCORES.map((s) => (
-              <Select
+              <SelectInput
                 key={s.key}
                 label={s.label}
                 value={form[s.key]}
@@ -191,10 +191,10 @@ export default function ReviewForm({ open, onClose, hostel, review, onSaved }) {
                 <option value="">Not rated</option>
                 {[5, 4, 3, 2, 1].map((n) => (
                   <option key={n} value={n}>
-                    {n} / 5
+                    {n} of 5
                   </option>
                 ))}
-              </Select>
+              </SelectInput>
             ))}
           </div>
         </fieldset>

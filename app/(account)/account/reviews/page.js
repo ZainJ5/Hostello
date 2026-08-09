@@ -3,13 +3,14 @@ import { serialize } from '@/lib/utils';
 import Hostel from '@/models/Hostel';
 import Review from '@/models/Review';
 import { pendingReviewHostelIds } from '@/app/api/reviews/_lib/eligibility';
+import AccountPage from '@/components/student/AccountPage';
 import ReviewsClient from '@/components/student/ReviewsClient';
 import { requireStudentUser } from '../../_lib/session';
 
-export const metadata = { title: 'My reviews' };
+export const metadata = { title: 'Reviews' };
 
 export default async function ReviewsPage() {
-  const { user } = await requireStudentUser('/dashboard/reviews', 'name');
+  const { user } = await requireStudentUser('/account/reviews', 'name');
   await connectDB();
 
   const [reviews, pendingIds] = await Promise.all([
@@ -18,29 +19,24 @@ export default async function ReviewsPage() {
       .sort({ createdAt: -1 })
       .populate('hostelId', 'name slug city area images rating reviewCount')
       .lean(),
-    // Same rule the POST endpoint enforces: a confirmed or completed booking
-    // on a hostel they haven't reviewed yet.
+    // Same rule the POST endpoint enforces: a confirmed or completed enquiry
+    // on a hostel they have not reviewed yet.
     pendingReviewHostelIds(user._id),
   ]);
 
   const reviewable = pendingIds.length
     ? await Hostel.find({ _id: { $in: pendingIds }, status: 'published' })
-        .select('name slug city area images')
+        .select('name slug city area')
         .lean()
     : [];
 
   return (
-    <div className="space-y-6">
-      <header>
-        <h1 className="text-h2 text-foreground">My reviews</h1>
-        <p className="mt-1.5 text-sm text-muted-foreground text-pretty">
-          Reviews you have written, and the hostels you are eligible to review. Only
-          students with a confirmed or completed booking can review a hostel, and that
-          is what makes these worth reading.
-        </p>
-      </header>
-
+    <AccountPage
+      title="Reviews"
+      lead="What you told the next student. Only somebody an owner confirmed can review a hostel, which is what makes these worth reading."
+      current="Reviews"
+    >
       <ReviewsClient reviews={serialize(reviews)} reviewable={serialize(reviewable)} />
-    </div>
+    </AccountPage>
   );
 }

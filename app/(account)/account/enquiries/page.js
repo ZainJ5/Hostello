@@ -2,14 +2,15 @@ import { connectDB } from '@/lib/db';
 import { serialize } from '@/lib/utils';
 import Booking from '@/models/Booking';
 import { HOSTEL_FIELDS, redactContact } from '@/app/api/bookings/_lib/shape';
-import BookingsClient from '@/components/student/BookingsClient';
+import AccountPage from '@/components/student/AccountPage';
+import EnquiriesClient from '@/components/student/EnquiriesClient';
 import { BOOKING_STATUSES } from '@/components/student/constants';
 import { requireStudentUser } from '../../_lib/session';
 
-export const metadata = { title: 'My bookings' };
+export const metadata = { title: 'Enquiries' };
 
-export default async function BookingsPage({ searchParams }) {
-  const { user } = await requireStudentUser('/dashboard/bookings', 'name');
+export default async function EnquiriesPage({ searchParams }) {
+  const { user } = await requireStudentUser('/account/enquiries', 'name');
   const sp = await searchParams;
 
   await connectDB();
@@ -25,20 +26,16 @@ export default async function BookingsPage({ searchParams }) {
   const openId = typeof sp?.booking === 'string' ? sp.booking : null;
 
   return (
-    <div className="space-y-6">
-      <header>
-        <h1 className="text-h2 text-foreground">My bookings</h1>
-        <p className="mt-1.5 text-sm text-muted-foreground text-pretty">
-          Every request you have sent, with the owner&apos;s reply and their contact
-          details once a stay is confirmed.
-        </p>
-      </header>
-
-      <BookingsClient
+    <AccountPage
+      title="Enquiries"
+      lead="Who you contacted, when, and what they said back. Hostello records that the contact happened and never sees what you and the owner said on the phone."
+      current="Enquiries"
+    >
+      <EnquiriesClient
         bookings={serialize(rows.map(redactContact))}
         initialStatus={status}
         openId={openId}
       />
-    </div>
+    </AccountPage>
   );
 }

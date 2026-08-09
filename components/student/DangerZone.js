@@ -2,11 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ShieldAlert, TriangleAlert } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import { Alert } from '@/components/ui/Feedback';
-import { Input } from '@/components/ui/Field';
-import { cn } from '@/lib/utils';
+import Button from '@/components/ds/Button';
+import { Alert } from '@/components/ds/Feedback';
+import { TextInput } from '@/components/auth/Field';
+import OtpInput, { OTP_LENGTH } from '@/components/auth/OtpInput';
 import Drawer from './Drawer';
 import { useToast } from './Toast';
 
@@ -22,6 +21,11 @@ const CONFIRM_WORD = 'DELETE';
  * The typed confirmation word before step 1 exists so the destructive path
  * cannot be walked by muscle memory, and the warning is repeated at the point
  * of no return rather than only at the start.
+ *
+ * The trigger is a plain link in error colour rather than a filled red button.
+ * The palette has one status colour and no red fill, and the frame draws it as
+ * a link too. Everything that makes this hard to do by accident is behind the
+ * link, not on it.
  */
 export default function DangerZone({ email }) {
   const router = useRouter();
@@ -56,11 +60,11 @@ export default function DangerZone({ email }) {
       if (!res.ok) throw new Error(data.error || 'Could not send the confirmation code');
 
       setStep('code');
-      setNotice(`We sent a 6-digit code to ${email}. It expires in 10 minutes.`);
+      setNotice(`We sent a six digit code to ${email}. It expires in ten minutes.`);
       toast({
         tone: 'info',
         title: 'Confirmation code sent',
-        description: `Check ${email} for a 6-digit code.`,
+        description: `Check ${email} for a six digit code.`,
       });
     } catch (err) {
       setError(err.message || 'Something went wrong. Try again.');
@@ -72,7 +76,7 @@ export default function DangerZone({ email }) {
   async function deleteAccount() {
     setError('');
     if (!/^\d{6}$/.test(code)) {
-      setError('Enter the 6-digit code from your email');
+      setError('Enter the six digit code from your email');
       return;
     }
     setBusy(true);
@@ -96,35 +100,17 @@ export default function DangerZone({ email }) {
   }
 
   return (
-    <section
-      aria-labelledby="danger-zone-heading"
-      className="rounded-[var(--radius-panel)] border-2 border-danger/30 bg-danger-soft/30 dark:bg-danger/5"
-    >
-      <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-start sm:p-6">
-        <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-danger/10 text-danger">
-          <ShieldAlert className="size-5" aria-hidden="true" />
-        </span>
-        <div className="min-w-0 flex-1">
-          <h2 id="danger-zone-heading" className="text-base font-semibold text-danger">
-            Danger zone
-          </h2>
-          <p className="mt-1 text-sm text-foreground/80 text-pretty">
-            Deleting your account removes your profile, saved hostels and reviews.
-            Booking requests you have already sent stay with the hostel owner, without
-            your account attached. <strong className="font-semibold">This cannot be undone.</strong>
-          </p>
-        </div>
-        <Button
-          variant="danger"
-          className="shrink-0"
-          onClick={() => {
-            reset();
-            setOpen(true);
-          }}
-        >
-          Delete my account
-        </Button>
-      </div>
+    <>
+      <button
+        type="button"
+        onClick={() => {
+          reset();
+          setOpen(true);
+        }}
+        className="ds-body-m-strong ds-tap inline-flex cursor-pointer items-center justify-start self-start rounded-ds-inner text-ds-error underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ds-cobalt"
+      >
+        Delete your account
+      </button>
 
       <Drawer
         open={open}
@@ -134,7 +120,7 @@ export default function DangerZone({ email }) {
         description={
           step === 'confirm'
             ? 'This is permanent. Read it once more before you continue.'
-            : 'The final step. Once this code is accepted your account is gone.'
+            : 'The last step. Once this code is accepted the account is gone.'
         }
         footer={
           <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
@@ -143,7 +129,6 @@ export default function DangerZone({ email }) {
             </Button>
             {step === 'confirm' ? (
               <Button
-                variant="danger"
                 loading={busy}
                 disabled={word.trim().toUpperCase() !== CONFIRM_WORD}
                 onClick={requestCode}
@@ -151,48 +136,43 @@ export default function DangerZone({ email }) {
                 Email me a code
               </Button>
             ) : (
-              <Button
-                variant="danger"
-                loading={busy}
-                disabled={code.length !== 6}
-                onClick={deleteAccount}
-              >
+              <Button loading={busy} disabled={code.length !== OTP_LENGTH} onClick={deleteAccount}>
                 Delete permanently
               </Button>
             )}
           </div>
         }
       >
-        <div className="space-y-4">
-          <Alert tone="danger" title="This cannot be undone">
-            Your profile, saved hostels and every review you have written will be deleted.
-            You will be signed out immediately and cannot recover the account.
+        <div className="flex flex-col gap-4">
+          <Alert tone="error" title="This cannot be undone">
+            Your profile, your saved shortlist and every review you have written are
+            deleted. You are signed out immediately and the account cannot be recovered.
           </Alert>
 
-          {error && (
-            <Alert tone="danger" title="That didn't work">
+          {error ? (
+            <Alert tone="error" title="That did not work">
               {error}
             </Alert>
-          )}
+          ) : null}
 
           {step === 'confirm' ? (
             <>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <ul className="flex flex-col gap-2">
                 {[
                   'Your saved shortlist is erased.',
-                  'Your reviews are removed and hostel ratings recalculated.',
-                  'Owners keep the requests you already sent, without your account.',
+                  'Your reviews come off the listings and the ratings are recalculated.',
+                  'Owners keep the enquiries you already sent, without your account attached.',
                 ].map((line) => (
-                  <li key={line} className="flex items-start gap-2">
-                    <TriangleAlert
-                      className="mt-0.5 size-4 shrink-0 text-danger"
+                  <li key={line} className="ds-body-m flex items-start gap-2 text-ds-ink-muted">
+                    <span
                       aria-hidden="true"
+                      className="mt-2 size-1.5 shrink-0 rounded-full bg-ds-ink-muted"
                     />
                     <span className="text-pretty">{line}</span>
                   </li>
                 ))}
               </ul>
-              <Input
+              <TextInput
                 label={`Type ${CONFIRM_WORD} to continue`}
                 value={word}
                 onChange={(e) => setWord(e.target.value)}
@@ -204,35 +184,25 @@ export default function DangerZone({ email }) {
             </>
           ) : (
             <>
-              {notice && <Alert tone="info">{notice}</Alert>}
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="delete-code"
-                  className="block text-sm font-medium text-foreground"
-                >
-                  6-digit confirmation code
-                </label>
-                <input
-                  id="delete-code"
+              {notice ? <Alert title="Code sent">{notice}</Alert> : null}
+              <div className="flex flex-col gap-1.5">
+                <p className="ds-body-s-strong text-ds-ink">Confirmation code</p>
+                <OtpInput
                   value={code}
-                  onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                  inputMode="numeric"
-                  autoComplete="one-time-code"
-                  maxLength={6}
-                  aria-describedby="delete-code-hint"
-                  className={cn(
-                    'h-14 w-full rounded-xl border border-border bg-surface text-center font-mono text-2xl tracking-[0.5em] text-foreground',
-                    'transition-colors duration-200 hover:border-border-strong',
-                    'focus:border-danger focus:ring-4 focus:ring-danger/12 focus:outline-none'
-                  )}
+                  onChange={setCode}
+                  invalid={Boolean(error)}
+                  disabled={busy}
+                  autoFocus
+                  label="Account deletion code"
+                  describedBy="delete-code-hint"
                 />
-                <p id="delete-code-hint" className="text-xs text-muted-foreground">
-                  Didn&apos;t arrive?{' '}
+                <p id="delete-code-hint" className="ds-body-s text-ds-ink-muted">
+                  Not arrived?{' '}
                   <button
                     type="button"
                     onClick={requestCode}
                     disabled={busy}
-                    className="cursor-pointer font-medium text-brand-700 underline underline-offset-2 disabled:opacity-60 dark:text-brand-400"
+                    className="cursor-pointer text-ds-cobalt underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt disabled:text-ds-ink-muted"
                   >
                     Send another code
                   </button>
@@ -242,6 +212,6 @@ export default function DangerZone({ email }) {
           )}
         </div>
       </Drawer>
-    </section>
+    </>
   );
 }

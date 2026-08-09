@@ -1,73 +1,65 @@
-import Link from 'next/link';
-import { Compass } from 'lucide-react';
-import AccountMenu from '@/components/student/AccountMenu';
-import StudentNav from '@/components/student/StudentNav';
+import { getSession } from '@/lib/auth';
+import SiteHeader from '@/components/ds/SiteHeader';
+import SiteFooter from '@/components/ds/SiteFooter';
 import { ToastProvider } from '@/components/student/Toast';
-import { requireStudentUser } from './_lib/session';
 
 export const metadata = {
-  title: 'My account',
+  title: 'Account',
   robots: { index: false, follow: false },
 };
 
 /**
- * The student account shell.
+ * The account shell.
  *
- * Deliberately lighter than the owner and admin consoles: five sections don't
- * justify a persistent sidebar, so the chrome is one slim header plus a tab
- * rail that becomes a horizontal scroller on a phone. Everything below is the
- * student's own data, and the guard here runs before any of it is fetched.
+ * There is no separate account chrome any more. This is a website, not an app,
+ * so the account pages carry the same header and footer as every other page
+ * and the section rail lives inside the page, next to the content. The old
+ * sticky account header, its tab strip and its account menu are gone; the
+ * header's own signed-in state already carries the route in, and signing out
+ * moved to /account/settings where the frame puts it.
+ *
+ * THE GUARD IS NOT HERE, DELIBERATELY. A layout cannot know which path was
+ * requested, so a redirect thrown from here could only ever send a signed-out
+ * student back to /account and never to the page they were actually aiming
+ * for. Every page in this group calls `requireStudentUser` with its own path
+ * as the first thing it does, which both authorises the request and preserves
+ * the destination. That call is the authorisation boundary and it is not
+ * optional: a new page added to this group without it would render for anyone.
+ *
+ * The name comes from the session rather than the database, because it is the
+ * only field the header reads and `updateProfileAction` already re-issues the
+ * session whenever the name changes.
  */
-export default async function StudentLayout({ children }) {
-  const { user } = await requireStudentUser('/dashboard', 'name email avatar');
+
+// Duplicated verbatim from app/(public)/layout.js. It has to be inline and
+// synchronous to beat the first paint, and this route group does not nest
+// inside that one. The storage key matches THEME_STORAGE_KEY in
+// components/public/ThemeToggle.
+const THEME_SCRIPT = `(function(){try{var s=localStorage.getItem('hostello-theme');var d=s==='dark';var e=document.documentElement;e.classList.toggle('dark',d);e.style.colorScheme=d?'dark':'light';}catch(_){}})();`;
+
+export default async function AccountLayout({ children }) {
+  const session = await getSession();
+  const user = session ? { name: session.name || '', role: session.role || 'student' } : null;
 
   return (
     <ToastProvider>
-      <div className="flex min-h-dvh flex-col bg-surface-sunken">
-        <header className="sticky top-0 z-40 border-b border-border bg-surface/80 backdrop-blur-md">
-          <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
-            <Link
-              href="/"
-              className="flex shrink-0 cursor-pointer items-center gap-2 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-            >
-              <span className="font-display text-xl font-extrabold tracking-tight text-brand-700 dark:text-brand-400">
-                Hostello
-              </span>
-              <span className="hidden text-sm font-medium text-muted-foreground sm:inline">
-                Account
-              </span>
-            </Link>
+      <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
 
-            <div className="flex items-center gap-1.5">
-              <Link
-                href="/hostels"
-                className="hidden h-11 cursor-pointer items-center gap-2 rounded-xl px-3 text-sm font-medium text-muted-foreground transition-colors duration-200 hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:inline-flex"
-              >
-                <Compass className="size-4" aria-hidden="true" />
-                Browse hostels
-              </Link>
-              <AccountMenu name={user.name} email={user.email} avatar={user.avatar} />
-            </div>
+      <a
+        href="#main"
+        className="ds-body-m-strong sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:inline-flex focus:items-center focus:rounded-ds-inner focus:border focus:border-solid focus:border-ds-ink focus:bg-ds-primary focus:px-4 focus:text-ds-on-primary"
+      >
+        Skip to content
+      </a>
+
+      <div className="flex min-h-dvh flex-col bg-ds-surface text-ds-ink">
+        <SiteHeader user={user} />
+        <main id="main" className="flex-1">
+          <div className="mx-auto w-full max-w-[90rem] px-4 py-8 lg:px-20 lg:py-12">
+            {children}
           </div>
-
-          <StudentNav />
-        </header>
-
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 lg:py-10">
-          {children}
         </main>
-
-        <footer className="border-t border-border bg-surface">
-          <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
-            <p>© {new Date().getFullYear()} Hostello. Pakistan&apos;s student hostel finder</p>
-            <Link
-              href="/hostels"
-              className="cursor-pointer font-medium text-brand-700 transition-colors duration-200 hover:text-brand-800 dark:text-brand-400 dark:hover:text-brand-300"
-            >
-              Find a hostel
-            </Link>
-          </div>
-        </footer>
+        <SiteFooter />
       </div>
     </ToastProvider>
   );

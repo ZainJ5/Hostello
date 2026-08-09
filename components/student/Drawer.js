@@ -84,7 +84,7 @@ export default function Drawer({
       <div
         aria-hidden="true"
         onClick={close}
-        className="animate-fade-in absolute inset-0 bg-[var(--overlay)]"
+        className="animate-fade-in absolute inset-0 bg-ds-ink/60"
       />
       <div
         ref={panel}
@@ -94,27 +94,30 @@ export default function Drawer({
         aria-describedby={description ? descId : undefined}
         tabIndex={-1}
         className={cn(
-          'animate-scale-in relative flex max-h-[92dvh] w-full flex-col rounded-t-[var(--radius-panel)] border border-border bg-surface shadow-xl outline-none',
-          'sm:h-dvh sm:max-h-none sm:rounded-none sm:rounded-l-[var(--radius-panel)]',
+          // A sheet is one of the three surfaces the system lets carry a
+          // shadow. Cards never do.
+          'animate-scale-in relative flex max-h-[92dvh] w-full flex-col rounded-t-ds-control border border-solid border-ds-hairline bg-ds-surface-raised outline-none',
+          'sm:h-dvh sm:max-h-none sm:rounded-none sm:rounded-l-ds-control',
           widths[size] || widths.md
         )}
+        style={{ boxShadow: 'var(--ds-shadow-menu)' }}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-border p-5">
+        <div className="flex items-start justify-between gap-4 border-b border-solid border-ds-hairline p-5">
           <div className="min-w-0">
-            <h2 id={titleId} className="text-h3 truncate text-foreground">
+            <h2 id={titleId} className="ds-display-s truncate text-ds-ink">
               {title}
             </h2>
-            {description && (
-              <p id={descId} className="mt-1 text-sm text-muted-foreground text-pretty">
+            {description ? (
+              <p id={descId} className="ds-body-s mt-1 text-pretty text-ds-ink-muted">
                 {description}
               </p>
-            )}
+            ) : null}
           </div>
           <button
             type="button"
             onClick={close}
             aria-label="Close"
-            className="-m-1 grid size-11 shrink-0 cursor-pointer place-items-center rounded-xl text-muted-foreground transition-colors duration-200 hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            className="ds-tap -m-1 grid shrink-0 cursor-pointer place-items-center rounded-ds-inner text-ds-ink-muted transition-colors duration-150 hover:text-ds-ink focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ds-cobalt motion-reduce:transition-none"
           >
             <X className="size-5" aria-hidden="true" />
           </button>
@@ -122,9 +125,11 @@ export default function Drawer({
 
         <div className="min-h-0 flex-1 overflow-y-auto p-5">{children}</div>
 
-        {footer && (
-          <div className="border-t border-border bg-surface-sunken p-4 sm:p-5">{footer}</div>
-        )}
+        {footer ? (
+          <div className="border-t border-solid border-ds-hairline bg-ds-surface-sunken p-4 sm:p-5">
+            {footer}
+          </div>
+        ) : null}
       </div>
     </div>
   );

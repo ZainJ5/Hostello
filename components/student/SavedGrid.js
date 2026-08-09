@@ -1,20 +1,30 @@
 'use client';
 
 import { useCallback, useRef, useState, useTransition } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Bookmark, Compass, Trash2 } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import { EmptyState } from '@/components/ui/Feedback';
-import HostelCard from '@/components/public/HostelCard';
+import Button from '@/components/ds/Button';
+import { EmptyState } from '@/components/ds/Feedback';
 import { useToast } from './Toast';
 
 /**
- * The saved shortlist.
+ * The saved shortlist, as the account-saved frame draws it: a stack of compact
+ * rows, name, one meta line, then the actions. No photo, because the row is
+ * about deciding between listings you have already looked at.
+ *
+ * Two things in the frame are not built and are absent rather than faked:
+ *
+ *   the four stage strip  Saved, Family, Visit, Contacted. There is no
+ *                         shortlist stage on the model, nothing writes one,
+ *                         and drawing four segments would assert a stage the
+ *                         product does not hold.
+ *   Send to family        there is no share-to-family feature, and the Urdu
+ *                         family page it implies does not exist.
  *
  * Removing a card is optimistic: it disappears on click, the request follows,
- * and a toast offers Undo for five seconds. Undo restores the card at its
- * original index rather than appending it, so the grid doesn't reshuffle under
- * the student's eyes. A failed request rolls the card straight back and says so.
+ * and a toast offers Undo. Undo restores the row at its original index rather
+ * than appending it, so the list doesn't reshuffle under the student's eyes. A
+ * failed request rolls the row straight back and says so.
  */
 export default function SavedGrid({ hostels: initial }) {
   const router = useRouter();
@@ -71,7 +81,7 @@ export default function SavedGrid({ hostels: initial }) {
       });
       startTransition(() => router.refresh());
     } catch (err) {
-      // Roll the card back into the exact slot it left.
+      // Roll the row back into the exact slot it left.
       setHostels((list) => {
         const next = [...list];
         next.splice(Math.max(0, index), 0, hostel);
@@ -121,45 +131,63 @@ export default function SavedGrid({ hostels: initial }) {
   if (hostels.length === 0) {
     return (
       <EmptyState
-        icon={Bookmark}
         title="Your shortlist is empty"
-        description="Tap the heart on any listing and it will wait for you here while you compare prices, facilities and distance from campus."
-        action={
-          <Button href="/hostels" variant="primary" size="lg">
-            <Compass className="size-4" aria-hidden="true" />
-            Browse hostels
-          </Button>
-        }
+        body="Save a hostel from its listing and it waits for you here while you compare rents, facilities and distance from campus. Saving tells the owner nothing and holds no room."
+        action={<Button href="/hostels">Browse hostels</Button>}
       />
     );
   }
 
   return (
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="flex flex-col gap-4">
       {hostels.map((hostel) => (
-        <div key={String(hostel._id)} className="relative">
-          {/* Sits top-left so it can never collide with a card's own save
-              control, which by convention lives top-right. */}
-          <button
-            type="button"
-            onClick={() => remove(hostel)}
-            disabled={busy.has(String(hostel._id))}
-            aria-label={`Remove ${hostel.name} from saved`}
-            title="Remove from saved"
-            className="absolute top-3 left-3 z-10 grid size-11 cursor-pointer place-items-center rounded-full border border-border bg-surface/90 text-muted-foreground shadow-sm backdrop-blur transition-[color,background-color,transform,box-shadow] duration-200 hover:bg-surface hover:text-danger hover:shadow-md active:scale-95 disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-          >
-            {busy.has(String(hostel._id)) ? (
-              <span
-                aria-hidden="true"
-                className="size-4 animate-spin rounded-full border-2 border-current border-r-transparent"
-              />
-            ) : (
-              <Trash2 className="size-4" aria-hidden="true" />
-            )}
-          </button>
-          <HostelCard hostel={hostel} showSave={false} />
-        </div>
+        <li key={String(hostel._id)}>
+          <SavedRow
+            hostel={hostel}
+            busy={busy.has(String(hostel._id))}
+            onRemove={() => remove(hostel)}
+          />
+        </li>
       ))}
-    </div>
+    </ul>
+  );
+}
+
+function SavedRow({ hostel, busy, onRemove }) {
+  const phone = hostel.phone || '';
+
+  return (
+    <article className="ds-elevated flex flex-col gap-3 rounded-ds-inner p-4">
+      <h2 className="ds-display-s text-ds-ink">
+        <Link
+          href={`/hostels/${hostel.slug}`}
+          className="underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
+        >
+          {hostel.name}
+        </Link>
+      </h2>
+
+      {hostel.meta ? <p className="ds-body-s text-ds-ink-muted">{hostel.meta}</p> : null}
+
+      <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+        {phone ? (
+          <Button href={`tel:${phone}`} className="sm:flex-1">
+            Call the owner
+          </Button>
+        ) : null}
+        <Button href={`/hostels/${hostel.slug}`} variant="secondary" className="sm:flex-1">
+          View listing
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={onRemove}
+          loading={busy}
+          className="sm:flex-1"
+          aria-label={`Remove ${hostel.name} from saved`}
+        >
+          Remove
+        </Button>
+      </div>
+    </article>
   );
 }

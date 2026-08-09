@@ -1,35 +1,26 @@
 import { serialize } from '@/lib/utils';
-import DangerZone from '@/components/student/DangerZone';
-import PasswordForm from '@/components/student/PasswordForm';
+import AccountPage from '@/components/student/AccountPage';
 import ProfileForm from '@/components/student/ProfileForm';
 import { requireStudentUser } from '../../_lib/session';
-import { changePasswordAction, updateProfileAction } from './actions';
+import { updateProfileAction } from './actions';
 
 export const metadata = { title: 'Profile' };
 
 export default async function ProfilePage() {
   const { user } = await requireStudentUser(
-    '/dashboard/profile',
+    '/account/profile',
     'name email phone university city gender avatar'
   );
 
   return (
-    <div className="space-y-6">
-      <header>
-        <h1 className="text-h2 text-foreground">Profile</h1>
-        <p className="mt-1.5 text-sm text-muted-foreground text-pretty">
-          Keep your details current so owners can reach you and we can point you at the
-          right hostels.
-        </p>
-      </header>
-
-      <div className="space-y-6">
-        {/* Actions are passed down rather than imported by the client component,
-            so the form stays free of any server-only module graph. */}
-        <ProfileForm user={serialize(user)} action={updateProfileAction} />
-        <PasswordForm action={changePasswordAction} />
-        <DangerZone email={user.email} />
-      </div>
-    </div>
+    <AccountPage
+      title="Your profile"
+      lead="Hostel owners see only your name and your number, and only when you send them an enquiry. Your university sets every distance on the site."
+      current="Profile"
+    >
+      {/* The action is passed down rather than imported by the client
+          component, so the form stays free of any server-only module graph. */}
+      <ProfileForm user={serialize(user)} action={updateProfileAction} />
+    </AccountPage>
   );
 }
