@@ -381,14 +381,24 @@ export async function revealContact({ viewerStudentId, ownerStudentId, accepted 
   return row?.contact || '';
 }
 
-/** How many other students could even be considered, for the empty states. */
+/**
+ * How many other students could even be considered, for the empty states.
+ *
+ * This applies the same exclusion set as the match pipeline, and it has to.
+ * Counting without it told a blocked student they had been blocked: the count
+ * stayed at 1 while the list was empty, and the page then explained that the
+ * only candidate was somebody who had blocked them. A student who has blocked
+ * nobody can read that backwards. Blocking is silent in both directions, so
+ * the count has to be blind to the same people the list is.
+ */
 export async function countCandidates(me) {
   if (!me?.campus || !me?.gender) return 0;
   await connectDB();
+  const excluded = await excludedIds(me);
   return RoommateProfile.countDocuments({
     campus: me.campus,
     gender: me.gender,
-    studentId: { $ne: me.studentId },
+    studentId: { $nin: excluded },
     complete: true,
     visible: true,
   });
