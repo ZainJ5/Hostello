@@ -2,24 +2,25 @@
 
 import { memo, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, MapPin } from 'lucide-react';
-import Badge from '@/components/ui/Badge';
-import { Rating } from '@/components/ui/Feedback';
-import HostelImage from '@/components/ui/HostelImage';
+import Badge from '@/components/ds/Badge';
+import Chip from '@/components/ds/Chip';
+import PhotoSlot from '@/components/ds/PhotoSlot';
 import { formatPKR } from '@/lib/utils';
-import { formatDistance } from './filters';
-
-const GENDER_TONE = { Female: 'accent', Male: 'info', Mixed: 'brand' };
+import { distanceBand, formatKm } from '@/lib/distance';
 
 /**
  * Contents of the marker popup. Rendered through a React portal into the node
  * Leaflet owns, so `next/link` and `next/image` behave exactly as they do
  * anywhere else on the site.
+ *
+ * This is the listing card cut down to a popup: the same photo slot, the same
+ * verified badge, the same rent figure. Nothing here is a second visual
+ * language for the same object.
  */
 function PopupCard({ hostel, campus, onResize }) {
-  // Leaflet measures the popup when it opens, i.e. before React has filled the
-  // portal. Re-measure once the content is in the DOM and again when the photo
-  // settles, otherwise the tip sits off-centre.
+  // Leaflet measures the popup when it opens, which is before React has filled
+  // the portal. Re-measure once the content is in the DOM, otherwise the tip
+  // sits off centre.
   useEffect(() => {
     const id = requestAnimationFrame(() => onResize?.());
     return () => cancelAnimationFrame(id);
@@ -27,75 +28,53 @@ function PopupCard({ hostel, campus, onResize }) {
 
   if (!hostel) return null;
 
-  const photo = hostel.images?.[0] || '';
+  const photo = hostel.images?.[0] || null;
   const price = Number(hostel.price) || 0;
+  const km = Number(hostel.campusDistanceKm);
+  const distance = campus && Number.isFinite(km) ? formatKm(km) : null;
+  const band = distance ? distanceBand(km) : null;
 
   return (
-    <article className="relative w-[250px] text-left">
-      <div className="relative h-[116px] w-full overflow-hidden bg-muted">
-        <HostelImage
-          src={photo}
-          name={hostel.name}
-          alt={hostel.name}
-          fill
-          sizes="250px"
-          className="transition-transform duration-300"
-        />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-slate-950/55 to-transparent" />
-        <div className="absolute left-2.5 top-2.5 flex gap-1.5">
-          <Badge tone={GENDER_TONE[hostel.gender] || 'neutral'} size="sm" className="shadow-sm">
-            {hostel.gender}
-          </Badge>
-          {hostel.verified && (
-            <Badge tone="success" size="sm" className="shadow-sm">
-              Verified
-            </Badge>
-          )}
-        </div>
-      </div>
+    <article className="relative w-62.5 text-left">
+      <PhotoSlot src={photo} alt={hostel.name}>
+        <Badge variant={hostel.verified ? 'solid' : 'outline'}>
+          {hostel.verified ? 'Verified' : 'Not verified'}
+        </Badge>
+      </PhotoSlot>
 
-      <div className="p-3">
-        <h3 className="text-sm leading-snug font-semibold text-foreground">
+      <div className="flex flex-col gap-2 p-3">
+        <h3 className="ds-body-m-strong text-ds-ink">
           <Link
             href={`/hostels/${hostel.slug}`}
-            className="line-clamp-2 rounded-sm after:absolute after:inset-0 after:content-[''] hover:text-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring dark:hover:text-brand-300"
+            className="line-clamp-2 after:absolute after:inset-0 after:content-[''] hover:text-ds-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
           >
             {hostel.name}
           </Link>
         </h3>
 
-        {hostel.area && (
-          <p className="mt-1 flex items-start gap-1 text-xs text-muted-foreground">
-            <MapPin className="mt-px size-3 shrink-0" aria-hidden="true" />
-            <span className="line-clamp-1">{hostel.area}</span>
-          </p>
-        )}
+        {hostel.area ? (
+          <p className="ds-body-s line-clamp-1 text-ds-ink-muted">{hostel.area}</p>
+        ) : null}
 
-        <div className="mt-2">
-          {hostel.reviewCount > 0 ? (
-            <Rating value={hostel.rating} count={hostel.reviewCount} size="sm" />
-          ) : (
-            <span className="text-xs text-muted-foreground">No reviews yet</span>
-          )}
+        {distance ? (
+          <p className="ds-body-s text-ds-ink-muted">
+            {distance} to {campus.name}
+            {band ? `, ${band}` : ''}
+          </p>
+        ) : null}
+
+        <div aria-hidden="true" className="h-px w-full bg-ds-hairline" />
+
+        <div className="flex flex-col gap-1">
+          <p className="ds-figure-l text-ds-ink">
+            {price > 0 ? formatPKR(price) : 'Rent on request'}
+          </p>
+          <p className="ds-body-s text-ds-ink-muted">per month.</p>
         </div>
 
-        <div className="mt-2.5 flex items-end justify-between gap-2 border-t border-border pt-2.5">
-          <div className="min-w-0">
-            <p className="tabular text-sm font-bold text-foreground">
-              {price > 0 ? formatPKR(price) : 'Price on request'}
-            </p>
-            <p className="text-[11px] text-muted-foreground">
-              {campus && Number.isFinite(hostel.campusDistanceKm)
-                ? `${formatDistance(hostel.campusDistanceKm)} from ${campus.name}`
-                : 'per month'}
-            </p>
-          </div>
-          <span
-            aria-hidden="true"
-            className="grid size-7 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300"
-          >
-            <ArrowUpRight className="size-4" />
-          </span>
+        <div className="flex flex-wrap gap-1.5">
+          <Chip>{hostel.gender}</Chip>
+          {(hostel.facilities || []).includes('Meals') ? <Chip>Mess included</Chip> : null}
         </div>
       </div>
     </article>

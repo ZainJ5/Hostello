@@ -1,19 +1,12 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import {
-  Layers,
-  List,
-  LoaderCircle,
-  Map as MapIcon,
-  Maximize2,
-  Minus,
-  Plus,
-  Search,
-  TriangleAlert,
-} from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Button from '@/components/ds/Button';
+import { Alert, Spinner } from '@/components/ds/Feedback';
+import { DISTANCE_NOTE } from '@/lib/distance';
 // Loaded here rather than only inside the lazy canvas chunk, so the scroll
 // lock and the slider skin are present on the very first paint.
 import './map.css';
@@ -42,15 +35,53 @@ const MapCanvas = dynamic(() => import('./MapCanvas'), {
   loading: () => <MapCanvasSkeleton />,
 });
 
+/**
+ * DIVERGENCE FROM THE FRAME, RECORDED HERE BECAUSE IT IS THE BIG ONE.
+ *
+ * Figma map 98:7505 and 98:7845 draw an in-page map: a page header, a map of
+ * fixed height, the result list underneath it, then the footer. That frame has
+ * no bottom sheet at either width.
+ *
+ * The build keeps the viewport explorer, because the behaviour brief requires
+ * the draggable sheet with its three snap points, search as I move the map,
+ * search this area and the map and list segmented control, and every one of
+ * those needs the map to own the viewport. What the frame contributes instead
+ * is its composition and its chrome: the page header above the split, the rent
+ * legend, the provenance note, and the marker grammar where solid ink is a
+ * listing and yellow is the one being read.
+ *
+ * Everything else here is a restyle onto the 2026 tokens. No behaviour moved.
+ */
+
+/* Floating map chrome. Elevation is a keyline and a surface fill, not a
+   shadow: shadow belongs to the sheet and the popup. */
 const CONTROL_BUTTON = cn(
-  'grid size-11 cursor-pointer place-items-center rounded-xl border border-border',
-  'bg-surface/90 text-foreground shadow-md backdrop-blur-md',
-  'transition-[background-color,transform,box-shadow] duration-200',
-  'hover:bg-surface hover:shadow-lg active:scale-95',
-  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring'
+  'ds-tap grid cursor-pointer place-items-center',
+  'rounded-ds-inner border border-solid border-ds-control bg-ds-surface-raised text-ds-ink',
+  'transition-colors duration-150 motion-reduce:transition-none',
+  'hover:border-ds-cobalt',
+  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt'
 );
 
-export default function MapExplorer({ initialHostels = [], initialFilters }) {
+function Segment({ active, onClick, children }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      style={{ height: 'var(--ds-control-h)' }}
+      className={cn(
+        'ds-body-s inline-flex cursor-pointer items-center justify-center px-3.5',
+        'transition-colors duration-150 motion-reduce:transition-none focus:outline-none',
+        active ? 'bg-ds-ink text-ds-on-ink' : 'bg-ds-surface text-ds-ink'
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+
+export default function MapExplorer({ initialHostels = [], initialFilters, total = 0 }) {
   const rootRef = useRef(null);
   const mapRef = useRef(null);
 
@@ -89,8 +120,8 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
     return () => root.removeAttribute('data-hostello-map-open');
   }, []);
 
-  // The public layout owns the navbar, so its height is measured rather than
-  // assumed, and the map fills exactly what is left of the viewport.
+  // The public layout owns the site header, so its height is measured rather
+  // than assumed, and the map fills exactly what is left of the viewport.
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return undefined;
@@ -317,6 +348,25 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
   const activeCount = activeFilterCount(filters);
   const showSearchArea = !filters.live && areaDirty;
 
+  const degraded = (
+    <Alert title="Live search is unavailable">
+      Showing the listings already loaded, narrowed to this map view.
+    </Alert>
+  );
+
+  /* A pin is a claim about an address, not a live location. Said once on the
+     map, in both layouts, because it is the thing a student most reasonably
+     assumes wrongly. */
+  const provenance = (
+    <div className="flex flex-col gap-2 border-t border-solid border-ds-hairline px-4 py-4">
+      <p className="ds-body-s text-ds-ink-muted">
+        A pin is where the owner said the hostel is, confirmed by a person at review. It is not a
+        live location and it is not measured from your phone.
+      </p>
+      <p className="ds-body-s text-ds-ink-muted">{DISTANCE_NOTE}</p>
+    </div>
+  );
+
   const listPanel = (
     <>
       <FilterBar
@@ -326,20 +376,7 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
         open={filtersOpen}
         onToggleOpen={() => setFiltersOpen((v) => !v)}
       />
-      {!apiHealthy && (
-        <div className="px-3 pt-3 sm:px-4">
-          <div
-            role="status"
-            className="flex items-start gap-2 rounded-xl border border-warning/25 bg-warning-soft/60 px-3 py-2 text-xs text-warning dark:bg-warning/10 dark:text-amber-300"
-          >
-            <TriangleAlert className="mt-px size-3.5 shrink-0" aria-hidden="true" />
-            <span>
-              Live search is unavailable right now. Showing the listings already loaded, filtered
-              to this map view.
-            </span>
-          </div>
-        </div>
-      )}
+      {!apiHealthy && <div className="px-4 pt-4">{degraded}</div>}
       <ResultList
         hostels={visible}
         loading={loading}
@@ -353,6 +390,7 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
         onZoomOut={zoomOutToResults}
         onClearFilters={clearFilters}
       />
+      {provenance}
     </>
   );
 
@@ -360,227 +398,225 @@ export default function MapExplorer({ initialHostels = [], initialFilters }) {
     <div
       ref={rootRef}
       data-hostello-map
-      className="relative flex h-[calc(100dvh_-_var(--hm-nav-h,4rem))] w-full overflow-hidden bg-background"
+      className="flex h-[calc(100dvh-var(--hm-nav-h,4rem))] w-full flex-col overflow-hidden bg-ds-surface"
     >
-      {/* ── Desktop: results column ─────────────────────────────────────── */}
-      <aside
-        aria-label="Hostel results"
-        className="hidden w-[40%] min-w-[380px] max-w-[560px] shrink-0 flex-col border-r border-border bg-background lg:flex"
-      >
-        <div className="shrink-0">
-          <FilterBar
-            filters={filters}
-            onChange={setFilters}
-            onClear={clearFilters}
-            open={filtersOpen}
-            onToggleOpen={() => setFiltersOpen((v) => !v)}
-          />
-        </div>
+      {/* ── Page header ─────────────────────────────────────────────────── */}
+      <div className="shrink-0 border-b border-solid border-ds-hairline px-4 py-3 lg:px-20 lg:py-5">
+        <nav aria-label="Breadcrumb" className="hidden lg:block">
+          <ol className="ds-body-s flex items-center gap-2 text-ds-ink-muted">
+            <li>
+              <Link
+                href="/"
+                className="text-ds-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
+              >
+                Home
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" className="text-ds-ink">
+              Map
+            </li>
+          </ol>
+        </nav>
 
-        <div className="flex shrink-0 items-center justify-between gap-3 border-b border-border px-4 py-2.5">
-          <p className="text-sm font-semibold text-foreground">
-            <span className="tabular">{visible.length}</span>{' '}
-            {visible.length === 1 ? 'hostel' : 'hostels'}
-            <span className="font-normal text-muted-foreground"> in this view</span>
-          </p>
-          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            {loading ? (
-              <>
-                <LoaderCircle className="size-3.5 animate-spin" aria-hidden="true" />
-                <span role="status">Updating…</span>
-              </>
-            ) : campus ? (
-              <>
-                <Layers className="size-3.5" aria-hidden="true" />
-                Nearest first
-              </>
-            ) : (
-              <>
-                <Layers className="size-3.5" aria-hidden="true" />
-                Top rated first
-              </>
-            )}
-          </span>
-        </div>
+        {/* One size at both widths. The `.ds-*` type styles are plain classes
+            rather than Tailwind utilities, so they cannot carry a breakpoint
+            prefix, and display/m is the size that reads at 360 and at 1440. */}
+        <h1 className="ds-display-m text-ds-ink lg:mt-2">Hostels on a map</h1>
 
-        {!apiHealthy && (
-          <div className="shrink-0 px-4 pt-3">
-            <div
-              role="status"
-              className="flex items-start gap-2 rounded-xl border border-warning/25 bg-warning-soft/60 px-3 py-2 text-xs text-warning dark:bg-warning/10 dark:text-amber-300"
-            >
-              <TriangleAlert className="mt-px size-3.5 shrink-0" aria-hidden="true" />
-              <span>
-                Live search is unavailable. Showing loaded listings, filtered to this map view.
-              </span>
-            </div>
+        {/* Hidden below lg only because the map has to keep the viewport it
+            needs on a phone. The same sentence is in the metadata. */}
+        <p className="ds-body-l mt-2 hidden max-w-[110ch] text-ds-ink-muted lg:block">
+          {total} listings placed by the address the owner gave and confirmed at review. Markers
+          show rent, because distance is already what the map is telling you.
+        </p>
+      </div>
+
+      <div className="flex min-h-0 flex-1">
+        {/* ── Desktop: results column ───────────────────────────────────── */}
+        <aside
+          aria-label="Hostel results"
+          className="hidden w-[40%] min-w-96 max-w-140 shrink-0 flex-col border-r border-solid border-ds-hairline bg-ds-surface lg:flex"
+        >
+          <div className="shrink-0">
+            <FilterBar
+              filters={filters}
+              onChange={setFilters}
+              onClear={clearFilters}
+              open={filtersOpen}
+              onToggleOpen={() => setFiltersOpen((v) => !v)}
+            />
           </div>
-        )}
 
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-          <ResultList
-            hostels={visible}
-            loading={loading}
+          <div className="flex shrink-0 items-center justify-between gap-3 border-b border-solid border-ds-hairline px-4 py-3">
+            <p className="ds-body-m-strong text-ds-ink">
+              <span className="tabular-nums">{visible.length}</span>{' '}
+              {visible.length === 1 ? 'hostel' : 'hostels'}
+              <span className="ds-body-m text-ds-ink-muted"> in this view</span>
+            </p>
+            <span className="ds-body-s flex items-center gap-2 text-ds-ink-muted">
+              {loading ? (
+                <>
+                  <Spinner className="size-4" label="Updating results" />
+                  <span>Updating</span>
+                </>
+              ) : campus ? (
+                'Nearest first'
+              ) : (
+                'Top rated first'
+              )}
+            </span>
+          </div>
+
+          {!apiHealthy && <div className="shrink-0 px-4 pt-4">{degraded}</div>}
+
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+            <ResultList
+              hostels={visible}
+              loading={loading}
+              selectedId={selectedId}
+              hoveredId={hoveredId}
+              campus={campus}
+              hasFilters={activeCount > 0}
+              idPrefix="hm-desktop"
+              onSelect={handleListSelect}
+              onHover={handleHover}
+              onZoomOut={zoomOutToResults}
+              onClearFilters={clearFilters}
+            />
+            {provenance}
+          </div>
+        </aside>
+
+        {/* ── Map ───────────────────────────────────────────────────────── */}
+        <div className="relative min-w-0 flex-1 bg-ds-surface-sunken">
+          <MapCanvas
+            hostels={matched}
             selectedId={selectedId}
             hoveredId={hoveredId}
             campus={campus}
-            hasFilters={activeCount > 0}
-            idPrefix="hm-desktop"
-            onSelect={handleListSelect}
+            radiusKm={campus ? filters.radius : 0}
+            onSelect={handleMarkerSelect}
             onHover={handleHover}
-            onZoomOut={zoomOutToResults}
-            onClearFilters={clearFilters}
+            onBoundsChange={handleBoundsChange}
+            onMapReady={handleMapReady}
           />
-        </div>
-      </aside>
 
-      {/* ── Map ─────────────────────────────────────────────────────────── */}
-      <div className="bg-grid relative min-w-0 flex-1 bg-surface-sunken">
-        <MapCanvas
-          hostels={matched}
-          selectedId={selectedId}
-          hoveredId={hoveredId}
-          campus={campus}
-          radiusKm={campus ? filters.radius : 0}
-          onSelect={handleMarkerSelect}
-          onHover={handleHover}
-          onBoundsChange={handleBoundsChange}
-          onMapReady={handleMapReady}
-        />
+          {/* Live-search toggle */}
+          <div className="absolute left-3 top-3 z-1100 sm:left-4 sm:top-4">
+            <label
+              className={cn(
+                'ds-tap flex cursor-pointer items-center gap-2.5 px-3',
+                'rounded-ds-inner border border-solid border-ds-control bg-ds-surface-raised',
+                'transition-colors duration-150 motion-reduce:transition-none hover:border-ds-cobalt',
+                'has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ds-cobalt'
+              )}
+            >
+              <input
+                type="checkbox"
+                checked={filters.live}
+                onChange={(e) => setFilters((f) => ({ ...f, live: e.target.checked }))}
+                className="size-4 cursor-pointer accent-ds-ink"
+              />
+              <span className="ds-body-s-strong text-ds-ink">
+                <span className="hidden sm:inline">Search as I move the map</span>
+                <span className="sm:hidden">Search on move</span>
+              </span>
+            </label>
+          </div>
 
-        {/* Live-search toggle */}
-        <div className="absolute left-3 top-3 z-[1100] sm:left-4 sm:top-4">
-          <label
-            className={cn(
-              'flex h-11 cursor-pointer items-center gap-2.5 rounded-xl border border-border',
-              'bg-surface/90 px-3 shadow-md backdrop-blur-md',
-              'transition-colors duration-200 hover:bg-surface',
-              'has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring'
-            )}
-          >
-            <input
-              type="checkbox"
-              checked={filters.live}
-              onChange={(e) => setFilters((f) => ({ ...f, live: e.target.checked }))}
-              className="size-4 cursor-pointer accent-brand-700"
-            />
-            <span className="text-xs font-semibold text-foreground sm:text-sm">
-              <span className="hidden sm:inline">Search as I move the map</span>
-              <span className="sm:hidden">Search on move</span>
-            </span>
-          </label>
-        </div>
+          {/* Manual search. Clears the live-search pill on a 360px screen,
+              where a centred button would sit underneath it. */}
+          {showSearchArea && (
+            <div className="absolute left-1/2 top-17 z-1100 -translate-x-1/2 sm:top-4">
+              <Button onClick={searchThisArea} loading={loading}>
+                Search this area
+              </Button>
+            </div>
+          )}
 
-        {/* Manual search */}
-        {showSearchArea && (
-          // Clears the live-search pill on a 375px screen, where a centred
-          // button would sit underneath it.
-          <div className="absolute left-1/2 top-[4.25rem] z-[1100] -translate-x-1/2 sm:top-4">
+          {/* Zoom and framing controls */}
+          <div className="absolute right-3 top-3 z-1100 flex flex-col gap-2 sm:right-4 sm:top-4">
             <button
               type="button"
-              onClick={searchThisArea}
-              className={cn(
-                'animate-scale-in inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl',
-                'bg-brand-700 px-4 text-sm font-semibold text-white shadow-brand',
-                'transition-[background-color,transform] duration-200 hover:bg-brand-800 active:scale-[0.98]',
-                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring'
-              )}
+              className={CONTROL_BUTTON}
+              onClick={() => mapInstance?.zoomIn()}
+              aria-label="Zoom in"
             >
-              {loading ? (
-                <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
-              ) : (
-                <Search className="size-4" aria-hidden="true" />
-              )}
-              Search this area
+              <span aria-hidden="true" className="ds-body-m-strong">
+                +
+              </span>
+            </button>
+            <button
+              type="button"
+              className={CONTROL_BUTTON}
+              onClick={() => mapInstance?.zoomOut()}
+              aria-label="Zoom out"
+            >
+              <span aria-hidden="true" className="ds-body-m-strong">
+                &minus;
+              </span>
+            </button>
+            <button
+              type="button"
+              className={cn(CONTROL_BUTTON, 'ds-body-s px-2')}
+              onClick={zoomOutToResults}
+              aria-label="Fit every result on screen"
+            >
+              <span aria-hidden="true">Fit</span>
             </button>
           </div>
-        )}
 
-        {/* Zoom + framing controls */}
-        <div className="absolute right-3 top-3 z-[1100] flex flex-col gap-2 sm:right-4 sm:top-4">
-          <button
-            type="button"
-            className={CONTROL_BUTTON}
-            onClick={() => mapInstance?.zoomIn()}
-            aria-label="Zoom in"
+          {/* Legend, from the frame. Sits above the sheet's peek height so it
+              is never covered on a phone. */}
+          <p
+            className={cn(
+              'ds-mono-meta absolute bottom-[19%] left-3 z-1050 hidden max-w-[calc(100%-1.5rem)] items-center',
+              'rounded-ds-chip border border-solid border-ds-hairline bg-ds-surface-raised px-2 py-1 text-ds-ink-muted',
+              'sm:flex lg:bottom-4 lg:left-4'
+            )}
           >
-            <Plus className="size-4.5" aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            className={CONTROL_BUTTON}
-            onClick={() => mapInstance?.zoomOut()}
-            aria-label="Zoom out"
-          >
-            <Minus className="size-4.5" aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            className={CONTROL_BUTTON}
-            onClick={zoomOutToResults}
-            aria-label="Fit every result on screen"
-          >
-            <Maximize2 className="size-4.5" aria-hidden="true" />
-          </button>
-        </div>
+            Rent per month. Yellow is the one you are reading.
+          </p>
 
-        {/* ── Mobile: draggable results sheet ───────────────────────────── */}
-        <BottomSheet
-          snapIndex={sheetIndex}
-          onSnapIndexChange={setSheetIndex}
-          label="Hostel results"
-        >
-          <div className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-3 border-b border-border bg-surface px-3 pb-3">
-            <p className="min-w-0 text-sm font-semibold text-foreground">
-              <span className="tabular">{visible.length}</span>{' '}
-              {visible.length === 1 ? 'hostel' : 'hostels'}
-              <span className="block text-xs font-normal text-muted-foreground">
-                {loading ? 'Updating this area…' : 'in this map view'}
-              </span>
-            </p>
+          {/* ── Mobile: draggable results sheet ─────────────────────────── */}
+          <BottomSheet
+            snapIndex={sheetIndex}
+            onSnapIndexChange={setSheetIndex}
+            label="Hostel results"
+          >
+            <div className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-3 border-b border-solid border-ds-hairline bg-ds-surface px-3 pb-3">
+              <p className="ds-body-m-strong min-w-0 text-ds-ink">
+                <span className="tabular-nums">{visible.length}</span>{' '}
+                {visible.length === 1 ? 'hostel' : 'hostels'}
+                <span className="ds-body-s block text-ds-ink-muted">
+                  {loading ? 'Updating this area' : 'in this map view'}
+                </span>
+              </p>
 
-            <div
-              role="group"
-              aria-label="Switch between the map and the result list"
-              className="flex shrink-0 items-center gap-1 rounded-xl border border-border bg-surface-sunken p-1"
-            >
-              <button
-                type="button"
-                onClick={() => setSheetIndex(0)}
-                aria-pressed={sheetIndex === 0}
-                className={cn(
-                  'inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-lg px-2.5 text-xs font-semibold',
-                  'transition-colors duration-200',
-                  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
-                  sheetIndex === 0
-                    ? 'bg-surface text-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                )}
+              <div
+                role="group"
+                aria-label="Switch between the map and the result list"
+                className="inline-flex rounded-ds-slot"
+                style={{ padding: 'var(--ds-focus-gap)' }}
               >
-                <MapIcon className="size-3.5" aria-hidden="true" />
-                Map
-              </button>
-              <button
-                type="button"
-                onClick={() => setSheetIndex(SHEET_SNAPS.length - 1)}
-                aria-pressed={sheetIndex === SHEET_SNAPS.length - 1}
-                className={cn(
-                  'inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-lg px-2.5 text-xs font-semibold',
-                  'transition-colors duration-200',
-                  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
-                  sheetIndex === SHEET_SNAPS.length - 1
-                    ? 'bg-surface text-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
-                )}
-              >
-                <List className="size-3.5" aria-hidden="true" />
-                List
-              </button>
+                <div className="inline-flex overflow-hidden rounded-ds-inner border border-solid border-ds-control bg-ds-surface-raised">
+                  <Segment active={sheetIndex === 0} onClick={() => setSheetIndex(0)}>
+                    Map
+                  </Segment>
+                  <Segment
+                    active={sheetIndex === SHEET_SNAPS.length - 1}
+                    onClick={() => setSheetIndex(SHEET_SNAPS.length - 1)}
+                  >
+                    List
+                  </Segment>
+                </div>
+              </div>
             </div>
-          </div>
 
-          {listPanel}
-        </BottomSheet>
+            {listPanel}
+          </BottomSheet>
+        </div>
       </div>
     </div>
   );

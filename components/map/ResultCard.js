@@ -2,21 +2,23 @@
 
 import { memo } from 'react';
 import Link from 'next/link';
-import { MapPin, Navigation, Star } from 'lucide-react';
-import Badge from '@/components/ui/Badge';
-import HostelImage from '@/components/ui/HostelImage';
+import Image from 'next/image';
+import Badge from '@/components/ds/Badge';
+import Chip from '@/components/ds/Chip';
 import { cn, formatPKR } from '@/lib/utils';
-import { formatDistance } from './filters';
-
-const GENDER_TONE = { Female: 'accent', Male: 'info', Mixed: 'brand' };
+import { distanceBand, formatKm } from '@/lib/distance';
 
 /**
- * Compact horizontal card: photo left, details right. The column is ~40% of
- * the viewport, far too narrow for the full grid card used on /hostels.
+ * Compact horizontal card: photo left, details right. The column is about 40%
+ * of the viewport, far too narrow for the grid card the browse and landing
+ * pages use, so this is the one place a second card shape is justified.
  *
  * Two interactive targets, deliberately not nested: a full-bleed button that
  * pans the map, and the name as a real link to the listing. Keyboard order is
- * button → link, and both carry their own focus ring.
+ * button then link, and both carry their own focus ring.
+ *
+ * Selection is a solid ink keyline rather than a tint, which is the same
+ * grammar the markers, the chips and the badges use.
  */
 function ResultCard({
   hostel,
@@ -29,7 +31,10 @@ function ResultCard({
   onHover,
 }) {
   const price = Number(hostel.price) || 0;
-  const distance = Number(hostel.campusDistanceKm);
+  const km = Number(hostel.campusDistanceKm);
+  const distance = showDistance && Number.isFinite(km) ? formatKm(km) : null;
+  const band = distance ? distanceBand(km) : null;
+  const photo = hostel.images?.[0] || '';
 
   return (
     <li
@@ -41,12 +46,11 @@ function ResultCard({
         data-active={active || undefined}
         data-selected={selected || undefined}
         className={cn(
-          'group relative flex gap-3 rounded-[var(--radius-card)] border border-border bg-surface p-2.5',
-          'transition-[border-color,box-shadow,background-color] duration-200',
-          'hover:border-border-strong hover:shadow-md',
-          'data-[active]:border-brand-400 data-[active]:shadow-md',
-          'data-[selected]:border-brand-600 data-[selected]:bg-brand-50/60 data-[selected]:shadow-brand',
-          'dark:data-[selected]:bg-brand-950/40'
+          'ds-elevated group relative flex gap-3 rounded-ds-inner p-3',
+          'transition-colors duration-150 motion-reduce:transition-none',
+          'hover:border-ds-cobalt',
+          'data-active:border-ds-cobalt',
+          'data-selected:border-ds-ink data-selected:bg-ds-surface-sunken'
         )}
       >
         <button
@@ -55,86 +59,44 @@ function ResultCard({
           onFocus={() => onHover(hostel._id)}
           onBlur={() => onHover(null)}
           aria-pressed={selected || false}
-          className="absolute inset-0 z-10 cursor-pointer rounded-[var(--radius-card)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          className="absolute inset-0 z-10 cursor-pointer rounded-ds-inner focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
         >
           <span className="sr-only">Show {hostel.name} on the map</span>
         </button>
 
-        <div className="relative size-[92px] shrink-0 overflow-hidden rounded-xl bg-muted sm:size-[104px]">
-          <HostelImage
-            src={hostel.images?.[0] || ''}
-            name={hostel.name}
-            alt={hostel.name}
-            fill
-            sizes="104px"
-            className="transition-transform duration-300 group-hover:scale-[1.04]"
-          />
-          {hostel.featured && (
-            <span className="absolute left-1 top-1 rounded-md bg-slate-950/70 px-1.5 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm">
-              Featured
-            </span>
-          )}
+        <div className="relative size-22 shrink-0 overflow-hidden rounded-ds-inner bg-ds-photo sm:size-26">
+          {photo ? (
+            <Image src={photo} alt={hostel.name} fill sizes="104px" className="object-cover" />
+          ) : null}
         </div>
 
-        <div className="flex min-w-0 flex-1 flex-col py-0.5">
-          <h3 className="text-sm leading-snug font-semibold text-foreground">
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
+          <h3 className="ds-body-m-strong text-ds-ink">
             <Link
               href={`/hostels/${hostel.slug}`}
-              className="relative z-20 line-clamp-1 rounded-sm transition-colors duration-150 hover:text-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring dark:hover:text-brand-300"
+              className="relative z-20 line-clamp-1 hover:text-ds-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
             >
               {hostel.name}
             </Link>
           </h3>
 
-          <p className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
-            <MapPin className="size-3 shrink-0" aria-hidden="true" />
-            <span className="line-clamp-1">{hostel.area || hostel.city}</span>
-          </p>
+          <p className="ds-body-s line-clamp-1 text-ds-ink-muted">{hostel.area || hostel.city}</p>
 
-          <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
-            <Badge tone={GENDER_TONE[hostel.gender] || 'neutral'} size="sm">
-              {hostel.gender}
-            </Badge>
-            {hostel.reviewCount > 0 ? (
-              <span
-                className="inline-flex items-center gap-1 text-xs text-muted-foreground"
-                aria-label={`Rated ${Number(hostel.rating).toFixed(1)} out of 5 from ${hostel.reviewCount} reviews`}
-              >
-                <Star className="size-3.5 fill-accent-400 text-accent-400" aria-hidden="true" />
-                <span className="tabular font-semibold text-foreground">
-                  {Number(hostel.rating).toFixed(1)}
-                </span>
-                <span className="tabular">({hostel.reviewCount})</span>
-              </span>
-            ) : (
-              <span className="text-xs text-muted-foreground">New listing</span>
-            )}
-          </div>
-
-          <div className="mt-auto flex items-end justify-between gap-2 pt-1.5">
-            <p className="tabular text-sm font-bold text-foreground">
-              {price > 0 ? (
-                <>
-                  {formatPKR(price)}
-                  <span className="text-xs font-medium text-muted-foreground"> /mo</span>
-                </>
-              ) : (
-                <span className="text-xs font-semibold text-muted-foreground">
-                  Price on request
-                </span>
-              )}
+          {distance ? (
+            <p className="ds-body-s text-ds-ink-muted">
+              {distance} to {campusName}
+              {band ? `, ${band}` : ''}
             </p>
+          ) : null}
 
-            {showDistance && Number.isFinite(distance) && (
-              <span
-                className="inline-flex shrink-0 items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 text-[11px] font-semibold text-brand-800 dark:bg-brand-950 dark:text-brand-300"
-                title={campusName ? `Distance from ${campusName}` : undefined}
-              >
-                <Navigation className="size-3" aria-hidden="true" />
-                <span className="tabular">{formatDistance(distance)}</span>
-                <span className="sr-only">from {campusName}</span>
-              </span>
-            )}
+          <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-1">
+            <p className="ds-body-m-strong tabular-nums text-ds-ink">
+              {price > 0 ? formatPKR(price) : 'Rent on request'}
+            </p>
+            <Badge variant={hostel.verified ? 'solid' : 'outline'}>
+              {hostel.verified ? 'Verified' : 'Not verified'}
+            </Badge>
+            <Chip>{hostel.gender}</Chip>
           </div>
         </div>
       </div>

@@ -1,9 +1,6 @@
 'use client';
 
 import { useId } from 'react';
-import { ChevronDown, GraduationCap, SlidersHorizontal, X } from 'lucide-react';
-import Badge from '@/components/ui/Badge';
-import { Select } from '@/components/ui/Field';
 import { cn } from '@/lib/utils';
 import { CAMPUSES, CITIES, GENDERS, RADIUS_OPTIONS, UNIVERSITIES } from './config';
 import { activeFilterCount } from './filters';
@@ -12,40 +9,80 @@ import PriceRange from './PriceRange';
 /**
  * Every control writes straight into the URL, so any view a student reaches
  * can be pasted to a friend and land them on exactly the same map.
+ *
+ * The selects are built here rather than imported. `components/ui/Field` is
+ * the frozen console component, and the 2026 set has no field primitive yet,
+ * so this reproduces the sort control's geometry: a transparent 3px slot
+ * carrying the focus ring around a 44 tall control, which is why nothing
+ * reflows when a control takes focus.
  */
+
+function Select({ label, value, onChange, children }) {
+  const id = useId();
+
+  return (
+    <div className="flex min-w-px flex-col gap-1.5">
+      <label htmlFor={id} className="ds-body-s text-ds-ink-muted">
+        {label}
+      </label>
+      <div
+        className="inline-flex rounded-ds-slot focus-within:outline-2 focus-within:outline-offset-0 focus-within:outline-ds-cobalt"
+        style={{ padding: 'var(--ds-focus-gap)' }}
+      >
+        <div
+          className={cn(
+            'relative flex min-w-px flex-1 items-center gap-2 overflow-hidden px-3',
+            'rounded-ds-inner border border-solid border-ds-control bg-ds-surface-raised',
+            'hover:border-ds-cobalt focus-within:border-ds-ink'
+          )}
+          style={{ height: 'var(--ds-control-h)' }}
+        >
+          <select
+            id={id}
+            value={value}
+            onChange={onChange}
+            className="ds-body-m min-w-px flex-1 cursor-pointer appearance-none bg-transparent text-ds-ink focus:outline-none"
+          >
+            {children}
+          </select>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 12 7"
+            className="size-3 shrink-0 text-ds-ink"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
+            <path d="M1 1l5 5 5-5" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function FilterBar({ filters, onChange, onClear, open, onToggleOpen }) {
   const panelId = useId();
   const count = activeFilterCount(filters);
   const set = (patch) => onChange({ ...filters, ...patch });
 
   return (
-    <div className="border-b border-border bg-surface">
-      <div className="flex items-center gap-2 px-3 py-2.5 sm:px-4">
+    <div className="border-b border-solid border-ds-hairline bg-ds-surface">
+      <div className="flex items-center gap-2 px-4 py-2">
         <button
           type="button"
           onClick={onToggleOpen}
           aria-expanded={open}
           aria-controls={panelId}
           className={cn(
-            'inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl px-3 text-sm font-semibold',
-            'text-foreground transition-colors duration-200 hover:bg-muted',
-            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring'
+            'ds-body-m-strong ds-tap inline-flex cursor-pointer items-center gap-2 px-3',
+            'rounded-ds-inner border border-solid border-ds-ink bg-ds-surface-raised text-ds-ink',
+            'transition-colors duration-150 motion-reduce:transition-none hover:border-ds-cobalt',
+            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt'
           )}
         >
-          <SlidersHorizontal className="size-4 text-muted-foreground" aria-hidden="true" />
           Filters
-          {count > 0 && (
-            <Badge tone="brand" size="sm" className="tabular">
-              {count}
-            </Badge>
-          )}
-          <ChevronDown
-            className={cn(
-              'size-4 text-muted-foreground transition-transform duration-200',
-              open && 'rotate-180'
-            )}
-            aria-hidden="true"
-          />
+          {count > 0 ? <span className="ds-mono-meta text-ds-ink-muted">{count}</span> : null}
         </button>
 
         {count > 0 && (
@@ -53,26 +90,20 @@ export default function FilterBar({ filters, onChange, onClear, open, onToggleOp
             type="button"
             onClick={onClear}
             className={cn(
-              'ml-auto inline-flex h-11 cursor-pointer items-center gap-1.5 rounded-xl px-3',
-              'text-sm font-medium text-muted-foreground transition-colors duration-200',
-              'hover:bg-muted hover:text-foreground',
-              'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring'
+              'ds-body-s ds-tap ml-auto inline-flex cursor-pointer items-center px-3',
+              'rounded-ds-inner text-ds-cobalt',
+              'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt'
             )}
           >
-            <X className="size-3.5" aria-hidden="true" />
-            Clear all
+            Clear {count}
           </button>
         )}
       </div>
 
       {open && (
-        <div id={panelId} className="space-y-3.5 px-3 pb-4 sm:px-4">
+        <div id={panelId} className="flex flex-col gap-4 px-4 pb-4">
           <div className="grid grid-cols-2 gap-3">
-            <Select
-              label="City"
-              value={filters.city}
-              onChange={(e) => set({ city: e.target.value })}
-            >
+            <Select label="City" value={filters.city} onChange={(e) => set({ city: e.target.value })}>
               <option value="">All cities</option>
               {CITIES.map((c) => (
                 <option key={c} value={c}>
@@ -82,11 +113,11 @@ export default function FilterBar({ filters, onChange, onClear, open, onToggleOp
             </Select>
 
             <Select
-              label="Gender"
+              label="Who can stay"
               value={filters.gender}
               onChange={(e) => set({ gender: e.target.value })}
             >
-              <option value="">Any</option>
+              <option value="">Anyone</option>
               {GENDERS.map((g) => (
                 <option key={g} value={g}>
                   {g}
@@ -124,35 +155,38 @@ export default function FilterBar({ filters, onChange, onClear, open, onToggleOp
           </div>
 
           {filters.campus && (
-            <div>
-              <span className="flex items-center gap-1.5 text-sm font-medium text-foreground">
-                <GraduationCap className="size-4 text-brand-700 dark:text-brand-300" aria-hidden="true" />
-                Within
-              </span>
+            <div className="flex flex-col gap-1.5">
+              <span className="ds-body-s text-ds-ink-muted">Within</span>
               <div
                 role="group"
-                aria-label="Distance from the selected campus"
-                className="no-scrollbar mt-1.5 flex gap-1.5 overflow-x-auto"
+                aria-label="Straight line distance from the selected campus"
+                className="no-scrollbar flex gap-1 overflow-x-auto"
               >
                 {[0, ...RADIUS_OPTIONS].map((r) => {
                   const on = filters.radius === r;
                   return (
-                    <button
+                    <span
                       key={r}
-                      type="button"
-                      aria-pressed={on}
-                      onClick={() => set({ radius: r })}
-                      className={cn(
-                        'h-11 shrink-0 cursor-pointer rounded-xl border px-3.5 text-xs font-semibold',
-                        'transition-[background-color,border-color,color] duration-200',
-                        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
-                        on
-                          ? 'border-brand-600 bg-brand-700 text-white'
-                          : 'border-border bg-surface text-muted-foreground hover:border-border-strong hover:text-foreground'
-                      )}
+                      className="inline-flex shrink-0 rounded-ds-chip-slot focus-within:outline-2 focus-within:outline-offset-0 focus-within:outline-ds-cobalt"
+                      style={{ padding: 'var(--ds-focus-gap)' }}
                     >
-                      {r === 0 ? 'Any distance' : `${r} km`}
-                    </button>
+                      <button
+                        type="button"
+                        aria-pressed={on}
+                        onClick={() => set({ radius: r })}
+                        style={{ height: 'var(--ds-chip-h)' }}
+                        className={cn(
+                          'ds-body-s-strong inline-flex cursor-pointer items-center justify-center px-3',
+                          'rounded-ds-chip border border-solid focus:outline-none',
+                          'transition-colors duration-150 motion-reduce:transition-none',
+                          on
+                            ? 'border-ds-ink bg-ds-ink text-ds-on-ink'
+                            : 'border-ds-control bg-ds-surface-raised text-ds-ink hover:border-ds-cobalt'
+                        )}
+                      >
+                        {r === 0 ? 'Any distance' : `${r} km`}
+                      </button>
+                    </span>
                   );
                 })}
               </div>

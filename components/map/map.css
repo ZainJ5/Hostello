@@ -1,11 +1,18 @@
 /*
- * Map chrome for the Hostello design system.
+ * Map chrome for the Hostello 2026 design system.
  *
- * Everything here either lives under a `hm-` prefix or is a Leaflet class
+ * Everything here either lives under an `hm-` prefix or is a Leaflet class
  * scoped inside `[data-hostello-map]`, so nothing leaks into the rest of the
  * app (App Router keeps stylesheets mounted across navigations).
  *
- * Colours are read from the tokens in app/globals.css. No literal hex values.
+ * Only `--ds-*` tokens are referenced. No literal colour, and no value from
+ * the frozen console palette, so both colour modes come out of the token layer
+ * exactly as every other surface does.
+ *
+ * ELEVATION IS A KEYLINE. Floating map controls carry a border and a surface
+ * fill rather than a shadow. The one shadow in the system belongs to menus,
+ * sheets and toasts, which here means the marker popup and the mobile results
+ * sheet and nothing else.
  */
 
 /* ── Full-bleed shell ─────────────────────────────────────────────────── */
@@ -20,33 +27,43 @@ html[data-hostello-map-open] body {
 
 /* ── Base container ───────────────────────────────────────────────────── */
 
-/* Transparent so the branded grid behind the map shows through if the tile
-   server is unreachable, so a failed basemap reads as texture, not a bug. */
+/* Transparent so the sunken surface behind the map shows through if the tile
+   server is unreachable, which makes a failed basemap read as an empty
+   surface rather than a broken one. */
 [data-hostello-map] .leaflet-container {
   background: transparent;
-  font-family: var(--font-sans);
+  font-family: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   outline: none;
   isolation: isolate;
 }
 
 [data-hostello-map] .leaflet-container:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: var(--ds-focus-width) solid var(--ds-accent-cobalt);
   outline-offset: -3px;
 }
 
-/* Tiles are a background layer; keep them out of the way of the pins. */
 [data-hostello-map] .leaflet-tile-pane {
   opacity: 1;
-  transition: opacity 250ms var(--ease-out-quint, ease-out);
-}
-
-[data-hostello-map] .leaflet-tile {
-  /* Hides the 1px seams CARTO tiles show at some zoom levels. */
-  will-change: auto;
+  transition: opacity 250ms ease-out;
 }
 
 /* ── Price pin ────────────────────────────────────────────────────────── */
 
+/*
+ * Solid ink by default, yellow for the one being read, which is the grammar
+ * the rest of the system already speaks: solid ink means selected on a chip, a
+ * badge and a pagination cell too.
+ *
+ * The yellow state keeps its 1px ink keyline. Chrome yellow measures 1.90:1
+ * against white, so on a pale basemap the keyline is the only thing giving the
+ * pin a perceivable boundary, and it never comes off.
+ *
+ * Rent is set in mono with tabular figures so a column of pins compares digit
+ * under digit, and abbreviated (`18k`) rather than written out. The frame
+ * writes 18,000 in full; at 92 listings in one city that roughly doubles the
+ * pin width and pushes far more of the map behind a cluster, so the short form
+ * is kept and the legend states the unit.
+ */
 [data-hostello-map] .hm-marker {
   width: auto !important;
   height: auto !important;
@@ -55,40 +72,35 @@ html[data-hostello-map-open] body {
 }
 
 .hm-pin {
-  --pin-bg: var(--surface);
-  --pin-fg: var(--foreground);
-  --pin-border: var(--border-strong);
-  --pin-ring: transparent;
+  --pin-bg: var(--ds-ink);
+  --pin-fg: var(--ds-on-ink);
+  --pin-border: var(--ds-ink);
 
   position: absolute;
   inset: 0 auto auto 0;
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  height: 26px;
+  height: 1.625rem;
   padding: 0 0.5rem;
   border: 1px solid var(--pin-border);
-  border-radius: 999px;
+  border-radius: var(--ds-radius-chip);
   background: var(--pin-bg);
   color: var(--pin-fg);
-  font-size: 12px;
-  font-weight: 700;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.01em;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
   cursor: pointer;
   transform-origin: bottom center;
   transform: translate(-50%, calc(-100% - 6px));
-  box-shadow:
-    0 0 0 3px var(--pin-ring),
-    var(--shadow-md);
   transition:
-    background-color 180ms ease,
-    color 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease,
-    transform 200ms var(--ease-spring, ease-out);
+    background-color 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
 }
 
 /* The tail: a rotated square showing only its two outer edges. */
@@ -104,8 +116,8 @@ html[data-hostello-map-open] body {
   border-bottom: 1px solid var(--pin-border);
   transform: translateX(-50%) rotate(45deg);
   transition:
-    background-color 180ms ease,
-    border-color 180ms ease;
+    background-color 150ms ease,
+    border-color 150ms ease;
 }
 
 /* A verified listing gets a filled dot rather than a second colour. */
@@ -113,48 +125,25 @@ html[data-hostello-map-open] body {
   width: 5px;
   height: 5px;
   border-radius: 999px;
-  background: var(--color-brand-500);
+  background: currentColor;
+  opacity: 0.85;
   flex: none;
 }
 
+/* Hover shifts the keyline to cobalt and holds it at 1px, the same move the
+   primary button makes. Nothing reflows. */
 .hm-pin.is-hover,
 .hm-marker:hover .hm-pin {
-  --pin-bg: var(--color-brand-700);
-  --pin-fg: var(--color-brand-50);
-  --pin-border: var(--color-brand-700);
-  transform: translate(-50%, calc(-100% - 6px)) scale(1.08);
-  box-shadow:
-    0 0 0 3px var(--pin-ring),
-    var(--shadow-lg);
-}
-
-.hm-pin.is-hover .hm-pin__dot,
-.hm-marker:hover .hm-pin__dot {
-  background: var(--color-brand-200);
+  --pin-border: var(--ds-accent-cobalt);
+  transform: translate(-50%, calc(-100% - 6px)) scale(1.06);
 }
 
 .hm-pin.is-selected,
 .hm-marker:hover .hm-pin.is-selected {
-  --pin-bg: var(--color-brand-900);
-  --pin-fg: #fff;
-  --pin-border: var(--color-brand-900);
-  --pin-ring: color-mix(in srgb, var(--color-brand-500) 40%, transparent);
-  height: 30px;
-  padding: 0 0.7rem;
-  font-size: 13px;
-  transform: translate(-50%, calc(-100% - 6px)) scale(1.04);
-}
-
-.dark .hm-pin.is-selected,
-.dark .hm-marker:hover .hm-pin.is-selected {
-  --pin-bg: var(--color-brand-400);
-  --pin-fg: var(--color-brand-950);
-  --pin-border: var(--color-brand-300);
-}
-
-.hm-pin.is-selected .hm-pin__dot {
-  background: currentColor;
-  opacity: 0.75;
+  --pin-bg: var(--ds-primary);
+  --pin-fg: var(--ds-on-primary);
+  --pin-border: var(--ds-ink);
+  transform: translate(-50%, calc(-100% - 6px)) scale(1.06);
 }
 
 /* ── Cluster bubble ───────────────────────────────────────────────────── */
@@ -164,45 +153,31 @@ html[data-hostello-map-open] body {
   inset: 0 auto auto 0;
   display: grid;
   place-items: center;
-  width: var(--hm-size, 40px);
-  height: var(--hm-size, 40px);
+  width: var(--hm-size, 38px);
+  height: var(--hm-size, 38px);
   border-radius: 999px;
-  background: var(--color-brand-700);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
+  border: 1px solid var(--ds-ink);
+  background: var(--ds-ink);
+  color: var(--ds-on-ink);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
   cursor: pointer;
   transform: translate(-50%, -50%);
-  box-shadow:
-    0 0 0 6px color-mix(in srgb, var(--color-brand-500) 22%, transparent),
-    var(--shadow-md);
   transition:
-    transform 200ms var(--ease-spring, ease-out),
-    box-shadow 200ms ease,
-    background-color 180ms ease;
-}
-
-.dark .hm-cluster {
-  background: var(--color-brand-500);
-  color: var(--color-brand-950);
+    transform 150ms ease,
+    border-color 150ms ease;
 }
 
 .hm-marker:hover .hm-cluster {
-  background: var(--color-brand-800);
-  transform: translate(-50%, -50%) scale(1.08);
-  box-shadow:
-    0 0 0 9px color-mix(in srgb, var(--color-brand-500) 26%, transparent),
-    var(--shadow-lg);
-}
-
-.dark .hm-marker:hover .hm-cluster {
-  background: var(--color-brand-400);
+  border-color: var(--ds-accent-cobalt);
+  transform: translate(-50%, -50%) scale(1.06);
 }
 
 /* ── Campus marker ────────────────────────────────────────────────────── */
 
+/* The outlined pill from the frame, with the cap disc kept above it: the pill
+   alone cannot be told apart from a rent pin at a glance. */
 .hm-campus {
   position: absolute;
   inset: 0 auto auto 0;
@@ -218,35 +193,33 @@ html[data-hostello-map-open] body {
   pointer-events: auto;
   display: grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
+  width: 2.125rem;
+  height: 2.125rem;
   border-radius: 999px;
-  background: var(--foreground);
-  color: var(--background);
-  border: 2.5px solid var(--surface);
-  box-shadow:
-    0 0 0 5px color-mix(in srgb, var(--foreground) 12%, transparent),
-    var(--shadow-lg);
+  background: var(--ds-ink);
+  color: var(--ds-on-ink);
+  border: 2px solid var(--ds-surface-raised);
 }
 
 .hm-campus__disc svg {
-  width: 19px;
-  height: 19px;
+  width: 1.125rem;
+  height: 1.125rem;
 }
 
 .hm-campus__label {
-  max-width: 148px;
+  max-width: 9rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   padding: 2px 7px;
-  border-radius: 999px;
-  background: var(--foreground);
-  color: var(--background);
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--ds-radius-chip);
+  border: 1px solid var(--ds-ink);
+  background: var(--ds-surface-raised);
+  color: var(--ds-ink);
+  font-family: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.3846;
 }
 
 /* ── Popup ────────────────────────────────────────────────────────────── */
@@ -254,11 +227,11 @@ html[data-hostello-map-open] body {
 [data-hostello-map] .hm-popup .leaflet-popup-content-wrapper {
   padding: 0;
   overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-card);
-  background: var(--surface);
-  color: var(--foreground);
-  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--ds-line-hairline);
+  border-radius: var(--ds-radius-inner);
+  background: var(--ds-surface-raised);
+  color: var(--ds-ink);
+  box-shadow: var(--ds-shadow-menu);
 }
 
 [data-hostello-map] .hm-popup .leaflet-popup-content {
@@ -278,37 +251,40 @@ html[data-hostello-map-open] body {
   height: 12px;
   padding: 0;
   margin: -6px auto 0;
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  background: var(--ds-surface-raised);
+  border-right: 1px solid var(--ds-line-hairline);
+  border-bottom: 1px solid var(--ds-line-hairline);
   box-shadow: none;
 }
 
 [data-hostello-map] .hm-popup .leaflet-popup-close-button {
-  top: 8px;
-  right: 8px;
-  width: 26px;
-  height: 26px;
+  top: 6px;
+  right: 6px;
+  width: 1.75rem;
+  height: 1.75rem;
   display: grid;
   place-items: center;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--surface) 85%, transparent);
-  backdrop-filter: blur(6px);
-  color: var(--foreground);
-  font: 700 17px/1 var(--font-sans);
+  border-radius: var(--ds-radius-chip);
+  border: 1px solid var(--ds-line-control);
+  background: var(--ds-surface-raised);
+  color: var(--ds-ink);
+  font:
+    600 1rem/1 var(--font-plex-sans),
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
   padding: 0;
-  transition:
-    background-color 180ms ease,
-    transform 180ms ease;
+  transition: border-color 150ms ease;
 }
 
 [data-hostello-map] .hm-popup .leaflet-popup-close-button:hover {
-  background: var(--muted);
-  transform: scale(1.06);
+  border-color: var(--ds-accent-cobalt);
+  background: var(--ds-surface-raised);
+  color: var(--ds-ink);
 }
 
 [data-hostello-map] .hm-popup .leaflet-popup-close-button:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: var(--ds-focus-width) solid var(--ds-accent-cobalt);
   outline-offset: 2px;
 }
 
@@ -316,13 +292,14 @@ html[data-hostello-map-open] body {
 
 [data-hostello-map] .hm-tooltip {
   padding: 4px 9px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-  color: var(--foreground);
-  font-size: 11.5px;
+  border: 1px solid var(--ds-line-hairline);
+  border-radius: var(--ds-radius-inner);
+  background: var(--ds-surface-raised);
+  color: var(--ds-ink);
+  font-family: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.8125rem;
   font-weight: 600;
-  box-shadow: var(--shadow-md);
+  box-shadow: none;
 }
 
 [data-hostello-map] .hm-tooltip::before {
@@ -331,26 +308,28 @@ html[data-hostello-map-open] body {
 
 /* ── Attribution ──────────────────────────────────────────────────────── */
 
+/* OpenStreetMap and CARTO require attribution on the tiles, so this stays. */
 [data-hostello-map] .leaflet-control-attribution {
   padding: 2px 8px;
-  border-radius: 8px 0 0 0;
-  background: color-mix(in srgb, var(--surface) 82%, transparent);
-  backdrop-filter: blur(10px) saturate(160%);
-  -webkit-backdrop-filter: blur(10px) saturate(160%);
-  color: var(--muted-foreground);
-  font-size: 10px;
+  border-top: 1px solid var(--ds-line-hairline);
+  border-left: 1px solid var(--ds-line-hairline);
+  border-radius: var(--ds-radius-chip) 0 0 0;
+  background: var(--ds-surface-raised);
+  color: var(--ds-ink-muted);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
   line-height: 1.6;
   box-shadow: none;
 }
 
 [data-hostello-map] .leaflet-control-attribution a {
-  color: var(--muted-foreground);
+  color: var(--ds-ink-muted);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 [data-hostello-map] .leaflet-control-attribution a:hover {
-  color: var(--foreground);
+  color: var(--ds-ink);
 }
 
 [data-hostello-map] .leaflet-control-attribution svg {
@@ -359,17 +338,12 @@ html[data-hostello-map-open] body {
 
 /* ── Campus radius ring ───────────────────────────────────────────────── */
 
-/* CSS beats SVG presentation attributes, so the ring picks up the brand token
+/* CSS beats SVG presentation attributes, so the ring picks up the token
    without Leaflet ever being handed a literal colour. */
 [data-hostello-map] .hm-radius {
   pointer-events: none;
-  stroke: var(--color-brand-600);
-  fill: var(--color-brand-500);
-}
-
-.dark [data-hostello-map] .hm-radius {
-  stroke: var(--color-brand-300);
-  fill: var(--color-brand-400);
+  stroke: var(--ds-accent-cobalt);
+  fill: var(--ds-accent-cobalt);
 }
 
 /* ── Dual price slider ────────────────────────────────────────────────── */
@@ -404,32 +378,28 @@ html[data-hostello-map-open] body {
   -webkit-appearance: none;
   appearance: none;
   pointer-events: auto;
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
   margin-top: 0;
   border-radius: 999px;
-  border: 2px solid var(--color-brand-700);
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--ds-ink);
+  background: var(--ds-primary);
   cursor: grab;
-  transition:
-    box-shadow 180ms ease,
-    transform 180ms ease;
+  transition: transform 150ms ease;
 }
 
 .hm-range::-moz-range-thumb {
   pointer-events: auto;
-  width: 16px;
-  height: 16px;
+  width: 1.25rem;
+  height: 1.25rem;
   border-radius: 999px;
-  border: 2px solid var(--color-brand-700);
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--ds-ink);
+  background: var(--ds-primary);
   cursor: grab;
 }
 
 .hm-range:hover::-webkit-slider-thumb {
-  transform: scale(1.1);
+  border-color: var(--ds-accent-cobalt);
 }
 
 .hm-range:active::-webkit-slider-thumb {
@@ -437,17 +407,13 @@ html[data-hostello-map-open] body {
 }
 
 .hm-range:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ring) 30%, transparent);
+  outline: var(--ds-focus-width) solid var(--ds-accent-cobalt);
+  outline-offset: 2px;
 }
 
 .hm-range:focus-visible::-moz-range-thumb {
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ring) 30%, transparent);
-}
-
-.dark .hm-range::-webkit-slider-thumb,
-.dark .hm-range::-moz-range-thumb {
-  border-color: var(--color-brand-400);
-  background: var(--surface-raised);
+  outline: var(--ds-focus-width) solid var(--ds-accent-cobalt);
+  outline-offset: 2px;
 }
 
 /* ── Motion ───────────────────────────────────────────────────────────── */
@@ -455,7 +421,8 @@ html[data-hostello-map-open] body {
 @media (prefers-reduced-motion: reduce) {
   .hm-pin,
   .hm-cluster,
-  .hm-pin::after {
+  .hm-pin::after,
+  [data-hostello-map] .leaflet-tile-pane {
     transition: none;
   }
   [data-hostello-map] .leaflet-fade-anim .leaflet-tile,

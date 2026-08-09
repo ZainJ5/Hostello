@@ -1,14 +1,14 @@
-import { Skeleton } from '@/components/ui/Feedback';
+import { Skeleton } from '@/components/ds/Feedback';
 
 function CardSkeleton() {
   return (
-    <div className="flex gap-3 rounded-[var(--radius-card)] border border-border bg-surface p-2.5">
-      <Skeleton className="size-[92px] shrink-0 rounded-xl sm:size-[104px]" />
-      <div className="flex-1 space-y-2 py-1">
+    <div className="ds-elevated flex gap-3 rounded-ds-inner p-3">
+      <Skeleton className="size-22 shrink-0 sm:size-26" />
+      <div className="flex flex-1 flex-col gap-2 py-1">
         <Skeleton className="h-4 w-4/5" />
         <Skeleton className="h-3 w-3/5" />
-        <Skeleton className="h-5 w-24 rounded-full" />
-        <Skeleton className="h-4 w-28" />
+        <Skeleton className="h-3 w-2/5" />
+        <Skeleton className="h-5 w-28" />
       </div>
     </div>
   );
@@ -32,34 +32,42 @@ export function MapCanvasSkeleton() {
  */
 export default function MapSkeleton() {
   return (
-    <div className="flex h-[calc(100dvh_-_4rem)] w-full overflow-hidden bg-background">
-      <aside className="hidden w-[40%] min-w-[380px] max-w-[560px] shrink-0 flex-col border-r border-border bg-background lg:flex">
-        <div className="border-b border-border bg-surface px-4 py-2.5">
-          <Skeleton className="h-11 w-32 rounded-xl" />
-          <div className="mt-3.5 grid grid-cols-2 gap-3">
-            <Skeleton className="h-[68px] rounded-xl" />
-            <Skeleton className="h-[68px] rounded-xl" />
-            <Skeleton className="h-[68px] rounded-xl" />
-            <Skeleton className="h-[68px] rounded-xl" />
-          </div>
-          <Skeleton className="mt-3.5 h-12 rounded-xl" />
-        </div>
-        <div className="flex items-center justify-between px-4 py-3">
-          <Skeleton className="h-4 w-40" />
-          <Skeleton className="h-4 w-16" />
-        </div>
-        <div className="min-h-0 flex-1 space-y-2.5 overflow-hidden px-4">
-          {[0, 1, 2, 3, 4].map((i) => (
-            <CardSkeleton key={i} />
-          ))}
-        </div>
-      </aside>
+    <div className="flex h-[calc(100dvh-4rem)] w-full flex-col overflow-hidden bg-ds-surface">
+      <div className="shrink-0 border-b border-solid border-ds-hairline px-4 py-3 lg:px-20 lg:py-5">
+        <Skeleton className="h-4 w-24" />
+        <Skeleton className="mt-3 h-7 w-64" />
+        <Skeleton className="mt-3 hidden h-4 w-xl lg:block" />
+      </div>
 
-      <div className="bg-grid relative min-w-0 flex-1 bg-surface-sunken">
-        <MapCanvasSkeleton />
-        <div className="absolute inset-x-0 bottom-0 h-[17%] rounded-t-[var(--radius-panel)] border border-b-0 border-border bg-surface p-3 shadow-xl lg:hidden">
-          <span className="mx-auto block h-1.5 w-11 rounded-full bg-border-strong" />
-          <Skeleton className="mt-4 h-5 w-44" />
+      <div className="flex min-h-0 flex-1">
+        <aside className="hidden w-[40%] min-w-96 max-w-140 shrink-0 flex-col border-r border-solid border-ds-hairline bg-ds-surface lg:flex">
+          <div className="border-b border-solid border-ds-hairline px-4 py-4">
+            <Skeleton className="h-11 w-28" />
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <Skeleton className="h-16" />
+              <Skeleton className="h-16" />
+              <Skeleton className="h-16" />
+              <Skeleton className="h-16" />
+            </div>
+            <Skeleton className="mt-4 h-12" />
+          </div>
+          <div className="flex items-center justify-between px-4 py-3">
+            <Skeleton className="h-4 w-40" />
+            <Skeleton className="h-4 w-20" />
+          </div>
+          <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden px-4">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <CardSkeleton key={i} />
+            ))}
+          </div>
+        </aside>
+
+        <div className="relative min-w-0 flex-1 bg-ds-surface-sunken">
+          <MapCanvasSkeleton />
+          <div className="absolute inset-x-0 bottom-0 h-[17%] rounded-t-ds-control border border-b-0 border-solid border-ds-hairline bg-ds-surface p-3 lg:hidden">
+            <span aria-hidden="true" className="mx-auto block h-1.5 w-11 rounded-ds-chip bg-ds-control" />
+            <Skeleton className="mt-4 h-5 w-44" />
+          </div>
         </div>
       </div>
     </div>

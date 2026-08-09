@@ -88,11 +88,15 @@ export default function BottomSheet({ snapIndex, onSnapIndexChange, label, child
     <section
       ref={sheetRef}
       aria-label={label}
-      style={{ transform: `translateY(${offsetPct(snapIndex)}%)` }}
+      // A sheet is one of the three places the system allows a shadow.
+      style={{
+        transform: `translateY(${offsetPct(snapIndex)}%)`,
+        boxShadow: 'var(--ds-shadow-menu)',
+      }}
       className={cn(
-        'absolute inset-x-0 bottom-0 z-[1200] flex h-[94%] flex-col lg:hidden',
-        'rounded-t-[var(--radius-panel)] border border-b-0 border-border bg-surface shadow-xl',
-        'transition-transform duration-300 ease-[var(--ease-out-quint)]'
+        'absolute inset-x-0 bottom-0 z-1200 flex h-[94%] flex-col lg:hidden',
+        'rounded-t-ds-control border border-b-0 border-solid border-ds-hairline bg-ds-surface',
+        'transition-transform duration-300 ease-out motion-reduce:transition-none'
       )}
     >
       <button
@@ -105,11 +109,11 @@ export default function BottomSheet({ snapIndex, onSnapIndexChange, label, child
         aria-label="Resize the results panel. Use the up and down arrow keys, or drag."
         className={cn(
           'flex h-9 w-full shrink-0 cursor-grab touch-none items-center justify-center',
-          'rounded-t-[var(--radius-panel)] active:cursor-grabbing',
-          'focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-ring'
+          'rounded-t-ds-control active:cursor-grabbing',
+          'focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-ds-cobalt'
         )}
       >
-        <span aria-hidden="true" className="h-1.5 w-11 rounded-full bg-border-strong" />
+        <span aria-hidden="true" className="h-1.5 w-11 rounded-ds-chip bg-ds-control" />
       </button>
 
       <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain">
