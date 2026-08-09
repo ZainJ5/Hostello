@@ -309,6 +309,12 @@ path, so these were made centrally and the others inherit them:
 | `680b46f` | `Pagination` gained a `noun` prop | It hardcoded "hostels" and read "489 hostels" on the reviews page |
 | `c9cd47d` | `proxy.js` matcher gained `/account/:path*`, and `homeForRole` now returns `/account` | The student area moved but the route guard and the post sign in redirect still pointed at `/dashboard` |
 | `b50295c` | Restored `_lib/recommendations.js` | See the regression below |
+| `c267c6c` | `SiteFooter` city links now point at `/hostels/in/<city>` | `/hostels/<city>` fell through to the listing route and 404d |
+| `c267c6c` | `SortSelect` accepts a precomputed `href` per option and an `id` prop | A `hrefFor` function cannot cross the server to client boundary, so landing pages silently degraded to client rendering. Two controls on one page also collided on `id="sort"` |
+
+`SortSelect` keeps accepting `hrefFor` for callers that are already client
+side, so nothing that already used it breaks. `components/seo/LandingSort.js`
+is a shim written before this fix and can now be removed.
 
 ### One confirmed feature regression
 
