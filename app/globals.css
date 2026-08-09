@@ -354,6 +354,17 @@
   --ds-radius-control: 0.5rem;
   --ds-radius-inner: 0.25rem;
   --ds-radius-chip: 0.125rem;
+  /* Focus slot radii. A control sits inside a transparent slot that carries
+     the focus ring, so the control never changes size between states. */
+  --ds-radius-slot: 0.4375rem;
+  --ds-radius-chip-slot: 0.3125rem;
+  --ds-focus-gap: 0.1875rem;
+  /* Control heights. A filter chip is 38 and its slot takes it to 44. */
+  --ds-control-h: 2.75rem;
+  --ds-chip-h: 2.375rem;
+  /* The only shadow in the system, reserved for menus, sheets and toasts.
+     Cards never lift. */
+  --ds-shadow-menu: 0 8px 24px rgb(22 19 14 / 0.18);
 
   /* Strip primitive. Beds are 12 tall because they are the thing being
      chosen. Every other strip in the same grammar is 6, half height, so
@@ -412,6 +423,8 @@
   --radius-ds-control: var(--ds-radius-control);
   --radius-ds-inner: var(--ds-radius-inner);
   --radius-ds-chip: var(--ds-radius-chip);
+  --radius-ds-slot: var(--ds-radius-slot);
+  --radius-ds-chip-slot: var(--ds-radius-chip-slot);
 }
 
 /* ─── Type scale ────────────────────────────────────────────────
