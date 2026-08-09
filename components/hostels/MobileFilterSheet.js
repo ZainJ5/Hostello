@@ -1,80 +1,58 @@
 'use client';
 
-import { useCallback, useRef, useState, useTransition } from 'react';
-import { useRouter } from 'next/navigation';
-import { SlidersHorizontal, X } from 'lucide-react';
-import Button from '@/components/ui/Button';
+import { useCallback, useRef, useState } from 'react';
+import Button from '@/components/ds/Button';
 import { cn } from '@/lib/utils';
-import FilterPanel from './FilterPanel';
 import { useDialog } from './use-dialog';
-import { DEFAULT_FILTERS, activeFilterCount, hostelsHref } from './filters';
 
 /**
- * Mobile / tablet filtering. The trigger carries the live active-filter count;
- * the sheet edits a buffered draft so nothing reloads until "Show results",
- * which is the right trade-off on a connection where every navigation costs.
+ * The phone side of the filter rail. Figma page/browse-hostels/390 77:1367
+ * puts a "Filters" control beside the sort select; the rail itself moves into
+ * a sheet.
+ *
+ * The rail is passed in as `children` and is still the same server rendered,
+ * link driven markup the desktop rail uses, so there is exactly one filter UI
+ * in the codebase and the two cannot drift.
+ *
+ * The sheet deliberately stays open when a row is tapped. Each tap is a real
+ * navigation, the counts come back updated, and a student narrowing on rent
+ * and then on mess would otherwise have to reopen the sheet between every
+ * decision. "Show results" is what closes it.
  */
-export default function MobileFilterSheet({ filters, facets, className }) {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+export default function MobileFilterSheet({ count = 0, children, className }) {
   const [open, setOpen] = useState(false);
-  const [draft, setDraft] = useState(filters);
   const panelRef = useRef(null);
-
   const close = useCallback(() => setOpen(false), []);
+
   useDialog(open, { ref: panelRef, onClose: close });
-
-  const liveCount = activeFilterCount(filters);
-  const draftCount = activeFilterCount(draft);
-
-  function openSheet() {
-    setDraft(filters);
-    setOpen(true);
-  }
-
-  function applyDraft() {
-    setOpen(false);
-    startTransition(() =>
-      router.push(hostelsHref({ ...draft, sort: filters.sort, view: filters.view, page: 1 }), {
-        scroll: false,
-      })
-    );
-  }
-
-  function resetDraft() {
-    setDraft({ ...DEFAULT_FILTERS, sort: filters.sort, view: filters.view });
-  }
 
   return (
     <div className={className}>
       <button
         type="button"
-        onClick={openSheet}
+        onClick={() => setOpen(true)}
         aria-haspopup="dialog"
         aria-expanded={open}
         className={cn(
-          'inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl border border-border-strong bg-surface px-4',
-          'text-sm font-medium text-foreground shadow-sm transition-colors duration-200',
-          'hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring'
+          'ds-body-m-strong inline-flex cursor-pointer items-center gap-2 px-4',
+          'rounded-ds-inner border border-solid border-ds-ink bg-ds-surface-raised text-ds-ink',
+          'transition-colors duration-150 motion-reduce:transition-none hover:border-ds-cobalt',
+          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt'
         )}
+        style={{ height: 'var(--ds-control-h)' }}
       >
-        <SlidersHorizontal className="size-4" aria-hidden="true" />
         Filters
-        {liveCount > 0 && (
-          <span className="tabular grid size-5 place-items-center rounded-full bg-brand-700 text-[11px] font-semibold text-white">
-            {liveCount}
-          </span>
-        )}
+        {count > 0 ? <span className="ds-mono-meta text-ds-ink-muted">{count}</span> : null}
       </button>
 
-      {open && (
+      {open ? (
         <div className="fixed inset-0 z-50 lg:hidden">
           <button
             type="button"
-            aria-label="Close filters"
             tabIndex={-1}
+            aria-label="Close filters"
             onClick={close}
-            className="absolute inset-0 cursor-pointer bg-[var(--overlay)] animate-fade-in"
+            className="absolute inset-0 cursor-pointer bg-(--overlay)"
           />
 
           <div
@@ -83,62 +61,39 @@ export default function MobileFilterSheet({ filters, facets, className }) {
             aria-modal="true"
             aria-label="Filter hostels"
             tabIndex={-1}
-            className="absolute inset-x-0 bottom-0 flex max-h-[90dvh] flex-col rounded-t-[var(--radius-panel)] border-t border-border bg-surface shadow-xl outline-none animate-fade-up"
+            className={cn(
+              'absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col outline-none',
+              'border-t border-solid border-ds-hairline bg-ds-surface'
+            )}
+            style={{ boxShadow: 'var(--ds-shadow-menu)' }}
           >
-            <div className="shrink-0 border-b border-border px-5 pb-3 pt-3">
-              <div
-                aria-hidden="true"
-                className="mx-auto mb-3 h-1 w-10 rounded-full bg-border-strong"
-              />
-              <div className="flex items-center justify-between gap-3">
-                <h2 className="text-base font-semibold text-foreground">
-                  Filters
-                  {draftCount > 0 && (
-                    <span className="tabular ml-2 text-sm font-normal text-muted-foreground">
-                      {draftCount} active
-                    </span>
-                  )}
-                </h2>
-                <button
-                  type="button"
-                  onClick={close}
-                  aria-label="Close filters"
-                  className="grid size-11 cursor-pointer place-items-center rounded-xl text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-                >
-                  <X className="size-5" aria-hidden="true" />
-                </button>
-              </div>
+            <div className="flex shrink-0 items-center justify-between gap-3 border-b border-solid border-ds-hairline px-4 py-3">
+              <h2 className="ds-display-s text-ds-ink">Filters</h2>
+              <button
+                type="button"
+                onClick={close}
+                className={cn(
+                  'ds-body-m-strong ds-tap inline-flex cursor-pointer items-center justify-center px-3',
+                  'rounded-ds-inner border border-solid border-ds-control bg-ds-surface-raised text-ds-ink',
+                  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt'
+                )}
+              >
+                Close
+              </button>
             </div>
 
-            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5">
-              <FilterPanel value={draft} facets={facets} onChange={(patch) => setDraft((d) => ({ ...d, ...patch }))} />
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-5">
+              {children}
             </div>
 
-            <div className="shrink-0 border-t border-border bg-surface px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
-              <div className="flex items-center gap-3">
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  className="flex-1"
-                  onClick={resetDraft}
-                  disabled={draftCount === 0}
-                >
-                  Reset
-                </Button>
-                <Button
-                  variant="primary"
-                  size="lg"
-                  className="flex-[1.4]"
-                  onClick={applyDraft}
-                  loading={isPending}
-                >
-                  Show results
-                </Button>
-              </div>
+            <div className="shrink-0 border-t border-solid border-ds-hairline px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3">
+              <Button onClick={close} className="w-full">
+                Show results
+              </Button>
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
