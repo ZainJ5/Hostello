@@ -139,11 +139,17 @@ export default async function StudentProfilePage({ params }) {
 
       <div className="mt-10 flex flex-wrap items-center gap-3 border-t border-solid border-ds-hairline pt-6">
         <Button href="/roommates">Ask for an intro</Button>
+        {/*
+          Not "Report a student". There is no student report endpoint and
+          building one would need a moderation queue in the frozen admin
+          console, so the link says what it actually does: it opens the safety
+          page, which carries the address to write to.
+        */}
         <Link
           href="/safety"
           className="ds-body-m ds-tap ds-focusable inline-flex items-center px-2 text-ds-cobalt underline-offset-2 hover:underline"
         >
-          Report a student
+          Safety and reporting
         </Link>
       </div>
     </div>
