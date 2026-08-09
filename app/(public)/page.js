@@ -280,7 +280,7 @@ export default async function HomePage() {
               className="ds-body-urdu text-center text-ds-ink-muted"
             >
               <p>باتوں باتوں میں گزر جائے گا یہ سفر</p>
-              <p>منزل کی فِکر کرنا، یہ کام دوستوں کا ہے</p>
+              <p>منزل کی فِکر نہ کر، یہ کام دوستوں کا ہے</p>
             </blockquote>
           </div>
         </div>

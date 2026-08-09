@@ -335,19 +335,21 @@ document runs left to right.
 The client's text had `اتوں` where `باتوں` was intended, which the Roman
 transliteration confirms. Corrected.
 
-**The two misras do not appear to share one behr.** Scanning by syllable
-weight, the first runs to roughly 22 morae and the second to roughly 24, so
-the second line is about a foot longer:
+The second misra was corrected by the client from `فِکر کرنا` to `فِکر نہ کر`,
+which is what the verse means: do not worry about the destination, that is
+what friends are for. It also answers the first line rather than restating it.
+
+The correction improved the metre as well. Scanning by syllable weight the two
+misras now run to roughly 22 and 23 morae, against 22 and 24 before:
 
 ```
 باتوں باتوں میں گزر جائے گا یہ سفر          (~22)
-منزل کی فِکر کرنا، یہ کام دوستوں کا ہے        (~24)
+منزل کی فِکر نہ کر، یہ کام دوستوں کا ہے       (~23)
 ```
 
-It is shipped exactly as supplied rather than silently rewritten, because it
-is the client's own verse and scansion of Urdu poetry is not something to
-guess at. Dropping `یہ` from the second misra brings the two closer but does
-not fully resolve it. **This wants an Urdu poet's eye before launch.**
+Close enough to read as a couplet. It is still worth an Urdu poet's eye before
+launch, since scansion of Urdu poetry is not something to settle by counting
+alone.
 
 ---
 
