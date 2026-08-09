@@ -21,7 +21,7 @@ export const BOOKING_STATUSES = [
   'completed',
 ];
 
-/** Filter rail on /dashboard/bookings. `all` is a UI-only pseudo status. */
+/** Filter rail on /account/enquiries. `all` is a UI-only pseudo status. */
 export const BOOKING_FILTERS = [
   { value: 'all', label: 'All' },
   { value: 'pending', label: 'Pending' },
