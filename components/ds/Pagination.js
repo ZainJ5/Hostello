@@ -63,12 +63,22 @@ function windowed(page, pages) {
   return out;
 }
 
-export default function Pagination({ page, pages, total, perPage, hrefFor, className }) {
+export default function Pagination({
+  page,
+  pages,
+  total,
+  perPage,
+  hrefFor,
+  noun = 'hostel',
+  nounPlural,
+  className,
+}) {
   if (!pages || pages < 2) return null;
 
   const first = (page - 1) * perPage + 1;
   const last = Math.min(page * perPage, total);
-  const summary = `Showing ${first} to ${last} of ${total} ${total === 1 ? 'hostel' : 'hostels'}`;
+  const plural = nounPlural || `${noun}s`;
+  const summary = `Showing ${first} to ${last} of ${total} ${total === 1 ? noun : plural}`;
 
   return (
     <nav aria-label="Results pages" className={cn('flex flex-col items-center gap-2.5', className)}>
