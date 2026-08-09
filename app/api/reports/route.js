@@ -24,8 +24,14 @@ const schema = z
     reason: z.enum(REPORT_REASON_VALUES, {
       message: 'Pick the thing that is wrong',
     }),
+    // The type message matters as much as the length one: a missing field and
+    // a two word field are the same mistake to the person filling this in, so
+    // both say what to do rather than naming a type. `.default('')` would be
+    // the tidier spelling and is wrong here, because a zod default is returned
+    // without being run back through the rules above it, so an omitted field
+    // would sail past the minimum length.
     details: z
-      .string()
+      .string({ message: 'Tell us what happened' })
       .trim()
       .min(
         MIN_REPORT_DETAILS,
