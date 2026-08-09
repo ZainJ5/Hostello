@@ -1,4 +1,4 @@
-import { formatPKR, haversineKm } from '@/lib/utils';
+import { formatPKR, haversineKm, normalizePhone } from '@/lib/utils';
 import { distanceBand, formatKm } from '@/lib/distance';
 import { getCampus } from '@/components/hostels/campuses';
 
@@ -50,7 +50,8 @@ export function toSavedRow(hostel, university) {
     name: hostel.name,
     meta: savedRowMeta(hostel, university),
     // A fifth of listings carry no phone at all, so the call action has to
-    // degrade rather than render a dead tel: link.
-    phone: hostel.contact?.phone || '',
+    // degrade rather than render a dead tel: link. Normalised, because the
+    // stored numbers carry spaces and a tel: URI should not.
+    phone: normalizePhone(hostel.contact?.phone) || '',
   };
 }
