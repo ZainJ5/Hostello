@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { connectDB } from '@/lib/db';
 import Hostel from '@/models/Hostel';
 import { cn, serialize } from '@/lib/utils';
@@ -122,35 +123,46 @@ export default async function HomePage() {
     <>
       {/* ══ Hero ══ */}
       <section className="bg-ds-surface">
-        <Container className="flex flex-col gap-7 py-14">
+        <Container className="py-14">
           {/*
-            The frame pairs this column with illustration/hero-room 124:9163.
-            That illustration is not in the codebase and is not this agent's to
-            add: it is a shared asset and belongs beside Logo in the design
-            system set, drawn from tokens so it flips with the colour mode.
-            Until it is, the hero is one column at its own measure rather than
-            a two column layout with a hole in it. Recorded in the handover.
+            Two columns from lg, matching the frame, which pairs the search
+            column with the shared room illustration. Below lg the illustration
+            drops rather than shrinking to a stripe: at 390 the search is the
+            whole job of this screen.
           */}
-          <div className="flex max-w-165 flex-col gap-7">
-            <h1 className={cn(TITLE, 'text-balance text-ds-ink')}>
-              Where Pakistan&apos;s students find their room
-            </h1>
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-14">
+            <div className="flex max-w-165 flex-col gap-7 lg:flex-1">
+              <h1 className={cn(TITLE, 'text-balance text-ds-ink')}>
+                Where Pakistan&apos;s students find their room
+              </h1>
 
-            <p className="ds-body-l text-pretty text-ds-ink-muted">
-              {data.total} hostels near {data.universities.length} campuses in Islamabad,
-              Rawalpindi, Lahore and Karachi. Every listing is read by a person before it goes
-              live. You contact the owner yourself, and Hostello takes nothing from either side.
-            </p>
+              <p className="ds-body-l text-pretty text-ds-ink-muted">
+                {data.total} hostels near {data.universities.length} campuses in Islamabad,
+                Rawalpindi, Lahore and Karachi. Every listing is read by a person before it goes
+                live. You contact the owner yourself, and Hostello takes nothing from either side.
+              </p>
 
-            <SearchBar universities={data.universities} />
+              <SearchBar universities={data.universities} />
 
-            <ul className="flex flex-wrap gap-1">
-              {popular.map((chip) => (
-                <li key={chip.href}>
-                  <FilterChip href={chip.href}>{chip.label}</FilterChip>
-                </li>
-              ))}
-            </ul>
+              <ul className="flex flex-wrap gap-1">
+                {popular.map((chip) => (
+                  <li key={chip.href}>
+                    <FilterChip href={chip.href}>{chip.label}</FilterChip>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="hidden lg:block lg:w-104 xl:w-120">
+              <Image
+                src="/illustrations/hero-shared-room.svg"
+                alt="The inside of a shared student room, with two beds, two desks and a window"
+                width={1024}
+                height={1024}
+                priority
+                className="h-auto w-full"
+              />
+            </div>
           </div>
         </Container>
       </section>
@@ -220,14 +232,42 @@ export default async function HomePage() {
           title="Know your roommate before you move in"
           description="We ask six things about how you actually live: when you sleep, how often you tidy, where you study, whether friends come over, whether anyone smokes, and how much noise is alright after eleven. Everybody answers the same six, so two answers can be put side by side."
         />
-        <p className="ds-body-m max-w-[100ch] text-pretty text-ds-ink-muted">
-          Matching runs only inside your own campus and your own gender, and Hostello never
-          places anybody in a room. It produces an introduction, and the person on the other end
-          accepts it or ignores it.
-        </p>
-        <div>
-          <Button href="/roommates">Answer the six questions</Button>
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-14">
+          <div className="flex flex-col gap-7 lg:flex-1">
+            <p className="ds-body-m max-w-[100ch] text-pretty text-ds-ink-muted">
+              Matching runs only inside your own campus and your own gender, and Hostello never
+              places anybody in a room. It produces an introduction, and the person on the other
+              end accepts it or ignores it.
+            </p>
+            <div>
+              <Button href="/roommates">Answer the six questions</Button>
+            </div>
+          </div>
+
+          <div className="lg:w-96 xl:w-104">
+            <Image
+              src="/illustrations/find-a-roommate.svg"
+              alt="Two students seen from behind, sitting together and looking at a shared room"
+              width={1024}
+              height={1024}
+              className="h-auto w-full"
+            />
+          </div>
         </div>
+
+        {/*
+          A shair, set in Nastaliq. `dir` and `lang` are on the element rather
+          than the page: the rest of the document is left to right, and without
+          them the comma lands on the wrong side of the line. `.ds-label-urdu`
+          carries the 2.22 line height Nastaliq needs so its descenders are not
+          clipped, which is the reason the design gives it its own text style.
+        */}
+        <figure className="mt-2 flex flex-col items-center gap-4 border-t border-solid border-ds-hairline pt-10">
+          <blockquote dir="rtl" lang="ur" className="ds-label-urdu text-center text-ds-ink">
+            <p>باتوں باتوں میں گزر جائے گا یہ سفر</p>
+            <p>منزل کی فِکر کرنا، یہ کام دوستوں کا ہے</p>
+          </blockquote>
+        </figure>
       </Band>
 
       {/* ══ Ask residents ══ */}

@@ -1,10 +1,9 @@
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 /**
- * Figma logo/mark 108:62 and logo/lockup 108:139.
- *
- * A door left open: a thin ink frame, a solid ink panel pushed right, and a
- * chrome yellow gap down the left.
+ * Figma logo/mark 108:62 and logo/lockup 108:139, now carrying the supplied
+ * brand artwork rather than the three rectangle door the file drew.
  *
  * DRAWN FROM TOKENS, NOT IMPORTED AS AN SVG, and deliberately so. The file
  * requires that in dark mode the frame and panel flip to the light ink value
@@ -13,60 +12,45 @@ import { cn } from '@/lib/utils';
  * rectangles in Figma, so this is a faithful reproduction rather than a
  * redrawing, and it stays one component: a change to the shape is one edit.
  *
- * Geometry is proportional to the mark height, so the same component serves
- * the header at 28 and any other size without a second asset. Minimum is 20
- * tall, per logo-usage. The read-me says 24 and is stale.
- *
+ * Minimum is 20 tall, per logo-usage. The read-me says 24 and is stale.
  * Clear space is one gap width on every side, measured from the mark.
  */
 
-const RATIO = {
-  // The mark is 17 wide by 28 tall. Everything else is a fraction of that.
-  aspect: 17 / 28,
-  inset: 2 / 28,
-  gapLeft: 2 / 17,
-  gapWidth: 4 / 17,
-  panelLeft: 6 / 17,
-  panelWidth: 9 / 17,
-};
-
+/**
+ * The supplied brand mark, a square artwork rather than the three rectangle
+ * door this file originally drew from tokens.
+ *
+ * An SVG carries baked fills and cannot flip with the colour mode, which
+ * logo-usage requires: the ink must lift in dark while the yellow holds its
+ * value. So there are two exports of the same artwork, differing only in the
+ * two ink fills, and CSS picks one. That keeps the requirement satisfied
+ * without inverting the yellow, which a filter would do.
+ */
 export function LogoMark({ height = 28, className, title = 'Hostello' }) {
-  const h = `${height / 16}rem`;
-  const w = `${(height * RATIO.aspect) / 16}rem`;
+  const box = { height: `${height / 16}rem`, width: `${height / 16}rem` };
 
   return (
     <span
       role="img"
       aria-label={title}
       className={cn('relative inline-block shrink-0', className)}
-      style={{ height: h, width: w }}
+      style={box}
     >
-      {/* frame */}
-      <span
-        aria-hidden="true"
-        className="absolute inset-0 border border-solid border-ds-ink"
+      <Image
+        src="/brand/hostello-logo.svg"
+        alt=""
+        width={1024}
+        height={1024}
+        priority
+        className="h-full w-full dark:hidden"
       />
-      {/* open gap, the one place the yellow holds its value in both modes */}
-      <span
-        aria-hidden="true"
-        className="absolute bg-ds-primary"
-        style={{
-          left: `${RATIO.gapLeft * 100}%`,
-          width: `${RATIO.gapWidth * 100}%`,
-          top: `${RATIO.inset * 100}%`,
-          bottom: `${RATIO.inset * 100}%`,
-        }}
-      />
-      {/* panel */}
-      <span
-        aria-hidden="true"
-        className="absolute bg-ds-ink"
-        style={{
-          left: `${RATIO.panelLeft * 100}%`,
-          width: `${RATIO.panelWidth * 100}%`,
-          top: `${RATIO.inset * 100}%`,
-          bottom: `${RATIO.inset * 100}%`,
-        }}
+      <Image
+        src="/brand/hostello-logo-dark.svg"
+        alt=""
+        width={1024}
+        height={1024}
+        priority
+        className="hidden h-full w-full dark:block"
       />
     </span>
   );
