@@ -3,7 +3,7 @@ import { ASK_TOPIC_VALUES } from '@/models/AskThread';
 import { NOTICE_TYPES } from '@/models/NoticePost';
 import {
   CONDITIONS,
-  LOST_DIRECTIONS,
+  HAND_TASKS,
   MEALS,
   MESS_REASONS,
 } from '@/components/community/notice-types';
@@ -89,10 +89,10 @@ const DETAIL_SCHEMAS = {
     note: optionalText(120),
   }),
 
-  lost: z.object({
-    direction: z.enum(LOST_DIRECTIONS),
-    item: text(60),
-    place: optionalText(60),
+  hand: z.object({
+    task: z.enum(HAND_TASKS),
+    by: z.coerce.date(),
+    note: optionalText(120),
   }),
 };
 

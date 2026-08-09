@@ -63,7 +63,7 @@ export const POST = handler(async (req) => {
   // Checked before the expiry is derived, so the message can name the field a
   // student actually filled in rather than a value they never saw.
   if (def.maxAheadDays) {
-    const dated = ['leavingAt', 'freeFrom', 'onDate']
+    const dated = ['leavingAt', 'freeFrom', 'onDate', 'by']
       .map((k) => details[k])
       .find(Boolean);
     if (dated) {

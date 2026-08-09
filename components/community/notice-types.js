@@ -10,8 +10,9 @@ import { formatPKR } from '@/lib/utils';
  * an essay, and the wording of every post already on the board improves the
  * day this file is edited, with no migration.
  *
- * Two fields are short labelled text: the thing you are selling, and the place
- * you lost something. A sixty character box labelled "What are you selling" is
+ * Three fields are short labelled text: the thing you are selling, the room a
+ * bed is in, and the place a ride leaves from. Two more are optional 120
+ * character notes. A sixty character box labelled "What are you selling" is
  * not a composer, and there is nowhere on the board to write a paragraph.
  */
 
@@ -88,7 +89,13 @@ export const MESS_REASONS = [
   'Menu has changed',
   'Timing has changed',
 ];
-export const LOST_DIRECTIONS = ['Lost', 'Found'];
+export const HAND_TASKS = [
+  'Moving something heavy',
+  'A lift somewhere',
+  'Somebody to come along',
+  'A tool or a charger',
+  'Help with a device',
+];
 
 /**
  * Field kinds the composer knows how to render. Keeping the form declarative
@@ -237,45 +244,37 @@ export const NOTICE_TYPE_LIST = [
   },
 
   {
-    value: 'lost',
-    filter: 'Lost',
-    badge: 'Lost or found',
-    picker: 'I lost or found something',
-    pickerHint: 'The most common thing on a real hostel board.',
-    lifetime: 'A lost or found notice goes after a week.',
+    value: 'hand',
+    filter: 'Help',
+    badge: 'Need a hand',
+    picker: 'I need a hand',
+    pickerHint: 'A mattress up three floors, somebody to walk to the market with.',
+    lifetime: 'A request for a hand goes at the end of the day you needed it.',
     fields: [
       {
-        name: 'direction',
-        label: 'Lost or found',
+        name: 'task',
+        label: 'What do you need',
         kind: 'select',
         required: true,
-        options: LOST_DIRECTIONS,
+        options: HAND_TASKS,
       },
+      { name: 'by', label: 'When', kind: 'date', required: true },
       {
-        name: 'item',
-        label: 'What is it',
+        name: 'note',
+        label: 'Anything else worth saying',
         kind: 'text',
-        required: true,
-        maxLength: 60,
-        placeholder: 'A blue water bottle',
-      },
-      {
-        name: 'place',
-        label: 'Where',
-        kind: 'text',
-        maxLength: 60,
-        placeholder: 'the study room',
+        maxLength: 120,
+        placeholder: 'Third floor, one mattress',
       },
     ],
-    compose(d) {
-      const headline = `${d.direction}: ${d.item}`;
-      let detail = '';
-      if (d.place) {
-        detail = d.direction === 'Found' ? `Left at ${d.place}.` : `Last seen near ${d.place}.`;
-      }
-      return { headline, detail };
+    compose(d, now) {
+      return {
+        headline: `${d.task}, ${dayPhrase(d.by, now)}`,
+        detail: d.note ? `${d.note}.` : '',
+      };
     },
-    expiry: () => new Date(Date.now() + 7 * DAY),
+    expiry: (d) => endOfDay(d.by),
+    maxAheadDays: 14,
   },
 ];
 

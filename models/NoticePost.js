@@ -19,18 +19,26 @@ import mongoose from 'mongoose';
  *            fortnight, because unsold means nobody wanted it.
  *   mess     the mess is off, the timing moved, the menu changed. Dead at
  *            midnight, because tomorrow it is wrong.
- *   lost     lost or found. Dead in a week, because an unclaimed item stops
- *            being news.
+ *   hand     you need a hand with something. Dead at the end of the day you
+ *            needed it.
+ *
+ * The fifth is the only one of the five that asks for something rather than
+ * offering it, which is what keeps the board a building rather than a
+ * classifieds page. It is also the one most at risk of turning into the blank
+ * box the design rules out, so the ask itself is a select from five options
+ * and not a sentence somebody types.
  *
  * Rejected: a general "announcement" type, which is a free text composer
  * wearing a hat and would swallow the other four; a maintenance or repair
- * type, because that is a message to the owner and the owner console is frozen;
- * a "looking for a roommate" type, because roommate matching is its own
- * feature and duplicating it here would split the same intent across two
- * surfaces.
+ * type, because that is a message to the owner and the owner console is
+ * frozen; a "looking for a roommate" type, because roommate matching is its
+ * own feature and duplicating it here would split one intent across two
+ * surfaces; and lost and found, which is the strongest of the near misses but
+ * is usually settled by asking the room next door, whereas needing a hand is
+ * the case that genuinely needs the whole building.
  */
 
-export const NOTICE_TYPES = ['ride', 'room', 'selling', 'mess', 'lost'];
+export const NOTICE_TYPES = ['ride', 'room', 'selling', 'mess', 'hand'];
 
 /** Flags needed before a post drops out of public view, as reviews use. */
 export const AUTO_FLAG_THRESHOLD = 3;
@@ -56,22 +64,20 @@ const detailsSchema = new mongoose.Schema(
     rent: { type: Number, default: null, min: 0 },
     depositTransfers: { type: Boolean, default: false },
 
-    // selling and lost both name an item
-    item: { type: String, default: '', maxlength: 60 },
-
     // selling
+    item: { type: String, default: '', maxlength: 60 },
     price: { type: Number, default: null, min: 0 },
     condition: { type: String, default: '', maxlength: 24 },
 
-    // mess
+    // mess, and the optional note is shared with hand
     meals: { type: [String], default: [] },
     onDate: { type: Date, default: null },
     reason: { type: String, default: '', maxlength: 32 },
     note: { type: String, default: '', maxlength: 120 },
 
-    // lost
-    direction: { type: String, default: '', maxlength: 8 },
-    place: { type: String, default: '', maxlength: 60 },
+    // hand
+    task: { type: String, default: '', maxlength: 40 },
+    by: { type: Date, default: null },
   },
   { _id: false }
 );

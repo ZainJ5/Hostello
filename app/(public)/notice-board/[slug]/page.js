@@ -167,7 +167,8 @@ export default async function BoardPage({ params, searchParams }) {
       <Alert title="Everything here clears itself" className="mt-6">
         A ride goes two hours after it leaves, a mess notice goes at midnight, a room
         goes on the date it comes free, anything for sale goes after two weeks, and a
-        lost or found notice goes after a week. Nothing has to be tidied up by hand.
+        request for a hand goes at the end of the day you needed it. Nothing has to be
+        tidied up by anybody.
       </Alert>
 
       <div className="mt-6">
