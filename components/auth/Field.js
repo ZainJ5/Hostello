@@ -69,11 +69,13 @@ export function Field({ id, label, hint, error, required, children, className, a
   return (
     <div className={cn('flex w-full flex-col gap-1.5', className)}>
       <div className="flex items-baseline justify-between gap-3">
+        {/* No visible required marker. Almost every field on these forms is
+            required, so marking them all is noise, and none of the frames
+            draws a marker. The `required` attribute on the control is what
+            carries it to a screen reader, and the fields that are genuinely
+            optional say so in their hint. */}
         <label htmlFor={fieldId} className="ds-body-s-strong text-ds-ink">
           {label}
-          {required ? (
-            <span className="text-ds-ink-muted"> (required)</span>
-          ) : null}
         </label>
         {action}
       </div>

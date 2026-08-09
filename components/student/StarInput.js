@@ -22,7 +22,6 @@ export default function StarInput({
   label = 'Overall rating',
   value = 0,
   onChange,
-  required,
   error,
   size = 'lg',
 }) {
@@ -33,10 +32,7 @@ export default function StarInput({
 
   return (
     <fieldset className="flex flex-col gap-1.5">
-      <legend className="ds-body-s-strong text-ds-ink">
-        {label}
-        {required ? <span className="text-ds-ink-muted"> (required)</span> : null}
-      </legend>
+      <legend className="ds-body-s-strong text-ds-ink">{label}</legend>
 
       <div className="flex flex-wrap items-center gap-3" onMouseLeave={() => setHover(0)}>
         <div className="flex items-center">

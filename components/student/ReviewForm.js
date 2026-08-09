@@ -145,7 +145,6 @@ export default function ReviewForm({ open, onClose, hostel, review, onSaved }) {
           name="rating"
           value={form.rating}
           onChange={(v) => set('rating', v)}
-          required
           error={errors.rating}
         />
 
