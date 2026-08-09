@@ -3,12 +3,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { LogIn } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import { Input } from '@/components/ui/Field';
-import { Alert } from '@/components/ui/Feedback';
+import Button from '@/components/ds/Button';
+import { Alert } from '@/components/ds/Feedback';
 import AuthHeading from './AuthHeading';
+import NotePanel from './NotePanel';
 import PasswordField from './PasswordField';
+import { TextInput } from './Field';
 import { apiRequest, fieldErrors, GENERIC_ERROR } from './api';
 import { emailIssue, homeForRole } from './validation';
 
@@ -78,80 +78,94 @@ export default function LoginForm({ nextPath = '', passwordWasReset = false }) {
   return (
     <div>
       <AuthHeading
-        eyebrow="Welcome back"
-        icon={LogIn}
+        trail={[{ label: 'Home', href: '/' }, { label: 'Sign in' }]}
         title="Sign in to Hostello"
-        description="Pick up where you left off. Your saved hostels and enquiries are waiting."
+        description="Your saved hostels and the enquiries you have already sent are waiting here."
       />
 
-      {passwordWasReset && (
-        <Alert tone="success" title="Password updated" className="mb-5">
-          Sign in with your new password.
-        </Alert>
-      )}
+      <div className="flex flex-col gap-5">
+        {passwordWasReset ? (
+          <Alert title="Password updated">Sign in with your new password.</Alert>
+        ) : null}
 
-      {nextPath && !passwordWasReset && (
-        <Alert tone="info" className="mb-5">
-          Sign in to continue to <span className="font-medium">{nextPath}</span>.
-        </Alert>
-      )}
+        {nextPath && !passwordWasReset ? (
+          <Alert>
+            Sign in to continue to <span className="ds-body-m-strong text-ds-ink">{nextPath}</span>.
+          </Alert>
+        ) : null}
 
-      {formError && (
-        <Alert tone="danger" className="mb-5">
-          {formError}
-        </Alert>
-      )}
+        {formError ? (
+          <Alert tone="error" title="That did not work">
+            {formError}
+          </Alert>
+        ) : null}
 
-      <form onSubmit={handleSubmit} noValidate className="space-y-4">
-        <Input
-          label="Email address"
-          type="email"
-          name="email"
-          autoComplete="email"
-          inputMode="email"
-          placeholder="you@example.com"
-          value={values.email}
-          onChange={(e) => setField('email', e.target.value)}
-          onBlur={() => setErrors((p) => ({ ...p, email: emailIssue(values.email) }))}
-          error={errors.email}
-          disabled={submitting}
-          required
-        />
+        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+          <TextInput
+            label="Email address"
+            type="email"
+            name="email"
+            autoComplete="email"
+            inputMode="email"
+            placeholder="you@example.com"
+            hint="Your university address if you have one. A personal address works too."
+            value={values.email}
+            onChange={(e) => setField('email', e.target.value)}
+            onBlur={() => setErrors((p) => ({ ...p, email: emailIssue(values.email) }))}
+            error={errors.email}
+            disabled={submitting}
+            required
+          />
 
-        <PasswordField
-          label="Password"
-          name="password"
-          autoComplete="current-password"
-          placeholder="Your password"
-          value={values.password}
-          onChange={(e) => setField('password', e.target.value)}
-          error={errors.password}
-          disabled={submitting}
-          required
-          action={
-            <Link
-              href="/forgot-password"
-              className="cursor-pointer rounded-md text-xs font-medium text-brand-700 transition-colors duration-200 hover:text-brand-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring dark:text-brand-300 dark:hover:text-brand-200"
-            >
-              Forgot password?
-            </Link>
-          }
-        />
+          <PasswordField
+            label="Password"
+            name="password"
+            autoComplete="current-password"
+            placeholder="Your password"
+            hint="Forgot it? Use the link below and we will email you a reset code."
+            value={values.password}
+            onChange={(e) => setField('password', e.target.value)}
+            error={errors.password}
+            disabled={submitting}
+            required
+          />
 
-        <Button type="submit" size="lg" loading={submitting} className="w-full">
-          {submitting ? 'Signing in…' : 'Sign in'}
-        </Button>
-      </form>
+          <Button type="submit" loading={submitting} className="w-full">
+            Sign in
+          </Button>
+        </form>
 
-      <p className="mt-6 text-center text-sm text-muted-foreground">
-        New to Hostello?{' '}
-        <Link
-          href={signupHref}
-          className="cursor-pointer rounded-md font-semibold text-brand-700 transition-colors duration-200 hover:text-brand-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring dark:text-brand-300 dark:hover:text-brand-200"
-        >
-          Create an account
-        </Link>
-      </p>
+        <p className="ds-body-m">
+          <Link
+            href="/forgot-password"
+            className="text-ds-cobalt underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
+          >
+            Forgot your password
+          </Link>
+        </p>
+
+        <p className="ds-body-m text-ds-ink">
+          New to Hostello?{' '}
+          <Link
+            href={signupHref}
+            className="text-ds-cobalt underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
+          >
+            Create an account
+          </Link>
+          .
+        </p>
+
+        <NotePanel title="You do not need an account to browse">
+          <p>
+            Every listing, every rent, every review and every owner phone number is public
+            and stays public.
+          </p>
+          <p>
+            An account adds two things: saving a hostel to a shortlist, and keeping a
+            record of the owners you have already contacted.
+          </p>
+        </NotePanel>
+      </div>
     </div>
   );
 }

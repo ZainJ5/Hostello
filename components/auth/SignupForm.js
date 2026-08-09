@@ -3,14 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Sparkles } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import { Input } from '@/components/ui/Field';
-import { Alert } from '@/components/ui/Feedback';
+import Button from '@/components/ds/Button';
+import { Alert } from '@/components/ds/Feedback';
 import AuthHeading from './AuthHeading';
+import NotePanel from './NotePanel';
 import PasswordField from './PasswordField';
 import PasswordStrength from './PasswordStrength';
 import RolePicker from './RolePicker';
+import { TextInput } from './Field';
 import { apiRequest, fieldErrors, GENERIC_ERROR } from './api';
 import { emailIssue, nameIssue, passwordIssue } from './validation';
 
@@ -86,40 +86,40 @@ export default function SignupForm({ nextPath = '', initialRole = 'student' }) {
   return (
     <div>
       <AuthHeading
-        eyebrow="Free to join"
-        icon={Sparkles}
-        title="Create your account"
-        description="One account to shortlist hostels, message owners and track your bookings."
+        trail={[{ label: 'Home', href: '/' }, { label: 'Create an account' }]}
+        title="Create an account"
+        description="Two minutes. Students never pay Hostello anything, for this or for anything else."
       />
 
-      {formError && (
-        <Alert tone="danger" className="mb-5">
-          {formError}{' '}
-          {formError.toLowerCase().includes('already') && (
-            <Link
-              href={loginHref}
-              className="cursor-pointer font-semibold underline underline-offset-2"
-            >
-              Sign in instead
-            </Link>
-          )}
-        </Alert>
-      )}
+      <div className="flex flex-col gap-5">
+        {formError ? (
+          <Alert tone="error" title="That did not work">
+            {formError}{' '}
+            {formError.toLowerCase().includes('already') ? (
+              <Link
+                href={loginHref}
+                className="text-ds-cobalt underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
+              >
+                Sign in instead
+              </Link>
+            ) : null}
+          </Alert>
+        ) : null}
 
-      <form onSubmit={handleSubmit} noValidate className="space-y-5">
-        <RolePicker
-          value={values.role}
-          onChange={(role) => setField('role', role)}
-          error={errors.role}
-          disabled={submitting}
-        />
+        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+          <RolePicker
+            value={values.role}
+            onChange={(role) => setField('role', role)}
+            error={errors.role}
+            disabled={submitting}
+          />
 
-        <div className="space-y-4">
-          <Input
-            label="Full name"
+          <TextInput
+            label="Your name"
             name="name"
             autoComplete="name"
-            placeholder="Ayesha Khan"
+            placeholder="Zoya Rehman"
+            hint="This is what a hostel owner sees when you contact them."
             value={values.name}
             onChange={(e) => setField('name', e.target.value)}
             onBlur={() => setErrors((p) => ({ ...p, name: nameIssue(values.name) }))}
@@ -128,14 +128,14 @@ export default function SignupForm({ nextPath = '', initialRole = 'student' }) {
             required
           />
 
-          <Input
+          <TextInput
             label="Email address"
             type="email"
             name="email"
             autoComplete="email"
             inputMode="email"
             placeholder="you@example.com"
-            hint="We'll send a 6-digit code here to confirm it's yours."
+            hint="We send a six digit code here to confirm it is yours."
             value={values.email}
             onChange={(e) => setField('email', e.target.value)}
             onBlur={() => setErrors((p) => ({ ...p, email: emailIssue(values.email) }))}
@@ -144,12 +144,13 @@ export default function SignupForm({ nextPath = '', initialRole = 'student' }) {
             required
           />
 
-          <div>
+          <div className="flex flex-col gap-3">
             <PasswordField
               label="Password"
               name="password"
               autoComplete="new-password"
               placeholder="At least 8 characters"
+              hint="Eight characters or more, with at least one letter and one number."
               value={values.password}
               onChange={(e) => setField('password', e.target.value)}
               onBlur={() =>
@@ -159,29 +160,36 @@ export default function SignupForm({ nextPath = '', initialRole = 'student' }) {
               disabled={submitting}
               required
             />
-            {values.password && <PasswordStrength value={values.password} className="mt-3" />}
+            {values.password ? <PasswordStrength value={values.password} /> : null}
           </div>
-        </div>
 
-        <Button type="submit" size="lg" loading={submitting} className="w-full">
-          {submitting ? 'Creating your account…' : 'Create account'}
-        </Button>
+          <Button type="submit" loading={submitting} className="w-full">
+            Create account
+          </Button>
+        </form>
 
-        <p className="text-xs leading-relaxed text-muted-foreground">
-          By creating an account you agree to Hostello&apos;s terms of use and privacy
-          policy. We only email you about your account and your bookings.
+        <p className="ds-body-m text-ds-ink">
+          Already have one?{' '}
+          <Link
+            href={loginHref}
+            className="text-ds-cobalt underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
+          >
+            Sign in
+          </Link>
+          .
         </p>
-      </form>
 
-      <p className="mt-6 text-center text-sm text-muted-foreground">
-        Already have an account?{' '}
-        <Link
-          href={loginHref}
-          className="cursor-pointer rounded-md font-semibold text-brand-700 transition-colors duration-200 hover:text-brand-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring dark:text-brand-300 dark:hover:text-brand-200"
-        >
-          Sign in
-        </Link>
-      </p>
+        <NotePanel title="What we do with this">
+          <p>
+            Your name goes to a hostel owner only when you contact one. Your email address
+            never does.
+          </p>
+          <p>
+            We do not sell your details to hostels, agents or anybody else, and there is no
+            broker in this product to sell them to.
+          </p>
+        </NotePanel>
+      </div>
     </div>
   );
 }

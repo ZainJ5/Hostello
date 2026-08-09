@@ -3,14 +3,21 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { KeyRound } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import { Input } from '@/components/ui/Field';
-import { Alert } from '@/components/ui/Feedback';
+import Button from '@/components/ds/Button';
+import { Alert } from '@/components/ds/Feedback';
 import AuthHeading from './AuthHeading';
+import NotePanel from './NotePanel';
+import { TextInput } from './Field';
 import { apiRequest, fieldErrors, GENERIC_ERROR } from './api';
 import { emailIssue } from './validation';
 
+/**
+ * The frame says "we will send a link. The link works once and lasts an hour".
+ * The endpoint sends a six digit code that lasts ten minutes, and the copy
+ * here says that instead. A reset flow that describes itself wrongly is the
+ * one place a student will assume the site is broken rather than that they
+ * misread it.
+ */
 export default function ForgotPasswordForm({ initialEmail = '' }) {
   const router = useRouter();
 
@@ -56,51 +63,64 @@ export default function ForgotPasswordForm({ initialEmail = '' }) {
   return (
     <div>
       <AuthHeading
-        eyebrow="Password help"
-        icon={KeyRound}
-        title="Forgot your password?"
-        description="Enter the email you signed up with and we'll send a 6-digit code to reset it."
+        trail={[
+          { label: 'Home', href: '/' },
+          { label: 'Sign in', href: '/login' },
+          { label: 'Forgot password' },
+        ]}
+        title="Reset your password"
+        description="Type the address you signed up with and we will send a six digit code. The code works once and lasts ten minutes."
       />
 
-      {formError && (
-        <Alert tone="danger" className="mb-5">
-          {formError}
-        </Alert>
-      )}
+      <div className="flex flex-col gap-5">
+        {formError ? (
+          <Alert tone="error" title="That did not work">
+            {formError}
+          </Alert>
+        ) : null}
 
-      <form onSubmit={handleSubmit} noValidate className="space-y-4">
-        <Input
-          label="Email address"
-          type="email"
-          name="email"
-          autoComplete="email"
-          inputMode="email"
-          placeholder="you@example.com"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (error) setError('');
-          }}
-          onBlur={() => setError(emailIssue(email))}
-          error={error}
-          disabled={submitting}
-          required
-        />
+        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+          <TextInput
+            label="Email address"
+            type="email"
+            name="email"
+            autoComplete="email"
+            inputMode="email"
+            placeholder="you@example.com"
+            hint="If there is an account on this address you will get an email within a minute."
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (error) setError('');
+            }}
+            onBlur={() => setError(emailIssue(email))}
+            error={error}
+            disabled={submitting}
+            required
+          />
 
-        <Button type="submit" size="lg" loading={submitting} className="w-full">
-          {submitting ? 'Sending code…' : 'Send reset code'}
-        </Button>
-      </form>
+          <Button type="submit" loading={submitting} className="w-full">
+            Send the reset code
+          </Button>
+        </form>
 
-      <p className="mt-6 text-center text-sm text-muted-foreground">
-        Remembered it?{' '}
-        <Link
-          href="/login"
-          className="cursor-pointer rounded-md font-semibold text-brand-700 transition-colors duration-200 hover:text-brand-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring dark:text-brand-300 dark:hover:text-brand-200"
-        >
-          Back to sign in
-        </Link>
-      </p>
+        <NotePanel title="We do not say whether an address has an account">
+          <p>
+            The message reads the same either way. Telling you an address is not
+            registered would tell anybody else the same thing, which is how account lists
+            get built.
+          </p>
+        </NotePanel>
+
+        <p className="ds-body-m">
+          <Link
+            href="/login"
+            className="text-ds-cobalt underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
+          >
+            Back to sign in
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

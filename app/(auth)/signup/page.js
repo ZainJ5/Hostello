@@ -6,7 +6,7 @@ import { safeNext, homeForRole } from '@/components/auth/validation';
 export const metadata = {
   title: 'Create an account',
   description:
-    'Create a free Hostello account to shortlist verified student hostels, message owners and track your bookings.',
+    'Create a free Hostello account to shortlist verified student hostels, contact owners and keep a record of your enquiries.',
   robots: { index: false, follow: true },
 };
 

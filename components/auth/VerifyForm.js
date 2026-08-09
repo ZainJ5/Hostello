@@ -3,10 +3,10 @@
 import { useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Mail, RotateCw } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import { Alert } from '@/components/ui/Feedback';
+import Button from '@/components/ds/Button';
+import { Alert } from '@/components/ds/Feedback';
 import AuthHeading from './AuthHeading';
+import NotePanel from './NotePanel';
 import OtpInput, { OTP_LENGTH } from './OtpInput';
 import { useCountdown } from './useCountdown';
 import { apiRequest, fieldErrors, GENERIC_ERROR } from './api';
@@ -14,6 +14,16 @@ import { codeIssue, homeForRole } from './validation';
 
 const RESEND_SECONDS = 60;
 
+/**
+ * The design frame for this screen offers "Carry on without verifying" and
+ * describes verification as unlocking who is already in a room. Neither is
+ * built: an unverified account cannot open a session at all, and occupancy is
+ * not collected anywhere in the product. The secondary slot carries the resend
+ * instead, which is the action a student on this screen actually needs, and
+ * the panel says what verifying really does.
+ *
+ * The code itself never reaches the client, on any response, in any mode.
+ */
 export default function VerifyForm({ email, nextPath = '' }) {
   const router = useRouter();
 
@@ -102,111 +112,108 @@ export default function VerifyForm({ email, nextPath = '' }) {
   return (
     <div>
       <AuthHeading
-        eyebrow="One last step"
-        icon={Mail}
-        title="Check your email"
+        trail={[
+          { label: 'Home', href: '/' },
+          { label: 'Create an account', href: '/signup' },
+          { label: 'Verify your email' },
+        ]}
+        title="Verify your email"
         description={
           <>
-            We sent a {OTP_LENGTH}-digit code to{' '}
-            <span className="font-medium text-foreground">{email}</span>. It expires in
-            10 minutes.
+            We sent six digits to{' '}
+            <span className="ds-body-l text-ds-ink">{email}</span>. It expires in ten
+            minutes. Check the spam folder if it is not there.
           </>
         }
       />
 
-      {error && (
-        <Alert tone="danger" className="mb-5">
-          {error}
-        </Alert>
-      )}
+      <div className="flex flex-col gap-5">
+        {error ? (
+          <Alert tone="error" title="That code was not accepted">
+            {error}
+          </Alert>
+        ) : null}
 
-      {notice && !error && (
-        <Alert tone="success" className="mb-5">
-          {notice}
-        </Alert>
-      )}
+        {notice && !error ? <Alert title="Code sent">{notice}</Alert> : null}
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          submit();
-        }}
-        noValidate
-        className="space-y-5"
-      >
-        <div className="space-y-2">
-          <p className="text-sm font-medium text-foreground">Verification code</p>
-          <OtpInput
-            key={entryKey}
-            value={code}
-            onChange={setCode}
-            onComplete={(full) => submit(full)}
-            invalid={Boolean(error)}
-            disabled={submitting}
-            autoFocus
-            label="Verification code"
-            describedBy="otp-hint"
-          />
-          <p id="otp-hint" className="text-xs text-muted-foreground">
-            Paste the whole code and every box fills in.
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            submit();
+          }}
+          noValidate
+          className="flex flex-col gap-5"
+        >
+          <div className="flex flex-col gap-1.5">
+            <p className="ds-body-s-strong text-ds-ink" id="otp-label">
+              Verification code
+            </p>
+            <OtpInput
+              key={entryKey}
+              value={code}
+              onChange={setCode}
+              onComplete={(full) => submit(full)}
+              invalid={Boolean(error)}
+              disabled={submitting}
+              autoFocus
+              label="Verification code"
+              describedBy="otp-hint"
+            />
+            <p id="otp-hint" className="ds-body-s text-ds-ink-muted">
+              Paste the whole code and every box fills in.
+            </p>
+          </div>
+
+          <Button
+            type="submit"
+            loading={submitting}
+            disabled={code.length !== OTP_LENGTH}
+            className="w-full"
+          >
+            Verify
+          </Button>
+        </form>
+
+        <div className="flex flex-col gap-2">
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={handleResend}
+            loading={resending}
+            disabled={cooling || submitting}
+            className="w-full"
+          >
+            {cooling ? `Send it again in ${remaining}s` : 'Send it again'}
+          </Button>
+          {/* Announces the countdown ending without narrating every second. */}
+          <p className="sr-only" aria-live="polite">
+            {cooling ? '' : 'You can request a new code now.'}
           </p>
         </div>
 
-        <Button
-          type="submit"
-          size="lg"
-          loading={submitting}
-          disabled={code.length !== OTP_LENGTH}
-          className="w-full"
-        >
-          {submitting ? 'Verifying…' : 'Verify and continue'}
-        </Button>
-      </form>
+        <NotePanel title="What verifying changes">
+          <p>
+            Until the address is confirmed the account cannot be signed in to, which is
+            what stops somebody signing up with an address that is not theirs.
+          </p>
+          <p>
+            Once it is confirmed you can save hostels to a shortlist and keep a record of
+            the owners you contacted. Your email address is never shown to another student
+            or to a hostel owner.
+          </p>
+        </NotePanel>
 
-      <div className="mt-6 flex flex-col gap-3 rounded-[var(--radius-card)] border border-border bg-surface-sunken p-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-muted-foreground">
-          {cooling ? (
-            <>
-              Didn&apos;t get it? You can resend in{' '}
-              <span className="tabular font-semibold text-foreground">{remaining}s</span>
-            </>
-          ) : (
-            "Didn't get the email? Check spam, then resend."
-          )}
+        <p className="ds-body-m text-ds-ink">
+          Wrong address?{' '}
+          <Link
+            href="/signup"
+            className="text-ds-cobalt underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
+          >
+            Sign up with a different email
+          </Link>
+          .
         </p>
-        <Button
-          type="button"
-          variant="secondary"
-          onClick={handleResend}
-          loading={resending}
-          disabled={cooling || submitting}
-          className="shrink-0"
-        >
-          {!resending && <RotateCw className="size-4" aria-hidden="true" />}
-          {cooling ? (
-            <>
-              Resend in <span className="tabular">{remaining}s</span>
-            </>
-          ) : (
-            'Resend code'
-          )}
-        </Button>
       </div>
-
-      {/* Announces the countdown ending without narrating every second. */}
-      <p className="sr-only" aria-live="polite">
-        {cooling ? '' : 'You can request a new code now.'}
-      </p>
-
-      <p className="mt-6 text-center text-sm text-muted-foreground">
-        Wrong address?{' '}
-        <Link
-          href="/signup"
-          className="cursor-pointer rounded-md font-semibold text-brand-700 transition-colors duration-200 hover:text-brand-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring dark:text-brand-300 dark:hover:text-brand-200"
-        >
-          Sign up with a different email
-        </Link>
-      </p>
     </div>
   );
 }

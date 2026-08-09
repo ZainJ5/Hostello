@@ -5,8 +5,7 @@ import { safeNext, homeForRole } from '@/components/auth/validation';
 
 export const metadata = {
   title: 'Sign in',
-  description:
-    'Sign in to Hostello to see your saved hostels, enquiries and bookings.',
+  description: 'Sign in to Hostello to see your saved hostels and your enquiries.',
   robots: { index: false, follow: true },
 };
 

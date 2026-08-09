@@ -95,9 +95,19 @@ export function safeNext(value) {
   return v;
 }
 
-/** Mirrors HOME_FOR_ROLE in app/api/auth/_lib/users.js. */
+/**
+ * Where a role lands after signing in.
+ *
+ * Mirrors HOME_FOR_ROLE in app/api/auth/_lib/users.js, except for the student
+ * case: the account area moved to /account and the server copy still says
+ * /dashboard. Nothing breaks, because the permanent redirect in
+ * next.config.mjs catches the server's answer, and `data.redirect` is still
+ * preferred over this so the two cannot silently disagree about a role. The
+ * server constant should be updated to /account centrally, since it is a route
+ * handler and belongs to the auth stream.
+ */
 export function homeForRole(role) {
   if (role === 'owner') return '/owner';
   if (role === 'admin') return '/admin';
-  return '/dashboard';
+  return '/account';
 }
