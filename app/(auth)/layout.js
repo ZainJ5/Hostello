@@ -11,22 +11,18 @@ import {
  * Split-screen auth shell: brand panel on the left from `lg` up, form column
  * on the right. Below `lg` the panel collapses to a compact header so the
  * keyboard never pushes the form off screen on a 375px phone.
- *
- * Every claim in the panel is a fact about the seeded catalogue — 124
- * published listings, 19 universities, 4 cities, rents of PKR 5,000–35,000.
- * Nothing here is decorative filler or a stock photo.
  */
 
 const PROOF_POINTS = [
   {
     icon: BadgeCheck,
-    title: '124 verified hostels',
-    body: 'Every listing is reviewed by our team before it goes live — no ghost rooms, no bait prices.',
+    title: '124 hostels listed, 95 verified',
+    body: 'A verified listing has been checked by our team, so there are no ghost rooms and no bait prices.',
   },
   {
     icon: GraduationCap,
-    title: 'Mapped to 19 campuses',
-    body: 'NUST, FAST, QAU, COMSATS, NUML, LUMS, UET and more — sorted by walking distance.',
+    title: 'Mapped to 18 campuses',
+    body: 'NUST, FAST, QAU, COMSATS, NUML, LUMS, UET and more, sorted by walking distance.',
   },
   {
     icon: Banknote,
@@ -40,9 +36,11 @@ const PROOF_POINTS = [
   },
 ];
 
+// These figures describe the imported catalogue. Recheck them against the
+// database if the number of published listings changes materially.
 const STATS = [
-  { value: '124', label: 'Verified hostels' },
-  { value: '19', label: 'Universities' },
+  { value: '124', label: 'Hostels listed' },
+  { value: '18', label: 'Universities' },
   { value: '4', label: 'Cities' },
 ];
 
@@ -80,9 +78,9 @@ export default function AuthLayout({ children }) {
             <span className="sr-only">Hostello home</span>
           </Link>
           <p className="hidden text-right text-xs leading-snug font-medium text-white/85 sm:block">
-            124 verified hostels
+            124 hostels listed
             <br />
-            near 19 campuses
+            near 18 campuses
           </p>
         </div>
       </header>
@@ -112,7 +110,7 @@ export default function AuthLayout({ children }) {
           </h2>
           <p className="mt-3 text-[0.9375rem] leading-relaxed text-pretty text-white/80">
             Hostello is where students across Pakistan compare hostels on the things
-            that actually decide it — rent, distance, mess, and who else lives there.
+            that actually decide it: rent, distance, mess, and who else lives there.
           </p>
 
           <ul className="mt-9 space-y-6">
