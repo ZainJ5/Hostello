@@ -5,7 +5,7 @@
  * client components share one source of truth instead of drifting.
  */
 
-/** Roughly the Islamabad–Rawalpindi twin-city bowl, where most listings sit. */
+/** Roughly the Islamabad and Rawalpindi twin city bowl, where most listings sit. */
 export const DEFAULT_CENTER = [33.6461, 73.0169];
 export const DEFAULT_ZOOM = 11;
 export const MIN_ZOOM = 5;

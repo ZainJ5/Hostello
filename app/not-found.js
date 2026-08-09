@@ -75,6 +75,14 @@ export const metadata = {
   robots: { index: false, follow: true },
 };
 
+/**
+ * Prerendered and refreshed hourly rather than rendered per request. A 404 is
+ * where crawler noise and mistyped URLs land, so it must not put a database
+ * query behind every one of them, and an hour old count on this page is not a
+ * claim anybody acts on.
+ */
+export const revalidate = 3600;
+
 export default async function NotFound() {
   const counts = await loadCounts();
 

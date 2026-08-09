@@ -1,23 +1,19 @@
 import { notFound } from 'next/navigation';
 
 import { connectDB } from '@/lib/db';
-import Hostel from '@/models/Hostel';
 
 import SeoLanding from '@/components/seo/SeoLanding';
 import buildFacetGroups from '@/components/seo/facets';
 import { genderCityCopy, genderCityRelated, thinNoticeFor } from '@/components/seo/copy';
 import { landingTotal, loadLanding } from '@/components/seo/load';
 import {
-  CITY_NAMES,
   SITE_URL,
   addedFilterCount,
   buildLandingQuery,
   cityFromSlug,
   cityPath,
-  citySlug,
   genderCityPath,
   genderFromSlug,
-  genderSlugFor,
   hrefFactory,
   parseLandingFilters,
   sortOptions,
@@ -41,28 +37,17 @@ const DEFAULT_SORT = 'relevance';
 export const dynamic = 'force-dynamic';
 
 /**
- * Every city and gender pair that has at least one published listing, read off
- * the database rather than assumed from the vocabulary.
+ * NO `generateStaticParams` HERE, AND WHY.
+ *
+ * The template takes filters, a sort and a page from the query string, which
+ * makes it dynamically rendered whatever the param list says, so enumerating
+ * the params would prerender nothing. Pairing it with `dynamicParams = false`
+ * would give a routing level 404 for an unknown slug, which is tempting, but
+ * it also needs a reachable database at build time and turns a build without
+ * one into a site where every landing page 404s. The existence check runs in
+ * `generateMetadata` instead, which is before the body streams, so the status
+ * code is still right.
  */
-export async function generateStaticParams() {
-  try {
-    await connectDB();
-    const rows = await Hostel.aggregate([
-      { $match: { status: 'published' } },
-      { $group: { _id: { city: '$city', gender: '$gender' } } },
-    ]);
-
-    return rows
-      .map((r) => ({
-        city: r._id.city,
-        slug: genderSlugFor(r._id.gender),
-      }))
-      .filter((r) => r.slug && CITY_NAMES.includes(r.city))
-      .map((r) => ({ city: citySlug(r.city), gender: r.slug }));
-  } catch {
-    return [];
-  }
-}
 
 /**
  * Raised here rather than in the page body, for the reason recorded on the

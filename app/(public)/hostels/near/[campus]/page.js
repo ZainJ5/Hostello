@@ -1,21 +1,18 @@
 import { notFound } from 'next/navigation';
 
 import { connectDB } from '@/lib/db';
-import Hostel from '@/models/Hostel';
 
 import SeoLanding from '@/components/seo/SeoLanding';
 import buildFacetGroups from '@/components/seo/facets';
 import { campusCopy, campusRelated, thinNoticeFor } from '@/components/seo/copy';
 import { landingTotal, loadLanding } from '@/components/seo/load';
 import {
-  CAMPUS_NAMES,
   DISTANCE_SORT,
   SITE_URL,
   addedFilterCount,
   buildLandingQuery,
   campusFromSlug,
   campusPath,
-  campusSlug,
   hrefFactory,
   parseLandingFilters,
   sortOptions,
@@ -43,24 +40,17 @@ const DEFAULT_SORT = DISTANCE_SORT.value;
 export const dynamic = 'force-dynamic';
 
 /**
- * Only campuses that actually have listings. A page for a campus with nothing
- * behind it is a thin page in the exact place a thin page costs most, so it is
- * never generated and 404s if it is asked for directly.
+ * NO `generateStaticParams` HERE, AND WHY.
  *
- * The database is the source of truth here rather than the campus catalogue,
- * and a build without a reachable database simply resolves these on demand.
+ * The template takes filters, a sort and a page from the query string, which
+ * makes it dynamically rendered whatever the param list says, so enumerating
+ * the params would prerender nothing. Pairing it with `dynamicParams = false`
+ * would give a routing level 404 for an unknown slug, which is tempting, but
+ * it also needs a reachable database at build time and turns a build without
+ * one into a site where every landing page 404s. The existence check runs in
+ * `generateMetadata` instead, which is before the body streams, so the status
+ * code is still right.
  */
-export async function generateStaticParams() {
-  try {
-    await connectDB();
-    const names = await Hostel.distinct('universities', { status: 'published' });
-    return names
-      .filter((n) => CAMPUS_NAMES.includes(n))
-      .map((n) => ({ campus: campusSlug(n) }));
-  } catch {
-    return [];
-  }
-}
 
 /**
  * The existence check lives here rather than in the page body on purpose.
