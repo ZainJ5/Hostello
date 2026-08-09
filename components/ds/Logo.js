@@ -30,7 +30,7 @@ export function LogoMark({ height = 28, className, title = 'Hostello' }) {
       style={box}
     >
       <Image
-        src="/brand/hostello-logo.svg"
+        src="/brand/hostello-logo.png"
         alt=""
         width={1024}
         height={1024}
@@ -38,7 +38,7 @@ export function LogoMark({ height = 28, className, title = 'Hostello' }) {
         className="h-full w-full dark:hidden"
       />
       <Image
-        src="/brand/hostello-logo-dark.svg"
+        src="/brand/hostello-logo.png"
         alt=""
         width={1024}
         height={1024}

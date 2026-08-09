@@ -71,7 +71,7 @@ export default function SiteHeader({ user = null }) {
 
   return (
     <header className="w-full border-b border-solid border-ds-hairline bg-ds-surface">
-      <div className="mx-auto flex w-full max-w-[90rem] items-center gap-3 px-4 lg:gap-8 lg:px-20"
+      <div className="mx-auto flex w-full max-w-[100rem] items-center gap-3 px-4 lg:gap-8 sm:px-6 lg:px-10"
         style={{ minHeight: 'var(--ds-control-h)' }}
       >
         <Link

@@ -228,46 +228,61 @@ export default async function HomePage() {
 
       {/* ══ Roommates ══ */}
       <Band sunken>
-        <SectionHeading
-          title="Know your roommate before you move in"
-          description="We ask six things about how you actually live: when you sleep, how often you tidy, where you study, whether friends come over, whether anyone smokes, and how much noise is alright after eleven. Everybody answers the same six, so two answers can be put side by side."
-        />
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-14">
-          <div className="flex flex-col gap-7 lg:flex-1">
-            <p className="ds-body-m max-w-[100ch] text-pretty text-ds-ink-muted">
+        {/*
+          Both columns start at the top rather than centring. The illustration
+          is a square, so centring it against a shorter text column opened a
+          hole down the left that read as a layout bug.
+        */}
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-16">
+          <div className="flex flex-col gap-6 lg:flex-1">
+            <h2 className="ds-display-m text-balance text-ds-ink">
+              Know your roommate before you move in
+            </h2>
+
+            <p className="ds-body-m text-pretty text-ds-ink-muted">
+              We ask six things about how you actually live: when you sleep, how often you tidy,
+              where you study, whether friends come over, whether anyone smokes, and how much
+              noise is alright after eleven. Everybody answers the same six, so two answers can be
+              put side by side.
+            </p>
+
+            <p className="ds-body-m text-pretty text-ds-ink-muted">
               Matching runs only inside your own campus and your own gender, and Hostello never
               places anybody in a room. It produces an introduction, and the person on the other
               end accepts it or ignores it.
             </p>
+
             <div>
               <Button href="/roommates">Answer the six questions</Button>
             </div>
           </div>
 
-          <div className="lg:w-96 xl:w-104">
+          <div className="flex flex-col items-center gap-5 lg:w-104 xl:w-112">
             <Image
               src="/illustrations/find-a-roommate.svg"
-              alt="Two students seen from behind, sitting together and looking at a shared room"
+              alt="Two students seen from behind, sitting together in a shared room"
               width={1024}
               height={1024}
               className="h-auto w-full"
             />
+
+            {/*
+              The shair sits under the illustration rather than across the
+              section. `dir` and `lang` are on the element because the rest of
+              the document runs left to right, and without them the comma lands
+              on the wrong side of the line. The Nastaliq styles carry a 2.22
+              line height so the script's descenders are not clipped.
+            */}
+            <blockquote
+              dir="rtl"
+              lang="ur"
+              className="ds-body-urdu text-center text-ds-ink-muted"
+            >
+              <p>باتوں باتوں میں گزر جائے گا یہ سفر</p>
+              <p>منزل کی فِکر کرنا، یہ کام دوستوں کا ہے</p>
+            </blockquote>
           </div>
         </div>
-
-        {/*
-          A shair, set in Nastaliq. `dir` and `lang` are on the element rather
-          than the page: the rest of the document is left to right, and without
-          them the comma lands on the wrong side of the line. `.ds-label-urdu`
-          carries the 2.22 line height Nastaliq needs so its descenders are not
-          clipped, which is the reason the design gives it its own text style.
-        */}
-        <figure className="mt-2 flex flex-col items-center gap-4 border-t border-solid border-ds-hairline pt-10">
-          <blockquote dir="rtl" lang="ur" className="ds-label-urdu text-center text-ds-ink">
-            <p>باتوں باتوں میں گزر جائے گا یہ سفر</p>
-            <p>منزل کی فِکر کرنا، یہ کام دوستوں کا ہے</p>
-          </blockquote>
-        </figure>
       </Band>
 
       {/* ══ Ask residents ══ */}

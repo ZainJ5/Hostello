@@ -76,7 +76,7 @@ function SignedOut() {
             turning that on for one trusted local asset would also open it to
             every remote host in next.config.mjs. */}
         <Image
-          src="/illustrations/shared-room-two-students.svg"
+          src="/illustrations/find-a-roommate.svg"
           alt=""
           width={1024}
           height={1024}

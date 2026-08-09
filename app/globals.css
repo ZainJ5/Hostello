@@ -487,6 +487,17 @@
 .ds-mono-meta  { font-size: 0.75rem;   line-height: 1.3333; letter-spacing: 0.01em; }
 .ds-mono-table { font-size: 0.8125rem; line-height: 1.3846; letter-spacing: 0.01em; }
 
+/* A quieter Nastaliq for running Urdu such as a couplet, where the label size
+   reads as a heading. Same 2.22 ratio, which is what the script needs to keep
+   its descenders off the line below. */
+.ds-body-urdu {
+  font-family: var(--font-nastaliq), serif;
+  font-size: 0.9375rem;
+  line-height: 2.2222;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
 /* Parent page labels. The 2.22 line height is the measured value and is
    what Nastaliq needs to avoid clipping its descenders. */
 .ds-label-urdu {

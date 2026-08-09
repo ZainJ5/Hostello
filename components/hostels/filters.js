@@ -29,7 +29,7 @@
  * canonical list without owning a copy of it.
  */
 
-export const PAGE_SIZE = 12;
+export const PAGE_SIZE = 20;
 
 /** Slider domain, covering the usual PKR 5,000 to 35,000 entry rents. */
 export const PRICE_MIN = 5000;

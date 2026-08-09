@@ -86,7 +86,7 @@ export default function SiteFooter() {
 
   return (
     <footer className="w-full border-t border-solid border-ds-hairline bg-ds-surface-sunken">
-      <div className="mx-auto flex w-full max-w-[90rem] flex-col gap-10 px-4 py-12 lg:px-20">
+      <div className="mx-auto flex w-full max-w-[100rem] flex-col gap-10 px-4 py-12 sm:px-6 lg:px-10">
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
           {/* Brand and support */}
           <div className="flex max-w-[34ch] flex-col gap-4">
