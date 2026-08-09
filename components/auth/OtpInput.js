@@ -170,18 +170,19 @@ export default function OtpInput({
           onPaste={handlePaste}
           onFocus={(e) => handleFocus(index, e)}
           className={cn(
-            'tabular h-14 w-full rounded-xl border bg-surface text-center text-xl font-semibold',
-            'text-foreground caret-brand-600 sm:h-16 sm:text-2xl',
-            'transition-[border-color,box-shadow,background-color] duration-200',
-            'hover:border-border-strong focus:border-brand-600 focus:outline-none',
-            'focus:ring-4 focus:ring-brand-600/12',
-            'disabled:cursor-not-allowed disabled:opacity-60',
+            'ds-figure-l w-full rounded-ds-inner border border-solid bg-ds-surface-raised text-center text-ds-ink',
+            'transition-colors duration-150 motion-reduce:transition-none',
+            // The boxes sit in a gapped grid, so the ring can be drawn on the
+            // box itself at zero offset without a slot and without reflow.
+            'focus:outline-2 focus:outline-offset-0 focus:outline-ds-cobalt focus:border-ds-ink',
+            'disabled:cursor-not-allowed disabled:border-ds-hairline disabled:bg-ds-surface-sunken disabled:text-ds-ink-muted',
             invalid
-              ? 'border-danger focus:border-danger focus:ring-danger/12'
+              ? 'border-ds-error'
               : char
-                ? 'border-brand-600/70 bg-brand-50/60 dark:bg-brand-950/40'
-                : 'border-border'
+                ? 'border-ds-ink hover:border-ds-cobalt'
+                : 'border-ds-control hover:border-ds-cobalt'
           )}
+          style={{ height: 'var(--ds-control-h)' }}
         />
       ))}
     </div>

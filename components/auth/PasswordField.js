@@ -1,31 +1,39 @@
 'use client';
 
 import { useId, useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
-import { Field } from '@/components/ui/Field';
 import { cn } from '@/lib/utils';
-
-/*
- * The UI kit's <Input> owns its whole row, so it can't make room for a toggle
- * button. These two strings are copied verbatim from the CONTROL / INVALID
- * constants in components/ui/Field.js (which doesn't export them) so a password
- * box is pixel-identical to every other input on the page.
- */
-const CONTROL =
-  'w-full rounded-xl border border-border bg-surface px-3.5 text-sm text-foreground ' +
-  'placeholder:text-muted-foreground/70 transition-colors duration-200 ' +
-  'hover:border-border-strong focus:border-brand-600 focus:outline-none ' +
-  'focus:ring-4 focus:ring-brand-600/12 disabled:opacity-60 disabled:cursor-not-allowed';
-
-const INVALID = 'border-danger focus:border-danger focus:ring-danger/12';
+import { CONTROL_FACE, Field } from './Field';
 
 /**
  * Password input with a show/hide toggle.
  *
- * The toggle is a 44×44 button inside the field, labelled for its *action*
- * ("Show password" / "Hide password") and given aria-pressed so a screen
- * reader announces the current state rather than just the icon.
+ * The toggle is a 44 square button laid over the right edge of the control. It
+ * is labelled for its action ("Show password" / "Hide password") and carries
+ * aria-pressed, so a screen reader announces the state rather than the icon.
+ *
+ * The focus ring on the slot fires for the input only, not for anything inside
+ * the field, so focusing the toggle shows one ring on the toggle rather than
+ * two concentric ones. The eye is drawn from a stroke that takes its colour
+ * from the token layer, so it flips with the mode like every other mark.
  */
+
+function EyeIcon({ off }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      className="size-5"
+    >
+      <path d="M1.5 10S4.9 4.5 10 4.5 18.5 10 18.5 10 15.1 15.5 10 15.5 1.5 10 1.5 10Z" />
+      <circle cx="10" cy="10" r="2.75" />
+      {off ? <path d="M3.5 3.5 16.5 16.5" /> : null}
+    </svg>
+  );
+}
+
 export default function PasswordField({
   label = 'Password',
   action,
@@ -34,6 +42,7 @@ export default function PasswordField({
   id,
   className,
   required,
+  disabled,
   ...props
 }) {
   const auto = useId();
@@ -41,52 +50,55 @@ export default function PasswordField({
   const [visible, setVisible] = useState(false);
 
   return (
-    <div className="space-y-1.5">
-      <div className="flex items-baseline justify-between gap-3">
-        <label htmlFor={fieldId} className="block text-sm font-medium text-foreground">
-          {label}
-          {required && (
-            <span className="ml-0.5 text-danger" aria-hidden="true">
-              *
-            </span>
-          )}
-        </label>
-        {action}
-      </div>
-
-      <Field error={error} hint={hint}>
-        <div className="relative">
-          <input
-            id={fieldId}
-            type={visible ? 'text' : 'password'}
-            required={required}
-            aria-invalid={error ? 'true' : undefined}
-            className={cn(CONTROL, 'h-11 pr-12', error && INVALID, className)}
-            {...props}
-          />
-          <button
-            type="button"
-            onClick={() => setVisible((v) => !v)}
-            aria-label={visible ? 'Hide password' : 'Show password'}
-            aria-pressed={visible}
-            aria-controls={fieldId}
-            tabIndex={props.disabled ? -1 : 0}
-            disabled={props.disabled}
-            className={cn(
-              'absolute top-0 right-0 grid size-11 cursor-pointer place-items-center rounded-xl',
-              'text-muted-foreground transition-colors duration-200',
-              'hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2',
-              'focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-60'
-            )}
-          >
-            {visible ? (
-              <EyeOff className="size-[1.125rem]" aria-hidden="true" />
-            ) : (
-              <Eye className="size-[1.125rem]" aria-hidden="true" />
-            )}
-          </button>
+    <Field
+      id={fieldId}
+      label={label}
+      hint={hint}
+      error={error}
+      required={required}
+      action={action}
+    >
+      {(field) => (
+        <div
+          className="flex w-full rounded-ds-slot has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-0 has-[input:focus-visible]:outline-ds-cobalt"
+          style={{ padding: 'var(--ds-focus-gap)' }}
+        >
+          <div className="relative flex w-full">
+            <input
+              {...field}
+              {...props}
+              type={visible ? 'text' : 'password'}
+              required={required}
+              disabled={disabled}
+              className={cn(
+                CONTROL_FACE,
+                'pr-11',
+                error && 'border-ds-error hover:border-ds-error',
+                className
+              )}
+              style={{ height: 'var(--ds-control-h)' }}
+            />
+            <button
+              type="button"
+              onClick={() => setVisible((v) => !v)}
+              aria-label={visible ? 'Hide password' : 'Show password'}
+              aria-pressed={visible}
+              aria-controls={fieldId}
+              disabled={disabled}
+              className={cn(
+                'absolute right-0 top-0 grid aspect-square cursor-pointer place-items-center',
+                'rounded-ds-inner text-ds-ink-muted hover:text-ds-ink',
+                'transition-colors duration-150 motion-reduce:transition-none',
+                'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ds-cobalt',
+                'disabled:pointer-events-none disabled:text-ds-ink-muted'
+              )}
+              style={{ height: 'var(--ds-control-h)' }}
+            >
+              <EyeIcon off={visible} />
+            </button>
+          </div>
         </div>
-      </Field>
-    </div>
+      )}
+    </Field>
   );
 }
