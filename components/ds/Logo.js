@@ -5,13 +5,6 @@ import { cn } from '@/lib/utils';
  * Figma logo/mark 108:62 and logo/lockup 108:139, now carrying the supplied
  * brand artwork rather than the three rectangle door the file drew.
  *
- * DRAWN FROM TOKENS, NOT IMPORTED AS AN SVG, and deliberately so. The file
- * requires that in dark mode the frame and panel flip to the light ink value
- * because they are bound to color/ink, while the yellow gap holds its value.
- * An exported SVG carries baked in fills and cannot do that. The mark is three
- * rectangles in Figma, so this is a faithful reproduction rather than a
- * redrawing, and it stays one component: a change to the shape is one edit.
- *
  * Minimum is 20 tall, per logo-usage. The read-me says 24 and is stale.
  * Clear space is one gap width on every side, measured from the mark.
  */
