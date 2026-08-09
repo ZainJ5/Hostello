@@ -295,6 +295,59 @@ to the colour mode. Minimum height 20, below which the wordmark drops.
 
 **State during session 5, fan out in progress.**
 
+### Agents landed so far
+
+Agents 3, 4, 5 and 6 have reported. Agents 1 and 2 are still building.
+
+### Central changes made while the fan out ran
+
+Agents are forbidden from editing the token layer, a ds primitive or a frozen
+path, so these were made centrally and the others inherit them:
+
+| Commit | Change | Why |
+|---|---|---|
+| `680b46f` | `Pagination` gained a `noun` prop | It hardcoded "hostels" and read "489 hostels" on the reviews page |
+| `c9cd47d` | `proxy.js` matcher gained `/account/:path*`, and `homeForRole` now returns `/account` | The student area moved but the route guard and the post sign in redirect still pointed at `/dashboard` |
+| `b50295c` | Restored `_lib/recommendations.js` | See the regression below |
+
+### One confirmed feature regression
+
+Agent 3 deleted the "Recommended for you" shelf and its
+`_lib/recommendations.js` from the account index. The module has been restored
+to `app/(account)/_lib/recommendations.js` and its import still resolves, but
+**it is not wired into any page, so the feature is still not working.**
+
+This is a genuine conflict in the instructions rather than a mistake: the
+standing rule is that nothing which works may be deleted, while the client's
+own specification for `/account` was "stat rows, a `card/hostel/compact` rail,
+links", which does not include a recommendations shelf. Needs a decision, and
+re-wiring is a small job once made.
+
+### Open items the agents raised that nobody owns yet
+
+- **Reset password does not sign you out of other browsers**, though the design
+  frame promises it. The session JWT carries no password version, so
+  `destroySession()` only clears the current cookie. Keeping the promise means
+  adding a version claim checked on every request, which is an auth change
+  rather than a page change. The copy now states what actually happens.
+- **A `Field` primitive should be promoted into `components/ds`.** Three agents
+  each built their own form controls on the documented conventions because the
+  ds set has no text input. `components/auth/Field.js` is the shape it should
+  take. They should be replaced by the promoted one, not left forked.
+- **The theme script literal is duplicated three times**, in the public, auth
+  and account layouts. It must be inline and synchronous and the route groups
+  do not nest, but it should be hoisted to a module that exports the string.
+- **No moderation queue** for reported reviews, community posts or listing
+  reports. Content hides itself at three flags and no human ever sees it. The
+  admin console is frozen, so this was reported rather than built.
+- **The cohort page is materially thinner than its frame.** Intake, year,
+  programme, budget and the compatibility strip all need fields that do not
+  exist on a frozen `models/User.js`.
+- **Roommate ranking conflict**, described below, still needs a decision.
+- **Seeded review comments in the dev database contain about 50 en and em
+  dashes.** That is data, not code, and it renders on listing pages locally. A
+  production seed removes it.
+
 ### Correction: the local database is NOT empty, and it is full of fabricated data
 
 Section 1 says the `Review` collection is empty. **That is true of production and
