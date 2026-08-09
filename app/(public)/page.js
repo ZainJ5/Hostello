@@ -229,11 +229,12 @@ export default async function HomePage() {
       {/* ══ Roommates ══ */}
       <Band sunken>
         {/*
-          Both columns start at the top rather than centring. The illustration
-          is a square, so centring it against a shorter text column opened a
-          hole down the left that read as a layout bug.
+          The text column centres against the illustration. That only works
+          because the heading sits inside this column: an earlier version left
+          it above the row, so only the short tail of the copy centred and a
+          hole opened down the left.
         */}
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-16">
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
           <div className="flex flex-col gap-6 lg:flex-1">
             <h2 className="ds-display-m text-balance text-ds-ink">
               Know your roommate before you move in
