@@ -398,10 +398,10 @@ export default function MapExplorer({ initialHostels = [], initialFilters, total
     <div
       ref={rootRef}
       data-hostello-map
-      className="flex h-[calc(100dvh-var(--hm-nav-h,4rem))] w-full flex-col overflow-hidden bg-ds-surface"
+      className="flex h-[calc(100dvh-var(--hm-nav-h,4.5rem))] w-full flex-col overflow-hidden bg-ds-surface"
     >
       {/* ── Page header ─────────────────────────────────────────────────── */}
-      <div className="shrink-0 border-b border-solid border-ds-hairline px-4 py-3 lg:px-20 lg:py-5">
+      <div className="shrink-0 border-b border-solid border-ds-hairline px-4 py-3 sm:px-6 lg:px-10">
         <nav aria-label="Breadcrumb" className="hidden lg:block">
           <ol className="ds-body-s flex items-center gap-2 text-ds-ink-muted">
             <li>
@@ -424,11 +424,12 @@ export default function MapExplorer({ initialHostels = [], initialFilters, total
             prefix, and display/m is the size that reads at 360 and at 1440. */}
         <h1 className="ds-display-m text-ds-ink lg:mt-2">Hostels on a map</h1>
 
-        {/* Hidden below lg only because the map has to keep the viewport it
-            needs on a phone. The same sentence is in the metadata. */}
-        <p className="ds-body-l mt-2 hidden max-w-[110ch] text-ds-ink-muted lg:block">
-          {total} listings placed by the address the owner gave and confirmed at review. Markers
-          show rent, because distance is already what the map is telling you.
+        {/* One line rather than a paragraph. The explorer owns the viewport,
+            so every row this header takes is a row the results list loses, and
+            the list is the left column on desktop. The fuller sentence is in
+            the page metadata and in the provenance note under the results. */}
+        <p className="ds-body-s mt-1 hidden text-ds-ink-muted lg:block">
+          {total} listings, placed by the address the owner gave. Markers show rent.
         </p>
       </div>
 

@@ -93,7 +93,7 @@ export default async function ThreadPage({ params }) {
     : 'Sign in with the account you booked this hostel on, and you can answer.';
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 pb-20 pt-8 sm:px-6">
+    <div className="mx-auto w-full max-w-5xl px-4 pb-20 pt-8 sm:px-6">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

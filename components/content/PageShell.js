@@ -52,7 +52,7 @@ export function Breadcrumb({ trail }) {
 
 export default function ContentPage({ trail, title, intro, meta, children, className }) {
   return (
-    <div className={cn('mx-auto w-full max-w-[47.5rem] px-4 pb-20 pt-8 sm:pt-12', className)}>
+    <div className={cn('mx-auto w-full max-w-[64rem] px-4 pb-20 pt-8 sm:pt-12', className)}>
       <Breadcrumb trail={trail} />
 
       <h1 className="ds-display-xl mt-5 text-balance text-ds-ink">{title}</h1>

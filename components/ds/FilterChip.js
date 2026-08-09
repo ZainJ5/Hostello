@@ -30,7 +30,7 @@ export default function FilterChip({
   );
 
   const face = cn(
-    'ds-body-s-strong inline-flex items-center justify-center gap-1.5',
+    'ds-body-s-strong inline-flex cursor-pointer items-center justify-center gap-1.5',
     'rounded-ds-chip border border-solid px-3',
     'transition-colors duration-150 motion-reduce:transition-none',
     'focus:outline-none',

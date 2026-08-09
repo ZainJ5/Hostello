@@ -32,16 +32,16 @@ export function LogoMark({ height = 28, className, title = 'Hostello' }) {
       <Image
         src="/brand/hostello-logo.png"
         alt=""
-        width={1024}
-        height={1024}
+        width={1866}
+        height={3528}
         priority
         className="h-full w-full dark:hidden"
       />
       <Image
         src="/brand/hostello-logo.png"
         alt=""
-        width={1024}
-        height={1024}
+        width={1866}
+        height={3528}
         priority
         className="hidden h-full w-full dark:block"
       />

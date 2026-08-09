@@ -33,7 +33,7 @@ export function MapCanvasSkeleton() {
 export default function MapSkeleton() {
   return (
     <div className="flex h-[calc(100dvh-4rem)] w-full flex-col overflow-hidden bg-ds-surface">
-      <div className="shrink-0 border-b border-solid border-ds-hairline px-4 py-3 lg:px-20 lg:py-5">
+      <div className="shrink-0 border-b border-solid border-ds-hairline px-4 py-3 sm:px-6 lg:px-10 lg:py-5">
         <Skeleton className="h-4 w-24" />
         <Skeleton className="mt-3 h-7 w-64" />
         <Skeleton className="mt-3 hidden h-4 w-xl lg:block" />

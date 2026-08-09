@@ -126,7 +126,7 @@ export default async function NotFound() {
       <SiteHeader user={null} />
 
       <main id="main" className="flex-1">
-        <div className="mx-auto flex w-full max-w-360 flex-col gap-5 px-4 py-16 lg:px-20 lg:py-24">
+        <div className="mx-auto flex w-full max-w-360 flex-col gap-5 px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
           <h1 className="ds-display-xl max-w-[20ch] text-balance text-ds-ink">
             That page is not here
           </h1>

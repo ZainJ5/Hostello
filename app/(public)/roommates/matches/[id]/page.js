@@ -78,8 +78,8 @@ export default async function RoommateMatchPage({ params }) {
   });
 
   return (
-    <div className="mx-auto w-full max-w-[90rem] px-4 py-10 lg:px-20 lg:py-12">
-      <div className="mx-auto flex w-full max-w-[47.5rem] flex-col gap-8">
+    <div className="mx-auto w-full max-w-[100rem] px-4 py-6 sm:px-6 lg:px-10 lg:py-12">
+      <div className="mx-auto flex w-full max-w-[64rem] flex-col gap-8">
         <Breadcrumbs
           trail={[
             { label: 'Home', href: '/' },

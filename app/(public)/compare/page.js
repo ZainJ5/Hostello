@@ -87,7 +87,7 @@ export default async function ComparePage({ searchParams }) {
   const missing = selection.slugs.length - hostels.length;
 
   return (
-    <div className="mx-auto flex w-full max-w-360 flex-col gap-6 px-4 pb-20 pt-8 lg:px-20">
+    <div className="mx-auto flex w-full max-w-360 flex-col gap-6 px-4 pb-20 pt-8 sm:px-6 lg:px-10">
       <nav aria-label="Breadcrumb">
         <ol className="ds-body-s flex items-center gap-2 text-ds-ink-muted">
           <li>

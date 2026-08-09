@@ -31,7 +31,7 @@ export default async function NoticeBoardIndex() {
   const session = await getSession();
 
   const shell = (children) => (
-    <div className="mx-auto w-full max-w-3xl px-4 pb-20 pt-8 sm:px-6">
+    <div className="mx-auto w-full max-w-5xl px-4 pb-20 pt-8 sm:px-6">
       <Breadcrumbs
         className="mb-4"
         trail={[

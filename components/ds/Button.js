@@ -54,7 +54,7 @@ export default function Button({
   );
 
   const face = cn(
-    'ds-body-m-strong ds-tap inline-flex w-full items-center justify-center gap-2.5',
+    'ds-body-m-strong ds-tap inline-flex w-full cursor-pointer items-center justify-center gap-2.5',
     'rounded-ds-inner border border-solid px-5',
     'transition-colors duration-150 motion-reduce:transition-none',
     'focus:outline-none',

@@ -29,6 +29,10 @@ import { cn } from '@/lib/utils';
 
 const NAV = [
   { href: '/hostels', label: 'Browse hostels' },
+  // The design drops Map, on the grounds that it is already a view toggle on
+  // browse. It is back at the client's request: the map is a different way of
+  // searching rather than a different way of listing, and it had no route in.
+  { href: '/map', label: 'Map' },
   { href: '/roommates', label: 'Roommates' },
   { href: '/community', label: 'Community' },
   { href: '/list-your-hostel', label: 'List your hostel' },

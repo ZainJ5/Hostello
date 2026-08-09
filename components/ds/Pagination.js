@@ -20,7 +20,7 @@ import { cn } from '@/lib/utils';
  */
 
 const CELL =
-  'ds-body-s inline-flex items-center justify-center rounded-ds-chip border border-solid';
+  'ds-body-s inline-flex cursor-pointer items-center justify-center rounded-ds-chip border border-solid';
 
 function Cell({ children, href, tone = 'idle', label, wide = false }) {
   const style = { height: 'var(--ds-control-h)', minWidth: 'var(--ds-control-h)' };

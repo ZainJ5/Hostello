@@ -21,7 +21,7 @@
 
 /** display/m at 390, display/xl from lg. The one h1 on a page. */
 export const TITLE =
-  'ds-display-m lg:text-[2.75rem] lg:leading-[1.0909] lg:tracking-[-0.02em]';
+  'ds-display-m sm:text-[2.125rem] sm:leading-[1.1] lg:text-[2.75rem] lg:leading-[1.0909] lg:tracking-[-0.02em]';
 
 /** display/s at 390, display/m from lg. Section headings. */
 export const SECTION_TITLE =

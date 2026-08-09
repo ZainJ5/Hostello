@@ -15,7 +15,7 @@ const WIDTHS = {
   full: 'max-w-[100rem]',
   default: 'max-w-[100rem]',
   content: 'max-w-6xl',
-  narrow: 'max-w-4xl',
+  narrow: 'max-w-6xl',
 };
 
 export default function Container({

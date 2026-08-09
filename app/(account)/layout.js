@@ -55,7 +55,7 @@ export default async function AccountLayout({ children }) {
       <div className="flex min-h-dvh flex-col bg-ds-surface text-ds-ink">
         <SiteHeader user={user} />
         <main id="main" className="flex-1">
-          <div className="mx-auto w-full max-w-[90rem] px-4 py-8 lg:px-20 lg:py-12">
+          <div className="mx-auto w-full max-w-[100rem] px-4 py-8 sm:px-6 lg:px-10 lg:py-12">
             {children}
           </div>
         </main>

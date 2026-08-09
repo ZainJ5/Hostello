@@ -41,7 +41,7 @@ export default async function AuthLayout({ children }) {
       <div className="flex min-h-dvh flex-col bg-ds-surface text-ds-ink">
         <SiteHeader user={user} />
         <main id="main" className="flex-1">
-          <div className="mx-auto w-full max-w-136 px-4 py-10 lg:py-16">{children}</div>
+          <div className="mx-auto w-full max-w-160 px-4 py-6 lg:py-10">{children}</div>
         </main>
         <SiteFooter />
       </div>

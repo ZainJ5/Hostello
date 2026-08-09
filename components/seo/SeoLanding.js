@@ -89,14 +89,14 @@ export default function SeoLanding({
   return (
     <div className="flex w-full flex-col">
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="mx-auto flex w-full max-w-[90rem] flex-col gap-4 px-4 pb-10 pt-8 lg:px-20">
+      <div className="mx-auto flex w-full max-w-[100rem] flex-col gap-4 px-4 pb-10 pt-8 sm:px-6 lg:px-10">
         <Breadcrumb items={breadcrumb} siteUrl={siteUrl} />
         <h1 className="ds-display-xl text-balance text-ds-ink">{title}</h1>
         <p className="ds-body-l max-w-[110ch] text-pretty text-ds-ink-muted">{intro}</p>
       </div>
 
       {/* ── Results ────────────────────────────────────────────────────── */}
-      <div className="mx-auto grid w-full max-w-[90rem] grid-cols-1 items-start gap-6 px-4 pb-16 lg:grid-cols-[19rem_minmax(0,1fr)] lg:gap-10 lg:px-20">
+      <div className="mx-auto grid w-full max-w-[100rem] grid-cols-1 items-start gap-6 px-4 pb-16 lg:grid-cols-[19rem_minmax(0,1fr)] lg:gap-10 sm:px-6 lg:px-10">
         <aside aria-label="Filters" className="hidden lg:block">
           {panel}
         </aside>
@@ -189,7 +189,7 @@ export default function SeoLanding({
 
       {/* ── Sideways moves ─────────────────────────────────────────────── */}
       <div className="w-full border-t border-solid border-ds-hairline bg-ds-surface-sunken">
-        <div className="mx-auto flex w-full max-w-[90rem] flex-col gap-10 px-4 py-14 lg:px-20">
+        <div className="mx-auto flex w-full max-w-[100rem] flex-col gap-10 px-4 py-14 sm:px-6 lg:px-10">
           <Faq items={faqs} />
           <RelatedSearches items={related} />
         </div>
@@ -201,7 +201,7 @@ export default function SeoLanding({
 /** Shared by the three pages so the "no results here" wording stays identical. */
 export function NoCoverage({ city }) {
   return (
-    <div className="mx-auto flex w-full max-w-[90rem] flex-col gap-4 px-4 py-16 lg:px-20">
+    <div className="mx-auto flex w-full max-w-[100rem] flex-col gap-4 px-4 py-16 sm:px-6 lg:px-10">
       <h1 className="ds-display-m text-ds-ink">Nothing listed here yet</h1>
       <p className="ds-body-m max-w-[70ch] text-ds-ink-muted">
         Hostello has no published listings for {city} at the moment.

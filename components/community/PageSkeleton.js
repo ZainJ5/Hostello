@@ -15,7 +15,7 @@ import { Skeleton } from '@/components/ds/Feedback';
  */
 export default function PageSkeleton({ cards = 3 }) {
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 pb-20 pt-8 sm:px-6">
+    <div className="mx-auto w-full max-w-5xl px-4 pb-20 pt-8 sm:px-6">
       <span className="sr-only" role="status">
         Loading
       </span>

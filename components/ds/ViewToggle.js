@@ -23,7 +23,7 @@ export default function ViewToggle({ view = 'grid', hrefFor, className }) {
         href={hrefFor(key)}
         aria-current={active ? 'true' : undefined}
         className={cn(
-          'ds-body-s inline-flex items-center justify-center px-3.5 focus:outline-none',
+          'ds-body-s inline-flex cursor-pointer items-center justify-center px-3.5 focus:outline-none',
           'transition-colors duration-150 motion-reduce:transition-none',
           active ? 'bg-ds-ink text-ds-on-ink' : 'bg-ds-surface text-ds-ink'
         )}
