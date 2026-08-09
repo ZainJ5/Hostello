@@ -5,21 +5,16 @@ import Container from '@/components/public/Container';
 import Button from '@/components/ds/Button';
 import HostelCard from '@/components/ds/HostelCard';
 import Pagination from '@/components/ds/Pagination';
-import SortSelect from '@/components/ds/SortSelect';
 import ViewToggle from '@/components/ds/ViewToggle';
 import { EmptyState } from '@/components/ds/Feedback';
 
 import Breadcrumbs from '@/components/hostels/Breadcrumbs';
+import BrowseSort from '@/components/hostels/BrowseSort';
 import FilterRail from '@/components/hostels/FilterRail';
 import HostelRow from '@/components/hostels/HostelRow';
 import MobileFilterSheet from '@/components/hostels/MobileFilterSheet';
 import { cardCampus } from '@/components/hostels/campus-distance';
-import {
-  SORT_OPTIONS,
-  browseCrumbs,
-  browseSummary,
-  browseTitle,
-} from '@/components/hostels/browse-copy';
+import { browseCrumbs, browseSummary, browseTitle } from '@/components/hostels/browse-copy';
 import {
   DEFAULT_FILTERS,
   PAGE_SIZE,
@@ -54,11 +49,37 @@ export async function generateMetadata({ searchParams }) {
     // `view` is a display preference, not a different resource, so it never
     // reaches the canonical URL.
     alternates: { canonical: hostelsHref(f, { view: 'grid' }) },
-    openGraph: { title, description, url: hostelsHref(f, { view: 'grid' }), type: 'website' },
+    openGraph: {
+      title,
+      description,
+      url: hostelsHref(f, { view: 'grid' }),
+      type: 'website',
+    },
     ...(narrowed ? { robots: { index: false, follow: true } } : {}),
   };
 }
 
+/**
+ * NO loading.js AND NO SUSPENSE ON THIS ROUTE, DELIBERATELY. Both were tried
+ * and both were measured, and each one costs something this page cannot pay.
+ *
+ * A `loading.js` here wraps every route below it, including /hostels/[slug],
+ * and a streamed response has already sent its status line by the time a page
+ * calls `notFound()`. With one in place, a listing that no longer exists
+ * answered 200 with the not found page inside it, which is a soft 404 and
+ * keeps a delisted hostel in Google's index.
+ *
+ * Moving the boundary into the page as a Suspense fallback fixed the status
+ * but cost the whole point of the page: measured against a production build,
+ * the resolved boundary never reaches the HTML at all. The document carried
+ * the skeleton and the twelve listings arrived only in the flight payload, so
+ * the results existed for a browser running JavaScript and for nothing else.
+ * The directory lives on Google and every result set has to be in the markup.
+ *
+ * So the page blocks on its own query. It is one indexed find plus one facet
+ * aggregation, the header renders from the URL alone, and the whole document
+ * is server rendered.
+ */
 export default async function HostelsPage({ searchParams }) {
   const sp = await searchParams;
   const filters = parseFilters(sp);
@@ -67,13 +88,11 @@ export default async function HostelsPage({ searchParams }) {
   const { hostels, total, pages, facets } = await searchHostels(filters);
 
   const rows = serialize(hostels);
-  const title = browseTitle(filters);
   const summary = browseSummary(total, filters);
   const count = activeFilterCount(filters);
   const isList = filters.view === 'list';
 
   const hrefForPage = (p) => hostelsHref(filters, { page: p });
-  const hrefForSort = (s) => hostelsHref(filters, { sort: s, page: 1 });
   const hrefForView = (v) => hostelsHref(filters, { view: v });
 
   const rail = <FilterRail filters={filters} facets={facets} />;
@@ -83,10 +102,10 @@ export default async function HostelsPage({ searchParams }) {
       {/* ── Band one: where you are and what you are looking at ── */}
       <Container as="section" className="flex flex-col gap-6 pb-7 pt-7">
         <Breadcrumbs items={browseCrumbs(filters)} />
-        <h1 className="ds-display-xl text-balance text-ds-ink">{title}</h1>
+        <h1 className="ds-display-xl text-balance text-ds-ink">{browseTitle(filters)}</h1>
         <p className="ds-body-l max-w-[75ch] text-pretty text-ds-ink-muted">
-          {total} {total === 1 ? 'listing' : 'listings'}, every one checked by a person before it
-          went live. Filter by campus, rent and what is included, then contact the owner
+          {total} {total === 1 ? 'listing' : 'listings'}, every one checked by a person before
+          it went live. Filter by campus, rent and what is included, then contact the owner
           yourself. Hostello takes no commission and holds no rooms.
         </p>
       </Container>
@@ -116,14 +135,16 @@ export default async function HostelsPage({ searchParams }) {
                 {rail}
               </MobileFilterSheet>
 
-              <SortSelect
-                value={filters.sort}
-                options={SORT_OPTIONS}
-                hrefFor={hrefForSort}
+              <BrowseSort
+                filters={filters}
                 className="order-2 min-w-px flex-1 lg:order-3 lg:w-60 lg:flex-none"
               />
 
-              <ViewToggle view={filters.view} hrefFor={hrefForView} className="order-4 hidden sm:flex" />
+              <ViewToggle
+                view={filters.view}
+                hrefFor={hrefForView}
+                className="order-4 hidden sm:flex"
+              />
             </div>
 
             {rows.length > 0 ? (
@@ -154,7 +175,9 @@ export default async function HostelsPage({ searchParams }) {
                 body={`There ${total === 1 ? 'is' : 'are'} ${total} matching ${
                   total === 1 ? 'hostel' : 'hostels'
                 }, but page ${filters.page} is past the end of the list.`}
-                action={<Button href={hostelsHref(filters, { page: 1 })}>Back to page 1</Button>}
+                action={
+                  <Button href={hostelsHref(filters, { page: 1 })}>Back to page 1</Button>
+                }
               />
             ) : (
               <EmptyState
@@ -163,12 +186,18 @@ export default async function HostelsPage({ searchParams }) {
                 action={
                   <div className="flex flex-wrap items-center gap-2">
                     <Button
-                      href={hostelsHref(DEFAULT_FILTERS, { sort: filters.sort, view: filters.view })}
+                      href={hostelsHref(DEFAULT_FILTERS, {
+                        sort: filters.sort,
+                        view: filters.view,
+                      })}
                     >
                       Clear filters
                     </Button>
                     {filters.q ? (
-                      <Button href={hostelsHref(filters, { q: '', page: 1 })} variant="secondary">
+                      <Button
+                        href={hostelsHref(filters, { q: '', page: 1 })}
+                        variant="secondary"
+                      >
                         Keep filters, drop the search
                       </Button>
                     ) : null}

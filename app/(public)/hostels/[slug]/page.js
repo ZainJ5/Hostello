@@ -120,9 +120,18 @@ export default async function HostelDetailPage({ params, searchParams }) {
   const { slug } = await params;
   const sp = await searchParams;
 
+  // Awaited here, in the page body, with no Suspense boundary above it. That
+  // is what lets `notFound()` answer with a real 404: a streamed response has
+  // already sent its status line, so a `loading.js` anywhere above this route
+  // turns a missing listing into a 200 with the not found page inside it, and
+  // a soft 404 keeps a delisted hostel in the index forever.
   const doc = await getHostel(slug);
   if (!doc) notFound();
 
+  // Reviews and the similar shelf are both page content a crawler has to see,
+  // so they are awaited rather than streamed. A Suspense boundary around them
+  // was measured against a production build and its resolved markup never
+  // reached the HTML at all: the content arrived only in the flight payload.
   const [reviews, similarDocs] = await Promise.all([
     loadReviews(doc._id, Number(sp?.reviews) || 1),
     loadSimilar(doc),
@@ -171,9 +180,10 @@ export default async function HostelDetailPage({ params, searchParams }) {
       name: f,
       value: true,
     })),
-    // Only claimed when the reviews behind it are on the page. The legacy
-    // aggregate is genuine but its write-ups were not carried over, and
-    // marking up a score with nothing to read is what earns a penalty.
+    // Claimed only when the reviews behind it are actually on the page. The
+    // legacy score is genuine but its write-ups were never carried over, and
+    // marking up a figure with nothing to read is what earns a structured
+    // data penalty.
     aggregateRating:
       reviews.total > 0
         ? {
@@ -286,3 +296,4 @@ export default async function HostelDetailPage({ params, searchParams }) {
     </>
   );
 }
+

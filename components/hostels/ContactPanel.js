@@ -1,6 +1,6 @@
 import Button from '@/components/ds/Button';
-import { cn, formatPKR } from '@/lib/utils';
-import ContactActions, { hasContact } from './ContactActions';
+import { cn, formatPKR, normalizePhone } from '@/lib/utils';
+import ContactActions from './ContactActions';
 import SaveButton from './SaveButton';
 import ShareButton from './ShareButton';
 
@@ -23,6 +23,16 @@ import ShareButton from './ShareButton';
  * holds no rooms, so there is nothing to book, and the label says what the
  * button does.
  */
+
+/**
+ * True when the listing carries a number a student can actually reach. Kept
+ * here rather than beside the buttons, because this file renders on the server
+ * and the buttons are a client component: a server component cannot call a
+ * function exported from a `'use client'` module.
+ */
+function hasContact(hostel) {
+  return Boolean(normalizePhone(hostel?.contact?.phone) || hostel?.contact?.whatsapp);
+}
 
 /** Rent, collapsed to one figure when the band has no width. */
 function rentLine(hostel) {
@@ -97,7 +107,7 @@ export function MobileContactBar({ hostel }) {
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-solid border-ds-hairline bg-ds-surface lg:hidden">
-      <div className="mx-auto flex w-full max-w-[90rem] items-center gap-3 px-4 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2">
+      <div className="mx-auto flex w-full max-w-360 items-center gap-3 px-4 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2">
         <div className="min-w-px flex-1">
           {rent ? <p className="ds-body-m-strong truncate text-ds-ink">{rent}</p> : null}
           <p className="ds-body-s text-ds-ink-muted">per person per month</p>

@@ -29,10 +29,6 @@ export function trackContact(slug, channel) {
   }
 }
 
-export function hasContact(hostel) {
-  return Boolean(normalizePhone(hostel?.contact?.phone) || hostel?.contact?.whatsapp);
-}
-
 export default function ContactActions({ hostel, className }) {
   const slug = hostel.slug;
   const tel = normalizePhone(hostel.contact?.phone);
