@@ -293,6 +293,56 @@ to the colour mode. Minimum height 20, below which the wordmark drops.
 
 ## 7. Session handoff
 
+**State at the close of session 4.**
+
+Added: `377be60` site footer and the shared layout wiring. `components/ds` now
+holds fourteen components and `app/(public)/layout.js` uses `SiteHeader` and
+`SiteFooter`, so every public route inherits the new chrome.
+
+**Figma reading method changed.** Use `get_screenshot` for layout reference,
+downloaded with curl and read as a PNG. It costs a fraction of what
+`get_design_context` costs and almost everything left is a composition of the
+fourteen primitives. Reserve `get_design_context` for genuinely novel
+components: `card/match` 39:32, `slot-strip/compatibility` 37:33 and
+`card/post` 47:48 are the ones expected to need it.
+
+**Fidelity split, agreed with the client.** Exact geometry for browse, home,
+hostel detail and the three SEO templates, because those carry the traffic and
+the argument. Approximate layout, matching the design system rather than the
+frame, for the account pages, reviews, roommates, community, the content and
+legal pages, the states and the 404.
+
+**Routing conflict resolved centrally.** Figma proposes `/hostels/[city]`,
+which collides with the existing `/hostels/[slug]` listing route, and Next
+cannot have two dynamic segments at one level. The agreed URLs are
+`/hostels/near/[campus]`, `/hostels/in/[city]` and
+`/hostels/in/[city]/[gender]`.
+
+**Fan out is running.** Six agents launched in parallel, each owning a
+disjoint file set:
+
+| Agent | Scope |
+|---|---|
+| 1 | home, browse, hostel detail, enquire, enquiry-sent |
+| 2 | three SEO templates, map, compare, root 404 |
+| 3 | auth five pages, the account cluster, the /dashboard to /account redirects |
+| 4 | reviews, write review, report a listing, content and legal pages |
+| 5 | roommates, including the schema and the answer privacy enforcement |
+| 6 | community: ask residents, notice board, cohort, student profile |
+
+**Agent 7, the state set, runs AFTER the others, not in parallel.** Its
+`loading.js` and `error.js` files sit inside the other agents' route
+directories, so running it concurrently would collide. Launch it once agents 1
+to 6 have reported and their work has been reviewed.
+
+**Next session:** collect the six agent reports, review each one against the
+standing rules before accepting it (raw hex, raw pixel values, em dashes,
+focus states, 44px targets, invented data, and whether any of them edited a ds
+primitive or a frozen path), then run agent 7, then verify browse against its
+Figma frames at both widths in both modes.
+
+---
+
 **State at the close of session 3.**
 
 Added since the last handoff: `e4a52b4` browse controls, `b160bfc` component
