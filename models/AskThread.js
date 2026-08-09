@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { TOPIC_VALUES } from '@/components/community/topics';
 
 /**
  * Ask residents.
@@ -21,12 +22,14 @@ import mongoose from 'mongoose';
  * coverage strip draws. `other` exists so a real question is never forced into
  * the wrong bucket, and it deliberately does not appear in the strip.
  *
- * Kept here rather than imported from the components tree so the model has no
- * dependency on the UI layer. `components/community/topics.js` mirrors it and
- * carries the labels.
+ * The list itself lives in `components/community/topics.js` and is imported
+ * from there rather than declared twice. The direction matters: that file
+ * imports nothing, so the ask form can use it on the client without dragging
+ * Mongoose into the browser bundle, which is exactly what happened when the
+ * dependency ran the other way.
  */
-export const ASK_TOPICS = ['water', 'power', 'mess', 'safety', 'wifi', 'owner'];
-export const ASK_TOPIC_VALUES = [...ASK_TOPICS, 'other'];
+export const ASK_TOPICS = TOPIC_VALUES;
+export const ASK_TOPIC_VALUES = [...TOPIC_VALUES, 'other'];
 
 /** Flags needed before content drops out of public view, as reviews use. */
 export const AUTO_FLAG_THRESHOLD = 3;

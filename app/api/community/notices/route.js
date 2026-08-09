@@ -8,7 +8,7 @@ import NoticePost from '@/models/NoticePost';
 import { expiryFor, noticeTypeDef } from '@/components/community/notice-types';
 import { noticeEnvelopeSchema, parseNoticeDetails } from '../_lib/schema';
 import { shapeNotice } from '../_lib/shape';
-import { livesAt } from '../_lib/residency';
+import { livesAt } from '@/components/community/residency';
 
 const DAY = 24 * 60 * 60 * 1000;
 

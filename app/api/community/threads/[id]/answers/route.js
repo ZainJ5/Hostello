@@ -6,7 +6,7 @@ import User from '@/models/User';
 import AskThread from '@/models/AskThread';
 import { answerCreateSchema, idSchema } from '../../../_lib/schema';
 import { shapeAnswer } from '../../../_lib/shape';
-import { livesAt } from '../../../_lib/residency';
+import { livesAt } from '@/components/community/residency';
 
 /**
  * POST /api/community/threads/[id]/answers: answer a question.
@@ -14,7 +14,8 @@ import { livesAt } from '../../../_lib/residency';
  * ONLY RESIDENTS ANSWER. The page tells the reader that in its first sentence
  * and it is the only reason these answers are worth more than a comment
  * section, so it is enforced here on every write and not merely by hiding the
- * form. See `_lib/residency.js` for what counts as living somewhere.
+ * form. See `components/community/residency.js` for what counts as living
+ * somewhere.
  *
  * One answer per student per thread. A resident who wants to say more edits
  * their answer rather than stacking replies, which keeps a thread readable to

@@ -1,8 +1,11 @@
-import { ASK_TOPICS } from '@/models/AskThread';
-
 /**
  * The six questions students ask most about a hostel, which are the six
  * segments of the answer coverage strip.
+ *
+ * THIS FILE IS THE SOURCE AND IT IMPORTS NOTHING. `models/AskThread.js` reads
+ * its enum from here rather than the other way round, because the ask form is
+ * a client component and an import back into the model would drag Mongoose,
+ * and every Node builtin it touches, into the browser bundle.
  *
  * The set is fixed rather than derived from what has been asked, because the
  * strip has to mean the same thing on every listing: a listing with two of six
@@ -21,6 +24,9 @@ export const TOPICS = [
   { value: 'wifi', strip: 'wifi', question: 'Wifi and study space', open: 'wifi' },
   { value: 'owner', strip: 'owner', question: 'The owner and the deposit', open: 'the owner' },
 ];
+
+/** The six, as stored. The model's enum is built from this plus `other`. */
+export const TOPIC_VALUES = TOPICS.map((t) => t.value);
 
 export const TOPIC_OPTIONS = [
   ...TOPICS.map((t) => ({ value: t.value, label: t.question })),
@@ -53,7 +59,7 @@ function sentenceCase(s) {
  */
 export function answerCoverage(answeredTopics) {
   const answered = new Set(
-    (answeredTopics || []).filter((t) => ASK_TOPICS.includes(t))
+    (answeredTopics || []).filter((t) => TOPIC_VALUES.includes(t))
   );
 
   const segments = TOPICS.map((t) => ({
