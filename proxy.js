@@ -19,6 +19,9 @@ const RULES = [
   { prefix: '/admin', roles: ['admin'] },
   { prefix: '/owner', roles: ['owner', 'admin'] },
   // Empty roles means "any signed-in user".
+  // The student area moved from /dashboard to /account. The old prefix stays
+  // so the guard still applies while the permanent redirects are followed.
+  { prefix: '/account', roles: [] },
   { prefix: '/dashboard', roles: [] },
 ];
 
@@ -59,5 +62,5 @@ export async function proxy(request) {
  * in `public/`. Values must be literals, because Next reads them at build time.
  */
 export const config = {
-  matcher: ['/dashboard/:path*', '/owner/:path*', '/admin/:path*'],
+  matcher: ['/account/:path*', '/dashboard/:path*', '/owner/:path*', '/admin/:path*'],
 };

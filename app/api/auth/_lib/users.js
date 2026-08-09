@@ -3,13 +3,13 @@
  * `redirect` hint and the client's fallback never drift apart.
  */
 export const HOME_FOR_ROLE = {
-  student: '/dashboard',
+  student: '/account',
   owner: '/owner',
   admin: '/admin',
 };
 
 export function homeForRole(role) {
-  return HOME_FOR_ROLE[role] || '/dashboard';
+  return HOME_FOR_ROLE[role] || '/account';
 }
 
 /**
