@@ -14,8 +14,22 @@ export const MAX_ATTEMPTS = 5;
  * as a boolean flag so the UI can tell the user whether to expect an email.
  * The code itself is never returned to the client.
  */
+/**
+ * Whether a mail transport exists at all.
+ *
+ * This is what the auth routes return as `delivered` when they deliberately
+ * do NOT send, so that a silent no-send is indistinguishable from a real one.
+ * It has to name every transport `lib/mail.js` can use, or the flag stops
+ * being constant and turns the endpoint into a membership oracle.
+ *
+ * That is exactly what happened: this read `SMTP_HOST` only, while production
+ * sends through Resend, so an unknown address returned `delivered:false` and a
+ * registered one returned `delivered:true`. The forgot password screen renders
+ * a different sentence for each, so anyone could test whether an address had
+ * an account.
+ */
 export function mailConfigured() {
-  return Boolean(process.env.SMTP_HOST);
+  return Boolean(process.env.RESEND_API_KEY || process.env.SMTP_HOST);
 }
 
 function invalidCode(message, status = 400) {
