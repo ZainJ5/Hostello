@@ -20,14 +20,18 @@ const profileSchema = z.object({
   university: z.string().trim().max(80).default(''),
   city: z.string().trim().max(60).default(''),
   gender: z.enum(['Male', 'Female', 'Other', ''], 'Choose an option').default(''),
+  // The picture is uploaded through /api/account/avatar, which writes the file
+  // and returns its path. This field only carries that path back, so it accepts
+  // nothing else: the input is hidden, and a tampered value would otherwise let
+  // somebody point their avatar at any URL on the internet.
   avatar: z
     .string()
     .trim()
-    .max(500)
+    .max(200)
     .default('')
     .refine(
-      (v) => !v || /^https?:\/\//i.test(v) || v.startsWith('/uploads/'),
-      'Paste a full image URL starting with https://'
+      (v) => !v || /^\/uploads\/avatars\/[A-Za-z0-9._-]+$/.test(v),
+      'Upload a picture instead of setting an address'
     ),
 });
 

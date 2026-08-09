@@ -1,5 +1,7 @@
 'use client';
 
+import { cn } from '@/lib/utils';
+
 import { useActionState, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ds/Button';
@@ -36,6 +38,43 @@ export default function ProfileForm({ user, action }) {
   const [state, formAction, pending] = useActionState(action, INITIAL);
   const [name, setName] = useState(user.name || '');
   const [avatar, setAvatar] = useState(user.avatar || '');
+  const [uploading, setUploading] = useState(false);
+  const [avatarError, setAvatarError] = useState('');
+
+  async function onPickFile(e) {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+
+    setAvatarError('');
+    setUploading(true);
+    try {
+      const body = new FormData();
+      body.append('file', file);
+      const res = await fetch('/api/account/avatar', { method: 'POST', body });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'That picture could not be saved');
+      setAvatar(data.avatar || '');
+    } catch (err) {
+      setAvatarError(err.message);
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  async function onRemoveAvatar() {
+    setAvatarError('');
+    setUploading(true);
+    try {
+      const res = await fetch('/api/account/avatar', { method: 'DELETE' });
+      if (!res.ok) throw new Error('That picture could not be removed');
+      setAvatar('');
+    } catch (err) {
+      setAvatarError(err.message);
+    } finally {
+      setUploading(false);
+    }
+  }
 
   useEffect(() => {
     if (state?.ok) {
@@ -63,24 +102,73 @@ export default function ProfileForm({ user, action }) {
         aria-label="How you appear"
         className="ds-elevated flex items-center gap-4 rounded-ds-inner p-4"
       >
+        {/*
+          The picture is cropped to a circle by the frame rather than by the
+          file, so any aspect ratio a student uploads still reads as a portrait.
+          `object-cover` fills the circle and centres the crop.
+        */}
         <span
           aria-hidden="true"
-          className="ds-body-m-strong grid size-14 shrink-0 place-items-center overflow-hidden rounded-full border border-solid border-ds-control bg-ds-surface-sunken text-ds-ink"
+          className="ds-display-s grid size-20 shrink-0 place-items-center overflow-hidden rounded-full border border-solid border-ds-control bg-ds-surface-sunken text-ds-ink"
         >
           {avatar ? (
-            // A plain img, not next/image: the value is a free text URL on any
-            // host, so it cannot be run through the optimiser's allowlist.
+            // A plain img, not next/image. The file is written to
+            // public/uploads/avatars and served straight off disk by NGINX, so
+            // there is nothing for the optimiser to add here.
             // eslint-disable-next-line @next/next/no-img-element
             <img src={avatar} alt="" className="size-full object-cover" />
           ) : (
             initials(name)
           )}
         </span>
-        <div className="min-w-0">
+
+        <div className="flex min-w-0 flex-col gap-2">
           <p className="ds-display-s truncate text-ds-ink">{name || 'Your name'}</p>
           <p className="ds-body-s truncate text-ds-ink-muted">
             {subtitle || 'No university or city set yet'}
           </p>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <label
+              className={cn(
+                'ds-body-s-strong ds-tap inline-flex cursor-pointer items-center justify-center px-3',
+                'rounded-ds-inner border border-solid border-ds-ink bg-ds-surface-raised text-ds-ink',
+                'hover:border-ds-cobalt',
+                'focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ds-cobalt',
+                uploading && 'cursor-not-allowed opacity-60'
+              )}
+            >
+              {uploading ? 'Uploading' : avatar ? 'Change picture' : 'Upload a picture'}
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/avif"
+                className="sr-only"
+                disabled={uploading}
+                onChange={onPickFile}
+              />
+            </label>
+
+            {avatar ? (
+              <button
+                type="button"
+                onClick={onRemoveAvatar}
+                disabled={uploading}
+                className="ds-body-s ds-tap inline-flex cursor-pointer items-center px-2 text-ds-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
+              >
+                Remove
+              </button>
+            ) : null}
+          </div>
+
+          <p className="ds-body-s text-ds-ink-muted">
+            JPG, PNG, WebP or AVIF, up to 3 MB.
+          </p>
+
+          {avatarError ? (
+            <p role="alert" className="ds-body-s text-ds-error">
+              {avatarError}
+            </p>
+          ) : null}
         </div>
       </section>
 
@@ -167,16 +255,10 @@ export default function ProfileForm({ user, action }) {
           ))}
         </SelectInput>
 
-        <TextInput
-          label="Photo address"
-          name="avatar"
-          type="url"
-          value={avatar}
-          onChange={(e) => setAvatar(e.target.value)}
-          placeholder="https://"
-          hint="Optional. Leave it blank to keep your initials."
-          error={errors.avatar}
-        />
+        {/* The picture is uploaded on its own, above. This carries the saved
+            path through the profile form so the server action keeps the value
+            it already expects. */}
+        <input type="hidden" name="avatar" value={avatar} />
 
         <Button type="submit" loading={pending} className="w-full sm:w-auto sm:self-start">
           Save changes
