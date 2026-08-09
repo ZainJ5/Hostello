@@ -7,7 +7,6 @@ import { ShieldCheck, RotateCw } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { Alert } from '@/components/ui/Feedback';
 import AuthHeading from './AuthHeading';
-import DevMailNotice from './DevMailNotice';
 import OtpInput, { OTP_LENGTH } from './OtpInput';
 import PasswordField from './PasswordField';
 import PasswordStrength from './PasswordStrength';
@@ -18,7 +17,7 @@ import { codeIssue, passwordIssue } from './validation';
 const RESEND_SECONDS = 60;
 const PASSWORD_INPUT_ID = 'reset-new-password';
 
-export default function ResetPasswordForm({ email, mailDelivered = true }) {
+export default function ResetPasswordForm({ email }) {
   const router = useRouter();
 
   const [code, setCode] = useState('');
@@ -27,7 +26,6 @@ export default function ResetPasswordForm({ email, mailDelivered = true }) {
   const [errors, setErrors] = useState({});
   const [formError, setFormError] = useState('');
   const [notice, setNotice] = useState('');
-  const [delivered, setDelivered] = useState(mailDelivered);
   const [submitting, setSubmitting] = useState(false);
   const [resending, setResending] = useState(false);
   const [entryKey, setEntryKey] = useState(0);
@@ -55,7 +53,7 @@ export default function ResetPasswordForm({ email, mailDelivered = true }) {
     });
 
     if (ok) {
-      // Left disabled through the navigation — resubmitting would spend a code
+      // Left disabled through the navigation. Resubmitting would spend a code
       // that no longer exists and show a confusing error.
       router.replace('/login?reset=1');
       return;
@@ -94,11 +92,10 @@ export default function ResetPasswordForm({ email, mailDelivered = true }) {
     }
 
     restart(RESEND_SECONDS);
-    setDelivered(Boolean(data.delivered));
     setNotice(
       data.delivered
         ? `A new code is on its way to ${email}.`
-        : 'A new code was generated — check the server console.'
+        : 'A new code was created, but the email could not be sent. Please try again in a moment.'
     );
     setCode('');
     setEntryKey((k) => k + 1);
@@ -118,8 +115,6 @@ export default function ResetPasswordForm({ email, mailDelivered = true }) {
           </>
         }
       />
-
-      <DevMailNotice show={!delivered} className="mb-5" />
 
       {formError && (
         <Alert tone="danger" className="mb-5">
@@ -143,7 +138,7 @@ export default function ResetPasswordForm({ email, mailDelivered = true }) {
               setCode(next);
               if (errors.code) setErrors((p) => ({ ...p, code: '' }));
             }}
-            // Six digits in means the code is done — move on to the password
+            // Six digits in means the code is done, so move on to the password
             // rather than submitting a form that isn't filled in yet.
             onComplete={() => document.getElementById(PASSWORD_INPUT_ID)?.focus()}
             invalid={Boolean(errors.code)}

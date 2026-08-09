@@ -16,7 +16,7 @@ export default async function VerifyPage({ searchParams }) {
   if (session) redirect(homeForRole(session.role));
 
   const email = typeof sp?.email === 'string' ? sp.email.trim().toLowerCase() : '';
-  // Nothing to verify without an address — send them back to the start.
+  // Nothing to verify without an address, so send them back to the start.
   if (emailIssue(email)) redirect('/signup');
 
   // /api/auth/verify accepts `reset` and `delete-account` too, but those flows
@@ -26,14 +26,5 @@ export default async function VerifyPage({ searchParams }) {
     redirect(`/reset-password?email=${encodeURIComponent(email)}`);
   }
 
-  return (
-    <VerifyForm
-      email={email}
-      nextPath={safeNext(sp?.next)}
-      // Resolved on the server so the screen can explain where the code went
-      // before the user has clicked anything. The code itself never leaves the
-      // server console.
-      mailDelivered={Boolean(process.env.SMTP_HOST)}
-    />
-  );
+  return <VerifyForm email={email} nextPath={safeNext(sp?.next)} />;
 }

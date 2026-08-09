@@ -15,7 +15,5 @@ export default async function ResetPasswordPage({ searchParams }) {
   // The code is tied to an address, so without one there is nothing to reset.
   if (emailIssue(email)) redirect('/forgot-password');
 
-  return (
-    <ResetPasswordForm email={email} mailDelivered={Boolean(process.env.SMTP_HOST)} />
-  );
+  return <ResetPasswordForm email={email} />;
 }

@@ -7,7 +7,6 @@ import { Mail, RotateCw } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { Alert } from '@/components/ui/Feedback';
 import AuthHeading from './AuthHeading';
-import DevMailNotice from './DevMailNotice';
 import OtpInput, { OTP_LENGTH } from './OtpInput';
 import { useCountdown } from './useCountdown';
 import { apiRequest, fieldErrors, GENERIC_ERROR } from './api';
@@ -15,27 +14,21 @@ import { codeIssue, homeForRole } from './validation';
 
 const RESEND_SECONDS = 60;
 
-/**
- * The screen every new account passes through, so it is built to be finished
- * in one motion: the boxes take focus on load, a pasted code fills all six and
- * submits itself, and the resend button says exactly how long the wait is.
- */
-export default function VerifyForm({ email, nextPath = '', mailDelivered = true }) {
+export default function VerifyForm({ email, nextPath = '' }) {
   const router = useRouter();
 
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
-  const [delivered, setDelivered] = useState(mailDelivered);
   const [submitting, setSubmitting] = useState(false);
   const [resending, setResending] = useState(false);
-  // Bumped to remount the boxes after a failure — clears them and takes focus.
+  // Bumped to remount the boxes after a failure, which clears them and takes focus.
   const [entryKey, setEntryKey] = useState(0);
 
   const { remaining, active: cooling, restart } = useCountdown(RESEND_SECONDS);
 
   // Guards the gap between "submit started" and the re-render that disables the
-  // button — the auto-submit on the sixth digit and a fast Enter can otherwise
+  // button. The auto-submit on the sixth digit and a fast Enter can otherwise
   // both read `submitting` as false and spend the code twice.
   const inFlight = useRef(false);
 
@@ -98,11 +91,10 @@ export default function VerifyForm({ email, nextPath = '', mailDelivered = true 
     }
 
     restart(RESEND_SECONDS);
-    setDelivered(Boolean(data.delivered));
     setNotice(
       data.delivered
         ? `A new code is on its way to ${email}.`
-        : 'A new code was generated — check the server console.'
+        : 'A new code was created, but the email could not be sent. Please try again in a moment.'
     );
     resetEntry();
   }
@@ -121,8 +113,6 @@ export default function VerifyForm({ email, nextPath = '', mailDelivered = true 
           </>
         }
       />
-
-      <DevMailNotice show={!delivered} className="mb-5" />
 
       {error && (
         <Alert tone="danger" className="mb-5">
