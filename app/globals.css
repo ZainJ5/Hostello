@@ -353,6 +353,7 @@
   /* Geometry, measured from button/primary 17:21 */
   --ds-radius-control: 0.5rem;
   --ds-radius-inner: 0.25rem;
+  --ds-radius-chip: 0.125rem;
 
   /* Strip primitive. Beds are 12 tall because they are the thing being
      chosen. Every other strip in the same grammar is 6, half height, so
@@ -410,6 +411,7 @@
 
   --radius-ds-control: var(--ds-radius-control);
   --radius-ds-inner: var(--ds-radius-inner);
+  --radius-ds-chip: var(--ds-radius-chip);
 }
 
 /* ─── Type scale ────────────────────────────────────────────────
@@ -425,10 +427,10 @@
   font-weight: 600;
 }
 
-.ds-display-xl { font-size: 2.75rem;   line-height: 1.0909; letter-spacing: -0.0455em; }
-.ds-display-m  { font-size: 1.625rem;  line-height: 1.1538; letter-spacing: -0.0577em; }
-.ds-display-s  { font-size: 1.25rem;   line-height: 1.25;   letter-spacing: -0.05em; }
-.ds-logo-wordmark { font-size: 1.75rem; line-height: 1.1429; letter-spacing: -0.1071em; }
+.ds-display-xl { font-size: 2.75rem;   line-height: 1.0909; letter-spacing: -0.02em; }
+.ds-display-m  { font-size: 1.625rem;  line-height: 1.1538; letter-spacing: -0.015em; }
+.ds-display-s  { font-size: 1.25rem;   line-height: 1.25;   letter-spacing: -0.01em; }
+.ds-logo-wordmark { font-size: 1.75rem; line-height: 1.1429; letter-spacing: -0.03em; }
 
 .ds-body-l,
 .ds-body-m,
@@ -443,12 +445,12 @@
 .ds-body-l        { font-size: 1.0625rem; line-height: 1.5294; letter-spacing: 0; font-weight: 400; }
 .ds-body-m        { font-size: 0.9375rem; line-height: 1.4667; letter-spacing: 0; font-weight: 400; }
 .ds-body-m-strong { font-size: 0.9375rem; line-height: 1.4667; letter-spacing: 0; font-weight: 600; }
-.ds-body-s        { font-size: 0.8125rem; line-height: 1.3846; letter-spacing: 0.0385em; font-weight: 400; }
-.ds-body-s-strong { font-size: 0.8125rem; line-height: 1.3846; letter-spacing: 0.0385em; font-weight: 600; }
+.ds-body-s        { font-size: 0.8125rem; line-height: 1.3846; letter-spacing: 0.005em; font-weight: 400; }
+.ds-body-s-strong { font-size: 0.8125rem; line-height: 1.3846; letter-spacing: 0.005em; font-weight: 600; }
 .ds-label {
   font-size: 0.8125rem;
   line-height: 1.2308;
-  letter-spacing: 0.1538em;
+  letter-spacing: 0.02em;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -458,7 +460,7 @@
 .ds-figure-l {
   font-size: 1.375rem;
   line-height: 1.1818;
-  letter-spacing: -0.0455em;
+  letter-spacing: -0.01em;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
@@ -469,8 +471,8 @@
   font-weight: 400;
   font-variant-numeric: tabular-nums;
 }
-.ds-mono-meta  { font-size: 0.75rem;   line-height: 1.3333; letter-spacing: 0.0833em; }
-.ds-mono-table { font-size: 0.8125rem; line-height: 1.3846; letter-spacing: 0.0769em; }
+.ds-mono-meta  { font-size: 0.75rem;   line-height: 1.3333; letter-spacing: 0.01em; }
+.ds-mono-table { font-size: 0.8125rem; line-height: 1.3846; letter-spacing: 0.01em; }
 
 /* Parent page labels. The 2.22 line height is the measured value and is
    what Nastaliq needs to avoid clipping its descenders. */
