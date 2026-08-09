@@ -14,6 +14,28 @@ const nextConfig = {
   experimental: {
     serverActions: { bodySizeLimit: '8mb' },
   },
+
+  /**
+   * The student account area moved from /dashboard to /account, and the
+   * booking sub-route became /enquiries because "enquiry" is the word a
+   * student sees everywhere now. The Mongo collection, the models and the API
+   * routes are still `booking`; only the URL changed.
+   *
+   * Permanent, because the old paths are in students' history, in bookmarks
+   * and in every `?next=` a signed-out visitor was ever redirected with.
+   * Listed longest first so no path falls through to a broader rule, and
+   * query strings carry over untouched, which is what keeps a link like
+   * /dashboard/bookings?status=pending working.
+   */
+  async redirects() {
+    return [
+      { source: '/dashboard/bookings', destination: '/account/enquiries', permanent: true },
+      { source: '/dashboard/profile', destination: '/account/profile', permanent: true },
+      { source: '/dashboard/reviews', destination: '/account/reviews', permanent: true },
+      { source: '/dashboard/saved', destination: '/account/saved', permanent: true },
+      { source: '/dashboard', destination: '/account', permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;
