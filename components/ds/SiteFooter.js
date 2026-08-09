@@ -166,7 +166,9 @@ export default function SiteFooter() {
             {CITIES.map((c) => (
               <Link
                 key={c}
-                href={`/hostels/${c.toLowerCase()}`}
+                // `/hostels/<city>` would fall through to the listing route and
+                // 404. The city landing pages live under `/hostels/in/`.
+                href={`/hostels/in/${c.toLowerCase()}`}
                 className="text-ds-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-cobalt"
               >
                 {c}

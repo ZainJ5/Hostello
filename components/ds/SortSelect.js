@@ -20,8 +20,20 @@ import { cn } from '@/lib/utils';
  * closed control matches the frame exactly; the open menu is the platform's.
  * That trade is recorded in IMPLEMENTATION_NOTES.md.
  */
-export default function SortSelect({ value, options, hrefFor, className }) {
+/**
+ * `options` may carry a precomputed `href` per entry, which is what a Server
+ * Component must do: a `hrefFor` function cannot cross the server to client
+ * boundary. `hrefFor` is still accepted for callers that are already client
+ * side. `id` is a prop so two sort controls on one page cannot collide.
+ */
+export default function SortSelect({ value, options, hrefFor, id = 'sort', className }) {
   const router = useRouter();
+
+  const resolve = (next) => {
+    if (typeof hrefFor === 'function') return hrefFor(next);
+    const match = options.find((o) => o.value === next);
+    return match && match.href ? match.href : null;
+  };
 
   return (
     <div
@@ -40,13 +52,16 @@ export default function SortSelect({ value, options, hrefFor, className }) {
         )}
         style={{ height: 'var(--ds-control-h)' }}
       >
-        <label htmlFor="sort" className="ds-body-s shrink-0 text-ds-ink-muted">
+        <label htmlFor={id} className="ds-body-s shrink-0 text-ds-ink-muted">
           Sort
         </label>
         <select
-          id="sort"
+          id={id}
           value={value}
-          onChange={(e) => router.push(hrefFor(e.target.value))}
+          onChange={(e) => {
+            const href = resolve(e.target.value);
+            if (href) router.push(href);
+          }}
           className="ds-body-m-strong min-w-px flex-1 cursor-pointer appearance-none bg-transparent text-ds-ink focus:outline-none"
         >
           {options.map((o) => (
