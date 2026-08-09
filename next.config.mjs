@@ -29,6 +29,12 @@ const nextConfig = {
    */
   async redirects() {
     return [
+      // The listing's own booking form became /enquire for the same reason.
+      {
+        source: '/hostels/:slug/book',
+        destination: '/hostels/:slug/enquire',
+        permanent: true,
+      },
       { source: '/dashboard/bookings', destination: '/account/enquiries', permanent: true },
       { source: '/dashboard/profile', destination: '/account/profile', permanent: true },
       { source: '/dashboard/reviews', destination: '/account/reviews', permanent: true },
