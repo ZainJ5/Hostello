@@ -255,14 +255,58 @@ empty.
 The live site also has a `Top rated` sort that the design drops. It is a
 working feature, so it is kept as a seventh option rather than removed.
 
+### site-header 73:66
+
+Desktop is 72 tall with 80 side padding and a 32 gap; mobile is 60 tall with
+16 padding and a 12 gap. Surface fill, hairline bottom border.
+
+**The nav set is not the live one, deliberately.** The live nav is Browse
+hostels, Map, List your hostel, About. It predates roommate matching and
+community and left eight built pages with no route in from anywhere. Map comes
+out because it is already a view toggle on browse. About comes out because it
+sits in the footer on every page. Final set: Browse hostels, Roommates,
+Community, List your hostel. The mobile menu carries the same set plus About
+and Sign in, on 48 tall rows.
+
+Active nav item is body/m strong in ink; the rest are body/m in muted ink.
+Theme toggle is a 44 tall control with a hairline keyline and a one word
+label. Signed in swaps Sign in and Get started for "Saved and enquiries" and a
+button carrying the user's name.
+
+### The logo is drawn from tokens, not imported as an SVG
+
+`logo-usage` requires that in dark mode the frame and panel flip to the light
+ink value because they are bound to `color/ink`, while the yellow gap holds
+its value. An exported SVG carries baked in fills and cannot do that.
+
+In Figma the mark is three rectangles, not a vector path: a 17 by 28 frame, a
+4 wide yellow gap at x2, and a 9 wide ink panel at x6. `components/ds/Logo.js`
+reproduces exactly that geometry proportionally, so it is a faithful
+reproduction rather than a redrawing, it stays one component, and it responds
+to the colour mode. Minimum height 20, below which the wordmark drops.
+
 ### Still to read
 
-`site-header` 73:66, four variants: Desktop, Mobile, Mobile menu open, Desktop
-signed in. `site-footer` 73:156. Neither has been pulled yet.
+`site-footer` 73:156. Everything else browse needs has been pulled.
 
 ---
 
 ## 7. Session handoff
+
+**State at the close of session 3.**
+
+Added since the last handoff: `e4a52b4` browse controls, `b160bfc` component
+specs and handoff, `922e237` site header, logo and the restyled theme toggle.
+
+`components/ds` now holds thirteen components. `components/public/ThemeToggle.js`
+was restyled in place onto the new tokens, keeping its behaviour and its
+`hostello-theme` storage key, and it no longer carries any state: both labels
+are driven by the `dark:` variant, so there is no hydration mismatch.
+
+**Immediate next step:** read `site-footer` 73:156, build it, then build
+`/hostels`. Everything else browse needs is already captured in section 6.
+
+---
 
 **State at the close of session 2.**
 
