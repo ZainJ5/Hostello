@@ -293,6 +293,52 @@ to the colour mode. Minimum height 20, below which the wordmark drops.
 
 ## 7. Session handoff
 
+**State during session 5, fan out in progress.**
+
+### Correction: the local database is NOT empty, and it is full of fabricated data
+
+Section 1 says the `Review` collection is empty. **That is true of production and
+false of this machine.** The local database holds **489 published reviews, 127
+hostels and 28 users**, written by `scripts/seed.js` from a hardcoded list of
+eight review snippets and invented student names.
+
+**Anybody verifying a review surface against localhost is looking at invented
+content.** `scripts/seed-production.js` deletes all of it on purpose, so a
+production seed produces the honest empty state. Do not screenshot a populated
+reviews page as evidence that anything works.
+
+### Environment problems that block everyone
+
+- **The C: drive is at 100%.** Turbopack has already failed builds mid run with
+  out of space errors, for three separate agents. `.verify` (161MB) has been
+  deleted and `.next` (1.8GB, fully regenerable) cleared. It refills, so it
+  needs watching. This is the single biggest drag on the work.
+- **Agents share one working tree and one git index.** Two agents reported
+  commits that swept in another agent's staged files. Nothing was lost, but the
+  grouping is wrong. **Every agent must commit path scoped:**
+  `git commit -m "..." -- <path>`. Add this to any future agent brief.
+- While agents run in parallel, `npx next build` fails intermittently on other
+  agents' half finished files. That is expected and resolves as they land. Use
+  the dev server to verify a route in the meantime.
+
+### Central change made during fan out
+
+`components/ds/Pagination.js` hardcoded "hostels" in its summary line, which
+read "489 hostels" on the reviews page. Agent 4 correctly stopped and reported
+rather than editing a primitive. Fixed centrally in `680b46f`: a `noun` prop
+defaulting to `hostel`, with an optional `nounPlural`.
+
+### Unresolved conflict, needs a decision
+
+The roommate matches frame states there is no ranking and no score, because
+"ordering people by a number they cannot see is the part of matching that goes
+wrong". The mandated aggregation ends `$sort: { score: -1 }`. Agent 5 followed
+the query and rewrote the copy so the order is described honestly, with no
+number shown anywhere. That is a reasonable resolution but the design copy and
+the mandated code do genuinely disagree.
+
+---
+
 **State at the close of session 4.**
 
 Added: `377be60` site footer and the shared layout wiring. `components/ds` now
