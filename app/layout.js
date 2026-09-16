@@ -21,7 +21,6 @@ async function campusRows() {
   return cachedCampusRows();
 }
 
-
 // Inter still carries the admin and owner consoles, which keep the original
 // Airbnb derived scale. It is left exactly as it was.
 const inter = Inter({
