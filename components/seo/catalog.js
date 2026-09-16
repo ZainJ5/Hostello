@@ -66,18 +66,16 @@ export function citySlug(name) {
   return slugify(name);
 }
 
-const CAMPUS_BY_SLUG = CAMPUS_NAMES.reduce((acc, name) => {
-  acc[campusSlug(name)] = CAMPUSES[name];
-  return acc;
-}, {});
-
 const CITY_BY_SLUG = CITY_NAMES.reduce((acc, name) => {
   acc[citySlug(name)] = name;
   return acc;
 }, {});
 
 export function campusFromSlug(slug) {
-  return CAMPUS_BY_SLUG[String(slug || '').toLowerCase()] || null;
+  // Built on each call because admins can add campuses at runtime.
+  const wanted = String(slug || '').toLowerCase();
+  const name = CAMPUS_NAMES.find((n) => campusSlug(n) === wanted);
+  return name ? CAMPUSES[name] : null;
 }
 
 export function cityFromSlug(slug) {
