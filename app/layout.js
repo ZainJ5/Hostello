@@ -6,6 +6,20 @@ import {
   Noto_Nastaliq_Urdu,
 } from 'next/font/google';
 import './globals.css';
+import CampusBootstrap from '@/components/hostels/CampusBootstrap';
+import { connectDB } from '@/lib/db';
+import { cachedCampusRows } from '@/lib/campuses-server';
+
+// Admin-added universities, read once per render. A database outage must not
+// take the whole site down, so any failure falls back to the built-in list.
+async function campusRows() {
+  try {
+    await connectDB();
+  } catch {
+    // ignore, built-in campuses still work
+  }
+  return cachedCampusRows();
+}
 
 // Inter still carries the admin and owner consoles, which keep the original
 // Airbnb derived scale. It is left exactly as it was.
@@ -94,7 +108,8 @@ export const viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const rows = await campusRows();
   return (
     // The inline theme script stamps `dark` and `color-scheme` onto <html>
     // before hydration, so the server markup intentionally differs from the
@@ -102,7 +117,7 @@ export default function RootLayout({ children }) {
     // does not extend to children.
     <html lang="en" className={fontVariables} suppressHydrationWarning>
       <body className="min-h-dvh bg-background text-foreground antialiased">
-        {children}
+        <CampusBootstrap rows={rows}>{children}</CampusBootstrap>
       </body>
     </html>
   );

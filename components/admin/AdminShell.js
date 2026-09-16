@@ -20,6 +20,7 @@ import {
   Star,
   Sun,
   Globe,
+  GraduationCap,
   Users,
   Wallet,
   X,
@@ -57,7 +58,10 @@ const NAV = [
   },
   {
     heading: 'Configure',
-    items: [{ href: '/admin/settings', label: 'Settings', icon: SettingsIcon }],
+    items: [
+      { href: '/admin/universities', label: 'Universities', icon: GraduationCap },
+      { href: '/admin/settings', label: 'Settings', icon: SettingsIcon },
+    ],
   },
 ];
 

@@ -4,6 +4,7 @@ import Hostel from '@/models/Hostel';
 import { requireAdminPage } from '@/app/api/admin/_lib/guard';
 import PageHeader from '@/components/admin/PageHeader';
 import ReviewsTable from '@/components/admin/reviews/ReviewsTable';
+import AddReviewButton from '@/components/admin/reviews/AddReviewButton';
 import { serialize } from '@/lib/utils';
 
 export const metadata = { title: 'Reviews' };
@@ -63,10 +64,16 @@ export default async function AdminReviewsPage({ searchParams }) {
   const total = result?.count?.[0]?.n || 0;
   const pages = Math.max(1, Math.ceil(total / PER_PAGE));
 
-  const [statusCounts, hostelIds] = await Promise.all([
+  const [statusCounts, hostelIds, allListings] = await Promise.all([
     Review.aggregate([{ $group: { _id: '$status', n: { $sum: 1 } } }]),
     Review.distinct('hostelId'),
+    Hostel.find({}).sort({ name: 1 }).select('name city area').lean(),
   ]);
+
+  const listingOptions = allListings.map((h) => ({
+    value: String(h._id),
+    label: [h.name, h.area, h.city].filter(Boolean).join(', '),
+  }));
 
   const hostelOptions = hostelIds.length
     ? (
@@ -82,7 +89,8 @@ export default async function AdminReviewsPage({ searchParams }) {
       <PageHeader
         eyebrow="Marketplace"
         title="Reviews"
-        description="Flagged reviews come first. Removing one recalculates the listing's rating and review count immediately."
+        description="Flagged reviews come first. Adding or removing one recalculates the listing's rating and review count immediately."
+        actions={<AddReviewButton listings={listingOptions} />}
       />
 
       <ReviewsTable
