@@ -5,6 +5,8 @@
  * client components share one source of truth instead of drifting.
  */
 
+import { CAMPUSES as CAMPUS_POINTS } from '@/components/hostels/campuses';
+
 /** Roughly the Islamabad and Rawalpindi twin city bowl, where most listings sit. */
 export const DEFAULT_CENTER = [33.6461, 73.0169];
 export const DEFAULT_ZOOM = 11;
@@ -38,22 +40,39 @@ export const UNIVERSITIES = [
   'Air University',
   'Arid Agriculture',
   'Bahria University',
+  'BNU',
   'COMSATS',
+  'COMSATS Lahore',
   'FAST',
+  'FAST Lahore',
+  'FCCU',
   'FJWU',
   'Foundation University',
+  'GCU',
   'IBA',
   'IIUI',
+  'ITU',
+  'KEMU',
+  'Kinnaird College',
+  'LCWU',
   'LUMS',
+  'NCA',
   'NED',
   'NUML',
   'NUST',
+  'PU Old Campus',
   'Punjab University',
   'QAU',
-  'RMU',
   'Riphah',
+  'Riphah Lahore',
+  'RMU',
   'SZABIST',
+  'UCP',
   'UET',
+  'UMT',
+  'University of Education',
+  'UOL',
+  'UVAS',
 ];
 
 /**
@@ -61,6 +80,11 @@ export const UNIVERSITIES = [
  * `university` ties each campus back to the `Hostel.universities[]` vocabulary
  * so picking a campus can pre-select the matching tag.
  */
+function campusEntry(id, key, sector) {
+  const c = CAMPUS_POINTS[key];
+  return { id, name: c.name, full: c.full, sector, city: c.city, university: key, lat: c.lat, lng: c.lng };
+}
+
 export const CAMPUSES = [
   {
     id: 'nust-h12',
@@ -192,6 +216,53 @@ export const CAMPUSES = [
     lat: 33.5955,
     lng: 73.0555,
   },
+  {
+    id: 'lums',
+    name: 'LUMS',
+    full: 'Lahore University of Management Sciences',
+    sector: 'DHA Phase 5',
+    city: 'Lahore',
+    university: 'LUMS',
+    lat: 31.4704,
+    lng: 74.4113,
+  },
+  {
+    id: 'pu-new',
+    name: 'Punjab University',
+    full: 'University of the Punjab, New Campus',
+    sector: 'Canal Road',
+    city: 'Lahore',
+    university: 'Punjab University',
+    lat: 31.498,
+    lng: 74.3005,
+  },
+  {
+    id: 'uet-lhr',
+    name: 'UET',
+    full: 'UET Lahore',
+    sector: 'G.T. Road',
+    city: 'Lahore',
+    university: 'UET',
+    lat: 31.5786,
+    lng: 74.3563,
+  },
+  campusEntry('pu-old', 'PU Old Campus', 'Anarkali'),
+  campusEntry('fast-lhr', 'FAST Lahore', 'Faisal Town'),
+  campusEntry('comsats-lhr', 'COMSATS Lahore', 'Defence Road'),
+  campusEntry('ucp', 'UCP', 'Johar Town'),
+  campusEntry('umt', 'UMT', 'Johar Town'),
+  campusEntry('uol', 'UOL', 'Defence Road'),
+  campusEntry('gcu', 'GCU', 'Katchery Road'),
+  campusEntry('fccu', 'FCCU', 'Canal Bank Road'),
+  campusEntry('kinnaird', 'Kinnaird College', 'Jail Road'),
+  campusEntry('lcwu', 'LCWU', 'Jail Road'),
+  campusEntry('itu', 'ITU', 'Arfa Tower, Ferozepur Road'),
+  campusEntry('nca', 'NCA', 'The Mall'),
+  campusEntry('kemu', 'KEMU', 'Neela Gumbad'),
+  campusEntry('bnu', 'BNU', 'Tarogil, Raiwind Road'),
+  campusEntry('riphah-lhr', 'Riphah Lahore', 'Raiwind Road'),
+  campusEntry('uvas', 'UVAS', 'Outfall Road'),
+  campusEntry('ue-township', 'University of Education', 'Township'),
 ];
 
 export const CAMPUS_BY_ID = CAMPUSES.reduce((acc, c) => {

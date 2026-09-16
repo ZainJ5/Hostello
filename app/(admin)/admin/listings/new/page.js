@@ -5,6 +5,7 @@ import User from '@/models/User';
 import { requireAdminPage } from '@/app/api/admin/_lib/guard';
 import PageHeader from '@/components/admin/PageHeader';
 import HostelForm from '@/components/admin/listings/HostelForm';
+import { CAMPUS_NAMES } from '@/components/hostels/campuses';
 
 export const metadata = { title: 'New listing' };
 
@@ -35,7 +36,7 @@ export default async function NewListingPage() {
         mode="create"
         owners={owners.map((o) => ({ value: String(o._id), label: o.name || o.email }))}
         cities={cities.filter(Boolean).sort()}
-        universities={universities.filter(Boolean).sort()}
+        universities={[...new Set([...CAMPUS_NAMES, ...universities.filter(Boolean)])].sort()}
         facilities={FACILITIES}
         roomTypes={ROOM_TYPES}
       />
