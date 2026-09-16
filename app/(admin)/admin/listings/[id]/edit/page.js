@@ -10,6 +10,7 @@ import Review from '@/models/Review';
 import { requireAdminPage } from '@/app/api/admin/_lib/guard';
 import PageHeader from '@/components/admin/PageHeader';
 import HostelForm from '@/components/admin/listings/HostelForm';
+import { CAMPUS_NAMES } from '@/components/hostels/campuses';
 import { formatCompact, serialize } from '@/lib/utils';
 
 const OID = /^[a-f0-9]{24}$/i;
@@ -76,7 +77,7 @@ export default async function EditListingPage({ params }) {
         hostel={serialize(hostel)}
         owners={owners.map((o) => ({ value: String(o._id), label: o.name || o.email }))}
         cities={cities.filter(Boolean).sort()}
-        universities={universities.filter(Boolean).sort()}
+        universities={[...new Set([...CAMPUS_NAMES, ...universities.filter(Boolean)])].sort()}
         facilities={FACILITIES}
         roomTypes={ROOM_TYPES}
       />
