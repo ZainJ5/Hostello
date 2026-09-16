@@ -580,7 +580,7 @@ export async function getOwnerReviews(ownerId, { filter, hostelId } = {}) {
       ...r,
       _id: String(r._id),
       hostelId: String(r.hostelId),
-      studentId: String(r.studentId),
+      studentId: r.studentId ? String(r.studentId) : null,
       hostelName: nameById.get(String(r.hostelId)) || 'Listing removed',
     })),
   };
