@@ -19,7 +19,10 @@ import { ensureOwnProfile, loadOwnProfile } from '@/components/roommates/query';
  */
 
 const detailsSchema = z.object({
-  campus: z.enum(CAMPUS_NAMES).or(z.literal('')).optional(),
+  campus: z
+    .string()
+    .refine((v) => v === '' || CAMPUS_NAMES.includes(v), 'Pick a campus from the list')
+    .optional(),
   gender: z.enum(GENDERS).or(z.literal('')).optional(),
   year: z.enum(YEARS).or(z.literal('')).optional(),
   programme: z.string().trim().max(60).optional(),
