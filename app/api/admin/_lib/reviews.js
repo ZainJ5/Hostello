@@ -18,3 +18,32 @@ export async function recomputeHostelRating(hostelId) {
   await Hostel.updateOne({ _id: hostelId }, { $set: { rating, reviewCount } });
   return { rating, reviewCount };
 }
+
+const indexState = (globalThis.__hostelloReviewIndex ||= { done: false, running: null });
+
+/**
+ * Older databases carry the original full unique index on
+ * { hostelId, studentId }, which treats every admin review (studentId null)
+ * as the same student. Swap it for the partial index once per process.
+ */
+export async function ensureReviewIndexes() {
+  if (indexState.done) return;
+  if (indexState.running) return indexState.running;
+  indexState.running = (async () => {
+    try {
+      const indexes = await Review.collection.indexes().catch(() => []);
+      const legacy = indexes.find(
+        (ix) =>
+          ix.name === 'hostelId_1_studentId_1' && ix.unique && !ix.partialFilterExpression
+      );
+      if (legacy) await Review.collection.dropIndex(legacy.name);
+      await Review.syncIndexes();
+      indexState.done = true;
+    } catch (err) {
+      console.error('[reviews] index sync failed', err?.message || err);
+    } finally {
+      indexState.running = null;
+    }
+  })();
+  return indexState.running;
+}
