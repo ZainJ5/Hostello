@@ -20,6 +20,8 @@ export const ACTION_LABELS = {
   'university.update': 'Edited university',
   'university.delete': 'Deleted university',
   'university.reset': 'Reset university',
+  'university.recompute': 'Recalculated distances',
+  'review.edit': 'Edited review',
   'user.role': 'Changed user role',
   'user.status': 'Changed user status',
   'user.delete': 'Deleted account',
