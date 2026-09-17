@@ -105,9 +105,10 @@ export default async function HostelsPage({ searchParams }) {
         <Breadcrumbs items={browseCrumbs(filters)} />
         <h1 className={cn(TITLE, 'text-balance text-ds-ink')}>{browseTitle(filters)}</h1>
         <p className="ds-body-l max-w-[75ch] text-pretty text-ds-ink-muted">
-          {total} {total === 1 ? 'listing' : 'listings'}, every one checked by a person before
-          it went live. Filter by campus, rent and what is included, then contact the owner
-          yourself. Hostello takes no commission and holds no rooms.
+          {total} {total === 1 ? 'listing' : 'listings'}. Rent, facilities and photos come from
+          the owner or from the hostel&apos;s own public listing, and a badge says which ones
+          Hostello has checked. Filter by campus, rent and what is included, then contact the
+          owner yourself. Hostello takes no commission and holds no rooms.
         </p>
       </Container>
 
