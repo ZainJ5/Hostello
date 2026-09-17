@@ -5,6 +5,7 @@ import Review from '@/models/Review';
 import Payment from '@/models/Payment';
 import PageView from '@/models/PageView';
 import AuditLog from '@/models/AuditLog';
+import RoommateProfile from '@/models/RoommateProfile';
 
 export const RANGES = [7, 30, 90];
 
@@ -103,6 +104,10 @@ export async function getOverview() {
     views30,
     viewsPrev30,
     flaggedReviews,
+    roommateProfiles,
+    roommateComplete,
+    roommateVisible,
+    roommateCampuses,
     series,
   ] = await Promise.all([
     Hostel.aggregate([{ $group: { _id: '$status', n: { $sum: 1 } } }]),
@@ -118,6 +123,18 @@ export async function getOverview() {
     countPageViews('view', d30, now),
     countPageViews('view', d60, d30),
     Review.countDocuments({ status: 'flagged' }),
+    // A profile is created the first time a signed in student opens the
+    // roommate page, so the total counts everyone who looked. `complete` is
+    // the number that can actually be matched.
+    RoommateProfile.countDocuments({}),
+    RoommateProfile.countDocuments({ complete: true }),
+    RoommateProfile.countDocuments({ complete: true, visible: true }),
+    RoommateProfile.aggregate([
+      { $match: { complete: true } },
+      { $group: { _id: '$campus', n: { $sum: 1 } } },
+      { $sort: { n: -1 } },
+      { $limit: 4 },
+    ]),
     trafficSeries(30),
   ]);
 
@@ -204,6 +221,10 @@ export async function getOverview() {
       views30,
       viewsDelta: deltaPct(views30, viewsPrev30),
       flaggedReviews,
+      roommateProfiles,
+      roommateComplete,
+      roommateVisible,
+      roommateCampuses: roommateCampuses.map((r) => ({ campus: r._id || 'No campus', count: r.n })),
     },
     series,
     queue,
