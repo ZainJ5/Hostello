@@ -21,6 +21,8 @@ export const ACTION_LABELS = {
   'university.delete': 'Deleted university',
   'university.reset': 'Reset university',
   'university.recompute': 'Recalculated distances',
+  'roommate.hide': 'Hid a roommate profile',
+  'roommate.show': 'Restored a roommate profile',
   'review.edit': 'Edited review',
   'user.role': 'Changed user role',
   'user.status': 'Changed user status',
