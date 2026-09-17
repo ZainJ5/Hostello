@@ -25,7 +25,7 @@ import { GENDERS, YEARS } from '@/models/RoommateProfile';
 export const metadata = {
   title: 'How you live',
   description:
-    'Six questions about how you actually live, so Hostello can suggest students on your own campus who answered the same way. Your answers are never shown to another student.',
+    'Six questions about how you actually live, so Hostello can suggest students who answered the same way, starting with your own campus. Your answers are never shown to another student.',
   // Indexable, because a crawler is always signed out and what it sees is the
   // explanation of the feature. Every route past this one is a person's own
   // data and carries robots: index false.
@@ -48,7 +48,7 @@ function SignedOut() {
         <p className="ds-body-l text-ds-ink-muted">{INTRO}</p>
         <ul className="flex flex-col gap-3">
           {[
-            'Matching runs inside your own campus and your own gender, and nowhere else.',
+            'Matching runs inside your own gender, and students at your own campus come first.',
             'Your six answers stay yours. Another student sees how far apart you are, never what you picked.',
             'Nothing is booked. Hostello makes an introduction and the room is still arranged with the owner.',
           ].map((line) => (
