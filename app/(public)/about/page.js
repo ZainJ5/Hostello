@@ -167,9 +167,8 @@ export default async function AboutPage() {
 
       <Section title="Who runs Hostello">
         <Paragraph>
-          Hostello is a product of xaviot.com, a small team in Islamabad. Everything on this site is
-          built and checked by that team. There is no call centre, no sales floor and no agent
-          network behind it.
+          Hostello is a product of xaviot.com, a small team in Islamabad. The site is built by that
+          team. There is no call centre, no sales floor and no agent network behind it.
         </Paragraph>
         <SupportContact />
       </Section>

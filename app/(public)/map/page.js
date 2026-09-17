@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 const DESCRIPTION =
-  'Every published student hostel in Islamabad, Rawalpindi, Lahore and Karachi on one map. ' +
+  'Every published student hostel on one map, across every city Hostello covers. ' +
   'Filter by campus, rent and who can stay, and read the rent straight off the marker.';
 
 export const metadata = {
