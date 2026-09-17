@@ -62,6 +62,7 @@ const EMPTY = {
   status: 'draft',
   rejectionReason: '',
   available: true,
+  source: '',
   verified: false,
   featured: false,
 };
@@ -867,6 +868,17 @@ export default function HostelForm({
               checked={form.verified}
               onChange={(e) => set({ verified: e.target.checked })}
             />
+            <Select
+              label="Where the details came from"
+              hint="Shown on the listing. It is not a quality mark: it only says who typed this in."
+              value={form.source}
+              onChange={(e) => set({ source: e.target.value })}
+            >
+              <option value="">Not recorded</option>
+              <option value="owner">The owner keeps this listing</option>
+              <option value="import">The hostel&apos;s own public listing</option>
+              <option value="admin">Added by the Hostello team</option>
+            </Select>
             <Checkbox
               label="Featured"
               description="Promoted across the public site. Slots are limited in settings."

@@ -31,7 +31,7 @@ const PLACEABLE = { status: 'published', lat: { $ne: 0 }, lng: { $ne: 0 } };
 
 const LIST_FIELDS =
   'name slug city area universities gender price priceMin priceMax rating reviewCount ' +
-  'images facilities verified featured available lat lng distanceKm';
+  'images facilities verified featured source available lat lng distanceKm';
 
 /**
  * The client fetches `/api/hostels` for every viewport change, but the first
@@ -71,6 +71,10 @@ async function loadInitialHostels(filters) {
 
 export default async function MapPage({ searchParams }) {
   const sp = await searchParams;
+  // The city list grows with the universities an admin adds, and that list is
+  // rebuilt when the database connection opens. Parsing first would drop
+  // `?city=Multan` as an unknown city on the first request after a deploy.
+  await connectDB().catch(() => {});
   const filters = parseFilters(sp);
   const { hostels, total } = await loadInitialHostels(filters);
 

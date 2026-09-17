@@ -47,6 +47,18 @@ export const FACILITIES = [
 
 export const ROOM_TYPES = ['Single', 'Double', 'Triple', 'Quad', 'Dormitory'];
 
+/**
+ * Where the details on a listing came from. Shown on the listing itself,
+ * because "who typed this" is the first thing a student should be able to see
+ * and the verified badge only answers a different question, which is whether
+ * Hostello has checked the place.
+ *
+ *   owner   the hostel owner keeps this listing on their own account
+ *   import  taken from the hostel's own public listing elsewhere
+ *   admin   entered by the Hostello team
+ */
+export const SOURCES = ['owner', 'import', 'admin'];
+
 const roomSchema = new mongoose.Schema(
   {
     type: { type: String, enum: ROOM_TYPES, required: true },
@@ -120,6 +132,7 @@ const hostelSchema = new mongoose.Schema(
     publishedAt: { type: Date, default: null },
 
     available: { type: Boolean, default: true },
+    source: { type: String, enum: [...SOURCES, ''], default: '', index: true },
     verified: { type: Boolean, default: false },
     featured: { type: Boolean, default: false },
 

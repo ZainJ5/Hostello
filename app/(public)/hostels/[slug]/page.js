@@ -8,6 +8,7 @@ import { cn, serialize } from '@/lib/utils';
 import { TITLE } from '@/components/public/type';
 import Container from '@/components/public/Container';
 import Badge from '@/components/ds/Badge';
+import SourceBadge from '@/components/hostels/SourceBadge';
 
 import Breadcrumbs from '@/components/hostels/Breadcrumbs';
 import Gallery from '@/components/hostels/Gallery';
@@ -219,6 +220,7 @@ export default async function HostelDetailPage({ params, searchParams }) {
           <Badge variant="outline">
             {hostel.gender === 'Mixed' ? 'Mixed' : `${hostel.gender} only`}
           </Badge>
+          <SourceBadge source={hostel.source} />
           {byOwner ? <Badge variant="outline">Photos from the owner</Badge> : null}
         </div>
       </Container>

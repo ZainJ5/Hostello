@@ -24,6 +24,7 @@ export const CARD_PROJECTION = {
   facilities: 1,
   verified: 1,
   featured: 1,
+  source: 1,
   available: 1,
   distanceKm: 1,
   lat: 1,

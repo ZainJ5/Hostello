@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import Hostel, { FACILITIES, HOSTEL_STATUSES, ROOM_TYPES } from '@/models/Hostel';
+import Hostel, { FACILITIES, HOSTEL_STATUSES, ROOM_TYPES, SOURCES } from '@/models/Hostel';
 import { slugify } from '@/lib/utils';
 
 const roomSchema = z.object({
@@ -56,6 +56,7 @@ export const hostelInput = z.object({
   rejectionReason: z.string().trim().max(500).default(''),
 
   available: z.coerce.boolean().default(true),
+  source: z.enum([...SOURCES, '']).optional().default(''),
   verified: z.coerce.boolean().default(false),
   featured: z.coerce.boolean().default(false),
 });

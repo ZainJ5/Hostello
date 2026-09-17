@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Badge from '@/components/ds/Badge';
+import SourceBadge from '@/components/hostels/SourceBadge';
 import Chip from '@/components/ds/Chip';
 import { cn, formatPKR, isRuntimeUpload } from '@/lib/utils';
 import { distanceBand, formatKm } from '@/lib/distance';
@@ -75,6 +76,7 @@ export default function HostelRow({ hostel, campus, priority = false, className 
           <Badge variant={hostel.verified ? 'solid' : 'outline'}>
             {hostel.verified ? 'Verified' : 'Not verified'}
           </Badge>
+          <SourceBadge source={hostel.source} />
         </div>
 
         {km ? (
