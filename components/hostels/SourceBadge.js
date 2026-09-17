@@ -17,7 +17,7 @@ const LABELS = {
   import: {
     label: "From the hostel's public listing",
     title:
-      'Details were taken from the hostel\u2019s own public listing. Nobody from Hostello has been to this one, so check the rent and the room when you call.',
+      'Details were taken from the hostel’s own public listing. Nobody from Hostello has been to this one, so check the rent and the room when you call.',
   },
   admin: {
     label: 'Added by Hostello',
