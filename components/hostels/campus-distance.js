@@ -11,7 +11,7 @@
  */
 
 import { haversineKm } from '@/lib/utils';
-import { CAMPUSES, campusesInCity, getCampus } from './campuses';
+import { CAMPUSES, CAMPUS_NAMES, getCampus } from './campuses';
 
 /** A listing has usable coordinates only when both are finite and non-zero. */
 export function hasCoords(hostel) {
@@ -50,7 +50,7 @@ export function cardCampus(hostel, preferred) {
 
 /**
  * The full table on a listing page: every campus the listing is tagged with,
- * then anything else in the same city close enough to be worth naming. A
+ * then any other campus close enough to be worth naming. A
  * campus 30 km away is not a campus this hostel is near, so the second set is
  * capped at 12 km.
  */
@@ -60,7 +60,10 @@ export function campusRows(hostel, limit = 8) {
   const tagged = (hostel.universities || []).map((u) => getCampus(u)).filter(Boolean);
   const seen = new Set(tagged.map((c) => c.name));
 
-  const nearby = campusesInCity(hostel.city)
+  // Every campus, not just the listing's own city: Rawalpindi and Islamabad
+  // are one metro, and a Satellite Town hostel is closer to Arid than to most
+  // of Rawalpindi.
+  const nearby = CAMPUS_NAMES.map((k) => CAMPUSES[k])
     .filter((c) => !seen.has(c.name))
     .map((c) => ({ campus: c, km: km(hostel, c), tagged: false }))
     .filter((r) => r.km <= 12);
@@ -72,4 +75,18 @@ export function campusRows(hostel, limit = 8) {
     .sort((a, b) => a.km - b.km)
     .slice(0, limit)
     .map((r) => ({ ...r, full: CAMPUSES[r.campus.name]?.full || r.campus.full }));
+}
+
+/**
+ * The figure stored on the listing as `distanceKm`: the nearest campus the
+ * listing is tagged with, or the nearest campus overall when none of its tags
+ * is a known campus. Rounded to one decimal. 0 when nothing can be measured.
+ */
+export function nearestCampusKm(hostel) {
+  if (!hasCoords(hostel)) return 0;
+  const tagged = (hostel.universities || []).map((u) => getCampus(u)).filter(Boolean);
+  const pool = tagged.length ? tagged : CAMPUS_NAMES.map((k) => CAMPUSES[k]);
+  if (!pool.length) return 0;
+  const best = Math.min(...pool.map((c) => km(hostel, c)));
+  return Number.isFinite(best) ? Math.round(best * 10) / 10 : 0;
 }
