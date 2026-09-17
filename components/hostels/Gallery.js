@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from 'react';
 import Image from 'next/image';
 import Badge from '@/components/ds/Badge';
 import PhotoSlot from '@/components/ds/PhotoSlot';
-import { cn } from '@/lib/utils';
+import { cn, isRuntimeUpload } from '@/lib/utils';
 import { useDialog } from './use-dialog';
 
 /**
@@ -168,6 +168,7 @@ function Lightbox({ photos, name, index, setIndex, onClose }) {
         <Image
           key={photos[index]}
           src={photos[index]}
+          unoptimized={isRuntimeUpload(photos[index])}
           alt={`${name}, photo ${index + 1} of ${count}`}
           fill
           priority
