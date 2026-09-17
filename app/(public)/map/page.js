@@ -31,7 +31,7 @@ const PLACEABLE = { status: 'published', lat: { $ne: 0 }, lng: { $ne: 0 } };
 
 const LIST_FIELDS =
   'name slug city area universities gender price priceMin priceMax rating reviewCount ' +
-  'images facilities verified featured available lat lng distanceKm';
+  'images facilities verified featured source available lat lng distanceKm';
 
 /**
  * The client fetches `/api/hostels` for every viewport change, but the first
