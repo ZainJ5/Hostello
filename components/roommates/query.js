@@ -137,9 +137,17 @@ export async function ensureOwnProfile(session) {
   return loadOwnProfile(session.userId);
 }
 
-/** True once the profile can actually take part in matching. */
+/**
+ * True once the profile can actually take part in matching.
+ *
+ * Campus is not part of this. Matching used to run inside one campus, which
+ * made the page empty for anybody whose campus had nobody else on it yet, and
+ * a student looking for a room near one campus is often happy to share with
+ * somebody studying at another one in the same city. Campus is still asked
+ * for, still shown on every card, and still decides the order.
+ */
 export function canMatch(profile) {
-  return Boolean(profile?.complete && profile?.campus && profile?.gender);
+  return Boolean(profile?.complete && profile?.gender);
 }
 
 // ─── Matching ───────────────────────────────────────────────────────────
@@ -209,7 +217,6 @@ export function matchPipeline({ me, excluded, onlyProfileId = null }) {
   );
 
   const match = {
-    campus: me.campus,
     gender: me.gender,
     // The brief's `studentId: { $ne: me.studentId }` widened to cover blocks
     // in both directions. A blocked student is never scored, so a block costs
@@ -225,13 +232,21 @@ export function matchPipeline({ me, excluded, onlyProfileId = null }) {
 
   return [
     { $match: match },
-    { $addFields: { axes: levels, score: { $add: Object.values(levels) } } },
+    {
+      $addFields: {
+        axes: levels,
+        score: { $add: Object.values(levels) },
+        // Not a filter any more, but still the thing a student notices first,
+        // so it breaks ties before the date does.
+        sameCampus: { $cond: [{ $eq: ['$campus', me.campus || null] }, 1, 0] },
+      },
+    },
     // The answers never cross the database boundary for anyone but their
     // owner. `select: false` does not apply to aggregate, so this stage is the
     // guard, not a tidy-up. `contact` goes with them: it is only ever revealed
     // on an accepted intro, and `blocked` is nobody else's business either.
     { $project: { answers: 0, contact: 0, blocked: 0 } },
-    { $sort: { score: -1, updatedAt: -1 } },
+    { $sort: { score: -1, sameCampus: -1, updatedAt: -1 } },
     { $limit: onlyProfileId ? 1 : MATCH_LIMIT },
   ];
 }
@@ -392,11 +407,10 @@ export async function revealContact({ viewerStudentId, ownerStudentId, accepted 
  * the count has to be blind to the same people the list is.
  */
 export async function countCandidates(me) {
-  if (!me?.campus || !me?.gender) return 0;
+  if (!me?.gender) return 0;
   await connectDB();
   const excluded = await excludedIds(me);
   return RoommateProfile.countDocuments({
-    campus: me.campus,
     gender: me.gender,
     studentId: { $nin: excluded },
     complete: true,

@@ -8,8 +8,8 @@ import { AXES, compatAria } from '@/components/roommates/questions';
 /**
  * Figma card/match 39:32.
  *
- * Four things and nothing else: who they are, what they study, the six axis
- * strip, and the one line they wrote about what they are looking for.
+ * Four things and nothing else: who they are, where and what they study, the
+ * six axis strip, and the one line they wrote about what they are looking for.
  *
  * There is no number on this card. The strip is drawn, and its sentence is
  * given to a screen reader, but neither a score nor a position is printed,
@@ -21,7 +21,8 @@ import { AXES, compatAria } from '@/components/roommates/questions';
  * an intro, which is why the profile stores "Ayesha K." and not the full name.
  */
 export default function MatchCard({ match, className }) {
-  const meta = [match.year, match.programme].filter(Boolean).join(', ');
+  // Campus leads the line now that a match can come from another one.
+  const meta = [match.campus, match.year, match.programme].filter(Boolean).join(', ');
   const segments = AXES.map((axis) => match.axes?.[axis] ?? 0);
 
   return (

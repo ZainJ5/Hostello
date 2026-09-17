@@ -17,16 +17,18 @@ import {
 /**
  * Figma page/roommates-matches 96:6344 and 96:6988.
  *
- * Everybody on this page is on the caller's campus, is the same gender, and
- * has answered all six. All three are part of the `$match` stage in
- * components/roommates/query.js, so a candidate who fails any of them is never
- * scored rather than scored and hidden.
+ * Everybody on this page is the same gender as the caller and has answered all
+ * six. Both are part of the `$match` stage in components/roommates/query.js,
+ * so a candidate who fails either is never scored rather than scored and
+ * hidden. Campus is not a filter: it is shown on every card and it breaks ties
+ * in the order, because a page that only ever showed one campus was empty for
+ * most students.
  *
  * Two honest empty states, and they are different problems:
  *
  *   - the caller has not answered. Nothing can be computed, and the fix is a
  *     link back to the six questions.
- *   - the caller has answered and there is nobody else on their campus yet.
+ *   - the caller has answered and nobody else has yet.
  *     Nothing is wrong and nothing is broken. The feature creates its own
  *     data, so this state empties itself as students arrive.
  */
@@ -65,8 +67,8 @@ export default async function RoommateMatchesPage() {
           <h1 className="ds-display-xl text-ds-ink">Students who also answered</h1>
           <p className="ds-body-l text-ds-ink-muted">
             {ready
-              ? `Everybody here is at ${me.campus}, is the same gender as you, and has answered all six. The order is how many of the six line up. No number is shown, to you or to them, and nobody is told where they came in your list.`
-              : 'Matching runs inside your own campus and your own gender, and only between students who have both answered all six.'}
+              ? 'Everybody here is the same gender as you and has answered all six. The order is how many of the six line up, with students at your own campus first. No number is shown, to you or to them, and nobody is told where they came in your list.'
+              : 'Matching runs between students of the same gender who have both answered all six. Campus is shown on every card, and students at your own campus come first.'}
           </p>
         </div>
 
@@ -76,12 +78,12 @@ export default async function RoommateMatchesPage() {
           <EmptyState
             title={
               me.answeredCount >= 6
-                ? 'Set your campus and your gender first'
+                ? 'Set your gender first'
                 : `You have answered ${me.answeredCount} of six`
             }
             body={
               me.answeredCount >= 6
-                ? 'Matching runs inside one campus and one gender, so both have to be set before anybody can be suggested.'
+                ? 'Matching runs inside one gender, so it has to be set before anybody can be suggested. Adding your campus puts students at your own campus first.'
                 : 'Nothing is computed until all six are answered. The form saves as you go, so there is nothing to lose by stopping again.'
             }
             action={<Button href="/roommates">Back to the questions</Button>}
@@ -90,13 +92,13 @@ export default async function RoommateMatchesPage() {
           <EmptyState
             title={
               candidates === 0
-                ? `Nobody else at ${me.campus} has answered yet`
+                ? 'Nobody else has answered yet'
                 : 'Nobody is being suggested right now'
             }
             body={
               candidates === 0
-                ? 'You are the first. This page fills itself in as students on your campus answer the same six questions, and nothing has to be done to make that happen.'
-                : 'Everybody who has answered on your campus is somebody you or they have blocked. Nothing further is suggested.'
+                ? 'You are the first. This page fills itself in as other students answer the same six questions, and nothing has to be done to make that happen.'
+                : 'Everybody who has answered is somebody you or they have blocked. Nothing further is suggested.'
             }
             action={<Button href="/hostels">Browse hostels meanwhile</Button>}
           />
