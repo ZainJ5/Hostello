@@ -16,9 +16,10 @@ import { cn } from '@/lib/utils';
  * Status badges never use the error or success colours: against the mean tone
  * of real listing photography those measure 1.34:1 and 1.13:1.
  */
-export default function Badge({ children, variant = 'solid', className }) {
+export default function Badge({ children, variant = 'solid', className, ...props }) {
   return (
     <span
+      {...props}
       className={cn(
         'ds-body-s-strong inline-flex items-center rounded-ds-chip px-2.5 py-1.5',
         variant === 'solid'
