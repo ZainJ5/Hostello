@@ -3,6 +3,7 @@ import {
   CalendarCheck,
   CircleCheck,
   Eye,
+  UserRoundSearch,
   Users,
   Wallet,
 } from 'lucide-react';
@@ -26,6 +27,22 @@ export default async function AdminOverviewPage() {
   const { stats, series, queue, pendingListings, activity, top } = await getOverview();
 
   const urgent = stats.pendingPayments > 0;
+
+  // The tile counts profiles that answered all six questions, because only
+  // those can be matched. The rest are people who opened the page and stopped.
+  const started = stats.roommateProfiles - stats.roommateComplete;
+  const campuses = stats.roommateCampuses
+    .map((c) => `${c.campus} ${c.count}`)
+    .join(' · ');
+  const roommateHint = [
+    `answered all six${started > 0 ? `, ${started} started` : ''}`,
+    stats.roommateComplete > stats.roommateVisible
+      ? `${stats.roommateComplete - stats.roommateVisible} hidden`
+      : '',
+    campuses,
+  ]
+    .filter(Boolean)
+    .join(' · ');
 
   return (
     <div className="space-y-4">
@@ -85,6 +102,12 @@ export default async function AdminOverviewPage() {
               ? 'border-danger/45 bg-danger-soft/45 shadow-sm ring-1 ring-danger/20 dark:bg-danger/10'
               : undefined
           }
+        />
+        <StatCard
+          label="Roommate profiles"
+          value={stats.roommateComplete.toLocaleString('en-PK')}
+          icon={UserRoundSearch}
+          hint={roommateHint}
         />
         <StatCard
           label="Views · last 30 days"
