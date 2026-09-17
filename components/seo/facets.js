@@ -106,7 +106,10 @@ export default function buildFacetGroups({
         disabled: !isRoute && count === 0,
         href,
       };
-    }),
+    })
+      // The base four always show. Cities added later only show once they
+      // have something to list, so the column stays short.
+      .filter((row, i) => i < 4 || !row.disabled || row.selected),
   });
 
   /* ── Who can stay ─────────────────────────────────────────────────────── */

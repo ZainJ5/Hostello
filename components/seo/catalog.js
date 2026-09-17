@@ -29,7 +29,10 @@ import {
 } from '@/components/hostels/filters';
 import { haversineKm, slugify } from '@/lib/utils';
 
-/** The four cities the directory actually covers. */
+/**
+ * The base cities. Cities that come with admin-added universities are pushed
+ * onto this same array at runtime (see campus-registry.js).
+ */
 export const CITY_NAMES = ['Islamabad', 'Rawalpindi', 'Lahore', 'Karachi'];
 
 /** Re-exported so a route can validate a slug without importing two modules. */
@@ -66,10 +69,6 @@ export function citySlug(name) {
   return slugify(name);
 }
 
-const CITY_BY_SLUG = CITY_NAMES.reduce((acc, name) => {
-  acc[citySlug(name)] = name;
-  return acc;
-}, {});
 
 export function campusFromSlug(slug) {
   // Built on each call because admins can add campuses at runtime.
@@ -79,7 +78,9 @@ export function campusFromSlug(slug) {
 }
 
 export function cityFromSlug(slug) {
-  return CITY_BY_SLUG[String(slug || '').toLowerCase()] || null;
+  // Looked up on each call because cities can be added at runtime.
+  const wanted = String(slug || '').toLowerCase();
+  return CITY_NAMES.find((n) => citySlug(n) === wanted) || null;
 }
 
 export function genderFromSlug(slug) {

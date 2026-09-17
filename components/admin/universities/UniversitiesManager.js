@@ -6,7 +6,7 @@ import { GraduationCap, MapPin, Pencil, Plus, RefreshCw, RotateCcw, Trash2 } fro
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import { EmptyState } from '@/components/ui/Feedback';
-import { Checkbox, Input, Select } from '@/components/ui/Field';
+import { Checkbox, Input } from '@/components/ui/Field';
 import { FilterBar, FilterSelect } from '@/components/admin/Filters';
 import { Table, TableWrap, TBody, Td, Th, THead, Tr } from '@/components/admin/Table';
 import Modal, { ConfirmDialog } from '@/components/admin/Modal';
@@ -304,20 +304,20 @@ export default function UniversitiesManager({ rows, cities }) {
             error={errors.full}
             required
           />
-          <Select
+          <Input
             label="City"
+            hint="Pick one or type a new city. A new city opens across the site with its first university."
+            list="university-city-options"
             value={form.city}
             onChange={(e) => update('city', e.target.value)}
             error={errors.city}
             required
-          >
-            <option value="">Pick a city</option>
+          />
+          <datalist id="university-city-options">
             {cityOptions.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
+              <option key={c} value={c} />
             ))}
-          </Select>
+          </datalist>
           <Input
             label="Area"
             hint="Optional, for example Johar Town"
