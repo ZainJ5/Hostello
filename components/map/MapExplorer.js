@@ -10,7 +10,7 @@ import { DISTANCE_NOTE } from '@/lib/distance';
 // Loaded here rather than only inside the lazy canvas chunk, so the scroll
 // lock and the slider skin are present on the very first paint.
 import './map.css';
-import { CAMPUS_BY_ID, MAX_RESULTS, MOVE_DEBOUNCE_MS } from './config';
+import { CAMPUS_BY_ID, CITY_VIEWS, MAX_RESULTS, MOVE_DEBOUNCE_MS } from './config';
 import { pointsBounds } from './cluster';
 import {
   DEFAULT_FILTERS,
@@ -102,6 +102,7 @@ export default function MapExplorer({ initialHostels = [], initialFilters, total
   const abortRef = useRef(null);
   const searchedOnceRef = useRef(false);
   const lastSearchedBoundsRef = useRef(null);
+  const skipFilterSearchRef = useRef(false);
 
   // Mirrors the latest viewport/filters for the debounced timers, which fire
   // long after the render that scheduled them.
@@ -197,12 +198,14 @@ export default function MapExplorer({ initialHostels = [], initialFilters, total
       setHostels(rows);
       setApiHealthy(true);
       setAreaDirty(false);
+      return rows;
     } catch (err) {
       if (err?.name === 'AbortError') return;
       // Degraded, not broken: the server-rendered set stays, and the client
       // narrows it to the viewport on its own.
       setApiHealthy(false);
       setAreaDirty(false);
+      return null;
     } finally {
       if (abortRef.current === controller) {
         abortRef.current = null;
@@ -237,7 +240,15 @@ export default function MapExplorer({ initialHostels = [], initialFilters, total
   );
   useEffect(() => {
     if (!searchedOnceRef.current) return undefined;
-    const timer = setTimeout(() => runSearch(boundsRef.current, filtersRef.current), 250);
+    const timer = setTimeout(() => {
+      // A new city is handled below, without bounds. Refetching here would use
+      // the viewport the student is leaving, which holds none of its hostels.
+      if (skipFilterSearchRef.current) {
+        skipFilterSearchRef.current = false;
+        return;
+      }
+      runSearch(boundsRef.current, filtersRef.current);
+    }, 250);
     return () => clearTimeout(timer);
   }, [filterKey, runSearch]);
 
@@ -326,6 +337,40 @@ export default function MapExplorer({ initialHostels = [], initialFilters, total
       return next;
     });
   }, []);
+
+  /**
+   * Picking a city has to move the map.
+   *
+   * The filter on its own only narrows the result set, so choosing Multan
+   * while the viewport sits over Islamabad left an empty screen and a "0
+   * hostels in this map view" counter, which reads as a broken map rather
+   * than a filter that did what it was told. Every city Hostello covers has
+   * a view in `CITY_VIEWS`, including the ones an admin opened by adding a
+   * university, and the results are framed afterwards so the city's own
+   * spread decides the final zoom.
+   */
+  const cityFocusRef = useRef(null);
+  useEffect(() => {
+    const map = mapInstance;
+    if (!map) return;
+    const city = filters.city;
+    if (cityFocusRef.current === city) return;
+    cityFocusRef.current = city;
+    if (!city) return;
+
+    const view = CITY_VIEWS[city];
+    if (view) map.flyTo(view.center, view.zoom, { animate: true, duration: 0.8 });
+
+    // Asked without bounds on purpose: the listings for this city are almost
+    // never inside the viewport the student is leaving.
+    skipFilterSearchRef.current = true;
+    searchedOnceRef.current = true;
+    runSearch(null, { ...filtersRef.current, city }).then((rows) => {
+      if (!rows?.length) return;
+      const box = pointsBounds(rows.filter(hasCoords));
+      if (box) map.fitBounds(box, { padding: [56, 56], maxZoom: 13, animate: true });
+    });
+  }, [mapInstance, filters.city, runSearch]);
 
   const zoomOutToResults = useCallback(() => {
     const map = mapRef.current;
