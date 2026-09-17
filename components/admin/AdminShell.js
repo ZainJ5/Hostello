@@ -22,6 +22,7 @@ import {
   Globe,
   GraduationCap,
   Users,
+  UserRoundSearch,
   Wallet,
   X,
 } from 'lucide-react';
@@ -47,7 +48,10 @@ const NAV = [
   },
   {
     heading: 'People',
-    items: [{ href: '/admin/users', label: 'Users', icon: Users }],
+    items: [
+      { href: '/admin/users', label: 'Users', icon: Users },
+      { href: '/admin/roommates', label: 'Roommates', icon: UserRoundSearch },
+    ],
   },
   {
     heading: 'Insight',
