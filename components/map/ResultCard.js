@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Badge from '@/components/ds/Badge';
 import Chip from '@/components/ds/Chip';
-import { cn, formatPKR } from '@/lib/utils';
+import { cn, formatPKR, isRuntimeUpload } from '@/lib/utils';
 import { distanceBand, formatKm } from '@/lib/distance';
 
 /**
@@ -66,7 +66,14 @@ function ResultCard({
 
         <div className="relative size-22 shrink-0 overflow-hidden rounded-ds-inner bg-ds-photo sm:size-26">
           {photo ? (
-            <Image src={photo} alt={hostel.name} fill sizes="104px" className="object-cover" />
+            <Image
+              src={photo}
+              unoptimized={isRuntimeUpload(photo)}
+              alt={hostel.name}
+              fill
+              sizes="104px"
+              className="object-cover"
+            />
           ) : null}
         </div>
 
