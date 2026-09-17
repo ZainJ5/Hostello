@@ -206,8 +206,9 @@ export default function Questionnaire({ profile, savedWhen, campusNames, years, 
           {complete ? 'All six answered' : 'Nothing happens until all six are answered'}
         </p>
         <p className="ds-body-s text-ds-ink-muted">
-          Matching only runs inside your own campus and your own gender, and only between
-          students who have both answered. Until then this page is a form you can leave open.
+          Matching only runs inside your own gender, and only between students who have both
+          answered. Students at your own campus come first. Until then this page is a form you
+          can leave open.
         </p>
       </div>
 
