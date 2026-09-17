@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn, isRuntimeUpload } from '@/lib/utils';
 
 /**
  * Figma photo-slot/4x3 18:12.
@@ -27,6 +27,7 @@ export default function PhotoSlot({ src, alt, priority = false, children, classN
       {src ? (
         <Image
           src={src}
+          unoptimized={isRuntimeUpload(src)}
           alt={alt}
           fill
           priority={priority}
