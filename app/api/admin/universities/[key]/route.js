@@ -4,7 +4,7 @@ import { handler, ok, fail, readJson } from '@/lib/api';
 import University from '@/models/University';
 import Hostel from '@/models/Hostel';
 import { writeAudit } from '@/app/api/admin/_lib/audit';
-import { universityInput } from '@/app/api/admin/_lib/universities';
+import { universityInput, recomputeAllDistances } from '@/app/api/admin/_lib/universities';
 import { loadCampusRows } from '@/lib/campuses-server';
 import { isBuiltinCampus } from '@/components/hostels/campus-registry';
 import { serialize } from '@/lib/utils';
@@ -33,6 +33,7 @@ export const PATCH = handler(async (req, ctx) => {
     { upsert: true, new: true, runValidators: true, setDefaultsOnInsert: true }
   ).lean();
   await loadCampusRows({ force: true });
+  const distances = await recomputeAllDistances();
 
   await writeAudit(req, session, {
     action: 'university.update',
@@ -47,7 +48,7 @@ export const PATCH = handler(async (req, ctx) => {
     },
   });
 
-  return ok({ university: serialize(doc) });
+  return ok({ university: serialize(doc), distances });
 });
 
 /**
@@ -79,6 +80,7 @@ export const DELETE = handler(async (req, ctx) => {
 
   await University.deleteOne({ _id: doc._id });
   await loadCampusRows({ force: true });
+  const distances = await recomputeAllDistances();
 
   await writeAudit(req, session, {
     action: builtin ? 'university.reset' : 'university.delete',
@@ -87,5 +89,5 @@ export const DELETE = handler(async (req, ctx) => {
     meta: { key, full: doc.full, city: doc.city },
   });
 
-  return ok({ deleted: true, reset: builtin });
+  return ok({ deleted: true, reset: builtin, distances });
 });
