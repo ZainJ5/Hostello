@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { GraduationCap, MapPin, Pencil, Plus, RotateCcw, Trash2 } from 'lucide-react';
+import { GraduationCap, MapPin, Pencil, Plus, RefreshCw, RotateCcw, Trash2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import { EmptyState } from '@/components/ui/Feedback';
@@ -36,6 +36,19 @@ export default function UniversitiesManager({ rows, cities }) {
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
   const [removeTarget, setRemoveTarget] = useState(null);
+  const [recomputing, setRecomputing] = useState(false);
+
+  async function recompute() {
+    setRecomputing(true);
+    const res = await apiSend('/api/admin/universities/recompute', { method: 'POST' });
+    setRecomputing(false);
+    if (!res.ok) return toast({ tone: 'danger', title: 'Could not recalculate', description: res.error });
+    toast({
+      title: 'Distances recalculated',
+      description: `Checked ${res.data.checked} listings, ${res.data.updated} had a new figure.`,
+    });
+    router.refresh();
+  }
 
   const cityOptions = useMemo(
     () => [...new Set([...cities, ...rows.map((r) => r.city)])].filter(Boolean),
@@ -96,7 +109,7 @@ export default function UniversitiesManager({ rows, cities }) {
     }
     toast({
       title: isNew ? 'University added' : 'University updated',
-      description: `${form.key} is now available across the site.`,
+      description: `${form.key} is saved. ${res.data?.distances?.updated ?? 0} listing distances changed.`,
     });
     setEditing(null);
     router.refresh();
@@ -143,7 +156,11 @@ export default function UniversitiesManager({ rows, cities }) {
           options={cityOptions}
           allLabel="All cities"
         />
-        <div className="flex items-end">
+        <div className="flex items-end gap-2">
+          <Button size="sm" variant="secondary" onClick={recompute} loading={recomputing}>
+            <RefreshCw className="size-4" aria-hidden="true" />
+            Recalculate distances
+          </Button>
           <Button size="sm" onClick={openNew}>
             <Plus className="size-4" aria-hidden="true" />
             Add university
