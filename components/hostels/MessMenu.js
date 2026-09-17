@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn, isRuntimeUpload } from '@/lib/utils';
 
 /**
  * Figma section/mess-menu 85:2135, with one divergence that the data forces.
@@ -83,6 +83,7 @@ export default function MessMenu({ menu, images = [], name, className }) {
             <li key={src} className="relative aspect-4/3 overflow-hidden rounded-ds-inner bg-ds-photo">
               <Image
                 src={src}
+                unoptimized={isRuntimeUpload(src)}
                 alt={`${name}, mess menu photograph ${i + 1}`}
                 fill
                 sizes="(min-width: 640px) 26rem, 100vw"

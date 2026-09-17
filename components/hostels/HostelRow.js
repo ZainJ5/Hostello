@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Badge from '@/components/ds/Badge';
 import Chip from '@/components/ds/Chip';
-import { cn, formatPKR } from '@/lib/utils';
+import { cn, formatPKR, isRuntimeUpload } from '@/lib/utils';
 import { distanceBand, formatKm } from '@/lib/distance';
 
 /**
@@ -52,6 +52,7 @@ export default function HostelRow({ hostel, campus, priority = false, className 
         {photo ? (
           <Image
             src={photo}
+            unoptimized={isRuntimeUpload(photo)}
             alt={hostel.name}
             fill
             priority={priority}

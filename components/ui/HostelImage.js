@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn, isRuntimeUpload } from '@/lib/utils';
 
 /**
  * Deterministically picks one of six brand gradients from the hostel name, so
@@ -74,6 +74,7 @@ export default function HostelImage({
   return (
     <Image
       src={src}
+      unoptimized={isRuntimeUpload(src)}
       alt={alt || name || 'Hostel photo'}
       {...(fill ? { fill: true } : { width: width || 800, height: height || 600 })}
       sizes={sizes}
