@@ -108,9 +108,14 @@ export const metadata = {
 export default async function HomePage() {
   const data = await loadHomeData();
 
+  // The four original cities lead the shelf, then whichever other cities have
+  // the most listings, so a city we have just opened is not stuck behind them.
   const cityIndex = new Map(data.cities.map((c) => [c.name, c]));
-  const shelfCities = FEATURED_CITIES.map((name) => cityIndex.get(name) || { name, count: 0 })
-    .filter((c) => c.count > 0);
+  const featured = FEATURED_CITIES.map((name) => cityIndex.get(name) || { name, count: 0 });
+  const rest = data.cities
+    .filter((c) => !FEATURED_CITIES.includes(c.name))
+    .sort((a, b) => b.count - a.count);
+  const shelfCities = [...featured, ...rest].filter((c) => c.count > 0).slice(0, 8);
 
   const popular = [
     { label: 'Girls hostels in Islamabad', href: '/hostels?city=Islamabad&gender=Female' },
@@ -137,9 +142,10 @@ export default async function HomePage() {
               </h1>
 
               <p className="ds-body-l text-pretty text-ds-ink-muted">
-                {data.total} hostels near {data.universities.length} campuses in Islamabad,
-                Rawalpindi, Lahore and Karachi. Every listing is read by a person before it goes
-                live. You contact the owner yourself, and Hostello takes nothing from either side.
+                {data.total} hostels near {data.universities.length} campuses across Pakistan.
+                Rent and facilities come from the owner or from the hostel&apos;s own public
+                listing, so check them when you call. You contact the owner yourself, and Hostello
+                takes nothing from either side.
               </p>
 
               <SearchBar universities={data.universities} />
@@ -181,7 +187,7 @@ export default async function HomePage() {
         <Band>
           <SectionHeading
             title="Browse by city"
-            description="Islamabad and Rawalpindi carry the directory today. Lahore and Karachi are thin and the counts say so rather than hiding it."
+            description="The counts are what they are. A city with three hostels says three, rather than being padded out or hidden."
           />
           <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             {shelfCities.map((city) => (
@@ -198,7 +204,7 @@ export default async function HomePage() {
         <Band sunken>
           <SectionHeading
             title="Checked by a person"
-            description="Verified listings whose photographs came from the owner rather than from stock. Nothing here is retouched, so photo quality varies and it is not a ranking signal."
+            description="The listings Hostello has checked, with photographs from the owner rather than from stock. Nothing here is retouched, so photo quality varies and it is not a ranking signal."
           />
           <ul className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
             {data.checked.map((hostel, i) => (
