@@ -14,7 +14,7 @@ import {
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import { Alert, Spinner } from '@/components/ui/Feedback';
-import { cn } from '@/lib/utils';
+import { cn, isRuntimeUpload } from '@/lib/utils';
 import { useToast } from './Toast';
 import { ConfirmDialog } from './Modal';
 import { apiSend } from './api-client';
@@ -205,6 +205,7 @@ export default function PhotoUploader({ listingId, images, onChange, error }) {
               <div className="relative aspect-[4/3] w-full">
                 <Image
                   src={image}
+                  unoptimized={isRuntimeUpload(image)}
                   alt={index === 0 ? 'Cover photo' : `Photo ${index + 1}`}
                   fill
                   sizes="(max-width: 640px) 50vw, 25vw"
