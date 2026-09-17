@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Check, Flag, MessageSquare, Star, Trash2, Undo2 } from 'lucide-react';
+import { Check, Flag, MessageSquare, Pencil, Star, Trash2, Undo2 } from 'lucide-react';
+import { ReviewFormModal } from '@/components/admin/reviews/AddReviewButton';
 import Button from '@/components/ui/Button';
 import Badge, { StatusBadge } from '@/components/ui/Badge';
 import { Avatar, EmptyState, Rating } from '@/components/ui/Feedback';
@@ -39,7 +40,7 @@ const SUB_SCORES = [
   ['valueForMoney', 'Value'],
 ];
 
-export default function ReviewsTable({ rows, total, page, pages, perPage, hostels, stats }) {
+export default function ReviewsTable({ rows, total, page, pages, perPage, hostels, stats, listings = [] }) {
   const router = useRouter();
   const toast = useToast();
   const { get, set, reset, pending } = useAdminQuery();
@@ -47,6 +48,7 @@ export default function ReviewsTable({ rows, total, page, pages, perPage, hostel
   const [busy, setBusy] = useState(null);
   const [expanded, setExpanded] = useState(() => new Set());
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [editTarget, setEditTarget] = useState(null);
 
   const filtersActive = ['q', 'status', 'hostel', 'rating'].some((k) => get(k));
 
@@ -262,6 +264,10 @@ export default function ReviewsTable({ rows, total, page, pages, perPage, hostel
                         </Td>
                         <Td align="right">
                           <div className="flex items-center justify-end gap-1.5">
+                            <Button size="sm" variant="ghost" onClick={() => setEditTarget(row)}>
+                              <Pencil className="size-3.5" aria-hidden="true" />
+                              Edit
+                            </Button>
                             {row.status === 'removed' ? (
                               <Button
                                 size="sm"
@@ -322,6 +328,13 @@ export default function ReviewsTable({ rows, total, page, pages, perPage, hostel
           </>
         )}
       </PendingOverlay>
+
+      <ReviewFormModal
+        open={Boolean(editTarget)}
+        onClose={() => setEditTarget(null)}
+        listings={listings}
+        review={editTarget}
+      />
 
       <ConfirmDialog
         open={Boolean(deleteTarget)}
