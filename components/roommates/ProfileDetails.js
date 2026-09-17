@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
  *
  * A divergence from the Figma frame, and a necessary one. The questionnaire
  * frame carries the six questions and nothing else, but matching runs inside
- * one campus and one gender, so without those two fields the six answers have
+ * one gender, and campus decides who comes first, so without those fields the six answers have
  * nobody to be compared against. They are seeded from the account record when
  * it has them, so most students will find this section already filled in.
  *
@@ -83,7 +83,8 @@ export default function ProfileDetails({ profile, campusNames, years, genders })
     save({ [key]: value });
   };
 
-  const missing = !values.campus || !values.gender;
+  // Gender is what matching needs. Campus only decides who comes first.
+  const missing = !values.gender;
 
   return (
     <section className="ds-elevated flex flex-col gap-4 rounded-ds-inner p-4">
@@ -105,8 +106,8 @@ export default function ProfileDetails({ profile, campusNames, years, genders })
 
       {missing ? (
         <p className="ds-body-s text-ds-ink-muted">
-          Matching needs your campus and your gender. Nothing is suggested to anybody until both
-          are set.
+          Matching needs your gender. Your campus is optional and decides who comes first,
+          so it is worth setting too.
         </p>
       ) : null}
 
@@ -174,7 +175,7 @@ export default function ProfileDetails({ profile, campusNames, years, genders })
 
       <Row
         label="A few words about you"
-        hint="Shown to students on your campus. Your six answers are not."
+        hint="Shown to the students you are suggested to. Your six answers are not."
       >
         <textarea
           className={cn(FIELD, 'min-h-24 resize-y')}
