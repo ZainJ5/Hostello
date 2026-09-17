@@ -139,23 +139,35 @@ export function zoomForRadius(km) {
 }
 
 const OSM_ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions" target="_blank" rel="noreferrer">CARTO</a>';
+  '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors';
 
 /**
- * Both basemaps are rendered from OpenStreetMap data by CARTO and need no key.
- * `{r}` resolves to `@2x` on retina screens. Leaflet substitutes it whether or
- * not `detectRetina` is set, and CARTO serves the HiDPI tile at that path.
+ * CARTO used to serve these basemaps without an account. They no longer do:
+ * every tile now comes back stamped "API KEY REQUIRED", which is what a
+ * student was reading the map through. The default is therefore
+ * OpenStreetMap's own raster tiles, which need no key.
+ *
+ * `NEXT_PUBLIC_MAP_TILE_URL` (and the dark twin, and the attribution line)
+ * swap in a paid basemap the day there is a key for one, with no code change.
+ * `{r}` is deliberately absent: OpenStreetMap has no @2x tile, and asking for
+ * one returns a 404 rather than a sharper map.
  */
+const OSM_TILES = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+const TILE_URL = process.env.NEXT_PUBLIC_MAP_TILE_URL || OSM_TILES;
+const TILE_URL_DARK = process.env.NEXT_PUBLIC_MAP_TILE_URL_DARK || TILE_URL;
+
 export const TILE_THEMES = {
   light: {
-    url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    attribution: OSM_ATTRIBUTION,
+    url: TILE_URL,
+    attribution: process.env.NEXT_PUBLIC_MAP_TILE_ATTRIBUTION || OSM_ATTRIBUTION,
   },
   dark: {
-    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    attribution: OSM_ATTRIBUTION,
+    url: TILE_URL_DARK,
+    attribution: process.env.NEXT_PUBLIC_MAP_TILE_ATTRIBUTION || OSM_ATTRIBUTION,
   },
-  subdomains: 'abcd',
+  subdomains: 'abc',
+  /** One style only, so the dark map is the light tiles inverted in CSS. */
+  invertDark: !process.env.NEXT_PUBLIC_MAP_TILE_URL_DARK,
 };
 
 /** Screen-space grid cell, in CSS pixels, used by the clustering pass. */
