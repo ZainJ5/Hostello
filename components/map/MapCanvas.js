@@ -124,6 +124,7 @@ export default function MapCanvas({
       <TileLayer
         url={theme.url}
         attribution={theme.attribution}
+        className={isDark && TILE_THEMES.invertDark ? 'hm-tiles-inverted' : undefined}
         subdomains={TILE_THEMES.subdomains}
         maxZoom={MAX_ZOOM}
         keepBuffer={3}
