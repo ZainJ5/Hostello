@@ -10,14 +10,29 @@
  * Safe to import from client components: no mongoose in here.
  */
 import { CAMPUSES, CAMPUS_NAMES } from './campuses';
-import { UNIVERSITIES as OWNER_UNIS } from '@/components/owner/constants';
-import { UNIVERSITIES as STUDENT_UNIS } from '@/components/student/constants';
-import { CAMPUSES as MAP_CAMPUSES, UNIVERSITIES as MAP_UNIS } from '@/components/map/config';
+import {
+  CITIES as OWNER_CITIES,
+  CITY_CENTRES,
+  UNIVERSITIES as OWNER_UNIS,
+} from '@/components/owner/constants';
+import { CITIES as STUDENT_CITIES, UNIVERSITIES as STUDENT_UNIS } from '@/components/student/constants';
+import {
+  CAMPUSES as MAP_CAMPUSES,
+  CITIES as MAP_CITIES,
+  CITY_VIEWS,
+  UNIVERSITIES as MAP_UNIS,
+} from '@/components/map/config';
+import { CITY_NAMES } from '@/components/seo/catalog';
+
+// Every city list in the app, so a university in a new city opens that city
+// everywhere a city can be picked, filtered or linked.
+const CITY_LISTS = [OWNER_CITIES, STUDENT_CITIES, MAP_CITIES, CITY_NAMES];
 
 const state = (globalThis.__hostelloCampusState ||= {
   builtinKeys: new Set(CAMPUS_NAMES),
   originals: {},
   added: new Set(),
+  addedCities: new Set(),
   signature: '',
 });
 
@@ -60,6 +75,12 @@ export function applyCampusRows(rows = []) {
   for (let i = MAP_CAMPUSES.length - 1; i >= 0; i -= 1) {
     if (MAP_CAMPUSES[i].custom) MAP_CAMPUSES.splice(i, 1);
   }
+  for (const city of state.addedCities) {
+    for (const list of CITY_LISTS) removeFrom(list, city);
+    delete CITY_VIEWS[city];
+    delete CITY_CENTRES[city];
+  }
+  state.addedCities.clear();
   for (const [key, original] of Object.entries(state.originals)) {
     CAMPUSES[key] = original;
     addTo(CAMPUS_NAMES, key, false);
@@ -102,6 +123,8 @@ export function applyCampusRows(rows = []) {
     });
   }
 
+  addCitiesFrom(clean);
+
   // Keep the map pins in line with edited built-in coordinates.
   for (const c of MAP_CAMPUSES) {
     if (c.custom) continue;
@@ -120,4 +143,34 @@ export function isBuiltinCampus(key) {
 /** The built-in value for a key, ignoring any admin override. */
 export function builtinCampus(key) {
   return state.originals[key] || (state.builtinKeys.has(key) ? CAMPUSES[key] : null);
+}
+
+/**
+ * Cities come from the universities. A city that is not in the base four gets
+ * added to every list, centred on the average of its campuses, so an admin
+ * only has to add a university to open a new city.
+ */
+function addCitiesFrom(rows) {
+  const points = new Map();
+  for (const r of rows) {
+    const city = String(r.city || '').trim();
+    if (!city || r.active === false) continue;
+    const lat = Number(r.lat);
+    const lng = Number(r.lng);
+    if (!lat || !lng) continue;
+    if (!points.has(city)) points.set(city, []);
+    points.get(city).push([lat, lng]);
+  }
+  const newCities = [...points.keys()]
+    .filter((c) => !OWNER_CITIES.includes(c))
+    .sort((a, b) => a.localeCompare(b, 'en'));
+  for (const city of newCities) {
+    const pts = points.get(city);
+    const lat = pts.reduce((t, p) => t + p[0], 0) / pts.length;
+    const lng = pts.reduce((t, p) => t + p[1], 0) / pts.length;
+    for (const list of CITY_LISTS) addTo(list, city, false);
+    CITY_VIEWS[city] = { center: [lat, lng], zoom: 12 };
+    CITY_CENTRES[city] = { lat, lng };
+    state.addedCities.add(city);
+  }
 }
