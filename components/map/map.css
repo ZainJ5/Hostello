@@ -430,3 +430,12 @@ html[data-hostello-map-open] body {
     transition: none !important;
   }
 }
+
+/* ── Dark basemap ─────────────────────────────────────────────────────── */
+
+/* OpenStreetMap ships one style, so dark mode is the same tiles inverted.
+   Only the tile layer is filtered, so pins, clusters and popups keep their
+   own colours. A basemap with a real dark style drops this class. */
+.hm-tiles-inverted {
+  filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.92) saturate(0.75);
+}
