@@ -60,3 +60,21 @@ export async function listUniversities() {
 
   return rows.sort((a, b) => a.city.localeCompare(b.city) || a.key.localeCompare(b.key));
 }
+
+/**
+ * Rewrites `distanceKm` on every listing. Called after a university is added,
+ * moved or removed, since each of those can change the nearest campus.
+ */
+export async function recomputeAllDistances() {
+  const { nearestCampusKm } = await import('@/components/hostels/campus-distance');
+  const docs = await Hostel.find({}).select('lat lng universities distanceKm').lean();
+  const ops = [];
+  for (const d of docs) {
+    const km = nearestCampusKm(d);
+    if (km !== d.distanceKm) {
+      ops.push({ updateOne: { filter: { _id: d._id }, update: { $set: { distanceKm: km } } } });
+    }
+  }
+  if (ops.length) await Hostel.bulkWrite(ops, { ordered: false });
+  return { checked: docs.length, updated: ops.length };
+}

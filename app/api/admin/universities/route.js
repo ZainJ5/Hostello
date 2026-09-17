@@ -3,7 +3,7 @@ import { requireRole } from '@/lib/auth';
 import { handler, ok, fail, readJson } from '@/lib/api';
 import University from '@/models/University';
 import { writeAudit } from '@/app/api/admin/_lib/audit';
-import { listUniversities, universityInput } from '@/app/api/admin/_lib/universities';
+import { listUniversities, universityInput, recomputeAllDistances } from '@/app/api/admin/_lib/universities';
 import { loadCampusRows } from '@/lib/campuses-server';
 import { CAMPUSES } from '@/components/hostels/campuses';
 import { serialize } from '@/lib/utils';
@@ -26,6 +26,7 @@ export const POST = handler(async (req) => {
 
   const doc = await University.create(input);
   await loadCampusRows({ force: true });
+  const distances = await recomputeAllDistances();
 
   await writeAudit(req, session, {
     action: 'university.create',
@@ -34,5 +35,5 @@ export const POST = handler(async (req) => {
     meta: { key: doc.key, full: doc.full, city: doc.city, lat: doc.lat, lng: doc.lng },
   });
 
-  return ok({ university: serialize(doc.toObject()) }, { status: 201 });
+  return ok({ university: serialize(doc.toObject()), distances }, { status: 201 });
 });

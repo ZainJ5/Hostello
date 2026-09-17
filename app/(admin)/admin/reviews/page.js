@@ -100,6 +100,7 @@ export default async function AdminReviewsPage({ searchParams }) {
         pages={pages}
         perPage={PER_PAGE}
         hostels={hostelOptions}
+        listings={listingOptions}
         stats={Object.fromEntries(statusCounts.map((r) => [r._id, r.n]))}
       />
     </div>

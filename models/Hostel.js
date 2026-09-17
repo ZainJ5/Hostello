@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { nearestCampusKm } from '@/components/hostels/campus-distance';
 
 /**
  * Listing lifecycle:
@@ -129,6 +130,14 @@ const hostelSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Keep the stored nearest-campus figure in step with the pin and the tags, so
+// cards, sorting and the map never read a stale or empty number.
+hostelSchema.pre('save', function syncDistance() {
+  if (this.isNew || this.isModified('lat') || this.isModified('lng') || this.isModified('universities') || !this.distanceKm) {
+    this.distanceKm = nearestCampusKm(this);
+  }
+});
 
 hostelSchema.index({ name: 'text', area: 'text', city: 'text', description: 'text' });
 hostelSchema.index({ status: 1, city: 1, gender: 1 });
