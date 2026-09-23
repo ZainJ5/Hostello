@@ -76,25 +76,30 @@ jobs:
           attempts=5
           for i in $(seq 1 $attempts); do
             echo "::group::deploy attempt $i/$attempts"
-            if ssh -i ~/.ssh/deploy_key \
-                   -o IdentitiesOnly=yes \
-                   -o BatchMode=yes \
-                   -o ConnectTimeout=30 \
-                   -o ServerAliveInterval=15 \
-                   -o ServerAliveCountMax=20 \
-                   "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
-                   deploy; then
-              echo "::endgroup::"
+            # `|| status=$?` rather than an `if`: after a failed `if` condition
+            # with no `else`, `$?` is the status of the `if` itself, which is 0.
+            # Reading it there made every failure look like a clean exit, so
+            # the retry below never ran and the step passed while nothing had
+            # been deployed. Run 19 died exactly this way.
+            status=0
+            ssh -i ~/.ssh/deploy_key \
+                -o IdentitiesOnly=yes \
+                -o BatchMode=yes \
+                -o ConnectTimeout=30 \
+                -o ServerAliveInterval=15 \
+                -o ServerAliveCountMax=20 \
+                "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
+                deploy || status=$?
+            echo "::endgroup::"
+            if [ "$status" -eq 0 ]; then
               echo "deploy succeeded on attempt $i"
               exit 0
             fi
-            status=$?
-            echo "::endgroup::"
             # 255 is ssh's own transport failure; anything else came from the
             # deploy script itself and retrying would not help.
-            if [ $status -ne 255 ]; then
+            if [ "$status" -ne 255 ]; then
               echo "deploy script failed with exit $status, not retrying"
-              exit $status
+              exit "$status"
             fi
             echo "ssh transport failed (exit 255)"
             [ "$i" -lt "$attempts" ] && sleep 30
@@ -103,7 +108,20 @@ jobs:
           exit 1
 
       - name: Verify site is serving
+        # The server is still restarting when `deploy` returns, so a single
+        # request races the boot and reports a failure on a deploy that worked.
+        # Poll, and only call it down when it is still not answering after two
+        # minutes. This is a second opinion, not the main guard: a deploy that
+        # does not happen now fails the step above on its own.
         run: |
-          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 https://hostello.tech/)
-          echo "homepage returned HTTP $code"
-          test "$code" = "200"
+          for i in $(seq 1 12); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://hostello.tech/ || echo 000)
+            echo "attempt $i: homepage returned HTTP $code"
+            if [ "$code" = "200" ]; then
+              echo "site is serving"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "site did not answer with 200 within two minutes"
+          exit 1
