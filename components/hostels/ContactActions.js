@@ -1,7 +1,8 @@
 'use client';
 
 import Button from '@/components/ds/Button';
-import { cn, normalizePhone, whatsappLink } from '@/lib/utils';
+import { cn, whatsappLink } from '@/lib/utils';
+import { reachablePhone } from '@/lib/claims';
 
 /**
  * The two routes that actually reach a hostel today: its own phone and its own
@@ -31,11 +32,16 @@ export function trackContact(slug, channel) {
 
 export default function ContactActions({ hostel, className }) {
   const slug = hostel.slug;
-  const tel = normalizePhone(hostel.contact?.phone);
-  const wa = whatsappLink(
-    hostel.contact?.whatsapp || hostel.contact?.phone,
-    `Hello, I found ${hostel.name} on Hostello and I would like to ask about a room.`
-  );
+  // `reachablePhone` rather than a plain normalise: the import left one dead
+  // number on hundreds of listings, and a Call button that rings out is the
+  // same failure as the inert one described above, only slower to discover.
+  const tel = reachablePhone(hostel);
+  const wa = tel
+    ? whatsappLink(
+        hostel.contact?.whatsapp || tel,
+        `Hello, I found ${hostel.name} on Hostello and I would like to ask about a room.`
+      )
+    : '';
 
   if (!tel && !wa) return null;
 

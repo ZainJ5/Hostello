@@ -1,5 +1,7 @@
 import Button from '@/components/ds/Button';
-import { cn, formatPKR, normalizePhone } from '@/lib/utils';
+import { cn, formatPKR } from '@/lib/utils';
+import { isUnreachable } from '@/lib/claims';
+import ClaimPrompt from './ClaimPrompt';
 import ContactActions from './ContactActions';
 import SaveButton from './SaveButton';
 import ShareButton from './ShareButton';
@@ -25,13 +27,16 @@ import ShareButton from './ShareButton';
  */
 
 /**
- * True when the listing carries a number a student can actually reach. Kept
- * here rather than beside the buttons, because this file renders on the server
- * and the buttons are a client component: a server component cannot call a
- * function exported from a `'use client'` module.
+ * True when the listing carries a number a student can actually reach.
+ *
+ * `isUnreachable` rather than "is there a string in the phone field": the
+ * import put one shared number on hundreds of listings and that number is
+ * dead, so a listing can carry a perfectly well formed phone number and still
+ * reach nobody. Printing it would be worse than printing nothing, because the
+ * student finds out by ringing it.
  */
 function hasContact(hostel) {
-  return Boolean(normalizePhone(hostel?.contact?.phone) || hostel?.contact?.whatsapp);
+  return !isUnreachable(hostel);
 }
 
 /** Rent, collapsed to one figure when the band has no width. */
@@ -68,10 +73,12 @@ function Body({ hostel }) {
 
         {!reachable ? (
           <p className="ds-body-s text-ds-ink-muted">
-            This owner has not given a phone number, so the enquiry form is the only route to
-            them from here.
+            We have no phone number for this hostel, so the enquiry form is the only route
+            to them from here.
           </p>
         ) : null}
+
+        <ClaimPrompt hostel={hostel} />
 
         <ShareButton title={hostel.name} text={`${hostel.name}, ${where}`} />
         <SaveButton hostelId={String(hostel._id)} />

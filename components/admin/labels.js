@@ -10,6 +10,8 @@ export const ACTION_LABELS = {
   'listing.bulk': 'Bulk listing action',
   'payment.approve': 'Approved payment',
   'payment.reject': 'Rejected payment',
+  'claim.approve': 'Handed a listing to its owner',
+  'claim.reject': 'Rejected a listing claim',
   'booking.status': 'Changed booking status',
   'review.approve': 'Approved review',
   'review.remove': 'Removed review',
