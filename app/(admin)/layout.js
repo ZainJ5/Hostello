@@ -1,3 +1,4 @@
+import Claim from '@/models/Claim';
 import Hostel from '@/models/Hostel';
 import Payment from '@/models/Payment';
 import Review from '@/models/Review';
@@ -70,10 +71,11 @@ html.dark .admin-scope{
 export default async function AdminLayout({ children }) {
   const session = await requireAdminPage();
 
-  const [payments, listings, reviews] = await Promise.all([
+  const [payments, listings, reviews, claims] = await Promise.all([
     Payment.countDocuments({ status: 'pending' }),
     Hostel.countDocuments({ status: 'pending_review' }),
     Review.countDocuments({ status: 'flagged' }),
+    Claim.countDocuments({ status: 'pending' }),
   ]);
 
   return (
@@ -83,7 +85,7 @@ export default async function AdminLayout({ children }) {
       <ToastProvider>
         <AdminShell
           session={{ name: session.name, email: session.email, role: session.role }}
-          counts={{ payments, listings, reviews }}
+          counts={{ payments, listings, reviews, claims }}
         >
           {children}
         </AdminShell>
