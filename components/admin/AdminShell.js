@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
+  BadgeCheck,
   Bell,
   Building2,
   CalendarCheck,
@@ -41,6 +42,7 @@ const NAV = [
     heading: 'Marketplace',
     items: [
       { href: '/admin/listings', label: 'Listings', icon: Building2 },
+      { href: '/admin/claims', label: 'Claims', icon: BadgeCheck, badge: 'claims' },
       { href: '/admin/payments', label: 'Payments', icon: Wallet, badge: 'payments' },
       { href: '/admin/bookings', label: 'Bookings', icon: CalendarCheck },
       { href: '/admin/reviews', label: 'Reviews', icon: Star, badge: 'reviews' },
@@ -170,7 +172,10 @@ export default function AdminShell({ session, counts, children }) {
   const menuRef = useRef(null);
 
   const total =
-    (counts?.payments || 0) + (counts?.listings || 0) + (counts?.reviews || 0);
+    (counts?.claims || 0) +
+    (counts?.payments || 0) +
+    (counts?.listings || 0) +
+    (counts?.reviews || 0);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -227,6 +232,13 @@ export default function AdminShell({ session, counts, children }) {
   }, [router]);
 
   const attention = [
+    {
+      key: 'claims',
+      label: 'Owners waiting to claim a listing',
+      href: '/admin/claims?status=pending',
+      count: counts?.claims || 0,
+      icon: BadgeCheck,
+    },
     {
       key: 'payments',
       label: 'Payments awaiting approval',
