@@ -3,13 +3,24 @@ name: Deploy to production
 on:
   push:
     branches: [main]
+  # Lint and build every pull request too. Without this the first build of a
+  # change happened after it was already on main, which is the wrong order:
+  # a broken build then blocks the deploy of everything behind it rather than
+  # being caught while it was still one person's branch.
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 # One deploy at a time. Queued rather than cancelled, so a run never stops
-# halfway through replacing the release on the server.
+# halfway through replacing the release on the server. Pull request checks get
+# a group per branch instead, so a new push supersedes the run it replaces and
+# neither one waits behind a production deploy.
 concurrency:
-  group: deploy-production
-  cancel-in-progress: false
+  group: >-
+    ${{ github.event_name == 'pull_request'
+        && format('verify-{0}', github.ref)
+        || 'deploy-production' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   verify:
@@ -54,6 +65,8 @@ jobs:
   deploy:
     name: Deploy to VPS
     needs: verify
+    # A pull request is checked, never shipped. Only main reaches the server.
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment: production
 
