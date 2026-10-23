@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import Link from 'next/link';
 import { BarChart3, Bookmark, Eye, MousePointerClick, Percent } from 'lucide-react';
 import Card, { CardHeader, StatCard } from '@/components/ui/Card';
