@@ -4,6 +4,8 @@ const nextConfig = {
     // 59 of the 124 listings carry no uploaded photography and fall back to
     // the stock URLs recorded in the legacy seed data.
     remotePatterns: [
+      // Listing photos migrated off the old server live in Cloudinary.
+      { protocol: 'https', hostname: 'res.cloudinary.com', pathname: '/dvy9uip4w/**' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'plus.unsplash.com' },
     ],
